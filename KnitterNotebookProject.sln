@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnitterNotebook", "KnitterNotebook\KnitterNotebook.csproj", "{290EE488-1595-4E4A-BC01-43BA7829B802}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnitterNotebookTests", "KnitterNotebookTests\KnitterNotebookTests.csproj", "{36518E3F-FBB2-4966-9AB7-0E05652C592E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{290EE488-1595-4E4A-BC01-43BA7829B802}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{290EE488-1595-4E4A-BC01-43BA7829B802}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{290EE488-1595-4E4A-BC01-43BA7829B802}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36518E3F-FBB2-4966-9AB7-0E05652C592E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36518E3F-FBB2-4966-9AB7-0E05652C592E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36518E3F-FBB2-4966-9AB7-0E05652C592E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36518E3F-FBB2-4966-9AB7-0E05652C592E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
