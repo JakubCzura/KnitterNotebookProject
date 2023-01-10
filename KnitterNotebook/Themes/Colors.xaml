@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="LoginButtonBackgroundDefault">#FFF1C86D</SolidColorBrush>
+    <SolidColorBrush x:Key="LoginButtonBackgroundLight">#FFF1C86D</SolidColorBrush>
+    <SolidColorBrush x:Key="LoginButtonBackgroundDark">#FFF1C86D</SolidColorBrush>
+
+    <SolidColorBrush x:Key="ApplicationBackgroundColorDefault">#FFCE97D4</SolidColorBrush>
+    <SolidColorBrush x:Key="ApplicationBackgroundColorLight">#f2f0f2</SolidColorBrush>
+    <SolidColorBrush x:Key="ApplicationBackgroundColorDark">#262025</SolidColorBrush>
+
+    <SolidColorBrush x:Key="MainMenuBackgroundColorDefault">#FFE2AFFB</SolidColorBrush>
+    <SolidColorBrush x:Key="MainMenuBackgroundColorLight">#FFF9F9F9</SolidColorBrush>
+    <SolidColorBrush x:Key="MainMenuBackgroundColorDark">#FF423F44</SolidColorBrush>
+
+    <SolidColorBrush x:Key="ForegroundDefault">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundLight">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundDark">White</SolidColorBrush>
+
+    <RadialGradientBrush x:Key="ButtonGradientBackgroundDefault">
+        <GradientStop Color="#FFE2EDBF" Offset="0" />
+        <GradientStop Color="#FFF7D048" Offset="1" />
+    </RadialGradientBrush>
+    <RadialGradientBrush x:Key="ButtonGradientBackgroundLight">
+        <GradientStop Color="#FFE2EDBF" Offset="0" />
+        <GradientStop Color="#FFF7D048" Offset="1" />
+    </RadialGradientBrush>
+    <RadialGradientBrush x:Key="ButtonGradientBackgroundDark">
+        <GradientStop Color="#FFE2EDBF" Offset="0" />
+        <GradientStop Color="#FFF7D048" Offset="1" />
+    </RadialGradientBrush>
+</ResourceDictionary>

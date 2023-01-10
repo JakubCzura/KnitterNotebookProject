@@ -1,0 +1,78 @@
+﻿<Window x:Class="KnitterNotebook.Views.Windows.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KnitterNotebook.Views.Windows"
+        mc:Ignorable="d"
+        xmlns:userControls="clr-namespace:KnitterNotebook.Views.UserControls"
+        xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+        Title="KnitterNotebook" 
+        Height="450" 
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        Style="{DynamicResource WindowStyle}">
+    
+    <Window.Resources>
+        <viewModels:SettingsWindowViewModel x:Key="SettingsWindowViewModel" />
+        <userControls:ThemeSettingsUserControl x:Key="ThemeSettingsUserControl"/>
+        <userControls:UserSettingsUserControl x:Key="UserSettingsUserControl"/>
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource SettingsWindowViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Margin="0,0,0,10"
+              Grid.Row="0">
+            <DockPanel>
+
+                <TextBlock DockPanel.Dock="Bottom"
+                           Style="{DynamicResource WelcomeTextBlockStyle}"
+                           Text="Ustawienia" />
+            </DockPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <ScrollViewer>
+                        <StackPanel>
+                            <Button Style="{DynamicResource MainMenuButtonStyle}">
+                                <TextBlock Text="Konto"
+                                       Style="{DynamicResource WrapTextBlockStyle}" />
+                            </Button>
+                            <Button Style="{DynamicResource MainMenuButtonStyle}">
+                                <TextBlock Text="Motyw aplikacji"
+                                       Style="{DynamicResource WrapTextBlockStyle}" />
+                            </Button>
+                            <Button Style="{DynamicResource MainMenuButtonStyle}">
+                                <TextBlock Text="Menu kontddddddekstowe"
+                                       Style="{DynamicResource WrapTextBlockStyle}" />
+                            </Button>
+                            <Button Style="{DynamicResource MainMenuButtonStyle}">
+                                <TextBlock Text="Menu kontekstowe"
+                                       Style="{DynamicResource WrapTextBlockStyle}" />
+                            </Button>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+                <!--<ContentControl Grid.Column="1"
+                                Width="Auto"
+                                Height="Auto">
+                    <TextBlock Background="Beige" FontSize="40" HorizontalAlignment="Center" Width="90">Witaj Karolina</TextBlock>
+                </ContentControl>-->
+                <ContentControl Margin="5,0,5,0" Grid.Column="1" Content="{StaticResource UserSettingsUserControl}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

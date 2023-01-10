@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="TextBlock" x:Key="BasicTextBlock">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Width" Value="Auto" />
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="WelcomeTextBlock" BasedOn="{StaticResource BasicTextBlock}">
+        <Setter Property="FontSize" Value="35" />
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="WrapTextBlock" BasedOn="{StaticResource BasicTextBlock}">
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="SettingsHeaderTextBlock" BasedOn="{StaticResource BasicTextBlock}">
+        <Setter Property="FontSize" Value="{StaticResource SettingsHeaderFontSize}" />
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="SettingsElementTextBlock" BasedOn="{StaticResource BasicTextBlock}">
+        <Setter Property="FontSize" Value="{StaticResource SettingsElementFontSize}"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+    </Style>
+</ResourceDictionary>

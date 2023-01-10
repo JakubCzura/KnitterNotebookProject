@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    allows to use sys:Double and define height-->
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Fonts.xaml" />
+        <ResourceDictionary Source="TextBlocks.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <sys:Double x:Key="InputLoginDataTextBoxHeight">50</sys:Double>
+
+    <Style TargetType="TextBox" x:Key="InputLoginDataTextBoxStyle">
+        <Setter Property="FontSize" Value="{StaticResource InputLoginDataFontSize}" />
+        <Setter Property="Height" Value="{StaticResource InputLoginDataTextBoxHeight}" />
+    </Style>
+
+    <Style TargetType="PasswordBox" x:Key="InputPasswordPasswordBoxStyle">
+        <Setter Property="FontSize" Value="{StaticResource InputLoginDataFontSize}" />
+        <Setter Property="Height" Value="{StaticResource InputLoginDataTextBoxHeight}" />
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="WrapTextBlockStyle" BasedOn="{StaticResource WrapTextBlock}" />
+</ResourceDictionary>

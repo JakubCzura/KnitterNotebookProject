@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    allows to use sys:Double and define fontsize-->
+
+    <sys:Double x:Key="HeaderFontSize">35</sys:Double>
+    <sys:Double x:Key="LoginButtonFontSize">20</sys:Double>
+    <sys:Double x:Key="InputLoginDataFontSize">20</sys:Double>
+    <sys:Double x:Key="NavigationMenuFontSize">14</sys:Double>
+    <sys:Double x:Key="SettingsHeaderFontSize">25</sys:Double>
+    <sys:Double x:Key="SettingsElementFontSize">15</sys:Double>
+
+    <FontFamily x:Key="SettingsFontFamily">Candara</FontFamily>
+</ResourceDictionary>
