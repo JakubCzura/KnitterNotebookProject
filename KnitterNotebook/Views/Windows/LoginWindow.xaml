@@ -36,7 +36,7 @@
                 <Label Style="{DynamicResource LabelAboveLoginInputStyle}"
                        Content="Zaloguj się" />
                 <TextBox Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                         Text="{Binding User.Email}"
+                         Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          adorners:Watermark.Text="e-mail"
                          adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                          VerticalContentAlignment="Center"
