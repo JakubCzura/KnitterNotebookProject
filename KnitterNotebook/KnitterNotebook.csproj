@@ -20,6 +20,7 @@
     <Folder Include="Commands\" />
     <Folder Include="Themes\" />
     <Folder Include="ViewModels\Interfaces\" />
+    <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
   </ItemGroup>
 
