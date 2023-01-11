@@ -11,7 +11,7 @@ namespace KnitterNotebook.ViewModels
 {
     public class MainWindowViewModel : BaseViewModel
     {
-        MainWindowViewModel()
+        public MainWindowViewModel()
         {
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
 
