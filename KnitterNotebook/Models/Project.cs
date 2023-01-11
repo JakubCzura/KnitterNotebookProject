@@ -15,6 +15,8 @@ namespace KnitterNotebook.Models
 
         public DateTime? EndDate { get; set; } = null!;
 
-        public User User { get; set; } = null!;
+        public User User { get; set; } = new();
+
+        public int UserId { get; set; }
     }
 }

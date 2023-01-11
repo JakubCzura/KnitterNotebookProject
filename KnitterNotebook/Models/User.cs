@@ -15,5 +15,11 @@ namespace KnitterNotebook.Models
         public string Email { get; set; } = null!;
 
         public string Password { get; set; } = null!;
+
+        public List<Project> Projects { get; set; } = new();
+
+        public Theme Theme { get; set; } = new();
+
+        public int ThemeId { get; set; }
     }
 }

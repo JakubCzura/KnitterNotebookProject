@@ -14,10 +14,7 @@ namespace KnitterNotebook.Validators
         {
             try
             {
-                if (project.User == null)
-                {
-                    throw new NullReferenceException("Odwołanie do twórcy projektu dało null");
-                }
+
             }
             catch (Exception exception)
             {

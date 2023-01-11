@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,16 @@ namespace KnitterNotebook
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly ISampleService sampleService;
+        private readonly AppSettings settings;
+
+        public MainWindow(ISampleService sampleService,
+        IOptions<AppSettings> settings)
         {
             InitializeComponent();
+
+            this.sampleService = sampleService;
+            this.settings = settings.Value;
         }
     }
 }
