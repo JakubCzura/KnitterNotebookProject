@@ -43,7 +43,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Theme", b =>
@@ -60,7 +60,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Themes");
+                    b.ToTable("Themes", (string)null);
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.User", b =>
@@ -93,7 +93,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Project", b =>

@@ -40,12 +40,13 @@ namespace KnitterNotebook
                     .AddJsonFile(@"appsettings.json")
                     .Build();
                 services.AddDbContext<KnitterNotebookContext>(options =>
-                                    options.UseSqlServer(configuration
-                                    .GetConnectionString("KnitterNotebookConnectionString")));
+                                     //options.UseSqlServer(configuration
+                                     //.GetConnectionString("KnitterNotebookConnectionString")));
+                                     options.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = KnitterNotebookDb; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False"));
+            
+                // services.AddScoped<LoginWindowViewModel>();
 
-               // services.AddScoped<LoginWindowViewModel>();
-
-               // services.AddSingleton<LoginWindowViewModel>();
+                // services.AddSingleton<LoginWindowViewModel>();
             })
             .Build();
 
