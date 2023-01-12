@@ -40,11 +40,12 @@ namespace KnitterNotebook
                     .AddJsonFile(@"appsettings.json")
                     .Build();
                 services.AddDbContext<KnitterNotebookContext>(options =>
-                                    options.UseSqlServer(configuration.GetConnectionString("KnitterNotebookConnectionString")));
+                                    options.UseSqlServer(configuration
+                                    .GetConnectionString("KnitterNotebookConnectionString")));
 
-                services.AddScoped<LoginWindowViewModel>();
+               // services.AddScoped<LoginWindowViewModel>();
 
-                services.AddSingleton<LoginWindowViewModel>();
+               // services.AddSingleton<LoginWindowViewModel>();
             })
             .Build();
 
