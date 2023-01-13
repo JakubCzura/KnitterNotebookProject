@@ -43,7 +43,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Projects", (string)null);
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Theme", b =>
@@ -60,7 +60,24 @@ namespace KnitterNotebook.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Themes", (string)null);
+                    b.ToTable("Themes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Default"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Light"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Default"
+                        });
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.User", b =>
@@ -87,13 +104,15 @@ namespace KnitterNotebook.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("ThemeId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.HasKey("Id");
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Project", b =>

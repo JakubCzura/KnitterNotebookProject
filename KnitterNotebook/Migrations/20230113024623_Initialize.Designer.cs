@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KnitterNotebook.Migrations
 {
     [DbContext(typeof(KnitterNotebookContext))]
-    [Migration("20230112002247_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230113024623_Initialize")]
+    partial class Initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,6 +64,23 @@ namespace KnitterNotebook.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Themes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Default"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Light"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Default"
+                        });
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.User", b =>
@@ -90,7 +107,9 @@ namespace KnitterNotebook.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("ThemeId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.HasKey("Id");
 

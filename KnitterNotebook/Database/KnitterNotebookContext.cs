@@ -1,9 +1,12 @@
-﻿using KnitterNotebook.Models;
+﻿using KnitterNotebook.ApplicationInformation;
+using KnitterNotebook.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,11 +25,17 @@ namespace KnitterNotebook.Database
 
         public DbSet<Theme> Themes { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = KnitterNotebookDb; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+        AppSettings AppSettings { get; set; }
 
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            //string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
+            //string appSettingsString = File.ReadAllText(appSettingsPath);
+            //AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);      
+
+            //optionsBuilder.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
+
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +46,7 @@ namespace KnitterNotebook.Database
                 u.Property(x => x.Password).IsRequired().HasMaxLength(50);
                 u.Property(x => x.Email).IsRequired().HasMaxLength(100);
                 u.Property(x => x.Nickname).IsRequired().HasMaxLength(50);
+                u.Property(x => x.ThemeId).IsRequired().HasDefaultValue(1);
                 u.HasMany(x => x.Projects)
                 .WithOne(c => c.User)
                 .HasForeignKey(c => c.UserId);
@@ -55,6 +65,7 @@ namespace KnitterNotebook.Database
                 t.HasKey(x => x.Id);
                 t.Property(x => x.Id).IsRequired();
                 t.Property(x => x.Name).IsRequired();
+                t.HasData(new Theme() { Id = 1, Name = "Default" }, new Theme() { Id = 2, Name = "Light" }, new Theme() { Id = 3, Name = "Default" });
                 t.HasMany(x => x.Users)
                 .WithOne(c => c.Theme)
                 .HasForeignKey(c => c.ThemeId);

@@ -8,6 +8,6 @@ namespace KnitterNotebook
 {
     public class AppSettings
     {
-        public string KnitterNotebookDbConnectionString { get; set; } = null!;
+        public string KnitterNotebookConnectionString { get; set; } = null!;
     }
 }
