@@ -49,31 +49,27 @@ namespace KnitterNotebook.ViewModels
 
         private async Task<bool> RegisterUser()
         {
-            //  try
-            //  {
-            //User user = new() { Nickname = Nickname, Email = Email, Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password, ThemeId = 1, Theme = new Theme() {Name = "Light" } };
-            string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
-            string appSettingsString = File.ReadAllText(appSettingsPath);
-            AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);
-            var contextOptions = new DbContextOptionsBuilder<KnitterNotebookContext>().UseSqlServer(AppSettings.KnitterNotebookConnectionString).Options;
-            KnitterNotebookContext = new(contextOptions);
-            Theme theme = KnitterNotebookContext.Themes.First();
-            KnitterNotebookContext.Attach(theme);
-            User user = new() { Nickname = Nickname, Email = Email, Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password, Theme = theme };
-            StandardRegistration standardRegistration = new();
+            try
+            {
+                //string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
+               // string appSettingsString = File.ReadAllText(appSettingsPath);
+              //  AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);
+               // var contextOptions = new DbContextOptionsBuilder<KnitterNotebookContext>().UseSqlServer(AppSettings.KnitterNotebookConnectionString).Options;
+                KnitterNotebookContext = new KnitterNotebookContext();
 
-         
+                Theme theme = KnitterNotebookContext.Themes.First();
+                KnitterNotebookContext.Attach(theme);
+                User user = new() { Nickname = Nickname, Email = Email, Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password, Theme = theme };
 
-
-
-            RegistrationManager = new(standardRegistration, user, KnitterNotebookContext);
-            return await RegistrationManager.Register();
-            //   }
-            //  catch (Exception exception) 
-            // {
-            //    MessageBox.Show(exception.Message);
-            //     return false;
-            // }
+                StandardRegistration standardRegistration = new();
+                RegistrationManager = new(standardRegistration, user, KnitterNotebookContext);
+                return await RegistrationManager.Register();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+                return false;
+            }
         }
     }
 }

@@ -15,6 +15,10 @@ namespace KnitterNotebook.Database
 {
     public class KnitterNotebookContext : DbContext
     {
+        public KnitterNotebookContext()
+        {
+        }
+
         public KnitterNotebookContext(DbContextOptions options) : base(options)
         {
         }
@@ -29,11 +33,11 @@ namespace KnitterNotebook.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
-            //string appSettingsString = File.ReadAllText(appSettingsPath);
-            //AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);      
+            string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
+            string appSettingsString = File.ReadAllText(appSettingsPath);
+            AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);
 
-            //optionsBuilder.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
+            optionsBuilder.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
 
         }
 
@@ -65,7 +69,7 @@ namespace KnitterNotebook.Database
                 t.HasKey(x => x.Id);
                 t.Property(x => x.Id).IsRequired();
                 t.Property(x => x.Name).IsRequired();
-                t.HasData(new Theme() { Id = 1, Name = "Default" }, new Theme() { Id = 2, Name = "Light" }, new Theme() { Id = 3, Name = "Default" });
+                t.HasData(new Theme() { Id = 1, Name = "Default" }, new Theme() { Id = 2, Name = "Light" }, new Theme() { Id = 3, Name = "Dark" });
                 t.HasMany(x => x.Users)
                 .WithOne(c => c.Theme)
                 .HasForeignKey(c => c.ThemeId);

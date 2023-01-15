@@ -40,23 +40,23 @@ namespace KnitterNotebook
                 //MessageBox.Show("project " + ProjectDirectory.ProjectDirectoryFullPath);
                 //MessageBox.Show("solution " + SolutionDirectory.SolutionDirectoryFullPath);
 
-                string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
-                string appSettingsString = File.ReadAllText(appSettingsPath);
-                appSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);
+                //string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
+                //string appSettingsString = File.ReadAllText(appSettingsPath);
+                //appSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);
 
-                //IConfiguration configuration;
+                ////IConfiguration configuration;
 
-                //configuration = new ConfigurationBuilder()
-                //    //.AddJsonFile(@"appsettings.json")
-                //    .AddJsonFile(appSettingsPath)
-                //    .Build();
-                services.AddDbContext<KnitterNotebookContext>(options =>
-                                     options.UseSqlServer(appSettings.KnitterNotebookConnectionString));
-                                    // options.UseSqlServer(configuration
-                                    // .GetConnectionString("KnitterNotebookConnectionString")));
-                                    // options.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = KnitterNotebookDb; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False"));
-            
+                ////configuration = new ConfigurationBuilder()
+                ////    //.AddJsonFile(@"appsettings.json")
+                ////    .AddJsonFile(appSettingsPath)
+                ////    .Build();
+                //services.AddDbContext<KnitterNotebookContext>(options =>
+                //                     options.UseSqlServer(appSettings.KnitterNotebookConnectionString));
+                // options.UseSqlServer(configuration
+                // .GetConnectionString("KnitterNotebookConnectionString")));
+                // options.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = KnitterNotebookDb; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False"));
 
+              //  AppSettings.KnitterNotebookConnectionString
                 // services.AddScoped<LoginWindowViewModel>();
 
                 // services.AddSingleton<LoginWindowViewModel>();
