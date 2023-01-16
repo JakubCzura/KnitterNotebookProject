@@ -31,7 +31,8 @@
                     <MenuItem Style="{DynamicResource NavigationMenuItemStyle}"
                               Header="Ustawienia">
                         <MenuItem Style="{DynamicResource NavigationMenuItemStyle}"
-                                  Header="Ustawienia" Command="{Binding ShowSettingsWindowCommand}" />
+                                  Header="Ustawienia" 
+                                  Command="{Binding ShowSettingsWindowCommand}" />
                     </MenuItem>
                     <MenuItem Style="{DynamicResource NavigationMenuItemStyle}"
                               Header="Ustawienia" />
@@ -57,19 +58,19 @@
                         <StackPanel Orientation="Vertical"
                                 VerticalAlignment="Top">
                             <Button Style="{DynamicResource MainMenuButtonStyle}">
-                                <TextBlock Text="Menu kontekstowe"
+                                <TextBlock Text="Moje projekty"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}">
-                                <TextBlock Text="Menu kontekstowe"
+                                <TextBlock Text="Projekty w planach"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}">
-                                <TextBlock Text="Menu kontddddddekstowe"
+                                <TextBlock Text="Projekty w trakcie"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}">
-                                <TextBlock Text="Menu kontekstowe"
+                                <TextBlock Text="Próbki obliczeniowe"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                         </StackPanel>

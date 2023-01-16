@@ -25,7 +25,7 @@ namespace KnitterNotebook.Validators
                 Guard.HasSizeLessThanOrEqualTo(user.Nickname, 50);
 
                 Guard.IsNotNullOrWhiteSpace(user.Password);
-                Guard.HasSizeLessThanOrEqualTo(user.Password, 50);
+                Guard.HasSizeLessThanOrEqualTo(user.Password, 100);
                 if (!ValidatePasswordRegex.IsMatch(user.Password))
                 {
                     throw new ArgumentException("Hasło musi zawierać conajmniej 6 znaków,\nconajmniej jedną literę małą,\nconajmniej jedną literę wielką,\nconajmniej 1 cyfrę");

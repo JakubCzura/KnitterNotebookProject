@@ -13,16 +13,9 @@ namespace KnitterNotebook.Validators
         {
             try
             {
-                Guard.IsNotNull(project.UserId);
-           
-
-        public DateTime StartDate { get; set; } = new();
-
-        public DateTime? EndDate { get; set; } = null!;
-
-        public int UserId { get; set; }
-
-    }
+                Guard.IsNotNullOrWhiteSpace(project.Name);
+                Guard.HasSizeLessThanOrEqualTo(project.Name, 100);
+            }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);

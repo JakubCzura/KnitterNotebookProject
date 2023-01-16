@@ -24,12 +24,6 @@ namespace KnitterNotebook.ViewModels
             set { user = value; OnPropertyChanged(); }
         }
 
-        public string Nickname
-        {
-            get { return user.Nickname; }
-            set { user.Nickname = value; OnPropertyChanged(); }
-        }
-
         private void ShowSettingsWindow()
         {
             SettingsWindow SettingsWindow = new();
