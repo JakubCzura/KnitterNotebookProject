@@ -31,12 +31,6 @@ namespace KnitterNotebook.ViewModels
 
         private User User { get; set; }
 
-        //private User User
-        //{
-        //    get { return user; }
-        //    set { user = value; OnPropertyChanged(nameof(User)); }
-        //}
-
         private string email;
 
         public string Email
@@ -66,9 +60,9 @@ namespace KnitterNotebook.ViewModels
                     }
                     else
                     {
+                        LoggedUserInformation.LoggedUser = User;
                         MainWindow mainWindow = new();
                         mainWindow.Show();
-                        LoggedUserInformation.LoggedUser = User;
                         Window.GetWindow(LoginWindow.Instance).Close();
                     }
                 }

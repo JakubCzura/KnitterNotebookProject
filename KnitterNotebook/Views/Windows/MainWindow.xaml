@@ -40,7 +40,7 @@
                 </Menu>
                 <TextBlock DockPanel.Dock="Bottom"
                            Style="{DynamicResource WelcomeTextBlockStyle}"
-                           Text="Witaj Karolina" />
+                           Text="{Binding User.Nickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </DockPanel>
         </Grid>
 
