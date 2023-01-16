@@ -30,13 +30,13 @@ namespace KnitterNotebook.ViewModels
 
         public ICommand ShowRegistrationWindowCommand { get; private set; }
 
-        private User user;
+        private User User { get; set; }
 
-        public User User
-        {
-            get { return user; }
-            set { user = value; OnPropertyChanged(nameof(User)); }
-        }
+        //private User User
+        //{
+        //    get { return user; }
+        //    set { user = value; OnPropertyChanged(nameof(User)); }
+        //}
 
         private string email;
         public string Email
@@ -71,8 +71,8 @@ namespace KnitterNotebook.ViewModels
                     {
                         MainWindow mainWindow = new();
                         mainWindow.Show();
-                        Window.GetWindow(LoginWindow.Instance).Close();
-                        
+                        LoggedUserInformation.LoggedUser = User;
+                        Window.GetWindow(LoginWindow.Instance).Close();                       
                     }
                 }
             }
