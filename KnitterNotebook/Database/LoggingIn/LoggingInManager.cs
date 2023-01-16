@@ -10,23 +10,23 @@ namespace KnitterNotebook.Database.Login
 {
     public class LoggingInManager
     {
-        private ILoggingIn Login { get; set; }
-        private string Nickname { get; set; }
-        private string Password { get; set; }
+        private ILoggingIn LoggingIn { get; set; } 
+        private string Email { get; set; } 
+        private string Password { get; set; } 
 
         private KnitterNotebookContext KnitterNotebookContext { get; set; }
 
-        public LoggingInManager(ILoggingIn login, string nickname, string password, KnitterNotebookContext knitterNotebookContext)
+        public LoggingInManager(ILoggingIn loggingIN, string email, string password, KnitterNotebookContext knitterNotebookContext)
         {
-            Login = login;
-            Nickname = nickname;
+            LoggingIn = loggingIN;
+            Email = email;
             Password = password;
             KnitterNotebookContext = knitterNotebookContext;
         }
 
-        public async Task<User>? LoginUser()
+        public async Task<User>? LogIn()
         {
-            return await Login.LoginUser(Nickname, Password, KnitterNotebookContext);
+            return await LoggingIn.LogInUser(Email, Password, KnitterNotebookContext);
         }
     }
 }

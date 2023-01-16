@@ -26,57 +26,57 @@ namespace KnitterNotebook
         private readonly IHost host;
         private AppSettings appSettings;
         public App()
-        {
-           // appSettings = new();
-            host = new HostBuilder()
-            .ConfigureServices((context, services) =>
-            {
-                // ConfigureServices(context.Configuration, services);
-                //services.AddDbContext<KnitterNotebookContext>(options =>
-                //{
-                //    options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=KnitterNotebookDb;Trusted_Connection=True;");
-                //});
+        { }
+        //   // appSettings = new();
+        //    host = new HostBuilder()
+        //    .ConfigureServices((context, services) =>
+        //    {
+        //        // ConfigureServices(context.Configuration, services);
+        //        //services.AddDbContext<KnitterNotebookContext>(options =>
+        //        //{
+        //        //    options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=KnitterNotebookDb;Trusted_Connection=True;");
+        //        //});
 
-                //MessageBox.Show("project " + ProjectDirectory.ProjectDirectoryFullPath);
-                //MessageBox.Show("solution " + SolutionDirectory.SolutionDirectoryFullPath);
+        //        //MessageBox.Show("project " + ProjectDirectory.ProjectDirectoryFullPath);
+        //        //MessageBox.Show("solution " + SolutionDirectory.SolutionDirectoryFullPath);
 
-                //string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
-                //string appSettingsString = File.ReadAllText(appSettingsPath);
-                //appSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);
+        //        //string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
+        //        //string appSettingsString = File.ReadAllText(appSettingsPath);
+        //        //appSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);
 
-                ////IConfiguration configuration;
+        //        ////IConfiguration configuration;
 
-                ////configuration = new ConfigurationBuilder()
-                ////    //.AddJsonFile(@"appsettings.json")
-                ////    .AddJsonFile(appSettingsPath)
-                ////    .Build();
-                //services.AddDbContext<KnitterNotebookContext>(options =>
-                //                     options.UseSqlServer(appSettings.KnitterNotebookConnectionString));
-                // options.UseSqlServer(configuration
-                // .GetConnectionString("KnitterNotebookConnectionString")));
-                // options.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = KnitterNotebookDb; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False"));
+        //        ////configuration = new ConfigurationBuilder()
+        //        ////    //.AddJsonFile(@"appsettings.json")
+        //        ////    .AddJsonFile(appSettingsPath)
+        //        ////    .Build();
+        //        //services.AddDbContext<KnitterNotebookContext>(options =>
+        //        //                     options.UseSqlServer(appSettings.KnitterNotebookConnectionString));
+        //        // options.UseSqlServer(configuration
+        //        // .GetConnectionString("KnitterNotebookConnectionString")));
+        //        // options.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = KnitterNotebookDb; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False"));
 
-              //  AppSettings.KnitterNotebookConnectionString
-                // services.AddScoped<LoginWindowViewModel>();
+        //      //  AppSettings.KnitterNotebookConnectionString
+        //        // services.AddScoped<LoginWindowViewModel>();
 
-                // services.AddSingleton<LoginWindowViewModel>();
-            })
-            .Build();
+        //        // services.AddSingleton<LoginWindowViewModel>();
+        //    })
+        //    .Build();
 
-            //using(var serviceScope = host.Services.CreateScope())
-            //{
-            //    var services = serviceScope.ServiceProvider;
-            //    try
-            //    {
-            //        var masterWindow = services.GetRequiredService<LoginWindow>();
-            //        masterWindow.Show();
-            //    }
-            //    catch(Exception exception) 
-            //    {
-            //        MessageBox.Show(exception.Message);
-            //    }
-            //}
-        }
+        //    //using(var serviceScope = host.Services.CreateScope())
+        //    //{
+        //    //    var services = serviceScope.ServiceProvider;
+        //    //    try
+        //    //    {
+        //    //        var masterWindow = services.GetRequiredService<LoginWindow>();
+        //    //        masterWindow.Show();
+        //    //    }
+        //    //    catch(Exception exception) 
+        //    //    {
+        //    //        MessageBox.Show(exception.Message);
+        //    //    }
+        //    //}
+        //}
 
         //private void ConfigureServices(IConfiguration configuration,
         //IServiceCollection services)

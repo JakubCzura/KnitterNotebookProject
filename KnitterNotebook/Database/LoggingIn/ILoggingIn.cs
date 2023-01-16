@@ -9,6 +9,6 @@ namespace KnitterNotebook.Database.Login
 {
     public interface ILoggingIn
     {
-        Task<User>? LoginUser(string nickname, string password, KnitterNotebookContext knitterNotebookContext);
+        Task<User>? LogInUser(string email, string password, KnitterNotebookContext knitterNotebookContext);
     }
 }

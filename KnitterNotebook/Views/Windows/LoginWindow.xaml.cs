@@ -19,9 +19,11 @@ namespace KnitterNotebook.Views.Windows
     /// </summary>
     public partial class LoginWindow : Window
     {
+        public static LoginWindow Instance { get; private set; } = null!;
         public LoginWindow()
         {
             InitializeComponent();
+            Instance = this;
         }
     }
 }

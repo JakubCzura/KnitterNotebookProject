@@ -38,12 +38,12 @@ namespace KnitterNotebook.ViewModels
         }
         RegistrationManager RegistrationManager { get; set; }
 
-        public ICommand RegisterUserCommand { get; private set; }
+        public ICommand RegisterUserCommandAsync { get; private set; }
 
         KnitterNotebookContext KnitterNotebookContext { get; set; }
         public RegistrationWindowViewModel()
         {
-            RegisterUserCommand = new AsyncRelayCommand(RegisterUser);
+            RegisterUserCommandAsync = new AsyncRelayCommand(RegisterUser);
         }
 
         //AppSettings AppSettings { get; set; }
@@ -76,10 +76,6 @@ namespace KnitterNotebook.ViewModels
                         {
                             MessageBox.Show("Błąd w trakcie rejestracji");
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Nieprawidłowe dane podczas rejestracji");
                     }
                 }
             }
