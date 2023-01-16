@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace KnitterNotebook.Models
 {
@@ -13,6 +9,5 @@ namespace KnitterNotebook.Models
         public string Name { get; set; } = null!;
 
         public List<User> Users = new();
-        
     }
 }

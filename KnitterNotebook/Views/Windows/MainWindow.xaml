@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:KnitterNotebook.Views.Windows"
         mc:Ignorable="d"
         xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
-        Title="KnitterNotebook" 
-        Height="700" 
+        Title="KnitterNotebook"
+        Height="700"
         Width="1200"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource WindowStyle}">
 
     <Window.Resources>
-        <viewModels:MainWindowViewModel x:Key="MainWindowViewModel"/>
+        <viewModels:MainWindowViewModel x:Key="MainWindowViewModel" />
     </Window.Resources>
 
     <Grid DataContext="{StaticResource MainWindowViewModel}">

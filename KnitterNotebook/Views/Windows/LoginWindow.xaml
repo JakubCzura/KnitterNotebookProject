@@ -1,22 +1,21 @@
 ﻿<Window x:Class="KnitterNotebook.Views.Windows.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KnitterNotebook.Views.Windows"
-        mc:Ignorable="d"
-        xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
         xmlns:adorners="http://gu.se/Adorners"
-        Title="KnitterNotebook" 
-        Height="650" 
-        Width="500" 
-        MaxHeight="650" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+        mc:Ignorable="d"
+        Title="KnitterNotebook"
+        Height="650"
+        Width="500"
+        MaxHeight="650"
         MaxWidth="500"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource WindowStyle}">
-    
+
     <Window.Resources>
-        <viewModels:LoginWindowViewModel x:Key="LoginWindowViewModel"/>
+        <viewModels:LoginWindowViewModel x:Key="LoginWindowViewModel" />
     </Window.Resources>
 
     <Grid DataContext="{StaticResource LoginWindowViewModel}">
@@ -48,14 +47,14 @@
                              VerticalContentAlignment="Center"
                              Margin="0,0,0,10" />
                 <Button Style="{DynamicResource LoginButtonStyle}"
-                        Content="Zaloguj się" 
-                        Command="{Binding LogInCommandAsync}"/>
+                        Content="Zaloguj się"
+                        Command="{Binding LogInCommandAsync}" />
                 <Label Style="{DynamicResource LabelAboveLoginInputStyle}"
                        Content="Nie posiadasz konta?"
                        Margin="0,50,0,0" />
                 <Button Style="{DynamicResource LoginButtonStyle}"
                         Content="Zarejestruj się"
-                        Command="{Binding ShowRegistrationWindowCommand}"/>
+                        Command="{Binding ShowRegistrationWindowCommand}" />
             </StackPanel>
         </Grid>
     </Grid>

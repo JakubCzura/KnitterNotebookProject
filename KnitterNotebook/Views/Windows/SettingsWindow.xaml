@@ -7,16 +7,16 @@
         mc:Ignorable="d"
         xmlns:userControls="clr-namespace:KnitterNotebook.Views.UserControls"
         xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
-        Title="KnitterNotebook" 
-        Height="450" 
+        Title="KnitterNotebook"
+        Height="450"
         Width="800"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource WindowStyle}">
-    
+
     <Window.Resources>
         <viewModels:SettingsWindowViewModel x:Key="SettingsWindowViewModel" />
-        <userControls:ThemeSettingsUserControl x:Key="ThemeSettingsUserControl"/>
-        <userControls:UserSettingsUserControl x:Key="UserSettingsUserControl"/>
+        <userControls:ThemeSettingsUserControl x:Key="ThemeSettingsUserControl" />
+        <userControls:UserSettingsUserControl x:Key="UserSettingsUserControl" />
     </Window.Resources>
 
     <Grid DataContext="{StaticResource SettingsWindowViewModel}">
@@ -71,7 +71,7 @@
                                 Height="Auto">
                     <TextBlock Background="Beige" FontSize="40" HorizontalAlignment="Center" Width="90">Witaj Karolina</TextBlock>
                 </ContentControl>-->
-                <ContentControl Margin="5,0,5,0" Grid.Column="1" Content="{StaticResource UserSettingsUserControl}"/>
+                <ContentControl Margin="5,0,5,0" Grid.Column="1" Content="{StaticResource UserSettingsUserControl}" />
             </Grid>
         </Grid>
     </Grid>

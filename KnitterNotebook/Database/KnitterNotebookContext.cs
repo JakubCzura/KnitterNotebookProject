@@ -1,15 +1,8 @@
 ﻿using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Models;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KnitterNotebook.Database
 {
@@ -29,7 +22,7 @@ namespace KnitterNotebook.Database
 
         public DbSet<Theme> Themes { get; set; }
 
-        AppSettings AppSettings { get; set; }
+        private AppSettings AppSettings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

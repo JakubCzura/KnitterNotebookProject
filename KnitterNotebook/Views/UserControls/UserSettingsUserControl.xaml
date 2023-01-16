@@ -1,10 +1,10 @@
 ﻿<UserControl x:Class="KnitterNotebook.Views.UserControls.UserSettingsUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:KnitterNotebook.Views.UserControls"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:adorners="http://gu.se/Adorners"
              Style="{DynamicResource SettingsUserControlStyle}">
@@ -14,32 +14,32 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" 
+        <TextBlock Grid.Row="0"
                    Text="Konto"
-                   Style="{DynamicResource SettingsHeaderTextBlockStyle}"/>
+                   Style="{DynamicResource SettingsHeaderTextBlockStyle}" />
 
         <StackPanel Grid.Row="1">
             <TextBlock Text="Zmiana nazwy użytkownika"
-                       Style="{DynamicResource SettingsElementTextBlockStyle}"/>
+                       Style="{DynamicResource SettingsElementTextBlockStyle}" />
             <TextBox adorners:Watermark.Text="Podaj nową nazwę użytkownika"
                          adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                         VerticalContentAlignment="Center"/>
-            <Button Content="Potwierdź"/>
+                         VerticalContentAlignment="Center" />
+            <Button Content="Potwierdź" />
             <TextBlock Text="Zmiana e-mail"
-                       Style="{DynamicResource SettingsElementTextBlockStyle}"/>
+                       Style="{DynamicResource SettingsElementTextBlockStyle}" />
             <TextBox adorners:Watermark.Text="Podaj nowy adres e-mail"
                          adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                         VerticalContentAlignment="Center"/>
-            <Button  Content="Potwierdź"/>
+                         VerticalContentAlignment="Center" />
+            <Button  Content="Potwierdź" />
             <TextBlock Text="Zmiana hasła"
-                       Style="{DynamicResource SettingsElementTextBlockStyle}"/>
+                       Style="{DynamicResource SettingsElementTextBlockStyle}" />
             <PasswordBox adorners:Watermark.Text="Podaj nowe hasło"
                          adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                         VerticalContentAlignment="Center"/>
+                         VerticalContentAlignment="Center" />
             <PasswordBox adorners:Watermark.Text="Powtórz hasło"
                          adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                         VerticalContentAlignment="Center"/>
-            <Button Content="Potwierdź"/>
+                         VerticalContentAlignment="Center" />
+            <Button Content="Potwierdź" />
         </StackPanel>
     </Grid>
 </UserControl>

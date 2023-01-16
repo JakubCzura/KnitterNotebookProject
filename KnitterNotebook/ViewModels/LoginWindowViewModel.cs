@@ -1,14 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using KnitterNotebook.Database.Registration;
 using KnitterNotebook.Database;
+using KnitterNotebook.Database.Login;
 using KnitterNotebook.Models;
-using KnitterNotebook.Validators;
 using KnitterNotebook.Views.Windows;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using KnitterNotebook.Database.Login;
 
 namespace KnitterNotebook.ViewModels
 {
@@ -23,6 +21,7 @@ namespace KnitterNotebook.ViewModels
             ShowRegistrationWindowCommand = new RelayCommand(ShowRegisterWindow);
             LogInCommandAsync = new AsyncRelayCommand(LogIn);
         }
+
         private KnitterNotebookContext KnitterNotebookContext { get; set; }
         private LoggingInManager LoggingInManager { get; set; }
 
@@ -39,12 +38,12 @@ namespace KnitterNotebook.ViewModels
         //}
 
         private string email;
+
         public string Email
         {
             get { return email; }
             set { email = value; OnPropertyChanged(); }
         }
-
 
         private void ShowRegisterWindow()
         {
@@ -58,21 +57,19 @@ namespace KnitterNotebook.ViewModels
             {
                 using (KnitterNotebookContext = new KnitterNotebookContext())
                 {
-
                     StandardLoggingIn standardLoggingIn = new();
                     LoggingInManager = new(standardLoggingIn, Email, LoginWindow.Instance.UserPasswordPasswordBox.Password, KnitterNotebookContext);
                     User = await LoggingInManager.LogIn();
                     if (User == null)
                     {
                         MessageBox.Show("Nieprawidłowe dane logowania");
-
                     }
                     else
                     {
                         MainWindow mainWindow = new();
                         mainWindow.Show();
                         LoggedUserInformation.LoggedUser = User;
-                        Window.GetWindow(LoginWindow.Instance).Close();                       
+                        Window.GetWindow(LoginWindow.Instance).Close();
                     }
                 }
             }

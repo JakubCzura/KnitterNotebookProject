@@ -1,18 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Database.Registration;
 using KnitterNotebook.Models;
 using KnitterNotebook.Validators;
 using KnitterNotebook.Views.Windows;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -36,11 +29,13 @@ namespace KnitterNotebook.ViewModels
             get { return email; }
             set { email = value; OnPropertyChanged(); }
         }
-        RegistrationManager RegistrationManager { get; set; }
+
+        private RegistrationManager RegistrationManager { get; set; }
 
         public ICommand RegisterUserCommandAsync { get; private set; }
 
-        KnitterNotebookContext KnitterNotebookContext { get; set; }
+        private KnitterNotebookContext KnitterNotebookContext { get; set; }
+
         public RegistrationWindowViewModel()
         {
             RegisterUserCommandAsync = new AsyncRelayCommand(RegisterUser);

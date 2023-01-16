@@ -1,9 +1,5 @@
 ﻿using KnitterNotebook.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace KnitterNotebook.Validators
@@ -14,7 +10,6 @@ namespace KnitterNotebook.Validators
         {
             try
             {
-
             }
             catch (Exception exception)
             {

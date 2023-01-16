@@ -21,7 +21,7 @@
     </Style>
 
     <Style TargetType="TextBlock" x:Key="SettingsElementTextBlock" BasedOn="{StaticResource BasicTextBlock}">
-        <Setter Property="FontSize" Value="{StaticResource SettingsElementFontSize}"/>
-        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="FontSize" Value="{StaticResource SettingsElementFontSize}" />
+        <Setter Property="TextAlignment" Value="Left" />
     </Style>
 </ResourceDictionary>

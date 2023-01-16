@@ -40,10 +40,10 @@
 
     <Style TargetType="UserControl" x:Key="SettingsUserControlStyle">
         <Setter Property="Background" Value="{StaticResource ApplicationBackgroundColorDefault}" />
-        <Setter Property="FontFamily" Value="{DynamicResource SettingsFontFamily}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource SettingsFontFamily}" />
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="SettingsHeaderTextBlockStyle" BasedOn="{StaticResource SettingsHeaderTextBlock}"/>
+    <Style TargetType="TextBlock" x:Key="SettingsHeaderTextBlockStyle" BasedOn="{StaticResource SettingsHeaderTextBlock}" />
 
-    <Style TargetType="TextBlock" x:Key="SettingsElementTextBlockStyle" BasedOn="{StaticResource SettingsElementTextBlock}"/>
+    <Style TargetType="TextBlock" x:Key="SettingsElementTextBlockStyle" BasedOn="{StaticResource SettingsElementTextBlock}" />
 </ResourceDictionary>

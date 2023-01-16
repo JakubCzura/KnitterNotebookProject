@@ -1,12 +1,8 @@
 ﻿using CommunityToolkit.Diagnostics;
 using KnitterNotebook.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace KnitterNotebook.Validators
@@ -25,7 +21,7 @@ namespace KnitterNotebook.Validators
         {
             try
             {
-               // Guard.IsGreaterThan(user.Id, 0);
+                // Guard.IsGreaterThan(user.Id, 0);
 
                 Guard.IsNotNullOrWhiteSpace(user.Nickname);
                 Guard.HasSizeLessThanOrEqualTo(user.Nickname, 50);

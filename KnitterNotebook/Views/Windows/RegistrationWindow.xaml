@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
         xmlns:adorners="http://gu.se/Adorners"
-        Title="KnitterNotebook" 
-        Height="650" 
+        Title="KnitterNotebook"
+        Height="650"
         Width="500"
         MaxHeight="650"
         MaxWidth="500"
@@ -54,8 +54,8 @@
                              VerticalContentAlignment="Center"
                              Margin="0,0,0,10" />
                 <Button Style="{DynamicResource LoginButtonStyle}"
-                        Content="Zarejestruj się" 
-                        Command="{Binding RegisterUserCommandAsync}"/>
+                        Content="Zarejestruj się"
+                        Command="{Binding RegisterUserCommandAsync}" />
             </StackPanel>
         </Grid>
     </Grid>
