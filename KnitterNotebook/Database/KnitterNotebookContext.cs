@@ -36,9 +36,7 @@ namespace KnitterNotebook.Database
             string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
             string appSettingsString = File.ReadAllText(appSettingsPath);
             AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);
-
             optionsBuilder.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -47,10 +45,10 @@ namespace KnitterNotebook.Database
             {
                 u.HasKey(x => x.Id);
                 u.Property(x => x.Id).IsRequired();
-                u.Property(x => x.Password).IsRequired().HasMaxLength(50);
+                u.Property(x => x.Password).IsRequired();
                 u.Property(x => x.Email).IsRequired().HasMaxLength(100);
                 u.Property(x => x.Nickname).IsRequired().HasMaxLength(50);
-                u.Property(x => x.ThemeId).IsRequired().HasDefaultValue(1);
+                u.Property(x => x.ThemeId).IsRequired();
                 u.HasMany(x => x.Projects)
                 .WithOne(c => c.User)
                 .HasForeignKey(c => c.UserId);

@@ -25,7 +25,7 @@ namespace KnitterNotebook.Validators
         {
             try
             {
-                Guard.IsGreaterThan(user.Id, 0);
+               // Guard.IsGreaterThan(user.Id, 0);
 
                 Guard.IsNotNullOrWhiteSpace(user.Nickname);
                 Guard.HasSizeLessThanOrEqualTo(user.Nickname, 50);

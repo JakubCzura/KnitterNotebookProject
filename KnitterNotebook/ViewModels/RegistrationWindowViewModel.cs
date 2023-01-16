@@ -3,6 +3,7 @@ using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Database.Registration;
 using KnitterNotebook.Models;
+using KnitterNotebook.Validators;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -45,30 +46,46 @@ namespace KnitterNotebook.ViewModels
             RegisterUserCommand = new AsyncRelayCommand(RegisterUser);
         }
 
-        AppSettings AppSettings { get; set; }
+        //AppSettings AppSettings { get; set; }
 
-        private async Task<bool> RegisterUser()
+        private async Task RegisterUser()
         {
             try
             {
                 //string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
-               // string appSettingsString = File.ReadAllText(appSettingsPath);
-              //  AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);
-               // var contextOptions = new DbContextOptionsBuilder<KnitterNotebookContext>().UseSqlServer(AppSettings.KnitterNotebookConnectionString).Options;
-                KnitterNotebookContext = new KnitterNotebookContext();
-
-                Theme theme = KnitterNotebookContext.Themes.First();
-                KnitterNotebookContext.Attach(theme);
-                User user = new() { Nickname = Nickname, Email = Email, Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password, Theme = theme };
-
-                StandardRegistration standardRegistration = new();
-                RegistrationManager = new(standardRegistration, user, KnitterNotebookContext);
-                return await RegistrationManager.Register();
+                // string appSettingsString = File.ReadAllText(appSettingsPath);
+                //  AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);
+                // var contextOptions = new DbContextOptionsBuilder<KnitterNotebookContext>().UseSqlServer(AppSettings.KnitterNotebookConnectionString).Options;
+                using (KnitterNotebookContext = new KnitterNotebookContext())
+                {
+                    Theme theme = KnitterNotebookContext.Themes.First();
+                    KnitterNotebookContext.Attach(theme);
+                    User user = new() { Nickname = Nickname, Email = Email, Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password, Theme = theme };
+                    IValidator<User> userValidator = new UserValidator();
+                    if (userValidator.Validate(user))
+                    {
+                        user.Password = PasswordHasher.HashPassword(user.Password);
+                        StandardRegistration standardRegistration = new();
+                        RegistrationManager = new(standardRegistration, user, KnitterNotebookContext);
+                        if (await RegistrationManager.Register())
+                        {
+                            Window.GetWindow(RegistrationWindow.Instance).Close();
+                            MessageBox.Show("Rejestracja przebiegła pomyślnie");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Błąd w trakcie rejestracji");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nieprawidłowe dane podczas rejestracji");
+                    }
+                }
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
-                return false;
             }
         }
     }
