@@ -51,8 +51,8 @@ namespace KnitterNotebook.Database
             {
                 p.HasKey(x => x.Id);
                 p.Property(x => x.Id).IsRequired();
-                //p.Property(x => x.User).IsRequired();
-                //p.Property(x => x.UserId).IsRequired();
+                p.Property(x => x.Name).IsRequired().HasMaxLength(100);
+                p.Property(x => x.UserId).IsRequired();
             });
 
             modelBuilder.Entity<Theme>(t =>

@@ -15,10 +15,9 @@ namespace KnitterNotebook.Database.Login
                 {
                     return user;
                 }
-                return null;
+                return null!;
             }
-            return null;
-            //return await knitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Email == email && PasswordHasher.VerifyPassword(password, x.Password));
+            return null!;          
         }
     }
 }

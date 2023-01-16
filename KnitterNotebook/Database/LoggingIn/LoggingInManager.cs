@@ -19,6 +19,10 @@ namespace KnitterNotebook.Database.Login
             KnitterNotebookContext = knitterNotebookContext;
         }
 
+        /// <summary>
+        /// Log in user to application
+        /// </summary>
+        /// <returns>User instance if user is logged in, otherwise null</returns>
         public async Task<User>? LogIn()
         {
             return await LoggingIn.LogInUser(Email, Password, KnitterNotebookContext);
