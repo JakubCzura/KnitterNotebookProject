@@ -29,7 +29,6 @@
         <Grid Margin="0,0,0,10"
               Grid.Row="0">
             <DockPanel>
-
                 <TextBlock DockPanel.Dock="Bottom"
                            Style="{DynamicResource WelcomeTextBlockStyle}"
                            Text="Ustawienia" />
@@ -46,32 +45,33 @@
                 <Grid Grid.Column="0">
                     <ScrollViewer>
                         <StackPanel>
-                            <Button Style="{DynamicResource MainMenuButtonStyle}">
+                            <Button Style="{DynamicResource MainMenuButtonStyle}"
+                                    Command="{Binding ChooseSettingsContent}"
+                                    CommandParameter="UserSettingsUserControl">
                                 <TextBlock Text="Konto"
-                                       Style="{DynamicResource WrapTextBlockStyle}" />
+                                           Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
-                            <Button Style="{DynamicResource MainMenuButtonStyle}">
+                            <Button Style="{DynamicResource MainMenuButtonStyle}"
+                                    Command="{Binding ChooseSettingsContent}"
+                                    CommandParameter="ThemeSettingsUserControl">
                                 <TextBlock Text="Motyw aplikacji"
-                                       Style="{DynamicResource WrapTextBlockStyle}" />
+                                           Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}">
                                 <TextBlock Text="Menu kontddddddekstowe"
-                                       Style="{DynamicResource WrapTextBlockStyle}" />
+                                           Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}">
                                 <TextBlock Text="Menu kontekstowe"
-                                       Style="{DynamicResource WrapTextBlockStyle}" />
+                                           Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
 
-                <!--<ContentControl Grid.Column="1"
-                                Width="Auto"
-                                Height="Auto">
-                    <TextBlock Background="Beige" FontSize="40" HorizontalAlignment="Center" Width="90">Witaj Karolina</TextBlock>
-                </ContentControl>-->
-                <ContentControl Margin="5,0,5,0" Grid.Column="1" Content="{StaticResource UserSettingsUserControl}" />
+                <ContentControl Grid.Column="1"
+                                Margin="5,0,5,0" 
+                                Content="{StaticResource UserSettingsUserControl}" />
             </Grid>
         </Grid>
     </Grid>

@@ -14,7 +14,7 @@ namespace KnitterNotebook.ViewModels
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
         }
 
-        public ICommand ShowSettingsWindowCommand { get; set; }
+        public ICommand ShowSettingsWindowCommand { get; private set; }
 
         private User user;
 

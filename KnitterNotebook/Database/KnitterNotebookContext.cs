@@ -28,7 +28,7 @@ namespace KnitterNotebook.Database
         {
             string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
             string appSettingsString = File.ReadAllText(appSettingsPath);
-            AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);
+            AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString)!;
             optionsBuilder.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
         }
 
@@ -43,6 +43,9 @@ namespace KnitterNotebook.Database
                 u.Property(x => x.Nickname).IsRequired().HasMaxLength(50);
                 u.Property(x => x.ThemeId).IsRequired();
                 u.HasMany(x => x.Projects)
+                .WithOne(c => c.User)
+                .HasForeignKey(c => c.UserId);
+                u.HasMany(x => x.MovieUrls)
                 .WithOne(c => c.User)
                 .HasForeignKey(c => c.UserId);
             });
@@ -64,6 +67,15 @@ namespace KnitterNotebook.Database
                 t.HasMany(x => x.Users)
                 .WithOne(c => c.Theme)
                 .HasForeignKey(c => c.ThemeId);
+            });
+
+            modelBuilder.Entity<MovieUrl>(m =>
+            {
+                m.HasKey(x => x.Id);
+                m.Property(x => x.Id).IsRequired();
+                m.Property(x => x.UserId).IsRequired();
+                m.Property(x => x.Title).IsRequired();
+                m.Property(x => x.Link).IsRequired();
             });
         }
     }

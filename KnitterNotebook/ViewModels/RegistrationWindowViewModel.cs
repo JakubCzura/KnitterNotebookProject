@@ -41,16 +41,10 @@ namespace KnitterNotebook.ViewModels
             RegisterUserCommandAsync = new AsyncRelayCommand(RegisterUser);
         }
 
-        //AppSettings AppSettings { get; set; }
-
         private async Task RegisterUser()
         {
             try
-            {
-                //string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
-                // string appSettingsString = File.ReadAllText(appSettingsPath);
-                //  AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString);
-                // var contextOptions = new DbContextOptionsBuilder<KnitterNotebookContext>().UseSqlServer(AppSettings.KnitterNotebookConnectionString).Options;
+            {            
                 using (KnitterNotebookContext = new KnitterNotebookContext())
                 {
                     Theme theme = KnitterNotebookContext.Themes.First();

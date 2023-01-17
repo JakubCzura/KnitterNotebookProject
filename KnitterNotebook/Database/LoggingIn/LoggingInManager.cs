@@ -25,7 +25,7 @@ namespace KnitterNotebook.Database.Login
         /// <returns>User instance if user is logged in, otherwise null</returns>
         public async Task<User>? LogIn()
         {
-            return await LoggingIn.LogInUser(Email, Password, KnitterNotebookContext);
+            return await LoggingIn.LogInUser(Email, Password, KnitterNotebookContext)!;
         }
     }
 }
