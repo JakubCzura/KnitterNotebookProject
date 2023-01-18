@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Input;
 using KnitterNotebook.Database.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using static OneOf.Types.TrueFalseOrNull;
 
 namespace KnitterNotebook.ViewModels
 {
@@ -30,6 +31,9 @@ namespace KnitterNotebook.ViewModels
         {
             AddMovieUrlCommandAsync = new AsyncRelayCommand(AddMovieUrlAsync);
         }
+        
+        public static Action AddingNewMovieUrl = null!;
+       
 
         KnitterNotebookContext KnitterNotebookContext { get; set; }
 
@@ -53,6 +57,7 @@ namespace KnitterNotebook.ViewModels
                     {
                         if (await AddingMovieUrl.AddMovieUrl(movieUrl, KnitterNotebookContext))
                         {
+                            AddingNewMovieUrl?.Invoke();
                             MessageBox.Show("Dodano nowy film");
                         }
                         else
