@@ -15,10 +15,10 @@
         Style="{DynamicResource WindowStyle}">
 
     <Window.Resources>
-        <viewModels:LoginWindowViewModel x:Key="LoginWindowViewModel" />
+        <viewModels:LoginViewModel x:Key="LoginViewModel" />
     </Window.Resources>
 
-    <Grid DataContext="{StaticResource LoginWindowViewModel}">
+    <Grid DataContext="{StaticResource LoginViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
 {
-    public class RegistrationWindowViewModel : BaseViewModel
+    public class RegistrationViewModel : BaseViewModel
     {
         private string nickname;
 
@@ -36,7 +36,7 @@ namespace KnitterNotebook.ViewModels
 
         private KnitterNotebookContext KnitterNotebookContext { get; set; }
 
-        public RegistrationWindowViewModel()
+        public RegistrationViewModel()
         {
             RegisterUserCommandAsync = new AsyncRelayCommand(RegisterUser);
         }

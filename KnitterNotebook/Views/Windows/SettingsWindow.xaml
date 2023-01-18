@@ -14,12 +14,12 @@
         Style="{DynamicResource WindowStyle}">
 
     <Window.Resources>
-        <viewModels:SettingsWindowViewModel x:Key="SettingsWindowViewModel" />
+        <viewModels:SettingsViewModel x:Key="SettingsViewModel" />
         <userControls:ThemeSettingsUserControl x:Key="ThemeSettingsUserControl" />
         <userControls:UserSettingsUserControl x:Key="UserSettingsUserControl" />
     </Window.Resources>
 
-    <Grid DataContext="{StaticResource SettingsWindowViewModel}">
+    <Grid DataContext="{StaticResource SettingsViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -70,7 +70,7 @@
                 </Grid>
 
                 <ContentControl Grid.Column="1"
-                                Margin="5,0,5,0" 
+                                Margin="5,0,5,0"
                                 Content="{StaticResource UserSettingsUserControl}" />
             </Grid>
         </Grid>

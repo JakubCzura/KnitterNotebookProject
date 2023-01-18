@@ -1,41 +1,33 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using KnitterNotebook.Database.Registration;
 using KnitterNotebook.Database;
+using KnitterNotebook.Database.Interfaces;
 using KnitterNotebook.Models;
 using KnitterNotebook.Validators;
-using KnitterNotebook.Views.Windows;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using KnitterNotebook.Database.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using static OneOf.Types.TrueFalseOrNull;
 
 namespace KnitterNotebook.ViewModels
 {
     /// <summary>
     /// View model for MovieUrlAddingWindow.xaml
     /// </summary>
-    public class MovieUrlAddingWindowViewModel : BaseViewModel
+    public class MovieUrlAddingViewModel : BaseViewModel
     {
-
         public ICommand AddMovieUrlCommandAsync { get; private set; }
 
-        public MovieUrlAddingWindowViewModel()
+        public MovieUrlAddingViewModel()
         {
             AddMovieUrlCommandAsync = new AsyncRelayCommand(AddMovieUrlAsync);
         }
 
         public static Action AddingNewMovieUrl { get; set; } = null!;
 
+        private KnitterNotebookContext KnitterNotebookContext { get; set; }
 
-        KnitterNotebookContext KnitterNotebookContext { get; set; }
-
-        IAddingMovieUrl AddingMovieUrl { get; set; }
+        private IAddingMovieUrl AddingMovieUrl { get; set; }
 
         private async Task AddMovieUrlAsync()
         {

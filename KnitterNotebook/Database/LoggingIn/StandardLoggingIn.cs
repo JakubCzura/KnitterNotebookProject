@@ -17,7 +17,7 @@ namespace KnitterNotebook.Database.Login
                 }
                 return null!;
             }
-            return null!;          
+            return null!;
         }
     }
 }

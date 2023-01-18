@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Diagnostics;
 using KnitterNotebook.Models;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Windows;
 
 namespace KnitterNotebook.Validators

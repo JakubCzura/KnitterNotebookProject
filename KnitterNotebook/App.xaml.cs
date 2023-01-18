@@ -1,5 +1,4 @@
-﻿using KnitterNotebook.ViewModels;
-using System.Windows;
+﻿using System.Windows;
 
 namespace KnitterNotebook
 {
@@ -8,7 +7,7 @@ namespace KnitterNotebook
     /// </summary>
     public partial class App : Application
     {
-       // public MainWindowViewModel MainWindowViewModel { get; private set; }
+        // public MainViewModel MainViewModel { get; private set; }
         public static App Instance { get; private set; } = null!;
 
         public App()
@@ -18,7 +17,7 @@ namespace KnitterNotebook
 
         protected override void OnStartup(StartupEventArgs e)
         {
-           // MainWindowViewModel = new();
+            // MainViewModel = new();
             base.OnStartup(e);
         }
     }

@@ -16,10 +16,10 @@
         Style="{DynamicResource WindowStyle}">
 
     <Window.Resources>
-        <viewModels:RegistrationWindowViewModel x:Key="RegistrationWindowViewModel" />
+        <viewModels:RegistrationViewModel x:Key="RegistrationViewModel" />
     </Window.Resources>
 
-    <Grid DataContext="{StaticResource RegistrationWindowViewModel}">
+    <Grid DataContext="{StaticResource RegistrationViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

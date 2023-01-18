@@ -13,9 +13,9 @@ namespace KnitterNotebook.ViewModels
     /// <summary>
     /// View model for LoginWindow.xaml
     /// </summary>
-    public class LoginWindowViewModel : BaseViewModel
+    public class LoginViewModel : BaseViewModel
     {
-        public LoginWindowViewModel()
+        public LoginViewModel()
         {
             User = null!;
             ShowRegistrationWindowCommand = new RelayCommand(ShowRegisterWindow);

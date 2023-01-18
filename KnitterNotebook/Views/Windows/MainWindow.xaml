@@ -13,10 +13,10 @@
         Style="{DynamicResource WindowStyle}">
 
     <Window.Resources>
-        <viewModels:MainWindowViewModel x:Key="MainWindowViewModel" />
+        <viewModels:MainViewModel x:Key="MainViewModel" />
     </Window.Resources>
 
-    <Grid DataContext="{StaticResource MainWindowViewModel}">
+    <Grid DataContext="{StaticResource MainViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -31,7 +31,7 @@
                     <MenuItem Style="{DynamicResource NavigationMenuItemStyle}"
                               Header="Ustawienia">
                         <MenuItem Style="{DynamicResource NavigationMenuItemStyle}"
-                                  Header="Ustawienia" 
+                                  Header="Ustawienia"
                                   Command="{Binding ShowSettingsWindowCommand}" />
                     </MenuItem>
                     <MenuItem Style="{DynamicResource NavigationMenuItemStyle}"
@@ -87,22 +87,22 @@
 
         <Grid Margin="0,10,0,10" Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <DataGrid Grid.Column="0" 
-                      ItemsSource="{Binding MovieUrls}" 
+            <DataGrid Grid.Column="0"
+                      ItemsSource="{Binding MovieUrls}"
                       AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="Auto" Header="Tytuł" Binding="{Binding Path=Title}"/>
-                    <DataGridTextColumn Width="*" Header="Link" Binding="{Binding Path=Link}"/>
+                    <DataGridTextColumn Width="Auto" Header="Tytuł" Binding="{Binding Path=Title}" />
+                    <DataGridTextColumn Width="*" Header="Link" Binding="{Binding Path=Link}" />
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Grid.Column="1" 
+            <Button Grid.Column="1"
                     Style="{DynamicResource MainMenuButtonStyle}"
                     Command="{Binding ShowMovieUrlAddingWindowCommand}">
                 <TextBlock Text="Dodaj nowy link do filmu"
-                                       Style="{DynamicResource WrapTextBlockStyle}"/>
+                                       Style="{DynamicResource WrapTextBlockStyle}" />
             </Button>
         </Grid>
     </Grid>

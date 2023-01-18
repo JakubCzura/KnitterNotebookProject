@@ -16,10 +16,10 @@
         Style="{DynamicResource WindowStyle}">
 
     <Window.Resources>
-        <viewModels:MovieUrlAddingWindowViewModel x:Key="MovieUrlAddingWindowViewModel" />
+        <viewModels:MovieUrlAddingViewModel x:Key="MovieUrlAddingViewModel" />
     </Window.Resources>
 
-    <Grid DataContext="{StaticResource MovieUrlAddingWindowViewModel}">
+    <Grid DataContext="{StaticResource MovieUrlAddingViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

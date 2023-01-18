@@ -2,31 +2,23 @@
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Views.Windows;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using static OneOf.Types.TrueFalseOrNull;
 
 namespace KnitterNotebook.ViewModels
 {
-    public class MainWindowViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel
     {
-        public MainWindowViewModel()
+        public MainViewModel()
         {
             KnitterNotebookContext = new();
             User = LoggedUserInformation.LoggedUser;
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
             MovieUrls = GetMovieUrls(User, KnitterNotebookContext);
-            MovieUrlAddingWindowViewModel.AddingNewMovieUrl += RefreshMovieUrls;
+            MovieUrlAddingViewModel.AddingNewMovieUrl += RefreshMovieUrls;
         }
-
-        
 
         public ICommand ShowSettingsWindowCommand { get; private set; }
         public ICommand ShowMovieUrlAddingWindowCommand { get; private set; }

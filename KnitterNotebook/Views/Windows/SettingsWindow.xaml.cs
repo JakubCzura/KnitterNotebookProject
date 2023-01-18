@@ -8,6 +8,7 @@ namespace KnitterNotebook.Views.Windows
     public partial class SettingsWindow : Window
     {
         public static SettingsWindow Instance { get; private set; } = null!;
+
         public SettingsWindow()
         {
             InitializeComponent();
