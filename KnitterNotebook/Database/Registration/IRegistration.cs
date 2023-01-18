@@ -5,6 +5,6 @@ namespace KnitterNotebook.Database.Registration
 {
     public interface IRegistration
     {
-        Task<bool> RegisterUser(User user, KnitterNotebookContext knitterNotebookContext);
+        Task RegisterUser(User user, KnitterNotebookContext knitterNotebookContext);
     }
 }

@@ -7,7 +7,7 @@ namespace KnitterNotebook.Database.Registration
 {
     public class StandardRegistration : IRegistration
     {
-        public async Task<bool> RegisterUser(User user, KnitterNotebookContext knitterNotebookContext)
+        public async Task RegisterUser(User user, KnitterNotebookContext knitterNotebookContext)
         {
             if (await IfUserAlreadyExists(user, knitterNotebookContext))
             {
@@ -17,7 +17,6 @@ namespace KnitterNotebook.Database.Registration
             {
                 await knitterNotebookContext.AddAsync(user);
                 await knitterNotebookContext.SaveChangesAsync();
-                return true;
             }
         }
 

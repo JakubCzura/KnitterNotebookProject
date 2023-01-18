@@ -17,9 +17,9 @@ namespace KnitterNotebook.Database.Registration
             KnitterNotebookContext = knitterNotebookContext;
         }
 
-        public async Task<bool> Register()
+        public async Task Register()
         {
-            return await Registration.RegisterUser(User, KnitterNotebookContext);
+            await Registration.RegisterUser(User, KnitterNotebookContext);
         }
     }
 }

@@ -25,15 +25,13 @@ namespace KnitterNotebook.ViewModels
 
         public ICommand AddMovieUrlCommandAsync { get; private set; }
 
-        private MovieUrl movieUrl = null!;
-
         public MovieUrlAddingWindowViewModel()
         {
             AddMovieUrlCommandAsync = new AsyncRelayCommand(AddMovieUrlAsync);
         }
-        
-        public static Action AddingNewMovieUrl = null!;
-       
+
+        public static Action AddingNewMovieUrl { get; set; } = null!;
+
 
         KnitterNotebookContext KnitterNotebookContext { get; set; }
 
@@ -55,19 +53,13 @@ namespace KnitterNotebook.ViewModels
                     AddingMovieUrl = new AddingMovieUrl();
                     if (movieUrlValidator.Validate(movieUrl))
                     {
-                        if (await AddingMovieUrl.AddMovieUrl(movieUrl, KnitterNotebookContext))
-                        {
-                            AddingNewMovieUrl?.Invoke();
-                            MessageBox.Show("Dodano nowy film");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Błąd w trakcie dodawania filmu");
-                        }
+                        await AddingMovieUrl.AddMovieUrl(movieUrl, KnitterNotebookContext);
+                        AddingNewMovieUrl?.Invoke();
+                        MessageBox.Show("Dodano nowy film");
                     }
                 }
             }
-            catch(Exception exception) 
+            catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
@@ -88,12 +80,5 @@ namespace KnitterNotebook.ViewModels
             get { return link; }
             set { link = value; OnPropertyChanged(); }
         }
-
-
-        //public MovieUrl MovieUrl
-        //{
-        //    get { return movieUrl; }
-        //    set { movieUrl = value; OnPropertyChanged(); }
-        //}
     }
 }

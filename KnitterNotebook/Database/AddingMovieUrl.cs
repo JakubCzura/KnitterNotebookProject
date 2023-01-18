@@ -10,18 +10,10 @@ namespace KnitterNotebook.Database
 {
     public class AddingMovieUrl : IAddingMovieUrl
     {
-        public async Task<bool> AddMovieUrl(MovieUrl movieUrl, KnitterNotebookContext knitterNotebookContext)
+        public async Task AddMovieUrl(MovieUrl movieUrl, KnitterNotebookContext knitterNotebookContext)
         {
-          //  try
-          //  {
-                await knitterNotebookContext.AddAsync(movieUrl);
-                await knitterNotebookContext.SaveChangesAsync();
-                return true;
-          //  }
-           // catch
-           // {
-           //     return false;
-           // }
+            await knitterNotebookContext.AddAsync(movieUrl);
+            await knitterNotebookContext.SaveChangesAsync();
         }
     }
 }

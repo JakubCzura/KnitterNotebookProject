@@ -44,7 +44,7 @@ namespace KnitterNotebook.ViewModels
         private async Task RegisterUser()
         {
             try
-            {            
+            {
                 using (KnitterNotebookContext = new KnitterNotebookContext())
                 {
                     Theme theme = KnitterNotebookContext.Themes.First();
@@ -56,15 +56,10 @@ namespace KnitterNotebook.ViewModels
                         user.Password = PasswordHasher.HashPassword(user.Password);
                         StandardRegistration standardRegistration = new();
                         RegistrationManager = new(standardRegistration, user, KnitterNotebookContext);
-                        if (await RegistrationManager.Register())
-                        {
-                            Window.GetWindow(RegistrationWindow.Instance).Close();
-                            MessageBox.Show("Rejestracja przebiegła pomyślnie");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Błąd w trakcie rejestracji");
-                        }
+                        await RegistrationManager.Register();
+
+                        Window.GetWindow(RegistrationWindow.Instance).Close();
+                        MessageBox.Show("Rejestracja przebiegła pomyślnie");
                     }
                 }
             }

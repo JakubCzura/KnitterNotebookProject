@@ -9,6 +9,6 @@ namespace KnitterNotebook.Database.Interfaces
 {
     interface IAddingMovieUrl
     {
-        public Task <bool> AddMovieUrl(MovieUrl movieUrl, KnitterNotebookContext knitterNotebookContext);
+        public Task AddMovieUrl(MovieUrl movieUrl, KnitterNotebookContext knitterNotebookContext);
     }
 }
