@@ -22,6 +22,8 @@ namespace KnitterNotebook.Database
 
         public DbSet<Theme> Themes { get; set; }
 
+        public DbSet<MovieUrl> MovieUrls { get; set; }
+
         private AppSettings AppSettings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

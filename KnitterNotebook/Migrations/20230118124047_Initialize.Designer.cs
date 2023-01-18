@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KnitterNotebook.Migrations
 {
     [DbContext(typeof(KnitterNotebookContext))]
-    [Migration("20230115230400_theme")]
-    partial class theme
+    [Migration("20230118124047_Initialize")]
+    partial class Initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,32 @@ namespace KnitterNotebook.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("KnitterNotebook.Models.MovieUrl", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MovieUrls");
+                });
+
             modelBuilder.Entity("KnitterNotebook.Models.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -35,6 +61,11 @@ namespace KnitterNotebook.Migrations
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
@@ -103,19 +134,27 @@ namespace KnitterNotebook.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ThemeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ThemeId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("KnitterNotebook.Models.MovieUrl", b =>
+                {
+                    b.HasOne("KnitterNotebook.Models.User", "User")
+                        .WithMany("MovieUrls")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Project", b =>
@@ -147,6 +186,8 @@ namespace KnitterNotebook.Migrations
 
             modelBuilder.Entity("KnitterNotebook.Models.User", b =>
                 {
+                    b.Navigation("MovieUrls");
+
                     b.Navigation("Projects");
                 });
 #pragma warning restore 612, 618

@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -34,8 +34,8 @@ namespace KnitterNotebook.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nickname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ThemeId = table.Column<int>(type: "int", nullable: false, defaultValue: 1)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ThemeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,11 +49,33 @@ namespace KnitterNotebook.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MovieUrls",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Link = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MovieUrls", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MovieUrls_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Projects",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false)
@@ -76,8 +98,13 @@ namespace KnitterNotebook.Migrations
                 {
                     { 1, "Default" },
                     { 2, "Light" },
-                    { 3, "Default" }
+                    { 3, "Dark" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MovieUrls_UserId",
+                table: "MovieUrls",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_UserId",
@@ -93,6 +120,9 @@ namespace KnitterNotebook.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "MovieUrls");
+
             migrationBuilder.DropTable(
                 name: "Projects");
 

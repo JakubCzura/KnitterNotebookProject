@@ -1,19 +1,23 @@
 ﻿using CommunityToolkit.Diagnostics;
 using KnitterNotebook.Models;
 using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace KnitterNotebook.Validators
 {
-    public class ProjectValidator : IValidator<Project>
+    public class MovieUrlValidator : IValidator<MovieUrl>
     {
-        public bool Validate(Project project)
+        public bool Validate(MovieUrl movieUrl)
         {
             try
             {
-                Guard.IsNotNullOrWhiteSpace(project.Name);
-                Guard.HasSizeLessThanOrEqualTo(project.Name, 100);
+                Guard.IsNotNullOrWhiteSpace(movieUrl.Title);
+                Guard.IsNotNull(movieUrl.Link);
+                Guard.IsGreaterThan(movieUrl.UserId, 0);
             }
             catch (Exception exception)
             {

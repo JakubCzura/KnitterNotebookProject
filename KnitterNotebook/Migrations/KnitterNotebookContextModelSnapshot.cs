@@ -45,7 +45,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MovieUrl");
+                    b.ToTable("MovieUrls");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Project", b =>
