@@ -2,6 +2,7 @@
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Views.Windows;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
@@ -12,9 +13,11 @@ namespace KnitterNotebook.ViewModels
         {
             User = LoggedUserInformation.LoggedUser;
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
+            ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
         }
 
         public ICommand ShowSettingsWindowCommand { get; private set; }
+        public ICommand ShowMovieUrlAddingWindowCommand { get; private set; }
 
         private User user;
 
@@ -26,8 +29,14 @@ namespace KnitterNotebook.ViewModels
 
         private void ShowSettingsWindow()
         {
-            SettingsWindow SettingsWindow = new();
-            SettingsWindow.ShowDialog();
+            SettingsWindow settingsWindow = new();
+            settingsWindow.ShowDialog();
+        }
+
+        private void ShowMovieUrlAddingWindow()
+        {
+            MovieUrlAddingWindow movieUrlAddingWindow = new();
+            movieUrlAddingWindow.Show();
         }
     }
 }
