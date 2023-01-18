@@ -36,7 +36,7 @@
                 <Label Style="{DynamicResource LabelAboveLoginInputStyle}"
                        Content="Tytuł filmu" />
                 <TextBox Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                         Text="{Binding MovieUrl.Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          adorners:Watermark.Text="Tytuł"
                          adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                          VerticalContentAlignment="Center"
@@ -44,7 +44,7 @@
                 <Label Style="{DynamicResource LabelAboveLoginInputStyle}"
                        Content="Link do filmu" />
                 <TextBox Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                         Text="{Binding MovieUrl.Link, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         Text="{Binding Link, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          adorners:Watermark.Text="Link"
                          adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                          VerticalContentAlignment="Center"

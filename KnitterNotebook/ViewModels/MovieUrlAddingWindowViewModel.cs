@@ -29,10 +29,27 @@ namespace KnitterNotebook.ViewModels
             throw new NotImplementedException("Implement AddMovieUrlAsync in MovieUrlAddingsWindowViewModel");
         }
 
-        public MovieUrl MovieUrl
+        private string title;
+
+        public string Title
         {
-            get { return movieUrl; }
-            set { movieUrl = value; OnPropertyChanged(); }
+            get { return title; }
+            set { title = value; OnPropertyChanged(); }
         }
+
+        private string link;
+
+        public string Link
+        {
+            get { return link; }
+            set { link = value; OnPropertyChanged(); }
+        }
+
+
+        //public MovieUrl MovieUrl
+        //{
+        //    get { return movieUrl; }
+        //    set { movieUrl = value; OnPropertyChanged(); }
+        //}
     }
 }
