@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using KnitterNotebook.ViewModels;
+using System.Windows;
 
 namespace KnitterNotebook
 {
@@ -7,8 +8,11 @@ namespace KnitterNotebook
     /// </summary>
     public partial class App : Application
     {
+        public static App Instance { get; private set; } = null!;
+
         public App()
         {
+            Instance = this;
         }
     }
 }
