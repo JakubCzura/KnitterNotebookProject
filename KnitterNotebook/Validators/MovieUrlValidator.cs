@@ -11,9 +11,9 @@ namespace KnitterNotebook.Validators
         {
             try
             {
+                Guard.IsNotNull(movieUrl.User);
                 Guard.IsNotNullOrWhiteSpace(movieUrl.Title);
                 Guard.IsNotNull(movieUrl.Link);
-                Guard.IsGreaterThan(movieUrl.UserId, 0);
             }
             catch (Exception exception)
             {

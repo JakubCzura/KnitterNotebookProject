@@ -21,6 +21,10 @@ namespace KnitterNotebook.ViewModels
 
         #region Properties
 
+        private User User { get; set; } 
+
+        private Theme Theme { get; set; }
+        private IRegistration StandardRegistration { get; set; }
         private RegistrationManager RegistrationManager { get; set; }
 
         public ICommand RegisterUserCommandAsync { get; private set; }
@@ -53,17 +57,16 @@ namespace KnitterNotebook.ViewModels
             {
                 using (KnitterNotebookContext = new KnitterNotebookContext())
                 {
-                    Theme theme = KnitterNotebookContext.Themes.First();
-                    KnitterNotebookContext.Attach(theme);
-                    User user = new() { Nickname = Nickname, Email = Email, Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password, Theme = theme };
+                    Theme = KnitterNotebookContext.Themes.First();
+                    KnitterNotebookContext.Attach(Theme);
+                    User = new() { Nickname = Nickname, Email = Email, Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password, Theme = Theme };
                     IValidator<User> userValidator = new UserValidator();
-                    if (userValidator.Validate(user))
+                    if (userValidator.Validate(User))
                     {
-                        user.Password = PasswordHasher.HashPassword(user.Password);
-                        StandardRegistration standardRegistration = new();
-                        RegistrationManager = new(standardRegistration, user, KnitterNotebookContext);
+                        User.Password = PasswordHasher.HashPassword(User.Password);
+                        StandardRegistration = new StandardRegistration();
+                        RegistrationManager = new(StandardRegistration, User, KnitterNotebookContext);
                         await RegistrationManager.Register();
-
                         Window.GetWindow(RegistrationWindow.Instance).Close();
                         MessageBox.Show("Rejestracja przebiegła pomyślnie");
                     }

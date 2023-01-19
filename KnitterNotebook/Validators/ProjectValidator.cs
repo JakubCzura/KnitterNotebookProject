@@ -11,6 +11,7 @@ namespace KnitterNotebook.Validators
         {
             try
             {
+                Guard.IsNotNull(project.User);
                 Guard.IsNotNullOrWhiteSpace(project.Name);
                 Guard.HasSizeLessThanOrEqualTo(project.Name, 100);
             }

@@ -23,7 +23,7 @@ namespace KnitterNotebook.Validators
             {
                 Guard.IsNotNullOrWhiteSpace(user.Nickname);
                 Guard.HasSizeLessThanOrEqualTo(user.Nickname, 50);
-
+                Guard.IsNotNull(user.Theme);
                 Guard.IsNotNullOrWhiteSpace(user.Password);
                 Guard.HasSizeLessThanOrEqualTo(user.Password, 100);
                 if (!ValidatePasswordRegex.IsMatch(user.Password))

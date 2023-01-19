@@ -29,6 +29,9 @@ namespace KnitterNotebook.ViewModels
 
         #region Properties
 
+        private User User { get; set; }
+
+        private Theme Theme { get; set; }
         public ICommand AddMovieUrlCommandAsync { get; private set; }
 
         private KnitterNotebookContext KnitterNotebookContext { get; set; }
@@ -61,12 +64,11 @@ namespace KnitterNotebook.ViewModels
             {
                 using (KnitterNotebookContext = new KnitterNotebookContext())
                 {
-                    User user = LoggedUserInformation.LoggedUser;
-                    Theme theme = await KnitterNotebookContext.Themes.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUser.ThemeId);
-                    user.Theme = theme;
-                    KnitterNotebookContext.Attach(user);
-                    KnitterNotebookContext.Attach(theme);
-                    MovieUrl movieUrl = new() { Title = Title, Link = new Uri(Link), User = user, UserId = user.Id };
+                    User = LoggedUserInformation.LoggedUser;
+                    Theme = await KnitterNotebookContext.Themes.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUser.ThemeId);
+                    User.Theme = Theme!;
+                    KnitterNotebookContext.AttachRange(User, Theme!);
+                    MovieUrl movieUrl = new() { Title = Title, Link = new Uri(Link), User = User };
                     IValidator<MovieUrl> movieUrlValidator = new MovieUrlValidator();
                     AddingMovieUrl = new AddingMovieUrl();
                     if (movieUrlValidator.Validate(movieUrl))
