@@ -65,9 +65,7 @@ namespace KnitterNotebook.ViewModels
                 using (KnitterNotebookContext = new KnitterNotebookContext())
                 {
                     User = LoggedUserInformation.LoggedUser;
-                    Theme = await KnitterNotebookContext.Themes.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUser.ThemeId);
-                    User.Theme = Theme!;
-                    KnitterNotebookContext.AttachRange(User, Theme!);
+                    KnitterNotebookContext.AttachRange(User);
                     MovieUrl movieUrl = new() { Title = Title, Link = new Uri(Link), User = User };
                     IValidator<MovieUrl> movieUrlValidator = new MovieUrlValidator();
                     AddingMovieUrl = new AddingMovieUrl();
