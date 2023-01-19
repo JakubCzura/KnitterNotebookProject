@@ -17,8 +17,10 @@ namespace KnitterNotebook.ViewModels
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
             MovieUrls = GetMovieUrls(User, KnitterNotebookContext);
-            MovieUrlAddingViewModel.AddingNewMovieUrl += RefreshMovieUrls;
+            MovieUrlAddingViewModel.NewMovieUrlAdded += RefreshMovieUrls;
         }
+
+        #region Properties
 
         public ICommand ShowSettingsWindowCommand { get; private set; }
         public ICommand ShowMovieUrlAddingWindowCommand { get; private set; }
@@ -33,6 +35,17 @@ namespace KnitterNotebook.ViewModels
             set { user = value; OnPropertyChanged(); }
         }
 
+        private ObservableCollection<MovieUrl> movieUrls;
+
+        public ObservableCollection<MovieUrl> MovieUrls
+        {
+            get { return movieUrls; }
+            set { movieUrls = value; OnPropertyChanged(); }
+        }
+        #endregion Properties
+
+        #region Methods
+
         private void ShowSettingsWindow()
         {
             SettingsWindow settingsWindow = new();
@@ -43,15 +56,7 @@ namespace KnitterNotebook.ViewModels
         {
             MovieUrlAddingWindow movieUrlAddingWindow = new();
             movieUrlAddingWindow.Show();
-        }
-
-        private ObservableCollection<MovieUrl> movieUrls;
-
-        public ObservableCollection<MovieUrl> MovieUrls
-        {
-            get { return movieUrls; }
-            set { movieUrls = value; OnPropertyChanged(); }
-        }
+        } 
 
         private static ObservableCollection<MovieUrl> GetMovieUrls(User user, KnitterNotebookContext knitterNotebookContext)
         {
@@ -62,5 +67,7 @@ namespace KnitterNotebook.ViewModels
         {
             MovieUrls = GetMovieUrls(User, KnitterNotebookContext);
         }
+
+        #endregion Methods
     }
 }

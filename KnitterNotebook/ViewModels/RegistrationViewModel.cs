@@ -14,6 +14,19 @@ namespace KnitterNotebook.ViewModels
 {
     public class RegistrationViewModel : BaseViewModel
     {
+        public RegistrationViewModel()
+        {
+            RegisterUserCommandAsync = new AsyncRelayCommand(RegisterUser);
+        }
+
+        #region Properties
+
+        private RegistrationManager RegistrationManager { get; set; }
+
+        public ICommand RegisterUserCommandAsync { get; private set; }
+
+        private KnitterNotebookContext KnitterNotebookContext { get; set; }
+
         private string nickname;
 
         public string Nickname
@@ -30,16 +43,9 @@ namespace KnitterNotebook.ViewModels
             set { email = value; OnPropertyChanged(); }
         }
 
-        private RegistrationManager RegistrationManager { get; set; }
+        #endregion Properties
 
-        public ICommand RegisterUserCommandAsync { get; private set; }
-
-        private KnitterNotebookContext KnitterNotebookContext { get; set; }
-
-        public RegistrationViewModel()
-        {
-            RegisterUserCommandAsync = new AsyncRelayCommand(RegisterUser);
-        }
+        #region Methods
 
         private async Task RegisterUser()
         {
@@ -68,5 +74,7 @@ namespace KnitterNotebook.ViewModels
                 MessageBox.Show(exception.Message);
             }
         }
+
+        #endregion Methods
     }
 }

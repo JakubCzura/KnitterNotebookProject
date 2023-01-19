@@ -22,14 +22,15 @@ namespace KnitterNotebook.ViewModels
             LogInCommandAsync = new AsyncRelayCommand(LogIn);
         }
 
+        #region Properties
+
+        private User User { get; set; }
         private KnitterNotebookContext KnitterNotebookContext { get; set; }
         private LoggingInManager LoggingInManager { get; set; }
 
         public ICommand LogInCommandAsync { get; }
 
         public ICommand ShowRegistrationWindowCommand { get; private set; }
-
-        private User User { get; set; }
 
         private string email;
 
@@ -38,6 +39,10 @@ namespace KnitterNotebook.ViewModels
             get { return email; }
             set { email = value; OnPropertyChanged(); }
         }
+
+        #endregion Properties
+
+        #region Methods
 
         private void ShowRegisterWindow()
         {
@@ -72,5 +77,7 @@ namespace KnitterNotebook.ViewModels
                 MessageBox.Show(exception.Message);
             }
         }
+
+        #endregion Methods
     }
 }

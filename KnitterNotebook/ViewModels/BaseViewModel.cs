@@ -8,11 +8,19 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
+        #region Events
+
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        #endregion Events
+
+        #region Methods
 
         public void OnPropertyChanged([CallerMemberName] string name = null!)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
+        #endregion Methods
     }
 }

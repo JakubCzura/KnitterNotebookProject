@@ -16,18 +16,44 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public class MovieUrlAddingViewModel : BaseViewModel
     {
-        public ICommand AddMovieUrlCommandAsync { get; private set; }
-
         public MovieUrlAddingViewModel()
         {
             AddMovieUrlCommandAsync = new AsyncRelayCommand(AddMovieUrlAsync);
         }
 
-        public static Action AddingNewMovieUrl { get; set; } = null!;
+        #region Delegates
+
+        public static Action NewMovieUrlAdded { get; set; } = null!;
+
+        #endregion Delegates
+
+        #region Properties
+
+        public ICommand AddMovieUrlCommandAsync { get; private set; }
 
         private KnitterNotebookContext KnitterNotebookContext { get; set; }
 
         private IAddingMovieUrl AddingMovieUrl { get; set; }
+
+        private string title;
+
+        public string Title
+        {
+            get { return title; }
+            set { title = value; OnPropertyChanged(); }
+        }
+
+        private string link;
+
+        public string Link
+        {
+            get { return link; }
+            set { link = value; OnPropertyChanged(); }
+        }
+
+        #endregion Properties
+
+        #region Methods
 
         private async Task AddMovieUrlAsync()
         {
@@ -46,7 +72,7 @@ namespace KnitterNotebook.ViewModels
                     if (movieUrlValidator.Validate(movieUrl))
                     {
                         await AddingMovieUrl.AddMovieUrl(movieUrl, KnitterNotebookContext);
-                        AddingNewMovieUrl?.Invoke();
+                        NewMovieUrlAdded?.Invoke();
                         MessageBox.Show("Dodano nowy film");
                     }
                 }
@@ -57,20 +83,6 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
-        private string title;
-
-        public string Title
-        {
-            get { return title; }
-            set { title = value; OnPropertyChanged(); }
-        }
-
-        private string link;
-
-        public string Link
-        {
-            get { return link; }
-            set { link = value; OnPropertyChanged(); }
-        }
+        #endregion Methods
     }
 }
