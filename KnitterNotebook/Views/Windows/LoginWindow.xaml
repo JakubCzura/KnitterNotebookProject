@@ -18,6 +18,10 @@
         <viewModels:LoginViewModel x:Key="LoginViewModel" />
     </Window.Resources>
 
+    <Window.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding Source={StaticResource LoginViewModel}, Path=LogInCommandAsync}"/>
+    </Window.InputBindings>
+        
     <Grid DataContext="{StaticResource LoginViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
