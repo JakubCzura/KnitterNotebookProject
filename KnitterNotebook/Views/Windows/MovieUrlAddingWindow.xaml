@@ -9,9 +9,7 @@
         mc:Ignorable="d"
         Title="KnitterNotebook"
         Height="550"
-        Width="900"
-        MaxHeight="550"
-        MaxWidth="900"
+        Width="600"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource WindowStyle}">
 

@@ -41,7 +41,7 @@
                 </Menu>
                 <TextBlock DockPanel.Dock="Bottom"
                            Style="{DynamicResource WelcomeTextBlockStyle}"
-                           Text="{Binding User.Nickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                           Text="{Binding Greetings, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
             </DockPanel>
         </Grid>
 
@@ -57,19 +57,27 @@
                     <ScrollViewer>
                         <StackPanel Orientation="Vertical"
                                 VerticalAlignment="Top">
-                            <Button Style="{DynamicResource MainMenuButtonStyle}">
+                            <Button Style="{DynamicResource MainMenuButtonStyle}"
+                                    Command="{Binding ChooseMainWindowContentCommand}"
+                                    CommandParameter="ProjectsUserControl">
                                 <TextBlock Text="Moje projekty"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
-                            <Button Style="{DynamicResource MainMenuButtonStyle}">
+                            <Button Style="{DynamicResource MainMenuButtonStyle}"
+                                    Command="{Binding ChooseMainWindowContentCommand}"
+                                    CommandParameter="PlannedProjectsUserControl">
                                 <TextBlock Text="Projekty w planach"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
-                            <Button Style="{DynamicResource MainMenuButtonStyle}">
+                            <Button Style="{DynamicResource MainMenuButtonStyle}"
+                                    Command="{Binding ChooseMainWindowContentCommand}"
+                                    CommandParameter="ProjectsInProgressUserControl">
                                 <TextBlock Text="Projekty w trakcie"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
-                            <Button Style="{DynamicResource MainMenuButtonStyle}">
+                            <Button Style="{DynamicResource MainMenuButtonStyle}"
+                                    Command="{Binding ChooseMainWindowContentCommand}"
+                                    CommandParameter="SamplesUserControl">
                                 <TextBlock Text="Próbki obliczeniowe"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
@@ -79,8 +87,9 @@
 
                 <ContentControl Grid.Column="1"
                                 Width="Auto"
-                                Height="Auto">
-                    <TextBlock Background="Beige" FontSize="40" HorizontalAlignment="Center" Width="950">Witaj Karolina</TextBlock>
+                                Height="Auto"
+                                Content="{Binding SelectedMainWindowContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <!--<TextBlock Background="Beige" FontSize="40" HorizontalAlignment="Center" Width="950">Witaj Karolina</TextBlock>-->
                 </ContentControl>
             </Grid>
         </Grid>
