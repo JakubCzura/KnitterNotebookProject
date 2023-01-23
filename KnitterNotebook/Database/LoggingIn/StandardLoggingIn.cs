@@ -12,8 +12,8 @@ namespace KnitterNotebook.Database.Login
             User? user = await knitterNotebookContext.Users
                 .Where(x => x.Email == email)
                 .Include(x => x.Theme)
-               //. .Include(x => x.Projects)
-                //.Include(x => x.MovieUrls)
+                .Include(x => x.Projects)
+                .Include(x => x.MovieUrls)
                 .FirstOrDefaultAsync();
             if (user != null)
             {

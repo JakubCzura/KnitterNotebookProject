@@ -56,7 +56,7 @@
                       Background="{DynamicResource ApplicationBackgroundColorDefault}">
                     <ScrollViewer>
                         <StackPanel Orientation="Vertical"
-                                VerticalAlignment="Top">
+                                    VerticalAlignment="Top">
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
                                     Command="{Binding ChooseMainWindowContentCommand}"
                                     CommandParameter="ProjectsUserControl">

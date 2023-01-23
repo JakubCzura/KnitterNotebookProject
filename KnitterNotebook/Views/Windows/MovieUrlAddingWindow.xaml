@@ -17,6 +17,10 @@
         <viewModels:MovieUrlAddingViewModel x:Key="MovieUrlAddingViewModel" />
     </Window.Resources>
 
+    <Window.InputBindings>
+        <KeyBinding Key="Enter" 
+                    Command="{Binding Source={StaticResource MovieUrlAddingViewModel}, Path=AddMovieUrlCommandAsync}"/>
+    </Window.InputBindings>
     <Grid DataContext="{StaticResource MovieUrlAddingViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

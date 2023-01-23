@@ -17,12 +17,11 @@ namespace KnitterNotebook.ViewModels
     {
         public MainViewModel()
         {
-            KnitterNotebookContext = new();
             User = LoggedUserInformation.LoggedUser;
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
-            MovieUrls = GetMovieUrls(User, KnitterNotebookContext);
-            MovieUrlAddingViewModel.NewMovieUrlAdded += RefreshMovieUrls;
+            MovieUrls = GetMovieUrls(User);
+            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
             SelectedMainWindowContent = new ProjectsUserControl();
             ChooseMainWindowContentCommand = new RelayCommand<string>(ChooseMainWindowContent);
         }
@@ -41,8 +40,6 @@ namespace KnitterNotebook.ViewModels
         public ICommand ShowMovieUrlAddingWindowCommand { get; private set; }
 
         public ICommand ChooseMainWindowContentCommand { get; private set; }
-
-        private KnitterNotebookContext KnitterNotebookContext { get; set; }
 
         public string Greetings
         {
@@ -81,21 +78,10 @@ namespace KnitterNotebook.ViewModels
             movieUrlAddingWindow.Show();
         }
 
-        private static ObservableCollection<MovieUrl> GetMovieUrls(User user, KnitterNotebookContext knitterNotebookContext)
+        private static ObservableCollection<MovieUrl> GetMovieUrls(User user)
         {
+            using KnitterNotebookContext knitterNotebookContext = new();
             return new ObservableCollection<MovieUrl>(knitterNotebookContext.MovieUrls.Where(x => x.UserId == user.Id));
-        }
-
-        private void RefreshMovieUrls()
-        {
-            try
-            {
-                MovieUrls = GetMovieUrls(User, KnitterNotebookContext);
-            }
-            catch(Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Błąd pobierania linków do filmów");
-            }
         }
 
         private void ChooseMainWindowContent(string userControlName)
