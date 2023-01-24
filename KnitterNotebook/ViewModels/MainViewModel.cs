@@ -28,7 +28,6 @@ namespace KnitterNotebook.ViewModels
             }
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
-            MovieUrls = GetMovieUrls(User);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
             SelectedMainWindowContent = new ProjectsUserControl();
             ChooseMainWindowContentCommand = new RelayCommand<string>(ChooseMainWindowContent);
