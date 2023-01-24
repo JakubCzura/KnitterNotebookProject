@@ -7,6 +7,6 @@ namespace KnitterNotebook.Database
         /// <summary>
         /// Stores information about user who is actually logged in to application
         /// </summary>
-        public static User LoggedUser { get; set; } = null!;
+        public static int LoggedUserId { get; set; }
     }
 }

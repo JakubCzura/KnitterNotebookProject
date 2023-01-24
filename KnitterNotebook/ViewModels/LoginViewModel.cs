@@ -63,7 +63,7 @@ namespace KnitterNotebook.ViewModels
                     }
                     else
                     {
-                        LoggedUserInformation.LoggedUser = user;
+                        LoggedUserInformation.LoggedUserId = user.Id;
                         MainWindow mainWindow = new();
                         mainWindow.Show();
                         Window.GetWindow(LoginWindow.Instance).Close();

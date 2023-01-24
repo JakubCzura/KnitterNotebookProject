@@ -4,6 +4,7 @@ using KnitterNotebook.Models;
 using KnitterNotebook.ViewModels.Helpers;
 using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,7 +18,14 @@ namespace KnitterNotebook.ViewModels
     {
         public MainViewModel()
         {
-            User = LoggedUserInformation.LoggedUser;
+            using(KnitterNotebookContext = new())
+            {
+                User = KnitterNotebookContext.Users
+                       .Include(x => x.MovieUrls)
+                       .Include(x => x.Projects)
+                       .Include(x => x.Theme)
+                       .FirstOrDefault(x => x.Id == LoggedUserInformation.LoggedUserId)!;
+            }
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
             MovieUrls = GetMovieUrls(User);

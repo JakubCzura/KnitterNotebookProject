@@ -3,6 +3,7 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Database.Interfaces;
 using KnitterNotebook.Models;
 using KnitterNotebook.Validators;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -60,7 +61,7 @@ namespace KnitterNotebook.ViewModels
             {
                 using (KnitterNotebookContext = new KnitterNotebookContext())
                 {
-                    User user = LoggedUserInformation.LoggedUser;
+                    User user = await KnitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
                     KnitterNotebookContext.AttachRange(user);
                     MovieUrl movieUrl = new()
                     {
