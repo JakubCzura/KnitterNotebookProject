@@ -17,14 +17,12 @@ namespace KnitterNotebook.ViewModels
     {
         public LoginViewModel()
         {
-            User = null!;
             ShowRegistrationWindowCommand = new RelayCommand(ShowRegisterWindow);
             LogInCommandAsync = new AsyncRelayCommand(LogIn);
         }
 
         #region Properties
 
-        private User User { get; set; }
         private KnitterNotebookContext KnitterNotebookContext { get; set; }
         private LoggingInManager LoggingInManager { get; set; }
 
@@ -58,14 +56,14 @@ namespace KnitterNotebook.ViewModels
                 {
                     StandardLoggingIn standardLoggingIn = new();
                     LoggingInManager = new(standardLoggingIn, Email, LoginWindow.Instance.UserPasswordPasswordBox.Password, KnitterNotebookContext);
-                    User = await LoggingInManager.LogIn();
-                    if (User == null)
+                    User user = await LoggingInManager.LogIn();
+                    if (user == null)
                     {
                         MessageBox.Show("Nieprawidłowe dane logowania");
                     }
                     else
                     {
-                        LoggedUserInformation.LoggedUser = User;
+                        LoggedUserInformation.LoggedUser = user;
                         MainWindow mainWindow = new();
                         mainWindow.Show();
                         Window.GetWindow(LoginWindow.Instance).Close();

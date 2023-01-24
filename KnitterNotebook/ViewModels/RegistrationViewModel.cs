@@ -19,11 +19,8 @@ namespace KnitterNotebook.ViewModels
             RegisterUserCommandAsync = new AsyncRelayCommand(RegisterUser);
         }
 
-        #region Properties
+        #region Properties    
 
-        private User User { get; set; } 
-
-        private Theme Theme { get; set; }
         private IRegistration StandardRegistration { get; set; }
         private RegistrationManager RegistrationManager { get; set; }
 
@@ -57,15 +54,21 @@ namespace KnitterNotebook.ViewModels
             {
                 using (KnitterNotebookContext = new KnitterNotebookContext())
                 {
-                    Theme = KnitterNotebookContext.Themes.First();
-                    KnitterNotebookContext.Attach(Theme);
-                    User = new() { Nickname = Nickname, Email = Email, Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password, Theme = Theme };
-                    IValidator<User> userValidator = new UserValidator();
-                    if (userValidator.Validate(User))
+                    Theme theme = KnitterNotebookContext.Themes.First();
+                    KnitterNotebookContext.Attach(theme);
+                    User user = new()
                     {
-                        User.Password = PasswordHasher.HashPassword(User.Password);
+                        Nickname = Nickname,
+                        Email = Email,
+                        Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password,
+                        Theme = theme
+                    };
+                    IValidator<User> userValidator = new UserValidator();
+                    if (userValidator.Validate(user))
+                    {
+                        user.Password = PasswordHasher.HashPassword(user.Password);
                         StandardRegistration = new StandardRegistration();
-                        RegistrationManager = new(StandardRegistration, User, KnitterNotebookContext);
+                        RegistrationManager = new(StandardRegistration, user, KnitterNotebookContext);
                         await RegistrationManager.Register();
                         Window.GetWindow(RegistrationWindow.Instance).Close();
                         MessageBox.Show("Rejestracja przebiegła pomyślnie");
