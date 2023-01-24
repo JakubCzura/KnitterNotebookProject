@@ -41,6 +41,7 @@ namespace KnitterNotebook.ViewModels
 
         public ICommand ChooseMainWindowContentCommand { get; private set; }
 
+        private KnitterNotebookContext KnitterNotebookContext { get; set; }
         public string Greetings
         {
             get { return $"Miło Cię widzieć {User.Nickname}!"; }
@@ -78,10 +79,12 @@ namespace KnitterNotebook.ViewModels
             movieUrlAddingWindow.Show();
         }
 
-        private static ObservableCollection<MovieUrl> GetMovieUrls(User user)
+        private ObservableCollection<MovieUrl> GetMovieUrls(User user)
         {
-            using KnitterNotebookContext knitterNotebookContext = new();
-            return new ObservableCollection<MovieUrl>(knitterNotebookContext.MovieUrls.Where(x => x.UserId == user.Id));
+            using (KnitterNotebookContext = new KnitterNotebookContext())
+            {
+                return new ObservableCollection<MovieUrl>(KnitterNotebookContext.MovieUrls.Where(x => x.UserId == user.Id));
+            }
         }
 
         private void ChooseMainWindowContent(string userControlName)

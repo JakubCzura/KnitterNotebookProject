@@ -3,7 +3,6 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Database.Interfaces;
 using KnitterNotebook.Models;
 using KnitterNotebook.Validators;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,9 +28,6 @@ namespace KnitterNotebook.ViewModels
 
         #region Properties
 
-        private User User { get; set; }
-
-        private Theme Theme { get; set; }
         public ICommand AddMovieUrlCommandAsync { get; private set; }
 
         private KnitterNotebookContext KnitterNotebookContext { get; set; }
@@ -64,9 +60,14 @@ namespace KnitterNotebook.ViewModels
             {
                 using (KnitterNotebookContext = new KnitterNotebookContext())
                 {
-                    User = LoggedUserInformation.LoggedUser;
-                    KnitterNotebookContext.AttachRange(User);
-                    MovieUrl movieUrl = new() { Title = Title, Link = new Uri(Link), User = User };
+                    User user = LoggedUserInformation.LoggedUser;
+                    KnitterNotebookContext.AttachRange(user);
+                    MovieUrl movieUrl = new()
+                    {
+                        Title = Title,
+                        Link = new Uri(Link),
+                        User = user
+                    };
                     IValidator<MovieUrl> movieUrlValidator = new MovieUrlValidator();
                     AddingMovieUrl = new AddingMovieUrl();
                     if (movieUrlValidator.Validate(movieUrl))
