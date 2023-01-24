@@ -10,11 +10,11 @@ namespace KnitterNotebook.Database.Login
         public async Task<User>? LogInUser(string email, string password, KnitterNotebookContext knitterNotebookContext)
         {
             User? user = await knitterNotebookContext.Users
-                .Where(x => x.Email == email)
-                .Include(x => x.Theme)
-                .Include(x => x.Projects)
-                .Include(x => x.MovieUrls)
-                .FirstOrDefaultAsync();
+                //  .Where(x => x.Email == email)
+                // .Include(x => x.Theme)
+                //  .Include(x => x.Projects)
+                //  .Include(x => x.MovieUrls)
+                .FirstOrDefaultAsync(x => x.Email == email);
             if (user != null)
             {
                 if (PasswordHasher.VerifyPassword(password, user.Password))
