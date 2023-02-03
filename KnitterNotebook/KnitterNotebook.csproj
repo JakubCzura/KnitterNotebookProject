@@ -38,7 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
     <Folder Include="ViewModels\Interfaces\" />
   </ItemGroup>
 

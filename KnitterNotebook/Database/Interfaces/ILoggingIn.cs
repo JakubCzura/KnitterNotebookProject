@@ -1,7 +1,7 @@
 ﻿using KnitterNotebook.Models;
 using System.Threading.Tasks;
 
-namespace KnitterNotebook.Database.Login
+namespace KnitterNotebook.Database.Interfaces
 {
     public interface ILoggingIn
     {

@@ -45,11 +45,11 @@ namespace KnitterNotebook.Database
                 u.Property(x => x.Nickname).IsRequired().HasMaxLength(50);
                 u.Property(x => x.ThemeId).IsRequired();
                 u.HasMany(x => x.Projects)
-                .WithOne(c => c.User)
-                .HasForeignKey(c => c.UserId);
+                 .WithOne(c => c.User)
+                 .HasForeignKey(c => c.UserId);
                 u.HasMany(x => x.MovieUrls)
-                .WithOne(c => c.User)
-                .HasForeignKey(c => c.UserId);
+                 .WithOne(c => c.User)
+                 .HasForeignKey(c => c.UserId);
             });
 
             modelBuilder.Entity<Project>(p =>
@@ -65,10 +65,12 @@ namespace KnitterNotebook.Database
                 t.HasKey(x => x.Id);
                 t.Property(x => x.Id).IsRequired();
                 t.Property(x => x.Name).IsRequired();
-                t.HasData(new Theme() { Id = 1, Name = "Default" }, new Theme() { Id = 2, Name = "Light" }, new Theme() { Id = 3, Name = "Dark" });
+                t.HasData(new Theme() { Id = 1, Name = "Default" },
+                          new Theme() { Id = 2, Name = "Light" },
+                          new Theme() { Id = 3, Name = "Dark" });
                 t.HasMany(x => x.Users)
-                .WithOne(c => c.Theme)
-                .HasForeignKey(c => c.ThemeId);
+                 .WithOne(c => c.Theme)
+                 .HasForeignKey(c => c.ThemeId);
             });
 
             modelBuilder.Entity<MovieUrl>(m =>

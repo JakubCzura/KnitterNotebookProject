@@ -1,4 +1,5 @@
-﻿using KnitterNotebook.Models;
+﻿using KnitterNotebook.Database.Interfaces;
+using KnitterNotebook.Models;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Database.Login

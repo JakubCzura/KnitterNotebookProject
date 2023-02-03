@@ -1,4 +1,5 @@
-﻿using KnitterNotebook.Models;
+﻿using KnitterNotebook.Database.Interfaces;
+using KnitterNotebook.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
