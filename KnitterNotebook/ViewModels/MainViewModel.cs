@@ -18,13 +18,21 @@ namespace KnitterNotebook.ViewModels
     {
         public MainViewModel()
         {
-            using(KnitterNotebookContext = new())
+            try
             {
-                User = KnitterNotebookContext.Users
-                       .Include(x => x.MovieUrls)
-                       .Include(x => x.Projects)
-                       .Include(x => x.Theme)
-                       .FirstOrDefault(x => x.Id == LoggedUserInformation.LoggedUserId)!;
+                using (KnitterNotebookContext = new())
+                {
+                    User = KnitterNotebookContext.Users
+                           .Include(x => x.MovieUrls)
+                           .Include(x => x.Projects)
+                           .Include(x => x.Theme)
+                           .FirstOrDefault(x => x.Id == LoggedUserInformation.LoggedUserId)!;
+                }
+                MovieUrls = new ObservableCollection<MovieUrl>(User.MovieUrls);
+            } 
+            catch (Exception exception) 
+            {
+                MessageBox.Show(exception.Message);
             }
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
