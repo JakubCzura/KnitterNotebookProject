@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using KnitterNotebook.Database;
+using KnitterNotebook.ViewModels;
+using System;
+using System.Windows;
 
 namespace KnitterNotebook.Views.Windows
 {
@@ -7,12 +10,12 @@ namespace KnitterNotebook.Views.Windows
     /// </summary>
     public partial class LoginWindow : Window
     {
-        public static LoginWindow Instance { get; private set; } = null!;
-
+        public static LoginWindow Instance { get; private set; } = null!;       
         public LoginWindow()
-        {
-            InitializeComponent();
-            Instance = this;
+        {          
+                InitializeComponent();
+                Instance = this;
+          
         }
     }
 }
