@@ -15,16 +15,16 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public class LoginViewModel : BaseViewModel
     {
-       // public LoginViewModel(KnitterNotebookContext knitterNotebookContext)
-       public LoginViewModel()
+        // public LoginViewModel(KnitterNotebookContext knitterNotebookContext)
+        public LoginViewModel()
         {
             //KnitterNotebookContext = knitterNotebookContext;
             ShowRegistrationWindowCommand = new RelayCommand(ShowRegisterWindow);
-            LogInCommandAsync = new AsyncRelayCommand(LogIn);
+            LogInCommandAsync = new AsyncRelayCommand(LogInAsync);
         }
 
         #region Properties
-        
+
         private KnitterNotebookContext KnitterNotebookContext { get; set; }
         private LoggingInManager LoggingInManager { get; set; }
 
@@ -50,7 +50,7 @@ namespace KnitterNotebook.ViewModels
             RegistrationWindow.ShowDialog();
         }
 
-        private async Task LogIn()
+        private async Task LogInAsync()
         {
             try
             {
@@ -70,7 +70,7 @@ namespace KnitterNotebook.ViewModels
                         mainWindow.Show();
                         Window.GetWindow(LoginWindow.Instance).Close();
                     }
-                 }
+                }
             }
             catch (Exception exception)
             {

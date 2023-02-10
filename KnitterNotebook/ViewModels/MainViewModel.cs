@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -29,8 +30,8 @@ namespace KnitterNotebook.ViewModels
                            .FirstOrDefault(x => x.Id == LoggedUserInformation.LoggedUserId)!;
                 }
                 MovieUrls = new ObservableCollection<MovieUrl>(User.MovieUrls);
-            } 
-            catch (Exception exception) 
+            }
+            catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
@@ -39,6 +40,7 @@ namespace KnitterNotebook.ViewModels
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
             SelectedMainWindowContent = new ProjectsUserControl();
             ChooseMainWindowContentCommand = new RelayCommand<string>(ChooseMainWindowContent);
+            DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
         }
 
         #region Properties
@@ -52,11 +54,15 @@ namespace KnitterNotebook.ViewModels
         }
 
         public ICommand ShowSettingsWindowCommand { get; private set; }
+
         public ICommand ShowMovieUrlAddingWindowCommand { get; private set; }
 
         public ICommand ChooseMainWindowContentCommand { get; private set; }
 
+        public ICommand DeleteMovieUrlCommandAsync { get; private set; }
+
         private KnitterNotebookContext KnitterNotebookContext { get; set; }
+
         public string Greetings
         {
             get { return $"Miło Cię widzieć {User.Nickname}!"; }
@@ -68,6 +74,14 @@ namespace KnitterNotebook.ViewModels
         {
             get { return user; }
             set { user = value; OnPropertyChanged(); }
+        }
+
+        private MovieUrl selectedMovieUrl;
+
+        public MovieUrl SelectedMovieUrl
+        {
+            get { return selectedMovieUrl; }
+            set { selectedMovieUrl = value; OnPropertyChanged(); }
         }
 
         private ObservableCollection<MovieUrl> movieUrls;
@@ -112,6 +126,28 @@ namespace KnitterNotebook.ViewModels
             {
                 MessageBox.Show(exception.Message, "Błąd wyboru zawartości okna głównego");
                 SelectedMainWindowContent = new ProjectsUserControl();
+            }
+        }
+
+        private async Task DeleteMovieUrlAsync()
+        {
+            try
+            {
+                if (SelectedMovieUrl != null)
+                {
+                    using (KnitterNotebookContext = new KnitterNotebookContext())
+                    {
+                        SelectedMovieUrl = await KnitterNotebookContext.MovieUrls.FirstOrDefaultAsync(x => x.Id == SelectedMovieUrl.Id);
+                        KnitterNotebookContext.Remove(SelectedMovieUrl);
+
+                        await KnitterNotebookContext.SaveChangesAsync();
+                    }
+                    MovieUrls = GetMovieUrls(User);
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
             }
         }
 

@@ -3,6 +3,7 @@ using KnitterNotebook.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.IO;
+using System.Reflection.Metadata;
 
 namespace KnitterNotebook.Database
 {
@@ -70,7 +71,8 @@ namespace KnitterNotebook.Database
                           new Theme() { Id = 3, Name = "Dark" });
                 t.HasMany(x => x.Users)
                  .WithOne(c => c.Theme)
-                 .HasForeignKey(c => c.ThemeId);
+                 .HasForeignKey(c => c.ThemeId); 
+                 //.OnDelete(;
             });
 
             modelBuilder.Entity<MovieUrl>(m =>

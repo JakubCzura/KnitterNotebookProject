@@ -101,11 +101,22 @@
             </Grid.ColumnDefinitions>
             <DataGrid Grid.Column="0"
                       ItemsSource="{Binding MovieUrls}"
-                      AutoGenerateColumns="False">
+                      AutoGenerateColumns="False"
+                      SelectedItem="{Binding SelectedMovieUrl}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="Auto" Header="Tytuł" Binding="{Binding Path=Title}" />
-                    <DataGridTextColumn Width="*" Header="Link" Binding="{Binding Path=Link}" />
+                    <DataGridTextColumn Width="Auto" 
+                                        Header="Tytuł" 
+                                        Binding="{Binding Path=Title}" />
+                    <DataGridTextColumn Width="*" 
+                                        Header="Link" 
+                                        Binding="{Binding Path=Link}" />
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Skasuj link do filmu" 
+                                  Command="{Binding DeleteMovieUrlCommandAsync}"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
             <Button Grid.Column="1"
                     Style="{DynamicResource MainMenuButtonStyle}"
