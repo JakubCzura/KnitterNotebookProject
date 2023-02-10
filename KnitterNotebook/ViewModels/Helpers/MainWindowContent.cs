@@ -12,18 +12,14 @@ namespace KnitterNotebook.ViewModels.Helpers
         /// <returns>New instance of chosen user control</returns>
         public static UserControl ChooseMainWindowContent(string userControlName)
         {
-            if (string.IsNullOrWhiteSpace(userControlName) == false)
+            return userControlName switch
             {
-                return userControlName switch
-                {
-                    nameof(PlannedProjectsUserControl) => new PlannedProjectsUserControl(),
-                    nameof(ProjectsInProgressUserControl) => new ProjectsInProgressUserControl(),
-                    nameof(ProjectsUserControl) => new ProjectsUserControl(),
-                    nameof(SamplesUserControl) => new SamplesUserControl(),
-                    _ => new ProjectsUserControl()
-                }; 
-            }
-            return new ProjectsUserControl();
+                nameof(PlannedProjectsUserControl) => new PlannedProjectsUserControl(),
+                nameof(ProjectsInProgressUserControl) => new ProjectsInProgressUserControl(),
+                nameof(ProjectsUserControl) => new ProjectsUserControl(),
+                nameof(SamplesUserControl) => new SamplesUserControl(),
+                _ => new ProjectsUserControl()
+            };
         }
     }
 }
