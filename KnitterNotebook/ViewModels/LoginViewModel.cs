@@ -58,7 +58,7 @@ namespace KnitterNotebook.ViewModels
                 {
                     StandardLoggingIn standardLoggingIn = new();
                     LoggingInManager = new(standardLoggingIn, Email, LoginWindow.Instance.UserPasswordPasswordBox.Password, KnitterNotebookContext);
-                    User user = await LoggingInManager.LogIn();
+                    User user = await LoggingInManager.LogIn()!;
                     if (user == null)
                     {
                         MessageBox.Show("Nieprawidłowe dane logowania");

@@ -6,7 +6,7 @@ namespace KnitterNotebook.Models
     {
         public int Id { get; set; }
 
-        public string Title { get; set; } = null!;
+        public string Title { get; set; } = string.Empty;
 
         public Uri Link { get; set; } = null!;
 

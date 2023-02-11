@@ -133,7 +133,7 @@ namespace KnitterNotebook.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ThemeId")
+                    b.Property<int?>("ThemeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -170,8 +170,7 @@ namespace KnitterNotebook.Migrations
                     b.HasOne("KnitterNotebook.Models.Theme", "Theme")
                         .WithMany("Users")
                         .HasForeignKey("ThemeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Theme");
                 });

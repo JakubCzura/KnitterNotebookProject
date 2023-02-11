@@ -104,17 +104,17 @@
                       AutoGenerateColumns="False"
                       SelectedItem="{Binding SelectedMovieUrl}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="Auto" 
-                                        Header="Tytuł" 
+                    <DataGridTextColumn Width="Auto"
+                                        Header="Tytuł"
                                         Binding="{Binding Path=Title}" />
-                    <DataGridTextColumn Width="*" 
-                                        Header="Link" 
+                    <DataGridTextColumn Width="*"
+                                        Header="Link"
                                         Binding="{Binding Path=Link}" />
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Skasuj link do filmu" 
-                                  Command="{Binding DeleteMovieUrlCommandAsync}"/>
+                        <MenuItem Header="Skasuj link do filmu"
+                                  Command="{Binding DeleteMovieUrlCommandAsync}" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>

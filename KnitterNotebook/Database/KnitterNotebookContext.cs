@@ -3,7 +3,6 @@ using KnitterNotebook.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.IO;
-using System.Reflection.Metadata;
 
 namespace KnitterNotebook.Database
 {
@@ -44,7 +43,7 @@ namespace KnitterNotebook.Database
                 u.Property(x => x.Password).IsRequired();
                 u.Property(x => x.Email).IsRequired().HasMaxLength(100);
                 u.Property(x => x.Nickname).IsRequired().HasMaxLength(50);
-                u.Property(x => x.ThemeId).IsRequired();
+                //u.Property(x => x.ThemeId);
                 u.HasMany(x => x.Projects)
                  .WithOne(c => c.User)
                  .HasForeignKey(c => c.UserId);
@@ -71,8 +70,8 @@ namespace KnitterNotebook.Database
                           new Theme() { Id = 3, Name = "Dark" });
                 t.HasMany(x => x.Users)
                  .WithOne(c => c.Theme)
-                 .HasForeignKey(c => c.ThemeId); 
-                 //.OnDelete(;
+                 .HasForeignKey(c => c.ThemeId)
+                 .OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<MovieUrl>(m =>

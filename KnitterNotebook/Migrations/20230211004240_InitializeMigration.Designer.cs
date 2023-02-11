@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KnitterNotebook.Migrations
 {
     [DbContext(typeof(KnitterNotebookContext))]
-    [Migration("20230118124047_Initialize")]
-    partial class Initialize
+    [Migration("20230211004240_InitializeMigration")]
+    partial class InitializeMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -136,7 +136,7 @@ namespace KnitterNotebook.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ThemeId")
+                    b.Property<int?>("ThemeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -173,8 +173,7 @@ namespace KnitterNotebook.Migrations
                     b.HasOne("KnitterNotebook.Models.Theme", "Theme")
                         .WithMany("Users")
                         .HasForeignKey("ThemeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Theme");
                 });

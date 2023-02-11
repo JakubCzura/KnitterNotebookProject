@@ -19,7 +19,7 @@ namespace KnitterNotebook.ViewModels
             RegisterUserCommandAsync = new AsyncRelayCommand(RegisterUser);
         }
 
-        #region Properties    
+        #region Properties
 
         private IRegistration StandardRegistration { get; set; }
         private RegistrationManager RegistrationManager { get; set; }

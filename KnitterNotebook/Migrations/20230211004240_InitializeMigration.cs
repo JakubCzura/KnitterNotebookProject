@@ -8,7 +8,7 @@ using System;
 namespace KnitterNotebook.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialize : Migration
+    public partial class InitializeMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,7 +35,7 @@ namespace KnitterNotebook.Migrations
                     Nickname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ThemeId = table.Column<int>(type: "int", nullable: false)
+                    ThemeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,8 +44,7 @@ namespace KnitterNotebook.Migrations
                         name: "FK_Users_Themes_ThemeId",
                         column: x => x.ThemeId,
                         principalTable: "Themes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

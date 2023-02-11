@@ -6,18 +6,18 @@ namespace KnitterNotebook.Models
     {
         public int Id { get; set; }
 
-        public string Nickname { get; set; } = null!;
+        public string Nickname { get; set; } = string.Empty;
 
-        public string Email { get; set; } = null!;
+        public string Email { get; set; } = string.Empty;
 
-        public string Password { get; set; } = null!;
+        public string Password { get; set; } = string.Empty;
 
         public List<Project> Projects { get; set; } = new();
 
         public List<MovieUrl> MovieUrls { get; set; } = new();
 
-        public Theme Theme { get; set; } = new();
+        public Theme? Theme { get; set; } = null;
 
-        public int ThemeId { get; set; }
+        public int? ThemeId { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using KnitterNotebook.Models;
-
-namespace KnitterNotebook.Database
+﻿namespace KnitterNotebook.Database
 {
     public class LoggedUserInformation
     {
