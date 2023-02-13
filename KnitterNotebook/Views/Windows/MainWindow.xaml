@@ -88,7 +88,7 @@
                 <ContentControl Grid.Column="1"
                                 Width="Auto"
                                 Height="Auto"
-                                Content="{Binding SelectedMainWindowContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                Content="{Binding WindowContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <!--<TextBlock Background="Beige" FontSize="40" HorizontalAlignment="Center" Width="950">Witaj Karolina</TextBlock>-->
                 </ContentControl>
             </Grid>

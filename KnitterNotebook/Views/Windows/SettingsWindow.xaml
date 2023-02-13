@@ -15,7 +15,7 @@
 
     <Window.Resources>
         <viewModels:SettingsViewModel x:Key="SettingsViewModel" />
-        <userControls:ThemeSettingsUserControl x:Key="ThemeSettingsUserControl" />
+        <!--<userControls:ThemeSettingsUserControl x:Key="ThemeSettingsUserControl" />-->
         <userControls:UserSettingsUserControl x:Key="UserSettingsUserControl" />
     </Window.Resources>
 
@@ -46,23 +46,15 @@
                     <ScrollViewer>
                         <StackPanel>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
-                                    Command="{Binding ChooseSettingsContent}"
+                                    Command="{Binding ChooseSettingsWindowContentCommand}"
                                     CommandParameter="UserSettingsUserControl">
                                 <TextBlock Text="Konto"
                                            Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
-                                    Command="{Binding ChooseSettingsContent}"
+                                    Command="{Binding ChooseSettingsWindowContentCommand}"
                                     CommandParameter="ThemeSettingsUserControl">
                                 <TextBlock Text="Motyw aplikacji"
-                                           Style="{DynamicResource WrapTextBlockStyle}" />
-                            </Button>
-                            <Button Style="{DynamicResource MainMenuButtonStyle}">
-                                <TextBlock Text="Menu kontddddddekstowe"
-                                           Style="{DynamicResource WrapTextBlockStyle}" />
-                            </Button>
-                            <Button Style="{DynamicResource MainMenuButtonStyle}">
-                                <TextBlock Text="Menu kontekstowe"
                                            Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                         </StackPanel>
@@ -71,7 +63,7 @@
 
                 <ContentControl Grid.Column="1"
                                 Margin="5,0,5,0"
-                                Content="{StaticResource UserSettingsUserControl}" />
+                                Content="{Binding WindowContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </Grid>
     </Grid>

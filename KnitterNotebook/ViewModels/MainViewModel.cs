@@ -38,19 +38,19 @@ namespace KnitterNotebook.ViewModels
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
-            SelectedMainWindowContent = new ProjectsUserControl();
+            WindowContent = new ProjectsUserControl();
             ChooseMainWindowContentCommand = new RelayCommand<string>(ChooseMainWindowContent!);
             DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
         }
 
         #region Properties
 
-        private UserControl selectedMainWindowContent;
+        private UserControl windowContent;
 
-        public UserControl SelectedMainWindowContent
+        public UserControl WindowContent
         {
-            get { return selectedMainWindowContent; }
-            private set { selectedMainWindowContent = value; OnPropertyChanged(); }
+            get { return windowContent; }
+            private set { windowContent = value; OnPropertyChanged(); }
         }
 
         public ICommand ShowSettingsWindowCommand { get; private set; }
@@ -120,12 +120,12 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                SelectedMainWindowContent = MainWindowContent.ChooseMainWindowContent(userControlName);
+                WindowContent = MainWindowContent.ChooseMainWindowContent(userControlName);
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Błąd wyboru zawartości okna głównego");
-                SelectedMainWindowContent = new ProjectsUserControl();
+                WindowContent = new ProjectsUserControl();
             }
         }
 
