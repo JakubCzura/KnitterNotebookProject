@@ -12,15 +12,8 @@ namespace KnitterNotebook.ViewModels
     {
         public SettingsViewModel()
         {
+            WindowContent = new UserSettingsUserControl();
             ChooseSettingsWindowContentCommand = new RelayCommand<string>(ChooseSettingsWindowContent!);
-        }
-
-        private UserControl windowContent;
-
-        public UserControl WindowContent
-        {
-            get { return windowContent; }
-            private set { windowContent = value; OnPropertyChanged(); }
         }
 
         public ICommand ChooseSettingsWindowContentCommand { get; private set; }

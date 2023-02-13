@@ -43,15 +43,7 @@ namespace KnitterNotebook.ViewModels
             DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
         }
 
-        #region Properties
-
-        private UserControl windowContent;
-
-        public UserControl WindowContent
-        {
-            get { return windowContent; }
-            private set { windowContent = value; OnPropertyChanged(); }
-        }
+        #region Properties       
 
         public ICommand ShowSettingsWindowCommand { get; private set; }
 

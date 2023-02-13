@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Controls;
 
 namespace KnitterNotebook.ViewModels
 {
@@ -21,6 +22,13 @@ namespace KnitterNotebook.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        protected UserControl windowContent;
+
+        public UserControl WindowContent
+        {
+            get { return windowContent; }
+            protected set { windowContent = value; OnPropertyChanged(); }
+        }
         #endregion Methods
     }
 }
