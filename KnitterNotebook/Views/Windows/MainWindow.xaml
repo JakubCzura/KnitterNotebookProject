@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KnitterNotebook.Views.Windows"
+        xmlns:userControls="clr-namespace:KnitterNotebook.Views.UserControls"
         mc:Ignorable="d"
         xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
         Title="KnitterNotebook"
@@ -59,25 +60,25 @@
                                     VerticalAlignment="Top">
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
                                     Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="ProjectsUserControl">
+                                    CommandParameter="{x:Type userControls:ProjectsUserControl}">
                                 <TextBlock Text="Moje projekty"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
                                     Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="PlannedProjectsUserControl">
+                                    CommandParameter="{x:Type userControls:PlannedProjectsUserControl}">
                                 <TextBlock Text="Projekty w planach"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
                                     Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="ProjectsInProgressUserControl">
+                                    CommandParameter="{x:Type userControls:ProjectsInProgressUserControl}">
                                 <TextBlock Text="Projekty w trakcie"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
                                     Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="SamplesUserControl">
+                                    CommandParameter="{x:Type userControls:SamplesUserControl}">
                                 <TextBlock Text="Próbki obliczeniowe"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>

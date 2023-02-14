@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
-using KnitterNotebook.ViewModels.Helpers;
 using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
@@ -39,7 +38,7 @@ namespace KnitterNotebook.ViewModels
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
             WindowContent = new ProjectsUserControl();
-            ChooseMainWindowContentCommand = new RelayCommand<string>(ChooseMainWindowContent!);
+            ChooseMainWindowContentCommand = new RelayCommand<Type>(ChooseMainWindowContent!);
             DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
         }
 
@@ -108,11 +107,11 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
-        private void ChooseMainWindowContent(string userControlName)
+        private void ChooseMainWindowContent(Type userControl)
         {
             try
             {
-                WindowContent = MainWindowContent.ChooseMainWindowContent(userControlName);
+                WindowContent = (Activator.CreateInstance(userControl) as UserControl)!;
             }
             catch (Exception exception)
             {
@@ -120,6 +119,7 @@ namespace KnitterNotebook.ViewModels
                 WindowContent = new ProjectsUserControl();
             }
         }
+
 
         private async Task DeleteMovieUrlAsync()
         {

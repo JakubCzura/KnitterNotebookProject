@@ -16,7 +16,7 @@
     <Window.Resources>
         <viewModels:SettingsViewModel x:Key="SettingsViewModel" />
         <!--<userControls:ThemeSettingsUserControl x:Key="ThemeSettingsUserControl" />-->
-        <userControls:UserSettingsUserControl x:Key="UserSettingsUserControl" />
+        <!--<userControls:UserSettingsUserControl x:Key="UserSettingsUserControl" />-->
     </Window.Resources>
 
     <Grid DataContext="{StaticResource SettingsViewModel}">
@@ -47,13 +47,13 @@
                         <StackPanel>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
                                     Command="{Binding ChooseSettingsWindowContentCommand}"
-                                    CommandParameter="UserSettingsUserControl">
+                                    CommandParameter="{x:Type userControls:UserSettingsUserControl}">
                                 <TextBlock Text="Konto"
                                            Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
                                     Command="{Binding ChooseSettingsWindowContentCommand}"
-                                    CommandParameter="ThemeSettingsUserControl">
+                                    CommandParameter="{x:Type userControls:ThemeSettingsUserControl}">
                                 <TextBlock Text="Motyw aplikacji"
                                            Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>

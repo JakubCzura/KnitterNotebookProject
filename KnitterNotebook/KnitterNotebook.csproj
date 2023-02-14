@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ViewModels\Helpers\" />
     <Folder Include="ViewModels\Interfaces\" />
   </ItemGroup>
 

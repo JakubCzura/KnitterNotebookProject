@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using KnitterNotebook.ViewModels.Helpers;
 using KnitterNotebook.Views.UserControls;
 using System;
 using System.Windows;
@@ -13,16 +12,16 @@ namespace KnitterNotebook.ViewModels
         public SettingsViewModel()
         {
             WindowContent = new UserSettingsUserControl();
-            ChooseSettingsWindowContentCommand = new RelayCommand<string>(ChooseSettingsWindowContent!);
+            ChooseSettingsWindowContentCommand = new RelayCommand<Type>(ChooseSettingsWindowContent!);
         }
 
         public ICommand ChooseSettingsWindowContentCommand { get; private set; }
 
-        private void ChooseSettingsWindowContent(string userControlName)
+        private void ChooseSettingsWindowContent(Type userControl)
         {
             try
             {
-                WindowContent = SettingsWindowContent.ChooseSettingsWindowContent(userControlName);
+                WindowContent = (Activator.CreateInstance(userControl) as UserControl)!;
             }
             catch (Exception exception)
             {
