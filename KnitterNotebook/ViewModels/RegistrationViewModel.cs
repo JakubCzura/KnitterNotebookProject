@@ -52,7 +52,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                using (KnitterNotebookContext = new KnitterNotebookContext())
+                using (KnitterNotebookContext = new())
                 {
                     Theme theme = KnitterNotebookContext.Themes.First();
                     KnitterNotebookContext.Attach(theme);

@@ -54,7 +54,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                using (KnitterNotebookContext = new KnitterNotebookContext())
+                using (KnitterNotebookContext = new())
                 {
                     StandardLoggingIn standardLoggingIn = new();
                     LoggingInManager = new(standardLoggingIn, Email, LoginWindow.Instance.UserPasswordPasswordBox.Password, KnitterNotebookContext);

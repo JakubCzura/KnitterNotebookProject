@@ -1,13 +1,15 @@
 ﻿<UserControl x:Class="KnitterNotebook.Views.UserControls.UserSettingsUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:adorners="http://gu.se/Adorners"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:KnitterNotebook.Views.UserControls"
+             xmlns:viewModel="clr-namespace:KnitterNotebook.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
-             xmlns:adorners="http://gu.se/Adorners"
-             Style="{DynamicResource SettingsUserControlStyle}">
+             Style="{DynamicResource SettingsUserControlStyle}"
+             x:Name="UserSettings">
+    <!--<Grid DataContext="{Binding ElementName=UserSettings}">-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -22,9 +24,11 @@
             <TextBlock Text="Zmiana nazwy użytkownika"
                        Style="{DynamicResource SettingsElementTextBlockStyle}" />
             <TextBox adorners:Watermark.Text="Podaj nową nazwę użytkownika"
-                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                         VerticalContentAlignment="Center" />
-            <Button Content="Potwierdź" />
+                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
+                     VerticalContentAlignment="Center" 
+                     Text="{Binding Path=NewNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=UserSettings}"/>
+            <Button Content="Potwierdź"
+                    Command="{Binding Path=ChangeNicknameCommandAsync, ElementName=UserSettings}"/>
             <TextBlock Text="Zmiana e-mail"
                        Style="{DynamicResource SettingsElementTextBlockStyle}" />
             <TextBox adorners:Watermark.Text="Podaj nowy adres e-mail"

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 
@@ -22,12 +23,15 @@ namespace KnitterNotebook.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        protected UserControl windowContent;
-
-        public UserControl WindowContent
+        protected object windowContent;
+       
+        /// <summary>
+        /// Object that can be set as ContentControl.Content 
+        /// </summary>
+        public object WindowContent
         {
             get { return windowContent; }
-            protected set { windowContent = value; OnPropertyChanged(); }
+            set { windowContent = value; OnPropertyChanged(); }
         }
         #endregion Methods
     }

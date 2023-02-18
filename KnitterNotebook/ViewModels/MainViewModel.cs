@@ -37,7 +37,6 @@ namespace KnitterNotebook.ViewModels
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
-            WindowContent = new ProjectsUserControl();
             ChooseMainWindowContentCommand = new RelayCommand<Type>(ChooseMainWindowContent!);
             DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
         }
@@ -111,12 +110,11 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                WindowContent = (Activator.CreateInstance(userControl) as UserControl)!;
+               
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Błąd wyboru zawartości okna głównego");
-                WindowContent = new ProjectsUserControl();
             }
         }
 
@@ -127,7 +125,7 @@ namespace KnitterNotebook.ViewModels
             {
                 if (SelectedMovieUrl != null)
                 {
-                    using (KnitterNotebookContext = new KnitterNotebookContext())
+                    using (KnitterNotebookContext = new())
                     {
                         SelectedMovieUrl = await KnitterNotebookContext.MovieUrls.FirstOrDefaultAsync(x => x.Id == SelectedMovieUrl.Id);
                         KnitterNotebookContext.Remove(SelectedMovieUrl);

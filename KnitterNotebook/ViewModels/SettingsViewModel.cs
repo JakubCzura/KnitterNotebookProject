@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using KnitterNotebook.Views.UserControls;
+using KnitterNotebook.Database;
+using KnitterNotebook.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
@@ -11,22 +13,86 @@ namespace KnitterNotebook.ViewModels
     {
         public SettingsViewModel()
         {
-            WindowContent = new UserSettingsUserControl();
-            ChooseSettingsWindowContentCommand = new RelayCommand<Type>(ChooseSettingsWindowContent!);
+            SetUserSettingsUserControlVisibleCommand = new RelayCommand(() => 
+            { 
+                SetUserControlsVisibilityHidden(); IsUserSettingsUserControlVisible = Visibility.Visible; 
+            });
+            SetThemeSettingsUserControlVisibleCommand = new RelayCommand(() => 
+            {
+                SetUserControlsVisibilityHidden(); IsThemeSettingsUserControlVisible = Visibility.Visible;
+            });
+            ChangeNicknameCommandAsync = new AsyncRelayCommand(ChangeNicknameAsync);
         }
 
-        public ICommand ChooseSettingsWindowContentCommand { get; private set; }
+        // private string newNickname = string.Empty;
+        private string newNickname;
 
-        private void ChooseSettingsWindowContent(Type userControl)
+        public string NewNickname
+        {
+            get { return newNickname; }
+            set { newNickname = value; OnPropertyChanged(); }
+        }
+
+        private Visibility isUserSettingsUserControlVisible = Visibility.Visible;
+
+        public Visibility IsUserSettingsUserControlVisible
+        {
+            get { return isUserSettingsUserControlVisible; }
+            set { isUserSettingsUserControlVisible = value; OnPropertyChanged(); }
+        }
+
+        private Visibility isThemeSettingsUserControlVisible = Visibility.Hidden;
+
+        public Visibility IsThemeSettingsUserControlVisible
+        {
+            get { return isThemeSettingsUserControlVisible; }
+            set { isThemeSettingsUserControlVisible = value; OnPropertyChanged(); }
+        }
+
+        public ICommand SetUserSettingsUserControlVisibleCommand { get; private set; }
+
+        public ICommand SetThemeSettingsUserControlVisibleCommand { get; private set; }
+
+        public ICommand ChangeNicknameCommandAsync { get; private set; }
+
+        private KnitterNotebookContext KnitterNotebookContext { get; set; }
+
+        private void SetUserControlsVisibilityHidden()
         {
             try
             {
-                WindowContent = (Activator.CreateInstance(userControl) as UserControl)!;
+                IsUserSettingsUserControlVisible = Visibility.Hidden;
+                IsThemeSettingsUserControlVisible = Visibility.Hidden;
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Błąd wyboru zawartości okna ustawień");
-                WindowContent = new UserSettingsUserControl();
+            }
+        }
+
+        private async Task ChangeNicknameAsync()
+        {
+            try
+            {
+                using (KnitterNotebookContext = new())
+                {
+                    User? user = await KnitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
+                    if (user == null)
+                    {
+                        MessageBox.Show("Błąd zmiany nicku");
+                    }
+                    else
+                    {
+                        user.Nickname = NewNickname;
+                        KnitterNotebookContext.Users.Update(user);
+                        await KnitterNotebookContext.SaveChangesAsync();
+                        MessageBox.Show(NewNickname);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
             }
         }
     }

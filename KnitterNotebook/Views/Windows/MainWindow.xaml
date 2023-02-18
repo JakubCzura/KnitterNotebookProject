@@ -15,6 +15,7 @@
 
     <Window.Resources>
         <viewModels:MainViewModel x:Key="MainViewModel" />
+        <viewModels:SettingsViewModel x:Key="SettingsViewModel" />
     </Window.Resources>
 
     <Grid DataContext="{StaticResource MainViewModel}">
@@ -123,7 +124,7 @@
                     Style="{DynamicResource MainMenuButtonStyle}"
                     Command="{Binding ShowMovieUrlAddingWindowCommand}">
                 <TextBlock Text="Dodaj nowy link do filmu"
-                                       Style="{DynamicResource WrapTextBlockStyle}" />
+                                       Style="{DynamicResource WrapTextBlockStyle}"/>
             </Button>
         </Grid>
     </Grid>

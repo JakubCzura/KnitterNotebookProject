@@ -1,12 +1,11 @@
 ﻿<Window x:Class="KnitterNotebook.Views.Windows.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KnitterNotebook.Views.Windows"
-        mc:Ignorable="d"
-        xmlns:userControls="clr-namespace:KnitterNotebook.Views.UserControls"
         xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+        xmlns:userControls="clr-namespace:KnitterNotebook.Views.UserControls"
+        mc:Ignorable="d"
         Title="KnitterNotebook"
         Height="450"
         Width="800"
@@ -15,8 +14,6 @@
 
     <Window.Resources>
         <viewModels:SettingsViewModel x:Key="SettingsViewModel" />
-        <!--<userControls:ThemeSettingsUserControl x:Key="ThemeSettingsUserControl" />-->
-        <!--<userControls:UserSettingsUserControl x:Key="UserSettingsUserControl" />-->
     </Window.Resources>
 
     <Grid DataContext="{StaticResource SettingsViewModel}">
@@ -46,14 +43,14 @@
                     <ScrollViewer>
                         <StackPanel>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
-                                    Command="{Binding ChooseSettingsWindowContentCommand}"
-                                    CommandParameter="{x:Type userControls:UserSettingsUserControl}">
+                                    Command="{Binding SetUserSettingsUserControlVisibleCommand}"
+                                    CommandParameter="{Binding IsUserSettingsUserControlVisible}">
                                 <TextBlock Text="Konto"
                                            Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
-                                    Command="{Binding ChooseSettingsWindowContentCommand}"
-                                    CommandParameter="{x:Type userControls:ThemeSettingsUserControl}">
+                                    Command="{Binding SetThemeSettingsUserControlVisibleCommand}"
+                                    CommandParameter="{Binding IsThemeSettingsUserControlVisible}">
                                 <TextBlock Text="Motyw aplikacji"
                                            Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
@@ -61,9 +58,13 @@
                     </ScrollViewer>
                 </Grid>
 
-                <ContentControl Grid.Column="1"
-                                Margin="5,0,5,0"
-                                Content="{Binding WindowContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                <userControls:UserSettingsUserControl Grid.Column="1"
+                                                      NewNickname="{Binding NewNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      ChangeNicknameCommandAsync="{Binding ChangeNicknameCommandAsync, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Visibility="{Binding IsUserSettingsUserControlVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <userControls:ThemeSettingsUserControl Grid.Column="1"
+                                                       Visibility="{Binding IsThemeSettingsUserControlVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </Grid>
     </Grid>
