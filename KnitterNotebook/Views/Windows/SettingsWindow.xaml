@@ -43,14 +43,12 @@
                     <ScrollViewer>
                         <StackPanel>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
-                                    Command="{Binding SetUserSettingsUserControlVisibleCommand}"
-                                    CommandParameter="{Binding IsUserSettingsUserControlVisible}">
+                                    Command="{Binding SetUserSettingsUserControlVisibleCommand}">
                                 <TextBlock Text="Konto"
                                            Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
-                                    Command="{Binding SetThemeSettingsUserControlVisibleCommand}"
-                                    CommandParameter="{Binding IsThemeSettingsUserControlVisible}">
+                                    Command="{Binding SetThemeSettingsUserControlVisibleCommand}">
                                 <TextBlock Text="Motyw aplikacji"
                                            Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
@@ -60,11 +58,11 @@
 
                 <userControls:UserSettingsUserControl Grid.Column="1"
                                                       NewNickname="{Binding NewNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      ChangeNicknameCommandAsync="{Binding ChangeNicknameCommandAsync, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      Visibility="{Binding IsUserSettingsUserControlVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                      ChangeNicknameCommandAsync="{Binding ChangeNicknameCommandAsync}"
+                                                      Visibility="{Binding UserSettingsUserControlVisibility}"/>
 
                 <userControls:ThemeSettingsUserControl Grid.Column="1"
-                                                       Visibility="{Binding IsThemeSettingsUserControlVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                       Visibility="{Binding ThemeSettingsUserControlVisibility}" />
             </Grid>
         </Grid>
     </Grid>

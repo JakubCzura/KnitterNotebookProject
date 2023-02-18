@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800"
              Style="{DynamicResource SettingsUserControlStyle}"
              x:Name="UserSettings">
-    <!--<Grid DataContext="{Binding ElementName=UserSettings}">-->
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>

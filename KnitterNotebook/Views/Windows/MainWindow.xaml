@@ -15,7 +15,6 @@
 
     <Window.Resources>
         <viewModels:MainViewModel x:Key="MainViewModel" />
-        <viewModels:SettingsViewModel x:Key="SettingsViewModel" />
     </Window.Resources>
 
     <Grid DataContext="{StaticResource MainViewModel}">
@@ -60,26 +59,22 @@
                         <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Top">
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
-                                    Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="{x:Type userControls:ProjectsUserControl}">
+                                    Command="{Binding SetProjectsUserControlVisibleCommand}">
                                 <TextBlock Text="Moje projekty"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
-                                    Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="{x:Type userControls:PlannedProjectsUserControl}">
+                                    Command="{Binding SetPlannedProjectsUserControlVisibleCommand}">
                                 <TextBlock Text="Projekty w planach"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
-                                    Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="{x:Type userControls:ProjectsInProgressUserControl}">
+                                    Command="{Binding SetProjectsInProgressUserControlVisibleCommand}">
                                 <TextBlock Text="Projekty w trakcie"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
                             <Button Style="{DynamicResource MainMenuButtonStyle}"
-                                    Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="{x:Type userControls:SamplesUserControl}">
+                                    Command="{Binding SetSamplesUserControlVisibleCommand}">
                                 <TextBlock Text="Próbki obliczeniowe"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
                             </Button>
@@ -87,12 +82,14 @@
                     </ScrollViewer>
                 </Grid>
 
-                <ContentControl Grid.Column="1"
-                                Width="Auto"
-                                Height="Auto"
-                                Content="{Binding WindowContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                    <!--<TextBlock Background="Beige" FontSize="40" HorizontalAlignment="Center" Width="950">Witaj Karolina</TextBlock>-->
-                </ContentControl>
+                <userControls:ProjectsUserControl Grid.Column="1"
+                                                  Visibility="{Binding ProjectsUserControlVisibility}"/>
+                <userControls:PlannedProjectsUserControl Grid.Column="1"
+                                                  Visibility="{Binding PlannedProjectsUserControlVisibility}"/>
+                <userControls:ProjectsInProgressUserControl Grid.Column="1"
+                                                  Visibility="{Binding ProjectsInProgressUserControlVisibility}"/>
+                <userControls:SamplesUserControl Grid.Column="1"
+                                                  Visibility="{Binding SamplesUserControlVisibility}"/>
             </Grid>
         </Grid>
 

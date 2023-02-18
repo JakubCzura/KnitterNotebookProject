@@ -15,11 +15,11 @@ namespace KnitterNotebook.ViewModels
         {
             SetUserSettingsUserControlVisibleCommand = new RelayCommand(() => 
             { 
-                SetUserControlsVisibilityHidden(); IsUserSettingsUserControlVisible = Visibility.Visible; 
+                SetUserControlsVisibilityHidden(); UserSettingsUserControlVisibility = Visibility.Visible; 
             });
             SetThemeSettingsUserControlVisibleCommand = new RelayCommand(() => 
             {
-                SetUserControlsVisibilityHidden(); IsThemeSettingsUserControlVisible = Visibility.Visible;
+                SetUserControlsVisibilityHidden(); ThemeSettingsUserControlVisibility = Visibility.Visible;
             });
             ChangeNicknameCommandAsync = new AsyncRelayCommand(ChangeNicknameAsync);
         }
@@ -33,20 +33,20 @@ namespace KnitterNotebook.ViewModels
             set { newNickname = value; OnPropertyChanged(); }
         }
 
-        private Visibility isUserSettingsUserControlVisible = Visibility.Visible;
+        private Visibility userSettingsUserControlVisibility = Visibility.Visible;
 
-        public Visibility IsUserSettingsUserControlVisible
+        public Visibility UserSettingsUserControlVisibility
         {
-            get { return isUserSettingsUserControlVisible; }
-            set { isUserSettingsUserControlVisible = value; OnPropertyChanged(); }
+            get { return userSettingsUserControlVisibility; }
+            set { userSettingsUserControlVisibility = value; OnPropertyChanged(); }
         }
 
-        private Visibility isThemeSettingsUserControlVisible = Visibility.Hidden;
+        private Visibility themeSettingsUserControlVisibility = Visibility.Hidden;
 
-        public Visibility IsThemeSettingsUserControlVisible
+        public Visibility ThemeSettingsUserControlVisibility
         {
-            get { return isThemeSettingsUserControlVisible; }
-            set { isThemeSettingsUserControlVisible = value; OnPropertyChanged(); }
+            get { return themeSettingsUserControlVisibility; }
+            set { themeSettingsUserControlVisibility = value; OnPropertyChanged(); }
         }
 
         public ICommand SetUserSettingsUserControlVisibleCommand { get; private set; }
@@ -61,8 +61,8 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                IsUserSettingsUserControlVisible = Visibility.Hidden;
-                IsThemeSettingsUserControlVisible = Visibility.Hidden;
+                UserSettingsUserControlVisibility = Visibility.Hidden;
+                ThemeSettingsUserControlVisibility = Visibility.Hidden;
             }
             catch (Exception exception)
             {

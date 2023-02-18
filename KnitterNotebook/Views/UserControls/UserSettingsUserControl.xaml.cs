@@ -30,7 +30,7 @@ namespace KnitterNotebook.Views.UserControls
 
         public static readonly DependencyProperty ChangeNicknameCommandAsyncProperty =
             DependencyProperty.Register(nameof(ChangeNicknameCommandAsync), typeof(ICommand), typeof(UserSettingsUserControl),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            new FrameworkPropertyMetadata(null));
 
         public ICommand ChangeNicknameCommandAsync
         {

@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
-using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +8,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
@@ -34,22 +32,43 @@ namespace KnitterNotebook.ViewModels
             {
                 MessageBox.Show(exception.Message);
             }
+            SetPlannedProjectsUserControlVisibleCommand = new RelayCommand(() =>
+            {
+                SetUserControlsVisibilityHidden(); PlannedProjectsUserControlVisibility = Visibility.Visible;
+            });
+            SetProjectsInProgressUserControlVisibleCommand = new RelayCommand(() =>
+            {
+                SetUserControlsVisibilityHidden(); ProjectsInProgressUserControlVisibility = Visibility.Visible;
+            });
+            SetProjectsUserControlVisibleCommand = new RelayCommand(() =>
+            {
+                SetUserControlsVisibilityHidden(); ProjectsUserControlVisibility = Visibility.Visible;
+            });
+            SetSamplesUserControlVisibleCommand = new RelayCommand(() =>
+            {
+                SetUserControlsVisibilityHidden(); SamplesUserControlVisibility = Visibility.Visible;
+            });
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
-            ChooseMainWindowContentCommand = new RelayCommand<Type>(ChooseMainWindowContent!);
             DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
         }
 
-        #region Properties       
+        #region Properties
 
         public ICommand ShowSettingsWindowCommand { get; private set; }
 
         public ICommand ShowMovieUrlAddingWindowCommand { get; private set; }
 
-        public ICommand ChooseMainWindowContentCommand { get; private set; }
-
         public ICommand DeleteMovieUrlCommandAsync { get; private set; }
+
+        public ICommand SetProjectsUserControlVisibleCommand { get; private set; }
+
+        public ICommand SetPlannedProjectsUserControlVisibleCommand { get; private set; }
+
+        public ICommand SetProjectsInProgressUserControlVisibleCommand { get; private set; }
+
+        public ICommand SetSamplesUserControlVisibleCommand { get; private set; }
 
         private KnitterNotebookContext KnitterNotebookContext { get; set; }
 
@@ -82,6 +101,38 @@ namespace KnitterNotebook.ViewModels
             set { movieUrls = value; OnPropertyChanged(); }
         }
 
+        private Visibility projectsUserControlVisibility = Visibility.Visible;
+
+        public Visibility ProjectsUserControlVisibility
+        {
+            get { return projectsUserControlVisibility; }
+            set { projectsUserControlVisibility = value; OnPropertyChanged(); }
+        }
+
+        private Visibility plannedProjectsUserControlVisibility = Visibility.Hidden;
+
+        public Visibility PlannedProjectsUserControlVisibility
+        {
+            get { return plannedProjectsUserControlVisibility; }
+            set { plannedProjectsUserControlVisibility = value; OnPropertyChanged(); }
+        }
+
+        private Visibility projectsInProgressUserControlVisibility = Visibility.Hidden;
+
+        public Visibility ProjectsInProgressUserControlVisibility
+        {
+            get { return projectsInProgressUserControlVisibility; }
+            set { projectsInProgressUserControlVisibility = value; OnPropertyChanged(); }
+        }
+
+        private Visibility samplesUserControlVisibility = Visibility.Hidden;
+
+        public Visibility SamplesUserControlVisibility
+        {
+            get { return samplesUserControlVisibility; }
+            set { samplesUserControlVisibility = value; OnPropertyChanged(); }
+        }
+
         #endregion Properties
 
         #region Methods
@@ -110,14 +161,12 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-               
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Błąd wyboru zawartości okna głównego");
             }
         }
-
 
         private async Task DeleteMovieUrlAsync()
         {
@@ -138,6 +187,21 @@ namespace KnitterNotebook.ViewModels
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
+            }
+        }
+
+        private void SetUserControlsVisibilityHidden()
+        {
+            try
+            {
+                ProjectsUserControlVisibility = Visibility.Hidden;
+                PlannedProjectsUserControlVisibility = Visibility.Hidden;
+                ProjectsInProgressUserControlVisibility = Visibility.Hidden;
+                SamplesUserControlVisibility = Visibility.Hidden;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Błąd wyboru zawartości okna głównego");
             }
         }
 
