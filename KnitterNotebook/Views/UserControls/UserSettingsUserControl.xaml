@@ -4,12 +4,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModel="clr-namespace:KnitterNotebook.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              Style="{DynamicResource SettingsUserControlStyle}"
              x:Name="UserSettings">
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -25,16 +24,18 @@
                        Style="{DynamicResource SettingsElementTextBlockStyle}" />
             <TextBox adorners:Watermark.Text="Podaj nową nazwę użytkownika"
                      adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                     VerticalContentAlignment="Center" 
-                     Text="{Binding Path=NewNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=UserSettings}"/>
+                     VerticalContentAlignment="Center"
+                     Text="{Binding Path=NewNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=UserSettings}" />
             <Button Content="Potwierdź"
-                    Command="{Binding Path=ChangeNicknameCommandAsync, ElementName=UserSettings}"/>
+                    Command="{Binding Path=ChangeNicknameCommandAsync, ElementName=UserSettings}" />
             <TextBlock Text="Zmiana e-mail"
                        Style="{DynamicResource SettingsElementTextBlockStyle}" />
             <TextBox adorners:Watermark.Text="Podaj nowy adres e-mail"
-                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                         VerticalContentAlignment="Center" />
-            <Button  Content="Potwierdź" />
+                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
+                     VerticalContentAlignment="Center"
+                     Text="{Binding Path=NewEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=UserSettings}" />
+            <Button  Content="Potwierdź"
+                     Command="{Binding Path=ChangeEmailCommandAsync, ElementName=UserSettings}" />
             <TextBlock Text="Zmiana hasła"
                        Style="{DynamicResource SettingsElementTextBlockStyle}" />
             <PasswordBox adorners:Watermark.Text="Podaj nowe hasło"

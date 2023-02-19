@@ -13,15 +13,16 @@ namespace KnitterNotebook.ViewModels
     {
         public SettingsViewModel()
         {
-            SetUserSettingsUserControlVisibleCommand = new RelayCommand(() => 
-            { 
-                SetUserControlsVisibilityHidden(); UserSettingsUserControlVisibility = Visibility.Visible; 
+            SetUserSettingsUserControlVisibleCommand = new RelayCommand(() =>
+            {
+                SetUserControlsVisibilityHidden(); UserSettingsUserControlVisibility = Visibility.Visible;
             });
-            SetThemeSettingsUserControlVisibleCommand = new RelayCommand(() => 
+            SetThemeSettingsUserControlVisibleCommand = new RelayCommand(() =>
             {
                 SetUserControlsVisibilityHidden(); ThemeSettingsUserControlVisibility = Visibility.Visible;
             });
             ChangeNicknameCommandAsync = new AsyncRelayCommand(ChangeNicknameAsync);
+            ChangeEmailCommandAsync = new AsyncRelayCommand(ChangeEmailAsync);
         }
 
         // private string newNickname = string.Empty;
@@ -31,6 +32,14 @@ namespace KnitterNotebook.ViewModels
         {
             get { return newNickname; }
             set { newNickname = value; OnPropertyChanged(); }
+        }
+
+        private string newEmail;
+
+        public string NewEmail
+        {
+            get { return newEmail; }
+            set { newEmail = value; OnPropertyChanged(); }
         }
 
         private Visibility userSettingsUserControlVisibility = Visibility.Visible;
@@ -54,6 +63,7 @@ namespace KnitterNotebook.ViewModels
         public ICommand SetThemeSettingsUserControlVisibleCommand { get; private set; }
 
         public ICommand ChangeNicknameCommandAsync { get; private set; }
+        public ICommand ChangeEmailCommandAsync { get; private set; }
 
         private KnitterNotebookContext KnitterNotebookContext { get; set; }
 
@@ -86,7 +96,33 @@ namespace KnitterNotebook.ViewModels
                         user.Nickname = NewNickname;
                         KnitterNotebookContext.Users.Update(user);
                         await KnitterNotebookContext.SaveChangesAsync();
-                        MessageBox.Show(NewNickname);
+                        MessageBox.Show($"Zmieniono nick na: {user.Nickname}");
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private async Task ChangeEmailAsync()
+        {
+            try
+            {
+                using (KnitterNotebookContext = new())
+                {
+                    User? user = await KnitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
+                    if (user == null)
+                    {
+                        MessageBox.Show("Błąd zmiany e-mail");
+                    }
+                    else
+                    {
+                        user.Email = NewEmail;
+                        KnitterNotebookContext.Users.Update(user);
+                        await KnitterNotebookContext.SaveChangesAsync();
+                        MessageBox.Show($"Zmieniono e-mail na {user.Email}");
                     }
                 }
             }

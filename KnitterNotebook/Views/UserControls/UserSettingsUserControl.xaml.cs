@@ -1,8 +1,4 @@
-﻿using KnitterNotebook.Database;
-using KnitterNotebook.Models;
-using KnitterNotebook.ViewModels;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -20,7 +16,7 @@ namespace KnitterNotebook.Views.UserControls
 
         public static readonly DependencyProperty NewNicknameProperty =
             DependencyProperty.Register(nameof(NewNickname), typeof(string), typeof(UserSettingsUserControl),
-            new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+                new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public string NewNickname
         {
@@ -30,7 +26,7 @@ namespace KnitterNotebook.Views.UserControls
 
         public static readonly DependencyProperty ChangeNicknameCommandAsyncProperty =
             DependencyProperty.Register(nameof(ChangeNicknameCommandAsync), typeof(ICommand), typeof(UserSettingsUserControl),
-            new FrameworkPropertyMetadata(null));
+                new FrameworkPropertyMetadata(null));
 
         public ICommand ChangeNicknameCommandAsync
         {
@@ -38,5 +34,24 @@ namespace KnitterNotebook.Views.UserControls
             set { SetValue(ChangeNicknameCommandAsyncProperty, value); }
         }
 
+        public static readonly DependencyProperty NewEmailProperty =
+            DependencyProperty.Register(nameof(NewEmail), typeof(string), typeof(UserSettingsUserControl),
+                new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public string NewEmail
+        {
+            get { return GetValue(NewEmailProperty).ToString()!; }
+            set { SetValue(NewEmailProperty, value); }
+        }
+
+        public static readonly DependencyProperty ChangeEmailCommandAsyncProperty =
+           DependencyProperty.Register(nameof(ChangeEmailCommandAsync), typeof(ICommand), typeof(UserSettingsUserControl),
+               new FrameworkPropertyMetadata(null));
+
+        public ICommand ChangeEmailCommandAsync
+        {
+            get { return (GetValue(ChangeEmailCommandAsyncProperty) as ICommand)!; }
+            set { SetValue(ChangeEmailCommandAsyncProperty, value); }
+        }
     }
 }
