@@ -52,8 +52,8 @@ namespace KnitterNotebook.ViewModels
 
         private async Task LogInAsync()
         {
-            try
-            {
+            //try
+            //{
                 using (KnitterNotebookContext = new())
                 {
                     StandardLoggingIn standardLoggingIn = new();
@@ -71,11 +71,11 @@ namespace KnitterNotebook.ViewModels
                         Window.GetWindow(LoginWindow.Instance).Close();
                     }
                 }
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
+            //}
+            //catch (Exception exception)
+            //{
+            //    MessageBox.Show(exception.Message);
+            //}
         }
 
         #endregion Methods

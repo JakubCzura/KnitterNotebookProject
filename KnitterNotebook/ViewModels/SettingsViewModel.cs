@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
+using KnitterNotebook.Validators;
+using KnitterNotebook.Views.UserControls;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
@@ -23,6 +25,7 @@ namespace KnitterNotebook.ViewModels
             });
             ChangeNicknameCommandAsync = new AsyncRelayCommand(ChangeNicknameAsync);
             ChangeEmailCommandAsync = new AsyncRelayCommand(ChangeEmailAsync);
+            ChangePasswordCommandAsync = new AsyncRelayCommand(ChangePasswordAsync);
         }
 
         // private string newNickname = string.Empty;
@@ -63,7 +66,10 @@ namespace KnitterNotebook.ViewModels
         public ICommand SetThemeSettingsUserControlVisibleCommand { get; private set; }
 
         public ICommand ChangeNicknameCommandAsync { get; private set; }
+
         public ICommand ChangeEmailCommandAsync { get; private set; }
+
+        public ICommand ChangePasswordCommandAsync { get; private set; }
 
         private KnitterNotebookContext KnitterNotebookContext { get; set; }
 
@@ -123,6 +129,45 @@ namespace KnitterNotebook.ViewModels
                         KnitterNotebookContext.Users.Update(user);
                         await KnitterNotebookContext.SaveChangesAsync();
                         MessageBox.Show($"Zmieniono e-mail na {user.Email}");
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private async Task ChangePasswordAsync()
+        {
+            try
+            {
+                using (KnitterNotebookContext = new())
+                {
+                    User? user = await KnitterNotebookContext.Users.Include(x => x.Theme).FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
+                    if (user == null)
+                    {
+                        MessageBox.Show("Błąd zmiany hasła");
+                    }
+                    else
+                    {
+                        if (UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password !=
+                            UserSettingsUserControl.Instance.RepeatedNewPasswordPasswordBox.Password)
+                        {
+                            MessageBox.Show("Hasła nie są identyczne");
+                        }
+                        else
+                        {
+                            UserValidator userValidator = new();
+                            user.Password = UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password;
+                            if (userValidator.Validate(user))
+                            {
+                                user.Password = PasswordHasher.HashPassword(user.Password);
+                                KnitterNotebookContext.Users.Update(user);
+                                await KnitterNotebookContext.SaveChangesAsync();
+                                MessageBox.Show($"Zmieniono hasło");
+                            }
+                        }
                     }
                 }
             }

@@ -38,13 +38,16 @@
                      Command="{Binding Path=ChangeEmailCommandAsync, ElementName=UserSettings}" />
             <TextBlock Text="Zmiana hasła"
                        Style="{DynamicResource SettingsElementTextBlockStyle}" />
-            <PasswordBox adorners:Watermark.Text="Podaj nowe hasło"
+            <PasswordBox Name="NewPasswordPasswordBox" 
+                         adorners:Watermark.Text="Podaj nowe hasło"
                          adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                          VerticalContentAlignment="Center" />
-            <PasswordBox adorners:Watermark.Text="Powtórz hasło"
+            <PasswordBox Name="RepeatedNewPasswordPasswordBox"
+                         adorners:Watermark.Text="Powtórz hasło"
                          adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                          VerticalContentAlignment="Center" />
-            <Button Content="Potwierdź" />
+            <Button Content="Potwierdź" 
+                    Command="{Binding Path=ChangePasswordCommandAsync, ElementName=UserSettings}"/>
         </StackPanel>
     </Grid>
 </UserControl>

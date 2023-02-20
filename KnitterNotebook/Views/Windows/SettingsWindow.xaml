@@ -61,6 +61,7 @@
                                                       ChangeNicknameCommandAsync="{Binding ChangeNicknameCommandAsync}"
                                                       NewEmail="{Binding NewEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       ChangeEmailCommandAsync="{Binding ChangeEmailCommandAsync}"
+                                                      ChangePasswordCommandAsync="{Binding ChangePasswordCommandAsync}"
                                                       Visibility="{Binding UserSettingsUserControlVisibility}"/>
 
                 <userControls:ThemeSettingsUserControl Grid.Column="1"

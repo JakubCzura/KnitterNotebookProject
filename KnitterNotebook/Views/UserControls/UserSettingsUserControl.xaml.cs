@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.TextFormatting;
 
 namespace KnitterNotebook.Views.UserControls
 {
@@ -9,9 +10,11 @@ namespace KnitterNotebook.Views.UserControls
     /// </summary>
     public partial class UserSettingsUserControl : UserControl
     {
+        public static UserSettingsUserControl Instance { get; private set; } = null!;
         public UserSettingsUserControl()
         {
             InitializeComponent();
+            Instance = this;
         }
 
         public static readonly DependencyProperty NewNicknameProperty =
@@ -53,5 +56,16 @@ namespace KnitterNotebook.Views.UserControls
             get { return (GetValue(ChangeEmailCommandAsyncProperty) as ICommand)!; }
             set { SetValue(ChangeEmailCommandAsyncProperty, value); }
         }
+
+        public static readonly DependencyProperty ChangePasswordCommandAsyncProperty =
+          DependencyProperty.Register(nameof(ChangePasswordCommandAsync), typeof(ICommand), typeof(UserSettingsUserControl),
+              new FrameworkPropertyMetadata(null));
+
+        public ICommand ChangePasswordCommandAsync
+        {
+            get { return (GetValue(ChangePasswordCommandAsyncProperty) as ICommand)!; }
+            set { SetValue(ChangePasswordCommandAsyncProperty, value); }
+        }
+        
     }
 }
