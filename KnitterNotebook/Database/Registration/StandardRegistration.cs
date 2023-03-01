@@ -20,6 +20,12 @@ namespace KnitterNotebook.Database.Registration
             }
         }
 
+        /// <summary>
+        /// Checks if user already exists in database
+        /// </summary>
+        /// <param name="user">User to check</param>
+        /// <param name="knitterNotebookContext">Instance of database context</param>
+        /// <returns></returns>
         public static async Task<bool> IfUserAlreadyExists(User user, KnitterNotebookContext knitterNotebookContext)
         {
             if (await knitterNotebookContext.Users.AnyAsync(x => x.Nickname == user.Nickname || x.Email == user.Email))

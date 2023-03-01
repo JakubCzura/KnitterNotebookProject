@@ -156,18 +156,6 @@ namespace KnitterNotebook.ViewModels
                 return new ObservableCollection<MovieUrl>(KnitterNotebookContext.MovieUrls.Where(x => x.UserId == user.Id));
             }
         }
-
-        private void ChooseMainWindowContent(Type userControl)
-        {
-            try
-            {
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Błąd wyboru zawartości okna głównego");
-            }
-        }
-
         private async Task DeleteMovieUrlAsync()
         {
             try

@@ -22,17 +22,6 @@ namespace KnitterNotebook.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
-        protected object windowContent;
-       
-        /// <summary>
-        /// Object that can be set as ContentControl.Content 
-        /// </summary>
-        public object WindowContent
-        {
-            get { return windowContent; }
-            set { windowContent = value; OnPropertyChanged(); }
-        }
         #endregion Methods
     }
 }

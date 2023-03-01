@@ -62,7 +62,7 @@ namespace KnitterNotebook.ViewModels
                 using (KnitterNotebookContext = new KnitterNotebookContext())
                 {
                     User user = await KnitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
-                    KnitterNotebookContext.Attach(user);
+                    //KnitterNotebookContext.Attach(user);
                     MovieUrl movieUrl = new()
                     {
                         Title = Title,

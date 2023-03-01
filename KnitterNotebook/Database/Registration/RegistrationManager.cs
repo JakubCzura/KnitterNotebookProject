@@ -17,6 +17,10 @@ namespace KnitterNotebook.Database.Registration
             KnitterNotebookContext = knitterNotebookContext;
         }
 
+        /// <summary>
+        /// Registers user
+        /// </summary>
+        /// <returns></returns>
         public async Task Register()
         {
             await Registration.RegisterUser(User, KnitterNotebookContext);
