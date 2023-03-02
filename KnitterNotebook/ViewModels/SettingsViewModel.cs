@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Themes;
@@ -7,6 +8,7 @@ using KnitterNotebook.Views.UserControls;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -218,7 +220,8 @@ namespace KnitterNotebook.ViewModels
                         user.Theme = theme;
                         KnitterNotebookContext.Users.Update(user);
                         await KnitterNotebookContext.SaveChangesAsync();
-                        ThemeChanger.SetTheme();
+                        string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{user.Theme.Name}Mode.xaml");
+                        ThemeChanger.SetTheme(themeFullName);
                         MessageBox.Show($"Zmieniono interfejs aplikacji na {user.Theme.Name}");
                     }
                 }

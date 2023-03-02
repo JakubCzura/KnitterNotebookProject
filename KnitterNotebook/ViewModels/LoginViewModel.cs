@@ -3,9 +3,11 @@ using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Database.Login;
 using KnitterNotebook.Models;
+using KnitterNotebook.Themes;
 using KnitterNotebook.Views.Windows;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -68,6 +70,9 @@ namespace KnitterNotebook.ViewModels
                     else
                     {
                         LoggedUserInformation.LoggedUserId = user.Id;
+                        Theme theme = KnitterNotebookContext.Themes.FirstOrDefault(x => x.Id == user.ThemeId);
+                        string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{theme.Name}Mode.xaml");
+                        ThemeChanger.SetTheme(themeFullName);
                         MainWindow mainWindow = new();
                         mainWindow.Show();
                         Window.GetWindow(LoginWindow.Instance).Close();
