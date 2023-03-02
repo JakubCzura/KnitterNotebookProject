@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
+using KnitterNotebook.Themes;
 using KnitterNotebook.Validators;
 using KnitterNotebook.Views.UserControls;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -23,10 +25,14 @@ namespace KnitterNotebook.ViewModels
             {
                 SetUserControlsVisibilityHidden(); ThemeSettingsUserControlVisibility = Visibility.Visible;
             });
+            Themes = ApplicationThemes.GetThemes();
             ChangeNicknameCommandAsync = new AsyncRelayCommand(ChangeNicknameAsync);
             ChangeEmailCommandAsync = new AsyncRelayCommand(ChangeEmailAsync);
             ChangePasswordCommandAsync = new AsyncRelayCommand(ChangePasswordAsync);
+            ChangeThemeCommandAsync = new AsyncRelayCommand(ChangeThemeAsync);
         }
+
+       
 
         // private string newNickname = string.Empty;
         private string newNickname;
@@ -45,6 +51,14 @@ namespace KnitterNotebook.ViewModels
             set { newEmail = value; OnPropertyChanged(); }
         }
 
+        private string newTheme;
+
+        public string NewTheme
+        {
+            get { return newTheme; }
+            set { newTheme = value; OnPropertyChanged(); }
+        }
+
         private Visibility userSettingsUserControlVisibility = Visibility.Visible;
 
         public Visibility UserSettingsUserControlVisibility
@@ -61,6 +75,14 @@ namespace KnitterNotebook.ViewModels
             set { themeSettingsUserControlVisibility = value; OnPropertyChanged(); }
         }
 
+        private IEnumerable themes;
+
+        public IEnumerable Themes
+        {
+            get { return themes; }
+            set { themes = value; OnPropertyChanged(); }
+        }
+
         public ICommand SetUserSettingsUserControlVisibleCommand { get; private set; }
 
         public ICommand SetThemeSettingsUserControlVisibleCommand { get; private set; }
@@ -71,7 +93,9 @@ namespace KnitterNotebook.ViewModels
 
         public ICommand ChangePasswordCommandAsync { get; private set; }
 
-        private KnitterNotebookContext KnitterNotebookContext { get; set; }
+        public ICommand ChangeThemeCommandAsync { get; private set; }
+
+        private KnitterNotebookContext KnitterNotebookContext { get; set; }   
 
         private void SetUserControlsVisibilityHidden()
         {
@@ -168,6 +192,34 @@ namespace KnitterNotebook.ViewModels
                                 MessageBox.Show($"Zmieniono hasło");
                             }
                         }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private async Task ChangeThemeAsync()
+        {
+            try
+            {
+                using (KnitterNotebookContext = new())
+                {
+                    User? user = await KnitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
+                    Theme? theme = await KnitterNotebookContext.Themes.FirstOrDefaultAsync(x => x.Name == NewTheme);
+                    if (user == null || theme == null)
+                    {
+                        MessageBox.Show("Błąd zmiany motywu");
+                    }
+                    else
+                    {
+                        user.Theme = theme;
+                        KnitterNotebookContext.Users.Update(user);
+                        await KnitterNotebookContext.SaveChangesAsync();
+                        ThemeChanger.SetTheme();
+                        MessageBox.Show($"Zmieniono interfejs aplikacji na {user.Theme.Name}");
                     }
                 }
             }

@@ -65,6 +65,9 @@
                                                       Visibility="{Binding UserSettingsUserControlVisibility}"/>
 
                 <userControls:ThemeSettingsUserControl Grid.Column="1"
+                                                       NewTheme="{Binding NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                       ChangeThemeCommandAsync="{Binding ChangeThemeCommandAsync}"
+                                                       Themes="{Binding Themes}"
                                                        Visibility="{Binding ThemeSettingsUserControlVisibility}" />
             </Grid>
         </Grid>

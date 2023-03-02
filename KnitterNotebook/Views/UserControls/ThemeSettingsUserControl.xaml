@@ -4,9 +4,33 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:KnitterNotebook.Views.UserControls"
+             xmlns:adorners="http://gu.se/Adorners"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Style="{DynamicResource SettingsUserControlStyle}"
+             x:Name="ThemeSettings">
     <Grid>
-        <TextBlock FontSize="20">ThemeSettingsUserControl</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Konto"
+                   Style="{DynamicResource SettingsHeaderTextBlockStyle}" />
+
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Zmiana motywu aplikacji"
+                       Style="{DynamicResource SettingsElementTextBlockStyle}" />
+            <UniformGrid Rows="1">
+                <TextBlock Text="{Binding Path=NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=ThemeSettings}"
+                           Style="{DynamicResource SettingsElementTextBlockStyle}" />
+                <ComboBox SelectedItem="{Binding Path=NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=ThemeSettings}"
+                          ItemsSource="{Binding Path=Themes, ElementName=ThemeSettings}"/>
+            </UniformGrid>
+           
+            <Button Content="Potwierdź"
+                    Command="{Binding Path=ChangeThemeCommandAsync, ElementName=ThemeSettings}" />
+        </StackPanel>
     </Grid>
 </UserControl>

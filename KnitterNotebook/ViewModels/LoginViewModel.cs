@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Database.Login;
 using KnitterNotebook.Models;
 using KnitterNotebook.Views.Windows;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -20,8 +22,8 @@ namespace KnitterNotebook.ViewModels
         {
             //KnitterNotebookContext = knitterNotebookContext;
             ShowRegistrationWindowCommand = new RelayCommand(ShowRegisterWindow);
-            LogInCommandAsync = new AsyncRelayCommand(LogInAsync);
-        }
+            LogInCommandAsync = new AsyncRelayCommand(LogInAsync);         
+    }
 
         #region Properties
 
