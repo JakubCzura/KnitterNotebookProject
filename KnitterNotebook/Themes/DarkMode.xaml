@@ -13,36 +13,41 @@
     </Style>
 
     <Style TargetType="TextBlock" x:Key="WelcomeTextBlockStyle" BasedOn="{StaticResource WelcomeTextBlock}">
-        <Setter Property="Foreground" Value="{StaticResource ForegroundDark}" />
+        <!--<Setter Property="Foreground" Value="{StaticResource ForegroundDark}" />-->
     </Style>
 
     <Style TargetType="Label" x:Key="LabelAboveLoginInputStyle" BasedOn="{StaticResource LabelAboveLoginInput}">
-        <Setter Property="Foreground" Value="{StaticResource ForegroundDark}" />
+        <!--<Setter Property="Foreground" Value="{StaticResource ForegroundDark}" />-->
     </Style>
 
     <Style TargetType="Window" x:Key="WindowStyle">
-        <Setter Property="Background" Value="{StaticResource ApplicationBackgroundColorDark}" />
+        <Setter Property="Background" Value="{StaticResource ApplicationBackgroundColorDark}"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundDark}" />
     </Style>
 
     <Style TargetType="Button" x:Key="MainMenuButtonStyle" BasedOn="{StaticResource MainMenuButton}">
-        <Setter Property="Background" Value="{StaticResource ButtonGradientBackgroundDark}"></Setter>
+        <Setter Property="Background" Value="{StaticResource ButtonGradientBackgroundDark}"/>
     </Style>
 
     <Style TargetType="Menu" x:Key="NavigationMenuStyle">
-        <Setter Property="Background" Value="{StaticResource MainMenuBackgroundColorDark}" />
-        <Setter Property="FontSize" Value="{StaticResource NavigationMenuFontSize}"></Setter>
+        <!--<Setter Property="Background" Value="{StaticResource MainMenuBackgroundColorDark}" />-->
+        <Setter Property="FontSize" Value="{StaticResource NavigationMenuFontSize}"/>
+        <!--<Setter Property="Foreground" Value="{StaticResource ForegroundDark}" />-->
+        <Setter Property="BorderThickness" Value="0"/>
     </Style>
 
     <Style TargetType="MenuItem" x:Key="NavigationMenuItemStyle">
-        <Setter Property="FontSize" Value="{StaticResource NavigationMenuFontSize}" />
+        <!--<Setter Property="Background" Value="{StaticResource MainMenuBackgroundColorDark}" />-->
+        <Setter Property="FontSize" Value="{StaticResource NavigationMenuFontSize}"/>
+        <!--<Setter Property="Foreground" Value="{StaticResource ForegroundDark}" />-->
     </Style>
 
     <Style TargetType="UserControl" x:Key="SettingsUserControlStyle">
         <Setter Property="Background" Value="{StaticResource ApplicationBackgroundColorDark}" />
         <Setter Property="FontFamily" Value="{DynamicResource SettingsFontFamily}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundDark}" />
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="SettingsHeaderTextBlockStyle" BasedOn="{StaticResource SettingsHeaderTextBlock}" />
-
-    <Style TargetType="TextBlock" x:Key="SettingsElementTextBlockStyle" BasedOn="{StaticResource SettingsElementTextBlock}" />
+    <Style TargetType="TextBlock" x:Key="SettingsHeaderTextBlockStyle" BasedOn="{StaticResource SettingsHeaderTextBlock}">
+    </Style>
 </ResourceDictionary>

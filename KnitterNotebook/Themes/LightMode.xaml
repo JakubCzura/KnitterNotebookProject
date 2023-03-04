@@ -7,7 +7,7 @@
         <ResourceDictionary Source="Fonts.xaml" />
         <ResourceDictionary Source="Buttons.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
+    
     <Style TargetType="Button" x:Key="LoginButtonStyle" BasedOn="{StaticResource LoginButton}">
         <Setter Property="Background" Value="{StaticResource LoginButtonBackgroundLight}" />
     </Style>
@@ -22,6 +22,7 @@
 
     <Style TargetType="Window" x:Key="WindowStyle">
         <Setter Property="Background" Value="{StaticResource ApplicationBackgroundColorLight}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundLight}" />
     </Style>
 
     <Style TargetType="Button" x:Key="MainMenuButtonStyle" BasedOn="{StaticResource MainMenuButton}">
@@ -40,9 +41,15 @@
     <Style TargetType="UserControl" x:Key="SettingsUserControlStyle">
         <Setter Property="Background" Value="{StaticResource ApplicationBackgroundColorLight}" />
         <Setter Property="FontFamily" Value="{DynamicResource SettingsFontFamily}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundLight}" />
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="SettingsHeaderTextBlockStyle" BasedOn="{StaticResource SettingsHeaderTextBlock}" />
+    <Style TargetType="TextBlock" x:Key="SettingsHeaderTextBlockStyle" BasedOn="{StaticResource SettingsHeaderTextBlock}">
+        <Setter Property="Foreground" Value="{StaticResource ForegroundLight}" />
+    </Style>
 
-    <Style TargetType="TextBlock" x:Key="SettingsElementTextBlockStyle" BasedOn="{StaticResource SettingsElementTextBlock}" />
+    <Style TargetType="TextBlock" x:Key="SettingsElementTextBlockStyle" BasedOn="{StaticResource SettingsElementTextBlock}" >
+        <Setter Property="Foreground" Value="{StaticResource ForegroundLight}" />
+    </Style>
+
 </ResourceDictionary>
