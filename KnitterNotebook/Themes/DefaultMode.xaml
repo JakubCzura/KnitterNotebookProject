@@ -13,25 +13,21 @@
         <Setter Property="Background" Value="{StaticResource LoginButtonBackgroundDark}" />
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="WelcomeTextBlockStyle" BasedOn="{StaticResource WelcomeTextBlock}">
-        <Setter Property="Foreground" Value="{StaticResource ForegroundDefault}" />
-    </Style>
+    <Style TargetType="TextBlock" x:Key="WelcomeTextBlockStyle" BasedOn="{StaticResource WelcomeTextBlock}"/>
 
-    <Style TargetType="Label" x:Key="LabelAboveLoginInputStyle" BasedOn="{StaticResource LabelAboveLoginInput}">
-        <Setter Property="Foreground" Value="{StaticResource ForegroundDefault}" />
-    </Style>
+    <Style TargetType="Label" x:Key="LabelAboveLoginInputStyle" BasedOn="{StaticResource LabelAboveLoginInput}"/>
 
     <Style TargetType="Window" x:Key="WindowStyle">
         <Setter Property="Background" Value="{StaticResource ApplicationBackgroundColorDefault}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundDefault}"/>
     </Style>
 
     <Style TargetType="Button" x:Key="MainMenuButtonStyle" BasedOn="{StaticResource MainMenuButton}">
-        <Setter Property="Background" Value="{StaticResource ButtonGradientBackgroundDefault}"></Setter>
+        <Setter Property="Background" Value="{StaticResource ButtonGradientBackgroundDefault}"/>
     </Style>
 
     <Style TargetType="Menu" x:Key="NavigationMenuStyle">
-        <Setter Property="Background" Value="{StaticResource MainMenuBackgroundColorDefault}" />
-        <Setter Property="FontSize" Value="{StaticResource NavigationMenuFontSize}"></Setter>
+        <Setter Property="FontSize" Value="{StaticResource NavigationMenuFontSize}"/>
     </Style>
 
     <Style TargetType="MenuItem" x:Key="NavigationMenuItemStyle">
@@ -39,8 +35,7 @@
     </Style>
 
     <Style TargetType="UserControl" x:Key="SettingsUserControlStyle">
-        <Setter Property="Background" Value="{StaticResource ApplicationBackgroundColorDefault}" />
-        <Setter Property="FontFamily" Value="{DynamicResource SettingsFontFamily}" />
+        <Setter Property="FontFamily" Value="{DynamicResource SettingsFontFamily}"/>
     </Style>
 
     <Style TargetType="TextBlock" x:Key="SettingsHeaderTextBlockStyle" BasedOn="{StaticResource SettingsHeaderTextBlock}" />
