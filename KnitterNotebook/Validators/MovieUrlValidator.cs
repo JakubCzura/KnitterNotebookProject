@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Diagnostics;
 using KnitterNotebook.Models;
-using System;
-using System.Windows;
 
 namespace KnitterNotebook.Validators
 {
@@ -9,17 +7,9 @@ namespace KnitterNotebook.Validators
     {
         public bool Validate(MovieUrl movieUrl)
         {
-            try
-            {
-                Guard.IsNotNull(movieUrl.User);
-                Guard.IsNotNullOrWhiteSpace(movieUrl.Title);
-                Guard.IsNotNull(movieUrl.Link);
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-                return false;
-            }
+            Guard.IsNotNull(movieUrl.User);
+            Guard.IsNotNullOrWhiteSpace(movieUrl.Title);
+            Guard.IsNotNull(movieUrl.Link);
             return true;
         }
     }

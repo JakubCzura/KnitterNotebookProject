@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Diagnostics;
 using KnitterNotebook.Models;
-using System;
-using System.Windows;
 
 namespace KnitterNotebook.Validators
 {
@@ -9,17 +7,9 @@ namespace KnitterNotebook.Validators
     {
         public bool Validate(Project project)
         {
-            try
-            {
-                Guard.IsNotNull(project.User);
-                Guard.IsNotNullOrWhiteSpace(project.Name);
-                Guard.HasSizeLessThanOrEqualTo(project.Name, 100);
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-                return false;
-            }
+            Guard.IsNotNull(project.User);
+            Guard.IsNotNullOrWhiteSpace(project.Name);
+            Guard.HasSizeLessThanOrEqualTo(project.Name, 100);
             return true;
         }
     }

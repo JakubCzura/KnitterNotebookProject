@@ -10,10 +10,12 @@ namespace KnitterNotebook.Database
     {
         public KnitterNotebookContext()
         {
+            Database.EnsureCreated();
         }
 
         public KnitterNotebookContext(DbContextOptions options) : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public DbSet<Project> Projects { get; set; }
@@ -28,10 +30,10 @@ namespace KnitterNotebook.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
-            string appSettingsString = File.ReadAllText(appSettingsPath);
-            AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString)!;
-            optionsBuilder.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
+            //string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
+            //string appSettingsString = File.ReadAllText(appSettingsPath);
+            //AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString)!;
+            //optionsBuilder.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
