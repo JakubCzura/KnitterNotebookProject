@@ -38,6 +38,11 @@ namespace KnitterNotebook
                     {
                         DataContext = s.GetRequiredService<LoginViewModel>()
                     });
+                    services.AddSingleton<MainViewModel>();
+                    services.AddSingleton(s => new MainWindow()
+                    {
+                        DataContext = s.GetRequiredService<MainViewModel>()
+                    });
                 })
                 .Build();
         }

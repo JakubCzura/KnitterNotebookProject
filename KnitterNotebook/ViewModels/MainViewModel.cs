@@ -14,18 +14,17 @@ namespace KnitterNotebook.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public MainViewModel()
+        public MainViewModel(KnitterNotebookContext knitterNotebookContext)
         {
+            KnitterNotebookContext = knitterNotebookContext;
             try
             {
-                using (KnitterNotebookContext = new())
-                {
-                    User = KnitterNotebookContext.Users
-                           .Include(x => x.MovieUrls)
-                           .Include(x => x.Projects)
-                           .Include(x => x.Theme)
-                           .FirstOrDefault(x => x.Id == LoggedUserInformation.LoggedUserId)!;
-                }
+                User = KnitterNotebookContext.Users
+                       .Include(x => x.MovieUrls)
+                       .Include(x => x.Projects)
+                       .Include(x => x.Theme)
+                       .FirstOrDefault(x => x.Id == LoggedUserInformation.LoggedUserId)!;
+
                 MovieUrls = new ObservableCollection<MovieUrl>(User.MovieUrls);
             }
             catch (Exception exception)
@@ -151,24 +150,18 @@ namespace KnitterNotebook.ViewModels
 
         private ObservableCollection<MovieUrl> GetMovieUrls(User user)
         {
-            using (KnitterNotebookContext = new KnitterNotebookContext())
-            {
-                return new ObservableCollection<MovieUrl>(KnitterNotebookContext.MovieUrls.Where(x => x.UserId == user.Id));
-            }
+            return new ObservableCollection<MovieUrl>(KnitterNotebookContext.MovieUrls.Where(x => x.UserId == user.Id));
         }
+
         private async Task DeleteMovieUrlAsync()
         {
             try
             {
                 if (SelectedMovieUrl != null)
                 {
-                    using (KnitterNotebookContext = new())
-                    {
-                        SelectedMovieUrl = await KnitterNotebookContext.MovieUrls.FirstOrDefaultAsync(x => x.Id == SelectedMovieUrl.Id);
-                        KnitterNotebookContext.Remove(SelectedMovieUrl);
-
-                        await KnitterNotebookContext.SaveChangesAsync();
-                    }
+                    SelectedMovieUrl = await KnitterNotebookContext.MovieUrls.FirstOrDefaultAsync(x => x.Id == SelectedMovieUrl.Id);
+                    KnitterNotebookContext.Remove(SelectedMovieUrl);
+                    await KnitterNotebookContext.SaveChangesAsync();
                     MovieUrls = GetMovieUrls(User);
                 }
             }

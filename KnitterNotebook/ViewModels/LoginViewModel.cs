@@ -5,6 +5,7 @@ using KnitterNotebook.Database.Login;
 using KnitterNotebook.Models;
 using KnitterNotebook.Themes;
 using KnitterNotebook.Views.Windows;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Linq;
@@ -19,13 +20,12 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public class LoginViewModel : BaseViewModel
     {
-         public LoginViewModel(KnitterNotebookContext knitterNotebookContext)
-       // public LoginViewModel()
+        public LoginViewModel(KnitterNotebookContext knitterNotebookContext)
         {
             KnitterNotebookContext = knitterNotebookContext;
             ShowRegistrationWindowCommand = new RelayCommand(ShowRegisterWindow);
-            LogInCommandAsync = new AsyncRelayCommand(LogInAsync);         
-    }
+            LogInCommandAsync = new AsyncRelayCommand(LogInAsync);
+        }
 
         #region Properties
 
@@ -58,26 +58,25 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                //using (KnitterNotebookContext = new())
-               // {
-                    StandardLoggingIn standardLoggingIn = new();
-                    LoggingInManager = new(standardLoggingIn, Email, LoginWindow.Instance.UserPasswordPasswordBox.Password, KnitterNotebookContext);
-                    User user = await LoggingInManager.LogIn()!;
-                    if (user == null)
-                    {
-                        MessageBox.Show("Nieprawidłowe dane logowania");
-                    }
-                    else
-                    {
-                        LoggedUserInformation.LoggedUserId = user.Id;
-                        Theme theme = KnitterNotebookContext.Themes.FirstOrDefault(x => x.Id == user.ThemeId);
-                        string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{theme.Name}Mode.xaml");
-                        ThemeChanger.SetTheme(themeFullName);
-                        MainWindow mainWindow = new();
-                        mainWindow.Show();
-                        Window.GetWindow(LoginWindow.Instance).Close();
-                    }
-                //}
+                StandardLoggingIn standardLoggingIn = new();
+                LoggingInManager = new(standardLoggingIn, Email, LoginWindow.Instance.UserPasswordPasswordBox.Password, KnitterNotebookContext);
+                User user = await LoggingInManager.LogIn()!;
+                if (user == null)
+                {
+                    MessageBox.Show("Nieprawidłowe dane logowania");
+                }
+                else
+                {
+                    LoggedUserInformation.LoggedUserId = user.Id;
+                    Theme theme = KnitterNotebookContext.Themes.FirstOrDefault(x => x.Id == user.ThemeId);
+                    string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{theme.Name}Mode.xaml");
+                    ThemeChanger.SetTheme(themeFullName);
+
+                    var startupWindow = App.AppHost.Services.GetService<MainWindow>();
+                    startupWindow.Show();
+
+                    Window.GetWindow(LoginWindow.Instance).Close();
+                }
             }
             catch (Exception exception)
             {
