@@ -50,8 +50,8 @@ namespace KnitterNotebook.ViewModels
 
         private void ShowRegisterWindow()
         {
-            RegistrationWindow RegistrationWindow = new();
-            RegistrationWindow.ShowDialog();
+            var registrationWindow = App.AppHost.Services.GetService<RegistrationWindow>();
+            registrationWindow.ShowDialog();
         }
 
         private async Task LogInAsync()

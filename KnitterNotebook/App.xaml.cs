@@ -39,6 +39,11 @@ namespace KnitterNotebook
                     {
                         DataContext = s.GetRequiredService<LoginViewModel>()
                     });
+                    services.AddTransient<RegistrationViewModel>();
+                    services.AddTransient(s => new RegistrationWindow()
+                    {
+                        DataContext = s.GetService<RegistrationViewModel>()
+                    });
                     services.AddSingleton<MainViewModel>();
                     services.AddSingleton(s => new MainWindow()
                     {

@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:KnitterNotebook.Views.Windows"
         mc:Ignorable="d"
         xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
-        xmlns:adorners="http://gu.se/Adorners"
+        xmlns:adorners="http://gu.se/Adorners" 
+        d:DataContext="{d:DesignInstance Type=viewModels:RegistrationViewModel}"
         Title="KnitterNotebook"
         Height="650"
         Width="500"
@@ -16,10 +17,10 @@
         Style="{DynamicResource WindowStyle}">
 
     <Window.Resources>
-        <viewModels:RegistrationViewModel x:Key="RegistrationViewModel" />
+        <!--<viewModels:RegistrationViewModel x:Key="RegistrationViewModel" />-->
     </Window.Resources>
 
-    <Grid DataContext="{StaticResource RegistrationViewModel}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

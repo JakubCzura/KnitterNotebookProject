@@ -60,8 +60,6 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                //using (KnitterNotebookContext = new KnitterNotebookContext())
-                // {
                 User user = await KnitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
                 //KnitterNotebookContext.Attach(user);
                 MovieUrl movieUrl = new()
@@ -78,7 +76,6 @@ namespace KnitterNotebook.ViewModels
                     NewMovieUrlAdded?.Invoke();
                     MessageBox.Show("Dodano nowy film");
                 }
-                //}
             }
             catch (Exception exception)
             {

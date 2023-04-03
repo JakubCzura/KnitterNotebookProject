@@ -14,8 +14,9 @@ namespace KnitterNotebook.ViewModels
 {
     public class RegistrationViewModel : BaseViewModel
     {
-        public RegistrationViewModel()
+        public RegistrationViewModel(KnitterNotebookContext knitterNotebookContext)
         {
+            KnitterNotebookContext = knitterNotebookContext;
             RegisterUserCommandAsync = new AsyncRelayCommand(RegisterUser);
         }
 
@@ -52,27 +53,24 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                using (KnitterNotebookContext = new())
+                Theme theme = KnitterNotebookContext.Themes.First();
+                KnitterNotebookContext.Attach(theme);
+                User user = new()
                 {
-                    Theme theme = KnitterNotebookContext.Themes.First();
-                    KnitterNotebookContext.Attach(theme);
-                    User user = new()
-                    {
-                        Nickname = Nickname,
-                        Email = Email,
-                        Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password,
-                        Theme = theme
-                    };
-                    IValidator<User> userValidator = new UserValidator();
-                    if (userValidator.Validate(user))
-                    {
-                        user.Password = PasswordHasher.HashPassword(user.Password);
-                        StandardRegistration = new StandardRegistration();
-                        RegistrationManager = new(StandardRegistration, user, KnitterNotebookContext);
-                        await RegistrationManager.Register();
-                        Window.GetWindow(RegistrationWindow.Instance).Close();
-                        MessageBox.Show("Rejestracja przebiegła pomyślnie");
-                    }
+                    Nickname = Nickname,
+                    Email = Email,
+                    Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password,
+                    Theme = theme
+                };
+                IValidator<User> userValidator = new UserValidator();
+                if (userValidator.Validate(user))
+                {
+                    user.Password = PasswordHasher.HashPassword(user.Password);
+                    StandardRegistration = new StandardRegistration();
+                    RegistrationManager = new(StandardRegistration, user, KnitterNotebookContext);
+                    await RegistrationManager.Register();
+                    Window.GetWindow(RegistrationWindow.Instance).Close();
+                    MessageBox.Show("Rejestracja przebiegła pomyślnie");
                 }
             }
             catch (Exception exception)
