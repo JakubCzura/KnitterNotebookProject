@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:KnitterNotebook.Views.Windows"
         xmlns:adorners="http://gu.se/Adorners"
         xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewModels:MovieUrlAddingViewModel}"
         mc:Ignorable="d"
         Title="KnitterNotebook"
         Height="550"
@@ -14,14 +15,14 @@
         Style="{DynamicResource WindowStyle}">
 
     <Window.Resources>
-        <viewModels:MovieUrlAddingViewModel x:Key="MovieUrlAddingViewModel" />
+        <!--<viewModels:MovieUrlAddingViewModel x:Key="MovieUrlAddingViewModel" />-->
     </Window.Resources>
 
-    <Window.InputBindings>
+    <!--<Window.InputBindings>
         <KeyBinding Key="Enter"
                     Command="{Binding Source={StaticResource MovieUrlAddingViewModel}, Path=AddMovieUrlCommandAsync}" />
-    </Window.InputBindings>
-    <Grid DataContext="{StaticResource MovieUrlAddingViewModel}">
+    </Window.InputBindings>-->
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

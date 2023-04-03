@@ -16,8 +16,9 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public class MovieUrlAddingViewModel : BaseViewModel
     {
-        public MovieUrlAddingViewModel()
+        public MovieUrlAddingViewModel(KnitterNotebookContext knitterNotebookContext)
         {
+            KnitterNotebookContext = knitterNotebookContext;
             AddMovieUrlCommandAsync = new AsyncRelayCommand(AddMovieUrlAsync);
         }
 
@@ -59,25 +60,25 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                using (KnitterNotebookContext = new KnitterNotebookContext())
+                //using (KnitterNotebookContext = new KnitterNotebookContext())
+                // {
+                User user = await KnitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
+                //KnitterNotebookContext.Attach(user);
+                MovieUrl movieUrl = new()
                 {
-                    User user = await KnitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
-                    //KnitterNotebookContext.Attach(user);
-                    MovieUrl movieUrl = new()
-                    {
-                        Title = Title,
-                        Link = new Uri(Link),
-                        User = user
-                    };
-                    IValidator<MovieUrl> movieUrlValidator = new MovieUrlValidator();
-                    AddingMovieUrl = new AddingMovieUrl();
-                    if (movieUrlValidator.Validate(movieUrl))
-                    {
-                        await AddingMovieUrl.AddMovieUrl(movieUrl, KnitterNotebookContext);
-                        NewMovieUrlAdded?.Invoke();
-                        MessageBox.Show("Dodano nowy film");
-                    }
+                    Title = Title,
+                    Link = new Uri(Link),
+                    User = user
+                };
+                IValidator<MovieUrl> movieUrlValidator = new MovieUrlValidator();
+                AddingMovieUrl = new AddingMovieUrl();
+                if (movieUrlValidator.Validate(movieUrl))
+                {
+                    await AddingMovieUrl.AddMovieUrl(movieUrl, KnitterNotebookContext);
+                    NewMovieUrlAdded?.Invoke();
+                    MessageBox.Show("Dodano nowy film");
                 }
+                //}
             }
             catch (Exception exception)
             {

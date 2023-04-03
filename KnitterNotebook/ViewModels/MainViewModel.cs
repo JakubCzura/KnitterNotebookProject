@@ -3,6 +3,7 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace KnitterNotebook.ViewModels
         public MainViewModel(KnitterNotebookContext knitterNotebookContext)
         {
             KnitterNotebookContext = knitterNotebookContext;
+            ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
             try
             {
                 User = KnitterNotebookContext.Users
@@ -48,7 +50,6 @@ namespace KnitterNotebook.ViewModels
                 SetUserControlsVisibilityHidden(); SamplesUserControlVisibility = Visibility.Visible;
             });
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
-            ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
             DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
         }
@@ -144,8 +145,12 @@ namespace KnitterNotebook.ViewModels
 
         private void ShowMovieUrlAddingWindow()
         {
-            MovieUrlAddingWindow movieUrlAddingWindow = new();
+            var movieUrlAddingWindow = App.AppHost.Services.GetService<MovieUrlAddingWindow>();
             movieUrlAddingWindow.Show();
+            //var newWindowViewModel = new MovieUrlAddingViewModel(KnitterNotebookContext);
+            //var newWindow = new MovieUrlAddingWindow();
+            //newWindow.DataContext = newWindowViewModel;
+            //newWindow.Show();
         }
 
         private ObservableCollection<MovieUrl> GetMovieUrls(User user)

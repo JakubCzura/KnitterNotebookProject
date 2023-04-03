@@ -33,6 +33,7 @@ namespace KnitterNotebook
                         AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString)!;
                         options.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
                     });
+                   
                     services.AddSingleton<LoginViewModel>();
                     services.AddSingleton(s => new LoginWindow()
                     {
@@ -42,6 +43,11 @@ namespace KnitterNotebook
                     services.AddSingleton(s => new MainWindow()
                     {
                         DataContext = s.GetRequiredService<MainViewModel>()
+                    });
+                    services.AddTransient<MovieUrlAddingViewModel>();
+                    services.AddTransient(s => new MovieUrlAddingWindow()
+                    {
+                        DataContext = s.GetRequiredService<MovieUrlAddingViewModel>()
                     });
                 })
                 .Build();
