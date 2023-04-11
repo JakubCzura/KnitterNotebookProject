@@ -1,8 +1,5 @@
-﻿using KnitterNotebook.ApplicationInformation;
-using KnitterNotebook.Models;
+﻿using KnitterNotebook.Models;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System.IO;
 
 namespace KnitterNotebook.Database
 {
@@ -25,8 +22,6 @@ namespace KnitterNotebook.Database
         public DbSet<Theme> Themes { get; set; }
 
         public DbSet<MovieUrl> MovieUrls { get; set; }
-
-        private AppSettings AppSettings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

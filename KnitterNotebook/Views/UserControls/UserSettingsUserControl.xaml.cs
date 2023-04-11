@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.TextFormatting;
 
 namespace KnitterNotebook.Views.UserControls
 {
@@ -11,6 +10,7 @@ namespace KnitterNotebook.Views.UserControls
     public partial class UserSettingsUserControl : UserControl
     {
         public static UserSettingsUserControl Instance { get; private set; } = null!;
+
         public UserSettingsUserControl()
         {
             InitializeComponent();
@@ -66,6 +66,5 @@ namespace KnitterNotebook.Views.UserControls
             get { return (GetValue(ChangePasswordCommandAsyncProperty) as ICommand)!; }
             set { SetValue(ChangePasswordCommandAsyncProperty, value); }
         }
-        
     }
 }

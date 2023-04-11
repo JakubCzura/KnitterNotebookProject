@@ -32,9 +32,8 @@ namespace KnitterNotebook.Views.UserControls
         public IEnumerable Themes
         {
             get { return (GetValue(ThemesProperty) as IEnumerable)!; }
-            set { SetValue (ThemesProperty, value); }
+            set { SetValue(ThemesProperty, value); }
         }
-
 
         public static readonly DependencyProperty ChangeThemeCommandAsyncProperty =
           DependencyProperty.Register(nameof(ChangeThemeCommandAsync), typeof(ICommand), typeof(ThemeSettingsUserControl),

@@ -16,34 +16,29 @@ namespace KnitterNotebook.ViewModels
     {
         public RegistrationViewModel(KnitterNotebookContext knitterNotebookContext)
         {
-            KnitterNotebookContext = knitterNotebookContext;
+            _knitterNotebookContext = knitterNotebookContext;
             RegisterUserCommandAsync = new AsyncRelayCommand(RegisterUser);
         }
 
         #region Properties
 
-        private IRegistration StandardRegistration { get; set; }
-        private RegistrationManager RegistrationManager { get; set; }
-
-        public ICommand RegisterUserCommandAsync { get; private set; }
-
-        private KnitterNotebookContext KnitterNotebookContext { get; set; }
-
-        private string nickname;
-
-        public string Nickname
-        {
-            get { return nickname; }
-            set { nickname = value; OnPropertyChanged(); }
-        }
-
-        private string email;
+        private readonly KnitterNotebookContext _knitterNotebookContext;
+        private string _email = string.Empty;
+        private string _nickname = string.Empty;
 
         public string Email
         {
-            get { return email; }
-            set { email = value; OnPropertyChanged(); }
+            get { return _email; }
+            set { _email = value; OnPropertyChanged(); }
         }
+
+        public string Nickname
+        {
+            get { return _nickname; }
+            set { _nickname = value; OnPropertyChanged(); }
+        }
+
+        public ICommand RegisterUserCommandAsync { get; }
 
         #endregion Properties
 
@@ -53,8 +48,8 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                Theme theme = KnitterNotebookContext.Themes.First();
-                KnitterNotebookContext.Attach(theme);
+                Theme theme = _knitterNotebookContext.Themes.First();
+                _knitterNotebookContext.Attach(theme);
                 User user = new()
                 {
                     Nickname = Nickname,
@@ -66,9 +61,9 @@ namespace KnitterNotebook.ViewModels
                 if (userValidator.Validate(user))
                 {
                     user.Password = PasswordHasher.HashPassword(user.Password);
-                    StandardRegistration = new StandardRegistration();
-                    RegistrationManager = new(StandardRegistration, user, KnitterNotebookContext);
-                    await RegistrationManager.Register();
+                    IRegistration standardRegistration = new StandardRegistration();
+                    RegistrationManager registrationManager = new(standardRegistration, user, _knitterNotebookContext);
+                    await registrationManager.Register();
                     Window.GetWindow(RegistrationWindow.Instance).Close();
                     MessageBox.Show("Rejestracja przebiegła pomyślnie");
                 }

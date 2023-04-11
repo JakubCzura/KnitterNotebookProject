@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
         xmlns:userControls="clr-namespace:KnitterNotebook.Views.UserControls"
+        d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel}"
         mc:Ignorable="d"
         Title="KnitterNotebook"
         Height="450"
@@ -13,10 +14,10 @@
         Style="{DynamicResource WindowStyle}">
 
     <Window.Resources>
-        <viewModels:SettingsViewModel x:Key="SettingsViewModel" />
+        <!--<viewModels:SettingsViewModel x:Key="SettingsViewModel" />-->
     </Window.Resources>
 
-    <Grid DataContext="{StaticResource SettingsViewModel}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -62,7 +63,7 @@
                                                       NewEmail="{Binding NewEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       ChangeEmailCommandAsync="{Binding ChangeEmailCommandAsync}"
                                                       ChangePasswordCommandAsync="{Binding ChangePasswordCommandAsync}"
-                                                      Visibility="{Binding UserSettingsUserControlVisibility}"/>
+                                                      Visibility="{Binding UserSettingsUserControlVisibility}" />
 
                 <userControls:ThemeSettingsUserControl Grid.Column="1"
                                                        NewTheme="{Binding NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

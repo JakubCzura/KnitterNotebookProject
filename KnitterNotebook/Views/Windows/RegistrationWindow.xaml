@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:KnitterNotebook.Views.Windows"
         mc:Ignorable="d"
         xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
-        xmlns:adorners="http://gu.se/Adorners" 
+        xmlns:adorners="http://gu.se/Adorners"
         d:DataContext="{d:DesignInstance Type=viewModels:RegistrationViewModel}"
         Title="KnitterNotebook"
         Height="650"

@@ -22,45 +22,38 @@ namespace KnitterNotebook.ViewModels
     {
         public LoginViewModel(KnitterNotebookContext knitterNotebookContext)
         {
-            KnitterNotebookContext = knitterNotebookContext;
+            _knitterNotebookContext = knitterNotebookContext;
             ShowRegistrationWindowCommand = new RelayCommand(ShowRegisterWindow);
             LogInCommandAsync = new AsyncRelayCommand(LogInAsync);
         }
 
         #region Properties
 
-        private KnitterNotebookContext KnitterNotebookContext { get; set; }
-        private LoggingInManager LoggingInManager { get; set; }
+        private readonly KnitterNotebookContext _knitterNotebookContext;
 
-        public ICommand LogInCommandAsync { get; }
-
-        public ICommand ShowRegistrationWindowCommand { get; private set; }
-
-        private string email;
+        private string _email = string.Empty;
 
         public string Email
         {
-            get { return email; }
-            set { email = value; OnPropertyChanged(); }
+            get { return _email; }
+            set { _email = value; OnPropertyChanged(); }
         }
+
+        public ICommand LogInCommandAsync { get; }
+
+        public ICommand ShowRegistrationWindowCommand { get; }
 
         #endregion Properties
 
         #region Methods
-
-        private void ShowRegisterWindow()
-        {
-            var registrationWindow = App.AppHost.Services.GetService<RegistrationWindow>();
-            registrationWindow.ShowDialog();
-        }
 
         private async Task LogInAsync()
         {
             try
             {
                 StandardLoggingIn standardLoggingIn = new();
-                LoggingInManager = new(standardLoggingIn, Email, LoginWindow.Instance.UserPasswordPasswordBox.Password, KnitterNotebookContext);
-                User user = await LoggingInManager.LogIn()!;
+                LoggingInManager loggingInManager = new(standardLoggingIn, Email, LoginWindow.Instance.UserPasswordPasswordBox.Password, _knitterNotebookContext);
+                User user = await loggingInManager.LogIn()!;
                 if (user == null)
                 {
                     MessageBox.Show("Nieprawidłowe dane logowania");
@@ -68,7 +61,7 @@ namespace KnitterNotebook.ViewModels
                 else
                 {
                     LoggedUserInformation.LoggedUserId = user.Id;
-                    Theme theme = KnitterNotebookContext.Themes.FirstOrDefault(x => x.Id == user.ThemeId);
+                    Theme theme = _knitterNotebookContext.Themes.FirstOrDefault(x => x.Id == user.ThemeId);
                     string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{theme.Name}Mode.xaml");
                     ThemeChanger.SetTheme(themeFullName);
 
@@ -82,6 +75,12 @@ namespace KnitterNotebook.ViewModels
             {
                 MessageBox.Show(exception.Message);
             }
+        }
+
+        private void ShowRegisterWindow()
+        {
+            var registrationWindow = App.AppHost.Services.GetService<RegistrationWindow>();
+            registrationWindow.ShowDialog();
         }
 
         #endregion Methods

@@ -5,16 +5,15 @@ namespace KnitterNotebook.Database.Registration
 {
     public class RegistrationManager
     {
-        private IRegistration Registration { get; set; }
-        private User User { get; set; }
-
-        private KnitterNotebookContext KnitterNotebookContext { get; set; }
+        private readonly IRegistration _registration;
+        private readonly User _user;
+        private readonly KnitterNotebookContext _knitterNotebookContext;
 
         public RegistrationManager(IRegistration registration, User user, KnitterNotebookContext knitterNotebookContext)
         {
-            Registration = registration;
-            User = user;
-            KnitterNotebookContext = knitterNotebookContext;
+            _registration = registration;
+            _user = user;
+            _knitterNotebookContext = knitterNotebookContext;
         }
 
         /// <summary>
@@ -23,7 +22,7 @@ namespace KnitterNotebook.Database.Registration
         /// <returns></returns>
         public async Task Register()
         {
-            await Registration.RegisterUser(User, KnitterNotebookContext);
+            await _registration.RegisterUser(_user, _knitterNotebookContext);
         }
     }
 }

@@ -11,8 +11,8 @@
              x:Name="ThemeSettings">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
@@ -26,9 +26,9 @@
                 <TextBlock Text="{Binding Path=NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=ThemeSettings}"
                            Style="{DynamicResource SettingsElementTextBlockStyle}" />
                 <ComboBox SelectedItem="{Binding Path=NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=ThemeSettings}"
-                          ItemsSource="{Binding Path=Themes, ElementName=ThemeSettings}"/>
+                          ItemsSource="{Binding Path=Themes, ElementName=ThemeSettings}" />
             </UniformGrid>
-           
+
             <Button Content="Potwierdź"
                     Command="{Binding Path=ChangeThemeCommandAsync, ElementName=ThemeSettings}" />
         </StackPanel>

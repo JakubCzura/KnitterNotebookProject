@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.Database;
-using KnitterNotebook.Database.Interfaces;
 using KnitterNotebook.Models;
 using KnitterNotebook.Validators;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +17,7 @@ namespace KnitterNotebook.ViewModels
     {
         public MovieUrlAddingViewModel(KnitterNotebookContext knitterNotebookContext)
         {
-            KnitterNotebookContext = knitterNotebookContext;
+            _knitterNotebookContext = knitterNotebookContext;
             AddMovieUrlCommandAsync = new AsyncRelayCommand(AddMovieUrlAsync);
         }
 
@@ -30,26 +29,21 @@ namespace KnitterNotebook.ViewModels
 
         #region Properties
 
-        public ICommand AddMovieUrlCommandAsync { get; private set; }
-
-        private KnitterNotebookContext KnitterNotebookContext { get; set; }
-
-        private IAddingMovieUrl AddingMovieUrl { get; set; }
-
-        private string title;
-
-        public string Title
-        {
-            get { return title; }
-            set { title = value; OnPropertyChanged(); }
-        }
-
-        private string link;
+        private readonly KnitterNotebookContext _knitterNotebookContext;
+        private string _link = string.Empty;
+        private string _title = string.Empty;
+        public ICommand AddMovieUrlCommandAsync { get; }
 
         public string Link
         {
-            get { return link; }
-            set { link = value; OnPropertyChanged(); }
+            get { return _link; }
+            set { _link = value; OnPropertyChanged(); }
+        }
+
+        public string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
         }
 
         #endregion Properties
@@ -60,7 +54,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                User user = await KnitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
+                User user = await _knitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
                 //KnitterNotebookContext.Attach(user);
                 MovieUrl movieUrl = new()
                 {
@@ -69,10 +63,10 @@ namespace KnitterNotebook.ViewModels
                     User = user
                 };
                 IValidator<MovieUrl> movieUrlValidator = new MovieUrlValidator();
-                AddingMovieUrl = new AddingMovieUrl();
+                AddingMovieUrl addingMovieUrl = new();
                 if (movieUrlValidator.Validate(movieUrl))
                 {
-                    await AddingMovieUrl.AddMovieUrl(movieUrl, KnitterNotebookContext);
+                    await addingMovieUrl.AddMovieUrl(movieUrl, _knitterNotebookContext);
                     NewMovieUrlAdded?.Invoke();
                     MessageBox.Show("Dodano nowy film");
                 }

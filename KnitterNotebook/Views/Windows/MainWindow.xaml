@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:KnitterNotebook.Views.Windows"
         xmlns:userControls="clr-namespace:KnitterNotebook.Views.UserControls"
         mc:Ignorable="d"
-        xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels" 
+        xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
         d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
         Title="KnitterNotebook"
         Height="700"
@@ -83,13 +83,13 @@
                 </Grid>
 
                 <userControls:ProjectsUserControl Grid.Column="1"
-                                                  Visibility="{Binding ProjectsUserControlVisibility}"/>
+                                                  Visibility="{Binding ProjectsUserControlVisibility}" />
                 <userControls:PlannedProjectsUserControl Grid.Column="1"
-                                                  Visibility="{Binding PlannedProjectsUserControlVisibility}"/>
+                                                  Visibility="{Binding PlannedProjectsUserControlVisibility}" />
                 <userControls:ProjectsInProgressUserControl Grid.Column="1"
-                                                  Visibility="{Binding ProjectsInProgressUserControlVisibility}"/>
+                                                  Visibility="{Binding ProjectsInProgressUserControlVisibility}" />
                 <userControls:SamplesUserControl Grid.Column="1"
-                                                  Visibility="{Binding SamplesUserControlVisibility}"/>
+                                                  Visibility="{Binding SamplesUserControlVisibility}" />
             </Grid>
         </Grid>
 
@@ -121,7 +121,7 @@
                     Style="{DynamicResource MainMenuButtonStyle}"
                     Command="{Binding ShowMovieUrlAddingWindowCommand}">
                 <TextBlock Text="Dodaj nowy link do filmu"
-                                       Style="{DynamicResource WrapTextBlockStyle}"/>
+                                       Style="{DynamicResource WrapTextBlockStyle}" />
             </Button>
         </Grid>
     </Grid>
