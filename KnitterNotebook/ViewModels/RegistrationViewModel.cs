@@ -56,7 +56,7 @@ namespace KnitterNotebook.ViewModels
                     Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password,
                     Theme = theme
                 };
-                if (UserExistence.IfUserAlreadyExists(user, _knitterNotebookContext).Result)
+                if (UserExistence.IfUserAlreadyExists(user, _knitterNotebookContext).Result == false)
                 {
                     IValidator<User> userValidator = new UserValidator();
                     if (userValidator.Validate(user))

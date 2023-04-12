@@ -22,7 +22,7 @@ namespace KnitterNotebook.Database.Registration
             {
                 throw new Exception($"Użytkownik z nickiem {user.Nickname} już istnieje");
             }
-            return true;
+            return false;
         }
     }
 }
