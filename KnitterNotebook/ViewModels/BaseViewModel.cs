@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace KnitterNotebook.ViewModels
 {
@@ -19,6 +21,12 @@ namespace KnitterNotebook.ViewModels
         public void OnPropertyChanged([CallerMemberName] string name = null!)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public static void ShowWindow<T>() where T : Window
+        {
+            T? window = App.AppHost?.Services.GetService<T>();
+            window?.Show();
         }
 
         #endregion Methods

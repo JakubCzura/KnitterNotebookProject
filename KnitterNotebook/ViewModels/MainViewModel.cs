@@ -3,7 +3,6 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -111,7 +110,7 @@ namespace KnitterNotebook.ViewModels
         {
             get { return _selectedMovieUrl; }
             set { _selectedMovieUrl = value; OnPropertyChanged(); }
-        }   
+        }
 
         public User User
         {
@@ -163,14 +162,12 @@ namespace KnitterNotebook.ViewModels
 
         private void ShowMovieUrlAddingWindow()
         {
-            var movieUrlAddingWindow = App.AppHost.Services.GetService<MovieUrlAddingWindow>();
-            movieUrlAddingWindow.Show();
+            ShowWindow<MovieUrlAddingWindow>();
         }
 
         private void ShowSettingsWindow()
         {
-            var settingsWindow = App.AppHost.Services.GetService<SettingsWindow>();
-            settingsWindow.Show();
+            ShowWindow<SettingsWindow>();
         }
 
         #endregion Methods

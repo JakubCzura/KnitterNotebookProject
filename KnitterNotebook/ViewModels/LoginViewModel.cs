@@ -79,8 +79,7 @@ namespace KnitterNotebook.ViewModels
 
         private void ShowRegisterWindow()
         {
-            var registrationWindow = App.AppHost.Services.GetService<RegistrationWindow>();
-            registrationWindow.ShowDialog();
+            ShowWindow<RegistrationWindow>();
         }
 
         #endregion Methods
