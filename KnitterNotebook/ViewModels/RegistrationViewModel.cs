@@ -49,7 +49,6 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 Theme theme = _knitterNotebookContext.Themes.First();
-                _knitterNotebookContext.Attach(theme);
                 User user = new()
                 {
                     Nickname = Nickname,
@@ -57,15 +56,18 @@ namespace KnitterNotebook.ViewModels
                     Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password,
                     Theme = theme
                 };
-                IValidator<User> userValidator = new UserValidator();
-                if (userValidator.Validate(user))
+                if (UserExistence.IfUserAlreadyExists(user, _knitterNotebookContext).Result)
                 {
-                    user.Password = PasswordHasher.HashPassword(user.Password);
-                    IRegistration standardRegistration = new StandardRegistration();
-                    RegistrationManager registrationManager = new(standardRegistration, user, _knitterNotebookContext);
-                    await registrationManager.Register();
-                    Window.GetWindow(RegistrationWindow.Instance).Close();
-                    MessageBox.Show("Rejestracja przebiegła pomyślnie");
+                    IValidator<User> userValidator = new UserValidator();
+                    if (userValidator.Validate(user))
+                    {
+                        user.Password = PasswordHasher.HashPassword(user.Password);
+                        IRegistration standardRegistration = new StandardRegistration();
+                        RegistrationManager registrationManager = new(standardRegistration, user, _knitterNotebookContext);
+                        await registrationManager.Register();
+                        Window.GetWindow(RegistrationWindow.Instance).Close();
+                        MessageBox.Show("Rejestracja przebiegła pomyślnie");
+                    }
                 }
             }
             catch (Exception exception)
