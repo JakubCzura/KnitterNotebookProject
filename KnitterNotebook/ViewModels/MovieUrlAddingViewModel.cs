@@ -2,6 +2,7 @@
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Validators;
+using KnitterNotebook.ViewModels.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
@@ -15,9 +16,10 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public class MovieUrlAddingViewModel : BaseViewModel
     {
-        public MovieUrlAddingViewModel(KnitterNotebookContext knitterNotebookContext)
+        public MovieUrlAddingViewModel(KnitterNotebookContext knitterNotebookContext, IMovieUrlService movieUrlService)
         {
             _knitterNotebookContext = knitterNotebookContext;
+            _movieUrlService = movieUrlService;
             AddMovieUrlCommandAsync = new AsyncRelayCommand(AddMovieUrlAsync);
         }
 
@@ -30,6 +32,7 @@ namespace KnitterNotebook.ViewModels
         #region Properties
 
         private readonly KnitterNotebookContext _knitterNotebookContext;
+        private readonly IMovieUrlService _movieUrlService;
         private string _link = string.Empty;
         private string _title = string.Empty;
         public ICommand AddMovieUrlCommandAsync { get; }
@@ -54,21 +57,21 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                User user = await _knitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
-                //KnitterNotebookContext.Attach(user);
-                MovieUrl movieUrl = new()
+                User? user = await _knitterNotebookContext.Users.FindAsync(LoggedUserInformation.LoggedUserId);
+                if(user != null) 
                 {
-                    Title = Title,
-                    Link = new Uri(Link),
-                    User = user
-                };
-                IValidator<MovieUrl> movieUrlValidator = new MovieUrlValidator();
-                AddingMovieUrl addingMovieUrl = new();
-                if (movieUrlValidator.Validate(movieUrl))
+                    MovieUrl movieUrl = new(Title, new Uri(Link), user);
+                    IValidator<MovieUrl> movieUrlValidator = new MovieUrlValidator();
+                    if (movieUrlValidator.Validate(movieUrl))
+                    {
+                        await _movieUrlService.AddMovieUrlAsync(movieUrl);
+                        NewMovieUrlAdded?.Invoke();
+                        MessageBox.Show("Dodano nowy film");
+                    }
+                }  
+                else
                 {
-                    await addingMovieUrl.AddMovieUrl(movieUrl, _knitterNotebookContext);
-                    NewMovieUrlAdded?.Invoke();
-                    MessageBox.Show("Dodano nowy film");
+                    MessageBox.Show("Błąd podczas dodania filmu", "Nie odnaleziono użytkownika");
                 }
             }
             catch (Exception exception)

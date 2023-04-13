@@ -1,6 +1,8 @@
 ﻿using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.ViewModels;
+using KnitterNotebook.ViewModels.Services;
+using KnitterNotebook.ViewModels.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +33,7 @@ namespace KnitterNotebook
                         AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString)!;
                         options.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
                     });
-
+                    services.AddScoped<IMovieUrlService, MovieUrlService>();
                     services.AddSingleton<LoginViewModel>();
                     services.AddSingleton(s => new LoginWindow()
                     {
@@ -65,7 +67,7 @@ namespace KnitterNotebook
         {
             await AppHost!.StartAsync();
             var startupWindow = AppHost.Services.GetService<LoginWindow>();
-            startupWindow.Show();
+            startupWindow?.Show();
             base.OnStartup(e);
         }
 

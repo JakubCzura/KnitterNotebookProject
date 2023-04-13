@@ -65,8 +65,7 @@ namespace KnitterNotebook.ViewModels
                     string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{theme.Name}Mode.xaml");
                     ThemeChanger.SetTheme(themeFullName);
 
-                    var startupWindow = App.AppHost.Services.GetService<MainWindow>();
-                    startupWindow.Show();
+                    ShowWindow<MainWindow>();
 
                     Window.GetWindow(LoginWindow.Instance).Close();
                 }

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
+using KnitterNotebook.ViewModels.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,9 +15,10 @@ namespace KnitterNotebook.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public MainViewModel(KnitterNotebookContext knitterNotebookContext)
+        public MainViewModel(KnitterNotebookContext knitterNotebookContext, IMovieUrlService movieUrlService)
         {
             _knitterNotebookContext = knitterNotebookContext;
+            _movieUrlService = movieUrlService;
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
             try
             {
@@ -56,6 +58,7 @@ namespace KnitterNotebook.ViewModels
         #region Properties
 
         private readonly KnitterNotebookContext _knitterNotebookContext;
+        private readonly IMovieUrlService _movieUrlService;
         private ObservableCollection<MovieUrl> _movieUrls = new();
         private Visibility _plannedProjectsUserControlVisibility = Visibility.Hidden;
         private Visibility _projectsInProgressUserControlVisibility = Visibility.Hidden;
@@ -128,15 +131,13 @@ namespace KnitterNotebook.ViewModels
             {
                 if (SelectedMovieUrl != null)
                 {
-                    SelectedMovieUrl = await _knitterNotebookContext.MovieUrls.FirstOrDefaultAsync(x => x.Id == SelectedMovieUrl.Id);
-                    _knitterNotebookContext.Remove(SelectedMovieUrl);
-                    await _knitterNotebookContext.SaveChangesAsync();
+                    await _movieUrlService.DeleteMovieUrlAsync(SelectedMovieUrl);
                     MovieUrls = GetMovieUrls(User);
                 }
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message);
+                MessageBox.Show("Błąd podczas kasowania filmu", exception.Message);
             }
         }
 
