@@ -2,6 +2,8 @@
 using KnitterNotebook.Database;
 using KnitterNotebook.Database.Registration;
 using KnitterNotebook.Models;
+using KnitterNotebook.Services;
+using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebook.Views.Windows;
 using System;
@@ -14,15 +16,17 @@ namespace KnitterNotebook.ViewModels
 {
     public class RegistrationViewModel : BaseViewModel
     {
-        public RegistrationViewModel(KnitterNotebookContext knitterNotebookContext)
+        public RegistrationViewModel(KnitterNotebookContext knitterNotebookContext, IUserService userService)
         {
             _knitterNotebookContext = knitterNotebookContext;
+            _userService = userService;
             RegisterUserCommandAsync = new AsyncRelayCommand(RegisterUser);
         }
 
         #region Properties
 
         private readonly KnitterNotebookContext _knitterNotebookContext;
+        private readonly IUserService _userService;
         private string _email = string.Empty;
         private string _nickname = string.Empty;
 
@@ -62,9 +66,10 @@ namespace KnitterNotebook.ViewModels
                     if (userValidator.Validate(user))
                     {
                         user.Password = PasswordHasher.HashPassword(user.Password);
-                        IRegistration standardRegistration = new StandardRegistration();
-                        RegistrationManager registrationManager = new(standardRegistration, user, _knitterNotebookContext);
-                        await registrationManager.Register();
+                        //IRegistration standardRegistration = new StandardRegistration();
+                        //RegistrationManager registrationManager = new(standardRegistration, user, _knitterNotebookContext);
+                        //await registrationManager.Register();
+                        await _userService.Add(user);
                         Window.GetWindow(RegistrationWindow.Instance).Close();
                         MessageBox.Show("Rejestracja przebiegła pomyślnie");
                     }

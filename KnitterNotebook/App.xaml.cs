@@ -1,5 +1,9 @@
 ﻿using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
+using KnitterNotebook.Repositories;
+using KnitterNotebook.Repositories.Interfaces;
+using KnitterNotebook.Services;
+using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.ViewModels;
 using KnitterNotebook.ViewModels.Services;
 using KnitterNotebook.ViewModels.Services.Interfaces;
@@ -34,6 +38,8 @@ namespace KnitterNotebook
                         options.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
                     });
                     services.AddScoped<IMovieUrlService, MovieUrlService>();
+                    services.AddScoped<IUserService, UserService>();
+                    services.AddScoped<IUserRepository, UserRepository>();
                     services.AddSingleton<LoginViewModel>();
                     services.AddSingleton(s => new LoginWindow()
                     {
