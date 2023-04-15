@@ -1,6 +1,6 @@
 ﻿namespace KnitterNotebook.Validators
 {
-    public interface IValidator<T>
+    public interface IModelsValidator<T>
     {
         /// <summary>
         /// Validates data of object

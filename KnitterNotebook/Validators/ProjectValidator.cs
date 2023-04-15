@@ -3,7 +3,7 @@ using KnitterNotebook.Models;
 
 namespace KnitterNotebook.Validators
 {
-    public class ProjectValidator : IValidator<Project>
+    public class ProjectValidator : IModelsValidator<Project>
     {
         public bool Validate(Project project)
         {

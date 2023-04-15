@@ -1,9 +1,12 @@
-﻿using KnitterNotebook.ApplicationInformation;
+﻿using FluentValidation;
+using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
+using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Repositories;
 using KnitterNotebook.Repositories.Interfaces;
 using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
+using KnitterNotebook.Validators;
 using KnitterNotebook.ViewModels;
 using KnitterNotebook.ViewModels.Services;
 using KnitterNotebook.ViewModels.Services.Interfaces;
@@ -37,6 +40,7 @@ namespace KnitterNotebook
                         AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString)!;
                         options.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
                     });
+                    services.AddScoped<FluentValidation.IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
                     services.AddScoped<IMovieUrlService, MovieUrlService>();
                     services.AddScoped<IUserService, UserService>();
                     services.AddScoped<IUserRepository, UserRepository>();

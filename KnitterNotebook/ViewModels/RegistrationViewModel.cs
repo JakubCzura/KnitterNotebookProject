@@ -1,10 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using FluentValidation;
 using KnitterNotebook.Database;
-using KnitterNotebook.Database.Registration;
-using KnitterNotebook.Models;
-using KnitterNotebook.Services;
+using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
-using KnitterNotebook.Validators;
 using KnitterNotebook.Views.Windows;
 using System;
 using System.Linq;
@@ -16,17 +14,17 @@ namespace KnitterNotebook.ViewModels
 {
     public class RegistrationViewModel : BaseViewModel
     {
-        public RegistrationViewModel(KnitterNotebookContext knitterNotebookContext, IUserService userService)
+        public RegistrationViewModel(IUserService userService, IValidator<RegisterUserDto> registerUserDtoValidator)
         {
-            _knitterNotebookContext = knitterNotebookContext;
             _userService = userService;
+            _registerUserDtoValidator = registerUserDtoValidator;
             RegisterUserCommandAsync = new AsyncRelayCommand(RegisterUser);
         }
 
         #region Properties
 
-        private readonly KnitterNotebookContext _knitterNotebookContext;
         private readonly IUserService _userService;
+        private readonly IValidator<RegisterUserDto> _registerUserDtoValidator;
         private string _email = string.Empty;
         private string _nickname = string.Empty;
 
@@ -52,27 +50,18 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                Theme theme = _knitterNotebookContext.Themes.First();
-                User user = new()
+                RegisterUserDto registerUserDto = new(Nickname, Email, RegistrationWindow.Instance.UserPasswordPasswordBox.Password);
+                var validation = _registerUserDtoValidator.Validate(registerUserDto);
+                if (validation.IsValid)
                 {
-                    Nickname = Nickname,
-                    Email = Email,
-                    Password = RegistrationWindow.Instance.UserPasswordPasswordBox.Password,
-                    Theme = theme
-                };
-                if (await UserExistence.IfUserAlreadyExists(user, _knitterNotebookContext) == false)
+                    await _userService.Add(registerUserDto);
+                    Window.GetWindow(RegistrationWindow.Instance).Close();
+                    MessageBox.Show("Rejestracja przebiegła pomyślnie");
+                }
+                else
                 {
-                    IValidator<User> userValidator = new UserValidator();
-                    if (userValidator.Validate(user))
-                    {
-                        user.Password = PasswordHasher.HashPassword(user.Password);
-                        //IRegistration standardRegistration = new StandardRegistration();
-                        //RegistrationManager registrationManager = new(standardRegistration, user, _knitterNotebookContext);
-                        //await registrationManager.Register();
-                        await _userService.Add(user);
-                        Window.GetWindow(RegistrationWindow.Instance).Close();
-                        MessageBox.Show("Rejestracja przebiegła pomyślnie");
-                    }
+                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    MessageBox.Show(errorMessage, "Błąd podczas rejestracji", MessageBoxButton.OK);
                 }
             }
             catch (Exception exception)

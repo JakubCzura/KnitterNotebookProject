@@ -1,11 +1,12 @@
-﻿using KnitterNotebook.Models;
+﻿using KnitterNotebook.Database;
+using KnitterNotebook.Models;
+using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Repositories.Interfaces;
 using KnitterNotebook.Services.Interfaces;
-using System;
+using KnitterNotebook.Views.Windows;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace KnitterNotebook.Services
 {
@@ -28,8 +29,14 @@ namespace KnitterNotebook.Services
             return await _userRepository.Get(id);
         }
 
-        public async Task Add(User user)
+        public async Task Add(RegisterUserDto registerUserDto)
         {
+            User user = new()
+            {
+                Nickname = registerUserDto.Nickname,
+                Email = registerUserDto.Email,
+                Password = PasswordHasher.HashPassword(registerUserDto.Password),
+            };
             await _userRepository.Add(user);
         }
 

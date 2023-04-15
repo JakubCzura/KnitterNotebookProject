@@ -3,7 +3,7 @@ using KnitterNotebook.Models;
 
 namespace KnitterNotebook.Validators
 {
-    public class MovieUrlValidator : IValidator<MovieUrl>
+    public class MovieUrlValidator : IModelsValidator<MovieUrl>
     {
         public bool Validate(MovieUrl movieUrl)
         {

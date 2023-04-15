@@ -61,9 +61,14 @@ namespace KnitterNotebook.ViewModels
                 else
                 {
                     LoggedUserInformation.LoggedUserId = user.Id;
+                    
                     Theme theme = _knitterNotebookContext.Themes.FirstOrDefault(x => x.Id == user.ThemeId);
-                    string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{theme.Name}Mode.xaml");
-                    ThemeChanger.SetTheme(themeFullName);
+                    if(theme != null)
+                    {
+                        string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{theme.Name}Mode.xaml");
+                        ThemeChanger.SetTheme(themeFullName);
+                    }
+                  
 
                     ShowWindow<MainWindow>();
 

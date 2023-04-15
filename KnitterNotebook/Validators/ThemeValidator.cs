@@ -3,7 +3,7 @@ using KnitterNotebook.Models;
 
 namespace KnitterNotebook.Validators
 {
-    public class ThemeValidator : IValidator<Theme>
+    public class ThemeValidator : IModelsValidator<Theme>
     {
         public bool Validate(Theme theme)
         {

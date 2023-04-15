@@ -1,4 +1,5 @@
 ﻿using KnitterNotebook.Models;
+using KnitterNotebook.Models.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace KnitterNotebook.Services.Interfaces
 
         public Task<User> Get(int id);
 
-        public Task Add(User user);
+        public Task Add(RegisterUserDto registerUserDto);
 
         public Task Update(User user);
 

@@ -163,15 +163,15 @@ namespace KnitterNotebook.ViewModels
                     }
                     else
                     {
-                        UserValidator userValidator = new();
+                        //UserValidator userValidator = new();
                         user.Password = UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password;
-                        if (userValidator.Validate(user))
-                        {
+                        //if (userValidator.Validate(user))
+                       // {
                             user.Password = PasswordHasher.HashPassword(user.Password);
                             _knitterNotebookContext.Users.Update(user);
                             await _knitterNotebookContext.SaveChangesAsync();
                             MessageBox.Show($"Zmieniono hasło");
-                        }
+                       // }
                     }
                 }
             }

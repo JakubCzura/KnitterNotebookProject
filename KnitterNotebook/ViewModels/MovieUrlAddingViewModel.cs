@@ -61,7 +61,7 @@ namespace KnitterNotebook.ViewModels
                 if(user != null) 
                 {
                     MovieUrl movieUrl = new(Title, new Uri(Link), user);
-                    IValidator<MovieUrl> movieUrlValidator = new MovieUrlValidator();
+                    IModelsValidator<MovieUrl> movieUrlValidator = new MovieUrlValidator();
                     if (movieUrlValidator.Validate(movieUrl))
                     {
                         await _movieUrlService.AddMovieUrlAsync(movieUrl);
