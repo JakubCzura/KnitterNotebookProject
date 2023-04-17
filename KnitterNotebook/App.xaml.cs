@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using System.Configuration;
 using System.IO;
 using System.Windows;
 
@@ -39,8 +40,12 @@ namespace KnitterNotebook
                         string appSettingsString = File.ReadAllText(appSettingsPath);
                         AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString)!;
                         options.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
-                    });
-                    services.AddScoped<FluentValidation.IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+                }, ServiceLifetime.Scoped);
+
+                    services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+                    services.AddScoped<IValidator<ChangeNicknameDto>, ChangeNicknameDtoValidator>();
+                    services.AddScoped<IValidator<ChangeEmailDto>, ChangeEmailDtoValidator>();
+                    services.AddScoped<IValidator<ChangePasswordDto>, ChangePasswordDtoValidator>();
                     services.AddScoped<IMovieUrlService, MovieUrlService>();
                     services.AddScoped<IUserService, UserService>();
                     services.AddScoped<IUserRepository, UserRepository>();

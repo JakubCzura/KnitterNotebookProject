@@ -34,10 +34,10 @@ namespace KnitterNotebook.Repositories
 
         public async Task<User> Get(int id)
         {
-            return await _knitterNotebookContext.Users.FindAsync(id);
+            return await _knitterNotebookContext.Users.FindAsync(id) ?? null!;
         }
 
-        public async Task<IEnumerable<User>> GetAll()
+        public async Task<List<User>> GetAll()
         {
             return await _knitterNotebookContext.Users.ToListAsync();
         }

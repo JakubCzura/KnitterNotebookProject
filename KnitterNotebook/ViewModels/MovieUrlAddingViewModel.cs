@@ -57,7 +57,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                User? user = await _knitterNotebookContext.Users.FindAsync(LoggedUserInformation.LoggedUserId);
+                User? user = await _knitterNotebookContext.Users.FindAsync(LoggedUserInformation.Id);
                 if(user != null) 
                 {
                     MovieUrl movieUrl = new(Title, new Uri(Link), user);

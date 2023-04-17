@@ -60,7 +60,7 @@ namespace KnitterNotebook.ViewModels
                 }
                 else
                 {
-                    LoggedUserInformation.LoggedUserId = user.Id;
+                    LoggedUserInformation.Id = user.Id;
                     
                     Theme theme = _knitterNotebookContext.Themes.FirstOrDefault(x => x.Id == user.ThemeId);
                     if(theme != null)

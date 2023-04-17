@@ -1,9 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using FluentValidation;
+using FluentValidation.Results;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
+using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Themes;
-using KnitterNotebook.Validators;
 using KnitterNotebook.Views.UserControls;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,9 +23,16 @@ namespace KnitterNotebook.ViewModels
     {
         private readonly KnitterNotebookContext _knitterNotebookContext;
 
+        private readonly IUserService _userService;
+
+        private readonly IValidator<ChangeNicknameDto> _changeNicknameDtoValidator;
+
+        private readonly IValidator<ChangeEmailDto> _changeEmailDtoValidator;
+
+        private readonly IValidator<ChangePasswordDto> _changePasswordDtoValidator;
+
         private string _newEmail = string.Empty;
 
-        // private string newNickname = string.Empty;
         private string _newNickname = string.Empty;
 
         private string _newTheme = string.Empty;
@@ -33,9 +43,17 @@ namespace KnitterNotebook.ViewModels
 
         private Visibility _userSettingsUserControlVisibility = Visibility.Visible;
 
-        public SettingsViewModel(KnitterNotebookContext knitterNotebookContext)
+        public SettingsViewModel(KnitterNotebookContext knitterNotebookContext,
+            IUserService userService,
+            IValidator<ChangeNicknameDto> changeNicknameDtoValidator,
+            IValidator<ChangeEmailDto> changeEmailDtoValidator,
+            IValidator<ChangePasswordDto> changePasswordDtoValidator)
         {
             _knitterNotebookContext = knitterNotebookContext;
+            _userService = userService;
+            _changeNicknameDtoValidator = changeNicknameDtoValidator;
+            _changeEmailDtoValidator = changeEmailDtoValidator;
+            _changePasswordDtoValidator = changePasswordDtoValidator;
             SetUserSettingsUserControlVisibleCommand = new RelayCommand(() =>
             {
                 SetUserControlsVisibilityHidden(); UserSettingsUserControlVisibility = Visibility.Visible;
@@ -79,7 +97,7 @@ namespace KnitterNotebook.ViewModels
         {
             get { return _newTheme; }
             set { _newTheme = value; OnPropertyChanged(); }
-        }     
+        }
 
         public IEnumerable Themes
         {
@@ -103,18 +121,19 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                User? user = await _knitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
-                if (user == null)
+                ChangeEmailDto changeEmailDto = new(LoggedUserInformation.Id, NewEmail);
+                ValidationResult validation = await _changeEmailDtoValidator.ValidateAsync(changeEmailDto);
+                if (validation.IsValid)
                 {
-                    MessageBox.Show("Błąd zmiany e-mail");
-                }
+                    await _userService.ChangeEmailAsync(changeEmailDto);
+                    MessageBox.Show($"Zmieniono email na: {changeEmailDto.Email}");
+                }           
                 else
                 {
-                    user.Email = NewEmail;
-                    _knitterNotebookContext.Users.Update(user);
-                    await _knitterNotebookContext.SaveChangesAsync();
-                    MessageBox.Show($"Zmieniono e-mail na {user.Email}");
+                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    MessageBox.Show(errorMessage, "Błąd zmiany email");
                 }
+               
             }
             catch (Exception exception)
             {
@@ -126,17 +145,17 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                User? user = await _knitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
-                if (user == null)
+                ChangeNicknameDto changeNicknameDto = new(LoggedUserInformation.Id, NewNickname);
+                ValidationResult validation = await _changeNicknameDtoValidator.ValidateAsync(changeNicknameDto);
+                if (validation.IsValid)
                 {
-                    MessageBox.Show("Błąd zmiany nicku");
+                    await _userService.ChangeNicknameAsync(changeNicknameDto);
+                    MessageBox.Show($"Zmieniono nickname");
                 }
                 else
                 {
-                    user.Nickname = NewNickname;
-                    _knitterNotebookContext.Users.Update(user);
-                    await _knitterNotebookContext.SaveChangesAsync();
-                    MessageBox.Show($"Zmieniono nick na: {user.Nickname}");
+                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    MessageBox.Show(errorMessage, "Błąd zmiany hasła");
                 }
             }
             catch (Exception exception)
@@ -149,35 +168,30 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                User? user = await _knitterNotebookContext.Users.Include(x => x.Theme).FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
-                if (user == null)
+                ChangePasswordDto changePasswordDto = new(LoggedUserInformation.Id,
+                    UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password,
+                    UserSettingsUserControl.Instance.RepeatedNewPasswordPasswordBox.Password);
+
+                ValidationResult validation = _changePasswordDtoValidator.Validate(changePasswordDto);
+                if (validation.IsValid)
                 {
-                    MessageBox.Show("Błąd zmiany hasła");
+                    await _userService.ChangePasswordAsync(changePasswordDto);
+                    MessageBox.Show($"Zmieniono hasło");
                 }
                 else
                 {
-                    if (UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password !=
-                        UserSettingsUserControl.Instance.RepeatedNewPasswordPasswordBox.Password)
-                    {
-                        MessageBox.Show("Hasła nie są identyczne");
-                    }
-                    else
-                    {
-                        //UserValidator userValidator = new();
-                        user.Password = UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password;
-                        //if (userValidator.Validate(user))
-                       // {
-                            user.Password = PasswordHasher.HashPassword(user.Password);
-                            _knitterNotebookContext.Users.Update(user);
-                            await _knitterNotebookContext.SaveChangesAsync();
-                            MessageBox.Show($"Zmieniono hasło");
-                       // }
-                    }
+                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    MessageBox.Show(errorMessage, "Błąd zmiany hasła");
                 }
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
+            }
+            finally
+            {
+                UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password = string.Empty;
+                UserSettingsUserControl.Instance.RepeatedNewPasswordPasswordBox.Password = string.Empty;
             }
         }
 
@@ -185,7 +199,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                User? user = await _knitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.LoggedUserId);
+                User? user = await _knitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.Id);
                 Theme? theme = await _knitterNotebookContext.Themes.FirstOrDefaultAsync(x => x.Name == NewTheme);
                 if (user == null || theme == null)
                 {

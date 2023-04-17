@@ -1,5 +1,6 @@
 ﻿using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
+using OneOf.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,20 @@ namespace KnitterNotebook.Services.Interfaces
 {
     public interface IUserService
     {
-        public Task<IEnumerable<User>> GetAll();
+        Task<List<User>> GetAll();
 
-        public Task<User> Get(int id);
+        Task<User> Get(int id);
 
-        public Task Add(RegisterUserDto registerUserDto);
+        Task Add(RegisterUserDto registerUserDto);
 
-        public Task Update(User user);
+        Task Update(User user);
 
-        public Task Delete(int id);
+        Task ChangeNicknameAsync(ChangeNicknameDto changeNicknameDto);
+        
+        Task ChangeEmailAsync(ChangeEmailDto changeEmailDto);
+
+        Task ChangePasswordAsync(ChangePasswordDto changePasswordDto);
+
+        Task Delete(int id);
     }
 }

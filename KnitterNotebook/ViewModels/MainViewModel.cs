@@ -26,7 +26,7 @@ namespace KnitterNotebook.ViewModels
                        .Include(x => x.MovieUrls)
                        .Include(x => x.Projects)
                        .Include(x => x.Theme)
-                       .FirstOrDefault(x => x.Id == LoggedUserInformation.LoggedUserId)!;
+                       .FirstOrDefault(x => x.Id == LoggedUserInformation.Id)!;
 
                 MovieUrls = new ObservableCollection<MovieUrl>(User.MovieUrls);
             }

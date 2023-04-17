@@ -9,7 +9,7 @@ namespace KnitterNotebook.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<User>> GetAll();
+        Task<List<User>> GetAll();
         Task<User> Get(int id);
         Task Add(User user);
         Task Update(User user);

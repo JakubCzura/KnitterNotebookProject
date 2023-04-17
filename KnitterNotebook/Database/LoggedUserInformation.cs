@@ -5,6 +5,6 @@
         /// <summary>
         /// Stores information about user who is actually logged in to application
         /// </summary>
-        public static int LoggedUserId { get; set; }
+        public static int Id { get; set; }
     }
 }
