@@ -155,12 +155,12 @@ namespace KnitterNotebook.ViewModels
                 if (validation.IsValid)
                 {
                     await _userService.ChangeNicknameAsync(changeNicknameDto);
-                    MessageBox.Show($"Zmieniono nickname");
+                    MessageBox.Show($"Zmieniono nazwę użytkownika");
                 }
                 else
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
-                    MessageBox.Show(errorMessage, "Błąd zmiany hasła");
+                    MessageBox.Show(errorMessage, "Błąd zmiany nazwy użytkownika");
                 }
             }
             catch (Exception exception)
@@ -215,7 +215,7 @@ namespace KnitterNotebook.ViewModels
                 else
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
-                    MessageBox.Show(errorMessage, "Błąd zmiany hasła");
+                    MessageBox.Show(errorMessage, "Błąd zmiany motywu");
                 }
             }
             catch (Exception exception)
