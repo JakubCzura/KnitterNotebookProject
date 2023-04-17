@@ -40,13 +40,13 @@ namespace KnitterNotebook.Database
                 u.Property(x => x.Password).IsRequired();
                 u.Property(x => x.Email).IsRequired().HasMaxLength(100);
                 u.Property(x => x.Nickname).IsRequired().HasMaxLength(50);
-                //u.Property(x => x.ThemeId);
+
                 u.HasMany(x => x.Projects)
-                 .WithOne(c => c.User)
-                 .HasForeignKey(c => c.UserId);
+                 .WithOne(c => c.User);
+
                 u.HasMany(x => x.MovieUrls)
-                 .WithOne(c => c.User)
-                 .HasForeignKey(c => c.UserId);
+                 .WithOne(c => c.User);
+
             });
 
             modelBuilder.Entity<Project>(p =>
@@ -54,7 +54,6 @@ namespace KnitterNotebook.Database
                 p.HasKey(x => x.Id);
                 p.Property(x => x.Id).IsRequired();
                 p.Property(x => x.Name).IsRequired().HasMaxLength(100);
-                p.Property(x => x.UserId).IsRequired();
             });
 
             modelBuilder.Entity<Theme>(t =>
@@ -67,7 +66,6 @@ namespace KnitterNotebook.Database
                           new Theme() { Id = 3, Name = "Dark" });
                 t.HasMany(x => x.Users)
                  .WithOne(c => c.Theme)
-                 .HasForeignKey(c => c.ThemeId)
                  .OnDelete(DeleteBehavior.NoAction);
             });
 
@@ -75,7 +73,6 @@ namespace KnitterNotebook.Database
             {
                 m.HasKey(x => x.Id);
                 m.Property(x => x.Id).IsRequired();
-                m.Property(x => x.UserId).IsRequired();
                 m.Property(x => x.Title).IsRequired();
                 m.Property(x => x.Link).IsRequired();
             });

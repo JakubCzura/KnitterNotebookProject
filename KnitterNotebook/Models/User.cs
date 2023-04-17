@@ -17,7 +17,5 @@ namespace KnitterNotebook.Models
         public List<MovieUrl> MovieUrls { get; set; } = new();
 
         public Theme? Theme { get; set; } = null;
-
-        public int? ThemeId { get; set; }
     }
 }

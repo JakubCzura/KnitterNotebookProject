@@ -143,7 +143,7 @@ namespace KnitterNotebook.ViewModels
 
         private ObservableCollection<MovieUrl> GetMovieUrls(User user)
         {
-            return new ObservableCollection<MovieUrl>(_knitterNotebookContext.MovieUrls.Where(x => x.UserId == user.Id));
+            return new ObservableCollection<MovieUrl>(_knitterNotebookContext.MovieUrls.Where(x => x.User == user));
         }
 
         private void SetUserControlsVisibilityHidden()

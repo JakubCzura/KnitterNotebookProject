@@ -22,7 +22,5 @@ namespace KnitterNotebook.Models
         public Uri Link { get; set; } = null!;
 
         public User User { get; set; } = new();
-
-        public int UserId { get; set; }
     }
 }
