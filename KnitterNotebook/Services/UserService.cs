@@ -13,10 +13,12 @@ namespace KnitterNotebook.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IThemeRepository _themeRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IThemeRepository themeRepository)
         {
             _userRepository = userRepository;
+            _themeRepository = themeRepository;
         }
 
         public async Task<List<User>> GetAll()
@@ -68,6 +70,13 @@ namespace KnitterNotebook.Services
         {
             User user = await _userRepository.Get(changeEmailDto.UserId);
             user.Email = changeEmailDto.Email;
+            await _userRepository.Update(user);
+        }
+
+        public async Task ChangeThemeAsync(ChangeThemeDto changeThemeDto)
+        {
+            User user = await _userRepository.Get(changeThemeDto.UserId);
+            user.Theme = await _themeRepository.GetByNameAsync(changeThemeDto.ThemeName);
             await _userRepository.Update(user);
         }
     }

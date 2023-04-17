@@ -30,6 +30,8 @@ namespace KnitterNotebook.ViewModels
         private readonly IValidator<ChangeEmailDto> _changeEmailDtoValidator;
 
         private readonly IValidator<ChangePasswordDto> _changePasswordDtoValidator;
+        
+        private readonly IValidator<ChangeThemeDto> _changeThemeDtoValidator;
 
         private string _newEmail = string.Empty;
 
@@ -47,13 +49,15 @@ namespace KnitterNotebook.ViewModels
             IUserService userService,
             IValidator<ChangeNicknameDto> changeNicknameDtoValidator,
             IValidator<ChangeEmailDto> changeEmailDtoValidator,
-            IValidator<ChangePasswordDto> changePasswordDtoValidator)
+            IValidator<ChangePasswordDto> changePasswordDtoValidator,
+            IValidator<ChangeThemeDto> changeThemeDtoValidator)
         {
             _knitterNotebookContext = knitterNotebookContext;
             _userService = userService;
             _changeNicknameDtoValidator = changeNicknameDtoValidator;
             _changeEmailDtoValidator = changeEmailDtoValidator;
             _changePasswordDtoValidator = changePasswordDtoValidator;
+            _changeThemeDtoValidator = changeThemeDtoValidator;
             SetUserSettingsUserControlVisibleCommand = new RelayCommand(() =>
             {
                 SetUserControlsVisibilityHidden(); UserSettingsUserControlVisibility = Visibility.Visible;
@@ -171,7 +175,6 @@ namespace KnitterNotebook.ViewModels
                 ChangePasswordDto changePasswordDto = new(LoggedUserInformation.Id,
                     UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password,
                     UserSettingsUserControl.Instance.RepeatedNewPasswordPasswordBox.Password);
-
                 ValidationResult validation = _changePasswordDtoValidator.Validate(changePasswordDto);
                 if (validation.IsValid)
                 {
@@ -199,21 +202,20 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                User? user = await _knitterNotebookContext.Users.FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.Id);
-                Theme? theme = await _knitterNotebookContext.Themes.FirstOrDefaultAsync(x => x.Name == NewTheme);
-                if (user == null || theme == null)
+                ChangeThemeDto changeThemeDto = new(LoggedUserInformation.Id, NewTheme);
+                ValidationResult validation = _changeThemeDtoValidator.Validate(changeThemeDto);
+                if (validation.IsValid)
                 {
-                    MessageBox.Show("Błąd zmiany motywu");
+                    await _userService.ChangeThemeAsync(changeThemeDto);
+                    string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{NewTheme}Mode.xaml");
+                    ThemeChanger.SetTheme(themeFullName);
+                    MessageBox.Show($"Zmieniono interfejs aplikacji na {NewTheme}");
                 }
                 else
                 {
-                    user.Theme = theme;
-                    _knitterNotebookContext.Users.Update(user);
-                    await _knitterNotebookContext.SaveChangesAsync();
-                    string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{user.Theme.Name}Mode.xaml");
-                    ThemeChanger.SetTheme(themeFullName);
-                    MessageBox.Show($"Zmieniono interfejs aplikacji na {user.Theme.Name}");
-                }
+                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    MessageBox.Show(errorMessage, "Błąd zmiany hasła");
+                }               
             }
             catch (Exception exception)
             {

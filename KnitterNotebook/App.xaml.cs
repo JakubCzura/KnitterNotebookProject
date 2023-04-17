@@ -46,9 +46,12 @@ namespace KnitterNotebook
                     services.AddScoped<IValidator<ChangeNicknameDto>, ChangeNicknameDtoValidator>();
                     services.AddScoped<IValidator<ChangeEmailDto>, ChangeEmailDtoValidator>();
                     services.AddScoped<IValidator<ChangePasswordDto>, ChangePasswordDtoValidator>();
+                    services.AddScoped<IValidator<ChangeThemeDto>, ChangeThemeDtoValidator>();
                     services.AddScoped<IMovieUrlService, MovieUrlService>();
                     services.AddScoped<IUserService, UserService>();
                     services.AddScoped<IUserRepository, UserRepository>();
+                    services.AddScoped<IThemeService, ThemeService>();
+                    services.AddScoped<IThemeRepository, ThemeRepository>();
                     services.AddTransient<LoginViewModel>();
                     services.AddTransient(s => new LoginWindow()
                     {
