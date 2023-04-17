@@ -45,7 +45,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MovieUrls");
+                    b.ToTable("MovieUrls", (string)null);
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Project", b =>
@@ -74,7 +74,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Theme", b =>
@@ -91,7 +91,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Themes");
+                    b.ToTable("Themes", (string)null);
 
                     b.HasData(
                         new
@@ -140,7 +140,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.MovieUrl", b =>

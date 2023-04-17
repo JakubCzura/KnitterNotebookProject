@@ -49,8 +49,8 @@ namespace KnitterNotebook
                     services.AddScoped<IMovieUrlService, MovieUrlService>();
                     services.AddScoped<IUserService, UserService>();
                     services.AddScoped<IUserRepository, UserRepository>();
-                    services.AddSingleton<LoginViewModel>();
-                    services.AddSingleton(s => new LoginWindow()
+                    services.AddTransient<LoginViewModel>();
+                    services.AddTransient(s => new LoginWindow()
                     {
                         DataContext = s.GetRequiredService<LoginViewModel>()
                     });
@@ -59,7 +59,8 @@ namespace KnitterNotebook
                     {
                         DataContext = s.GetService<RegistrationViewModel>()
                     });
-                    services.AddSingleton<MainViewModel>();
+                    //services.AddSingleton<MainViewModel>();
+                    services.AddSingleton(s => new MainViewModel(s.GetRequiredService<KnitterNotebookContext>(), s.GetRequiredService<IMovieUrlService>()));
                     services.AddSingleton(s => new MainWindow()
                     {
                         DataContext = s.GetRequiredService<MainViewModel>()
@@ -74,6 +75,7 @@ namespace KnitterNotebook
                     {
                         DataContext = s.GetRequiredService<SettingsViewModel>()
                     });
+                    
                 })
                 .Build();
         }
