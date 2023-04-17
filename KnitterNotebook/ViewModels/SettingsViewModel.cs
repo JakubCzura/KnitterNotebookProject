@@ -8,9 +8,8 @@ using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Themes;
 using KnitterNotebook.Views.UserControls;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,8 +29,10 @@ namespace KnitterNotebook.ViewModels
         private readonly IValidator<ChangeEmailDto> _changeEmailDtoValidator;
 
         private readonly IValidator<ChangePasswordDto> _changePasswordDtoValidator;
-        
+
         private readonly IValidator<ChangeThemeDto> _changeThemeDtoValidator;
+
+        private readonly IThemeService _themeService;
 
         private string _newEmail = string.Empty;
 
@@ -39,7 +40,7 @@ namespace KnitterNotebook.ViewModels
 
         private string _newTheme = string.Empty;
 
-        private IEnumerable _themes = Enumerable.Empty<string>();
+        private IEnumerable<string> _themes = Enumerable.Empty<string>();
 
         private Visibility _themeSettingsUserControlVisibility = Visibility.Hidden;
 
@@ -50,7 +51,8 @@ namespace KnitterNotebook.ViewModels
             IValidator<ChangeNicknameDto> changeNicknameDtoValidator,
             IValidator<ChangeEmailDto> changeEmailDtoValidator,
             IValidator<ChangePasswordDto> changePasswordDtoValidator,
-            IValidator<ChangeThemeDto> changeThemeDtoValidator)
+            IValidator<ChangeThemeDto> changeThemeDtoValidator,
+            IThemeService themeService)
         {
             _knitterNotebookContext = knitterNotebookContext;
             _userService = userService;
@@ -58,6 +60,7 @@ namespace KnitterNotebook.ViewModels
             _changeEmailDtoValidator = changeEmailDtoValidator;
             _changePasswordDtoValidator = changePasswordDtoValidator;
             _changeThemeDtoValidator = changeThemeDtoValidator;
+            _themeService = themeService;
             SetUserSettingsUserControlVisibleCommand = new RelayCommand(() =>
             {
                 SetUserControlsVisibilityHidden(); UserSettingsUserControlVisibility = Visibility.Visible;
@@ -72,7 +75,6 @@ namespace KnitterNotebook.ViewModels
             ChangePasswordCommandAsync = new AsyncRelayCommand(ChangePasswordAsync);
             ChangeThemeCommandAsync = new AsyncRelayCommand(ChangeThemeAsync);
         }
-
         public ICommand ChangeEmailCommandAsync { get; }
 
         public ICommand ChangeNicknameCommandAsync { get; }
@@ -103,7 +105,7 @@ namespace KnitterNotebook.ViewModels
             set { _newTheme = value; OnPropertyChanged(); }
         }
 
-        public IEnumerable Themes
+        public IEnumerable<string> Themes
         {
             get { return _themes; }
             set { _themes = value; OnPropertyChanged(); }
@@ -131,13 +133,12 @@ namespace KnitterNotebook.ViewModels
                 {
                     await _userService.ChangeEmailAsync(changeEmailDto);
                     MessageBox.Show($"Zmieniono email na: {changeEmailDto.Email}");
-                }           
+                }
                 else
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
                     MessageBox.Show(errorMessage, "Błąd zmiany email");
                 }
-               
             }
             catch (Exception exception)
             {
@@ -215,7 +216,7 @@ namespace KnitterNotebook.ViewModels
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
                     MessageBox.Show(errorMessage, "Błąd zmiany hasła");
-                }               
+                }
             }
             catch (Exception exception)
             {
