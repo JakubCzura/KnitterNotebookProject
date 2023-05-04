@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using FluentValidation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
+using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using Microsoft.EntityFrameworkCore;
@@ -16,11 +18,12 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public class MovieUrlAddingViewModel : BaseViewModel
     {
-        public MovieUrlAddingViewModel(KnitterNotebookContext knitterNotebookContext, IMovieUrlService movieUrlService)
+        public MovieUrlAddingViewModel(KnitterNotebookContext knitterNotebookContext, IMovieUrlService movieUrlService, IValidator<CreateMovieUrl> createMovieUrlValidator)
         {
             _knitterNotebookContext = knitterNotebookContext;
             _movieUrlService = movieUrlService;
             AddMovieUrlCommandAsync = new AsyncRelayCommand(AddMovieUrlAsync);
+            _createMovieUrlValidator = createMovieUrlValidator;
         }
 
         #region Delegates
@@ -33,6 +36,7 @@ namespace KnitterNotebook.ViewModels
 
         private readonly KnitterNotebookContext _knitterNotebookContext;
         private readonly IMovieUrlService _movieUrlService;
+        private readonly IValidator<CreateMovieUrl> _createMovieUrlValidator;
         private string _link = string.Empty;
         private string _title = string.Empty;
         public ICommand AddMovieUrlCommandAsync { get; }
@@ -60,11 +64,11 @@ namespace KnitterNotebook.ViewModels
                 User? user = await _knitterNotebookContext.Users.FindAsync(LoggedUserInformation.Id);
                 if(user != null) 
                 {
-                    MovieUrl movieUrl = new(Title, new Uri(Link), user);
-                    IModelsValidator<MovieUrl> movieUrlValidator = new MovieUrlValidator();
-                    if (movieUrlValidator.Validate(movieUrl))
+                    CreateMovieUrl createMovieUrl = new(Title, Link);
+                    var validation = _createMovieUrlValidator.Validate(createMovieUrl);
+                    if (validation.IsValid)
                     {
-                        await _movieUrlService.CreateAsync(movieUrl);
+                        await _movieUrlService.CreateAsync(createMovieUrl);
                         NewMovieUrlAdded?.Invoke();
                         MessageBox.Show("Dodano nowy film");
                     }
