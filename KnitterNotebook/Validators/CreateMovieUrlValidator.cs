@@ -17,6 +17,9 @@ namespace KnitterNotebook.Validators
 
             RuleFor(x => x.Link)
                 .NotEmpty().WithMessage("Link do filmu nie może być pusty");
+
+            RuleFor(x => x.User)
+                .NotNull().WithMessage("Użytkownik musi być podany przy dodawaniu filmu");
         }
     }
 }

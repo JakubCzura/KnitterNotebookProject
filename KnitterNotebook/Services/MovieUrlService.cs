@@ -25,7 +25,7 @@ namespace KnitterNotebook.Services
             {
                 Title = createMovieUrl.Title,
                 Link = new Uri(createMovieUrl.Link),
-                User = await _userRepository.GetAsync(LoggedUserInformation.Id)
+                User = createMovieUrl.User
             };
             await _movieUrlRepository.CreateAsync(movieUrl);
         }

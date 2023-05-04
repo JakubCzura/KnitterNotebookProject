@@ -18,12 +18,13 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public class MovieUrlAddingViewModel : BaseViewModel
     {
-        public MovieUrlAddingViewModel(KnitterNotebookContext knitterNotebookContext, IMovieUrlService movieUrlService, IValidator<CreateMovieUrl> createMovieUrlValidator)
+        public MovieUrlAddingViewModel(KnitterNotebookContext knitterNotebookContext, IMovieUrlService movieUrlService, IValidator<CreateMovieUrl> createMovieUrlValidator, IUserService userService)
         {
             _knitterNotebookContext = knitterNotebookContext;
             _movieUrlService = movieUrlService;
             AddMovieUrlCommandAsync = new AsyncRelayCommand(AddMovieUrlAsync);
             _createMovieUrlValidator = createMovieUrlValidator;
+            _userService = userService;
         }
 
         #region Delegates
@@ -36,6 +37,7 @@ namespace KnitterNotebook.ViewModels
 
         private readonly KnitterNotebookContext _knitterNotebookContext;
         private readonly IMovieUrlService _movieUrlService;
+        private readonly IUserService _userService;
         private readonly IValidator<CreateMovieUrl> _createMovieUrlValidator;
         private string _link = string.Empty;
         private string _title = string.Empty;
@@ -61,10 +63,10 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                User? user = await _knitterNotebookContext.Users.FindAsync(LoggedUserInformation.Id);
+                User? user = await _userService.GetAsync(LoggedUserInformation.Id);
                 if(user != null) 
                 {
-                    CreateMovieUrl createMovieUrl = new(Title, Link);
+                    CreateMovieUrl createMovieUrl = new(Title, Link, user);
                     var validation = _createMovieUrlValidator.Validate(createMovieUrl);
                     if (validation.IsValid)
                     {
