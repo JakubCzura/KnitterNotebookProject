@@ -54,7 +54,7 @@ namespace KnitterNotebook.ViewModels
                 var validation = _registerUserDtoValidator.Validate(registerUserDto);
                 if (validation.IsValid)
                 {
-                    await _userService.Add(registerUserDto);
+                    await _userService.CreateAsync(registerUserDto);
                     Window.GetWindow(RegistrationWindow.Instance).Close();
                     MessageBox.Show("Rejestracja przebiegła pomyślnie");
                 }

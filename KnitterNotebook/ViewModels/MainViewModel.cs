@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
-using KnitterNotebook.ViewModels.Services.Interfaces;
+using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -131,7 +131,7 @@ namespace KnitterNotebook.ViewModels
             {
                 if (SelectedMovieUrl != null)
                 {
-                    await _movieUrlService.DeleteMovieUrlAsync(SelectedMovieUrl);
+                    await _movieUrlService.DeleteAsync(SelectedMovieUrl.Id);
                     MovieUrls = GetMovieUrls(User);
                 }
             }

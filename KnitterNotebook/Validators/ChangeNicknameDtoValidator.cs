@@ -24,7 +24,7 @@ namespace KnitterNotebook.Validators
             RuleFor(x => x.Nickname)
                .CustomAsync(async (value, context, cancellationToken) =>
                {
-                   List<User> users = await _userService.GetAll();
+                   IEnumerable<User> users = await _userService.GetAllAsync();
                    bool isNicknameUsed = users.Any(x => x.Nickname == value);
                    if (isNicknameUsed)
                    {

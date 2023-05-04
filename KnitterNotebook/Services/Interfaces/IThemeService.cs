@@ -4,12 +4,8 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services.Interfaces
 {
-    public interface IThemeService
+    public interface IThemeService : ICrudService<Theme>
     {
-        Task<List<Theme>> GetAllAsync();
-
-        Task<Theme> GetAsync(int id);
-
         Task<Theme> GetByNameAsync(string name);
     }
 }

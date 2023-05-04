@@ -10,28 +10,18 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services
 {
-    public class UserService : IUserService
+    public class UserService : CrudService<User>, IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IThemeRepository _themeRepository;
 
-        public UserService(IUserRepository userRepository, IThemeRepository themeRepository)
+        public UserService(IUserRepository userRepository, IThemeRepository themeRepository) : base(userRepository)
         {
             _userRepository = userRepository;
             _themeRepository = themeRepository;
         }
 
-        public async Task<List<User>> GetAll()
-        {
-            return await _userRepository.GetAll();
-        }
-
-        public async Task<User> Get(int id)
-        {
-            return await _userRepository.Get(id);
-        }
-
-        public async Task Add(RegisterUserDto registerUserDto)
+        public async Task CreateAsync(RegisterUserDto registerUserDto)
         {
             User user = new()
             {
@@ -39,45 +29,35 @@ namespace KnitterNotebook.Services
                 Email = registerUserDto.Email,
                 Password = PasswordHasher.HashPassword(registerUserDto.Password),
             };
-            await _userRepository.Add(user);
-        }
-
-        public async Task Update(User user)
-        {
-            await _userRepository.Update(user);
-        }
-
-        public async Task Delete(int id)
-        {
-            await _userRepository.Delete(id);
+            await _userRepository.CreateAsync(user);
         }
 
         public async Task ChangePasswordAsync(ChangePasswordDto changePasswordDto)
         {
-            User user = await _userRepository.Get(changePasswordDto.UserId);
+            User user = await _userRepository.GetAsync(changePasswordDto.UserId);
             user.Password = PasswordHasher.HashPassword(changePasswordDto.NewPassword);
-            await _userRepository.Update(user);
+            await _userRepository.UpdateAsync(user);
         }
 
         public async Task ChangeNicknameAsync(ChangeNicknameDto changeNicknameDto)
         {
-            User user = await _userRepository.Get(changeNicknameDto.UserId);
+            User user = await _userRepository.GetAsync(changeNicknameDto.UserId);
             user.Nickname = changeNicknameDto.Nickname;
-            await _userRepository.Update(user);
+            await _userRepository.UpdateAsync(user);
         }
 
         public async Task ChangeEmailAsync(ChangeEmailDto changeEmailDto)
         {
-            User user = await _userRepository.Get(changeEmailDto.UserId);
+            User user = await _userRepository.GetAsync(changeEmailDto.UserId);
             user.Email = changeEmailDto.Email;
-            await _userRepository.Update(user);
+            await _userRepository.UpdateAsync(user);
         }
 
         public async Task ChangeThemeAsync(ChangeThemeDto changeThemeDto)
         {
-            User user = await _userRepository.Get(changeThemeDto.UserId);
+            User user = await _userRepository.GetAsync(changeThemeDto.UserId);
             user.Theme = await _themeRepository.GetByNameAsync(changeThemeDto.ThemeName);
-            await _userRepository.Update(user);
+            await _userRepository.UpdateAsync(user);
         }
     }
 }

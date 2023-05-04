@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
+using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
-using KnitterNotebook.ViewModels.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
@@ -64,7 +64,7 @@ namespace KnitterNotebook.ViewModels
                     IModelsValidator<MovieUrl> movieUrlValidator = new MovieUrlValidator();
                     if (movieUrlValidator.Validate(movieUrl))
                     {
-                        await _movieUrlService.AddMovieUrlAsync(movieUrl);
+                        await _movieUrlService.CreateAsync(movieUrl);
                         NewMovieUrlAdded?.Invoke();
                         MessageBox.Show("Dodano nowy film");
                     }

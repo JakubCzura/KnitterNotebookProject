@@ -8,8 +8,6 @@ using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebook.ViewModels;
-using KnitterNotebook.ViewModels.Services;
-using KnitterNotebook.ViewModels.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,11 +45,12 @@ namespace KnitterNotebook
                     services.AddScoped<IValidator<ChangeEmailDto>, ChangeEmailDtoValidator>();
                     services.AddScoped<IValidator<ChangePasswordDto>, ChangePasswordDtoValidator>();
                     services.AddScoped<IValidator<ChangeThemeDto>, ChangeThemeDtoValidator>();
+                    services.AddScoped<IMovieUrlRepository, MovieUrlRepository>();
                     services.AddScoped<IMovieUrlService, MovieUrlService>();
-                    services.AddScoped<IUserService, UserService>();
                     services.AddScoped<IUserRepository, UserRepository>();
-                    services.AddScoped<IThemeService, ThemeService>();
+                    services.AddScoped<IUserService, UserService>();
                     services.AddScoped<IThemeRepository, ThemeRepository>();
+                    services.AddScoped<IThemeService, ThemeService>();
                     services.AddTransient<LoginViewModel>();
                     services.AddTransient(s => new LoginWindow()
                     {

@@ -22,7 +22,7 @@ namespace KnitterNotebook.Validators
             _userService = userService;
 
             RuleFor(dto => dto.UserId)
-                .Must(id => _userService.Get(id) != null)
+                .Must(id => _userService.GetAsync(id) != null)
                 .WithMessage("Nie znaleziono użytkownika");
 
             RuleFor(x => x.Email)
@@ -33,7 +33,7 @@ namespace KnitterNotebook.Validators
             RuleFor(x => x.Email)
                 .CustomAsync(async (value, context, cancellationToken) =>
                 {
-                    List<User> users = await _userService.GetAll();
+                    IEnumerable<User> users = await _userService.GetAllAsync();
                     bool isEmailUsed = users.Any(x => x.Email == value);
                     if (isEmailUsed)
                     {

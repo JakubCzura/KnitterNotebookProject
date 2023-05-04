@@ -17,7 +17,7 @@ namespace KnitterNotebook.Validators
             _userService = userService;
 
             RuleFor(dto => dto.UserId)
-                .Must(id => _userService.Get(id) != null)
+                .Must(id => _userService.GetAsync(id) != null)
                 .WithMessage("Nie znaleziono użytkownika");
 
             RuleFor(x => x.NewPassword)

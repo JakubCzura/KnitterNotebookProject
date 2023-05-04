@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KnitterNotebook.Repositories.Interfaces
+namespace KnitterNotebook.Services.Interfaces
 {
-    public interface IUserRepository : ICrudRepository<User>
+    public interface IMovieUrlService : ICrudService<MovieUrl>
     {
     }
 }

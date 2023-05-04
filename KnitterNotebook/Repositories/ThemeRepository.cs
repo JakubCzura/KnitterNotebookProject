@@ -7,23 +7,13 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Repositories
 {
-    public class ThemeRepository : IThemeRepository
+    public class ThemeRepository : CrudRepository<Theme>, IThemeRepository
     {
         private readonly KnitterNotebookContext _knitterNotebookContext;
 
-        public ThemeRepository(KnitterNotebookContext knitterNotebookContext)
+        public ThemeRepository(KnitterNotebookContext knitterNotebookContext) : base(knitterNotebookContext)
         {
             _knitterNotebookContext = knitterNotebookContext;
-        }
-
-        public async Task<List<Theme>> GetAllAsync()
-        {
-            return await _knitterNotebookContext.Themes.ToListAsync();
-        }
-
-        public async Task<Theme> GetAsync(int id)
-        {
-            return await _knitterNotebookContext.Themes.FindAsync(id) ?? null!;
         }
 
         public async Task<Theme> GetByNameAsync(string name)

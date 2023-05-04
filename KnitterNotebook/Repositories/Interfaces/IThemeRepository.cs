@@ -4,12 +4,8 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Repositories.Interfaces
 {
-    public interface IThemeRepository
+    public interface IThemeRepository : ICrudRepository<Theme>
     {
-        Task<List<Theme>> GetAllAsync();
-
-        Task<Theme> GetAsync(int id);
-
         Task<Theme> GetByNameAsync(string name);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Repositories.Interfaces
 {
-    public interface IUserRepository : ICrudRepository<User>
+    public interface IMovieUrlRepository : ICrudRepository<MovieUrl>
     {
     }
 }
