@@ -8,6 +8,7 @@ using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebook.ViewModels;
+using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -77,6 +78,10 @@ namespace KnitterNotebook
                     services.AddTransient(s => new SettingsWindow()
                     {
                         DataContext = s.GetRequiredService<SettingsViewModel>()
+                    });
+                    services.AddTransient(x => new SamplesUserControl()
+                    {
+                        DataContext = x.GetRequiredService<MainViewModel>()
                     });
                     
                 })

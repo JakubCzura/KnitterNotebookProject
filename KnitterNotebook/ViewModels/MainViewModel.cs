@@ -5,10 +5,12 @@ using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
@@ -66,6 +68,14 @@ namespace KnitterNotebook.ViewModels
         private Visibility _samplesUserControlVisibility = Visibility.Hidden;
         private MovieUrl _selectedMovieUrl = new();
         private User _user = new();
+        private Sample _selectedSample = new();
+        private List<Sample> _samples = new()
+        {
+            new Sample(1, "woolen", 1,2, 4, "mm", new User()),
+            new Sample(2, "woolen2", 31,2, 42, "m", new User()),
+            new Sample(3, "woolen3", 41,2, 24, "nm", new User()),
+            new Sample(4, "woolen4", 41,2, 24, "nm", new User()),
+        };
         public ICommand DeleteMovieUrlCommandAsync { get; }
         public ICommand SetPlannedProjectsUserControlVisibleCommand { get; }
         public ICommand SetProjectsInProgressUserControlVisibleCommand { get; }
@@ -120,6 +130,24 @@ namespace KnitterNotebook.ViewModels
             get { return _user; }
             set { _user = value; OnPropertyChanged(); }
         }
+
+        public Sample SelectedSample
+        {
+            get { return _selectedSample; }
+            set { _selectedSample = value; OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedSampleMashesXRows));
+                OnPropertyChanged(nameof(SelectedSampleNeedleSize));
+            }
+        }
+
+        public List<Sample> Samples
+        {
+            get { return _samples; }
+            set { _samples = value; OnPropertyChanged(); }
+        }
+
+        public string SelectedSampleMashesXRows => $"{SelectedSample.MashesQuantity}x{SelectedSample.RowsQuantity}";
+        public string SelectedSampleNeedleSize => $"{SelectedSample.NeedleSize}{SelectedSample.NeedleSizeUnit}";
 
         #endregion Properties
 

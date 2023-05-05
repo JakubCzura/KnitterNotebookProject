@@ -121,7 +121,7 @@
                     Style="{DynamicResource MainMenuButtonStyle}"
                     Command="{Binding ShowMovieUrlAddingWindowCommand}">
                 <TextBlock Text="Dodaj nowy link do filmu"
-                                       Style="{DynamicResource WrapTextBlockStyle}" />
+                           Style="{DynamicResource WrapTextBlockStyle}" />
             </Button>
         </Grid>
     </Grid>
