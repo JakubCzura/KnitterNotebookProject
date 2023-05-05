@@ -55,6 +55,7 @@ namespace KnitterNotebook.ViewModels
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
             DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
+            SelectedSample = Samples.FirstOrDefault() ?? new Sample();
         }
 
         #region Properties
