@@ -13,6 +13,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <DataGrid Style="{StaticResource MaterialDesignDataGrid}" Grid.Column="0" 
                   ItemsSource="{Binding Samples}" 
@@ -26,14 +27,17 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Margin="10,0,10,10" Grid.Column="1">
-            <TextBlock FontWeight="Bold" Margin="5,0,5,5" FontSize="25" Text="Yarn name"/>
+            <TextBlock FontWeight="Medium" Margin="5,0,5,5" FontSize="25" Text="Yarn name:"/>
             <TextBlock Margin="5,0,5,25" FontSize="20" Text="{Binding SelectedSample.YarnName}"/>
-            <TextBlock FontWeight="Bold" Margin="5,0,5,5" FontSize="25" Text="Loops x rows"/>
+            <TextBlock FontWeight="Medium" Margin="5,0,5,5" FontSize="25" Text="Loops x rows:"/>
             <TextBlock Margin="5,0,5,25" FontSize="20" Text="{Binding SelectedSampleMashesXRows}"/>
-            <TextBlock FontWeight="Bold" Margin="5,0,5,5" FontSize="25" Text="Needle size"/>
+            <TextBlock FontWeight="Medium" Margin="5,0,5,5" FontSize="25" Text="Needle size:"/>
             <TextBlock Margin="5,0,5,25" FontSize="20" Text="{Binding SelectedSampleNeedleSize}"/>
-            <TextBlock FontWeight="Bold" Margin="5,0,5,5" FontSize="25" Text="Description"/>
+            <TextBlock FontWeight="Medium" Margin="5,0,5,5" FontSize="25" Text="Description:"/>
             <TextBlock Margin="5,0,5,25" FontSize="20" Text="{Binding SelectedSample.Description}"/>
         </StackPanel>
+        <Image Grid.Column="2" Source="C:\Users\czura\Desktop\20161223_192114.jpg">
+            
+        </Image>
     </Grid>
 </UserControl>
