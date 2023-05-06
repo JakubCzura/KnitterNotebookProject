@@ -2,7 +2,9 @@
 
 Aplikacja dla fanów dziewiarstwa. Pozwala kontrolować postępy podczas pracy i robić notatki o swoich projektach. 
 
-Projekt w trakcie. Używana wersja .NET 7.
+Projekt w trakcie. 
+
+Używana wersja .NET 7.
 
 ![obraz](https://user-images.githubusercontent.com/76125047/236647307-6c712dcf-5b29-4106-b951-6096a0723899.png)
 ![obraz](https://user-images.githubusercontent.com/76125047/236647471-33bf9441-0bdb-465b-8c2c-9808a8fbfcab.png)
