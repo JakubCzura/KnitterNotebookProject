@@ -196,12 +196,19 @@ namespace KnitterNotebook.ViewModels
 
         private void OpenMovieUrlInWebBrowser()
         {
-            if (SelectedMovieUrl != null)
+            try
             {
-                // Open the URL in the default web browser
-               // System.Diagnostics.Process.Start(SelectedMovieUrl.Link.ToString());
-                //System.Diagnostics.Process.Start("http://www.google.com");
-                System.Diagnostics.Process.Start("cmd", "/C start" + " " + SelectedMovieUrl.Link.ToString());
+                if (SelectedMovieUrl != null)
+                {
+                    // Open the URL in the default web browser
+                    // System.Diagnostics.Process.Start(SelectedMovieUrl.Link.ToString());
+                    //System.Diagnostics.Process.Start("http://www.google.com");
+                    System.Diagnostics.Process.Start("cmd", "/C start" + " " + SelectedMovieUrl.Link.ToString());
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Błąd otworzenia filmu");
             }
         }
 
