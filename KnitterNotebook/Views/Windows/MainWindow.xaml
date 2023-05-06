@@ -41,9 +41,13 @@
                     <MenuItem Style="{DynamicResource NavigationMenuItemStyle}"
                               Header="Ustawienia" />
                 </Menu>
-                <TextBlock DockPanel.Dock="Bottom"
+                <Border Margin="5,5,5,5" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="10">
+                    <Border Background="#FFBA6FCA" BorderThickness="0" CornerRadius="10">
+                        <TextBlock Margin="5,5,5,5" DockPanel.Dock="Bottom"
                            Style="{DynamicResource WelcomeTextBlockStyle}"
                            Text="{Binding Greetings, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </Border>
+                </Border>
             </DockPanel>
         </Grid>
 
@@ -54,33 +58,35 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
-                    <ScrollViewer Visibility="Visible">
-                        <StackPanel Orientation="Vertical"
+                <Border Margin="5,5,5,5" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="10">
+                    <Border Background="#FFBA6FCA" BorderThickness="0" CornerRadius="10">
+                        <ScrollViewer Visibility="Visible">
+                            <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Top">
-                            <Button Style="{DynamicResource MainMenuButtonStyle}"
+                                <Button Style="{DynamicResource MainMenuButtonStyle}"
                                     Command="{Binding SetProjectsUserControlVisibleCommand}">
-                                <TextBlock Text="Moje projekty"
+                                    <TextBlock Text="Moje projekty"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
-                            </Button>
-                            <Button Style="{DynamicResource MainMenuButtonStyle}"
+                                </Button>
+                                <Button Style="{DynamicResource MainMenuButtonStyle}"
                                     Command="{Binding SetPlannedProjectsUserControlVisibleCommand}">
-                                <TextBlock Text="Projekty w planach"
+                                    <TextBlock Text="Projekty w planach"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
-                            </Button>
-                            <Button Style="{DynamicResource MainMenuButtonStyle}"
+                                </Button>
+                                <Button Style="{DynamicResource MainMenuButtonStyle}"
                                     Command="{Binding SetProjectsInProgressUserControlVisibleCommand}">
-                                <TextBlock Text="Projekty w trakcie"
+                                    <TextBlock Text="Projekty w trakcie"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
-                            </Button>
-                            <Button Style="{DynamicResource MainMenuButtonStyle}"
+                                </Button>
+                                <Button Style="{DynamicResource MainMenuButtonStyle}"
                                     Command="{Binding SetSamplesUserControlVisibleCommand}">
-                                <TextBlock Text="Próbki obliczeniowe"
+                                    <TextBlock Text="Próbki obliczeniowe"
                                        Style="{DynamicResource WrapTextBlockStyle}" />
-                            </Button>
-                        </StackPanel>
-                    </ScrollViewer>
-                </Grid>
+                                </Button>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+                </Border>
 
                 <userControls:ProjectsUserControl Grid.Column="1"
                                                   Visibility="{Binding ProjectsUserControlVisibility}" />
@@ -93,42 +99,46 @@
             </Grid>
         </Grid>
 
-        <Grid Margin="0,10,0,10" Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <DataGrid Grid.Column="0"
+        <Border Grid.Row="2" Margin="5,5,5,5" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="10">
+            <Border Background="#FFBA6FCA" BorderThickness="0" CornerRadius="10">
+                <Grid Margin="5,5,5,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Grid.Column="0"
                       ItemsSource="{Binding MovieUrls}"
                       AutoGenerateColumns="False"
                       SelectedItem="{Binding SelectedMovieUrl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       IsReadOnly="True">
-                <DataGrid.InputBindings>
-                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OpenMovieUrlInWebBrowserCommand}"/>
-                </DataGrid.InputBindings>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="Auto"
+                        <DataGrid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OpenMovieUrlInWebBrowserCommand}"/>
+                        </DataGrid.InputBindings>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="Auto"
                                         Header="Tytuł"
                                         Binding="{Binding Path=Title}" />
-                    <DataGridTextColumn Width="*"
+                            <DataGridTextColumn Width="*"
                                         Header="Link"
                                         Binding="{Binding Path=Link}" />
-                </DataGrid.Columns>
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Skasuj link do filmu"
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Skasuj link do filmu"
                                   Command="{Binding DeleteMovieUrlCommandAsync}" />
-                        <MenuItem Header="Otwórz film"
+                                <MenuItem Header="Otwórz film"
                                   Command="{Binding OpenMovieUrlInWebBrowserCommand}" />
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-            </DataGrid>
-            <Button Grid.Column="1"
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                    <Button Grid.Column="1"
                     Style="{DynamicResource MainMenuButtonStyle}"
                     Command="{Binding ShowMovieUrlAddingWindowCommand}">
-                <TextBlock Text="Dodaj nowy link do filmu"
+                        <TextBlock Text="Dodaj nowy link do filmu"
                            Style="{DynamicResource WrapTextBlockStyle}" />
-            </Button>
-        </Grid>
+                    </Button>
+                </Grid>
+            </Border>
+        </Border>
     </Grid>
 </Window>
