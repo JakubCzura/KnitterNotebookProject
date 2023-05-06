@@ -101,7 +101,11 @@
             <DataGrid Grid.Column="0"
                       ItemsSource="{Binding MovieUrls}"
                       AutoGenerateColumns="False"
-                      SelectedItem="{Binding SelectedMovieUrl}">
+                      SelectedItem="{Binding SelectedMovieUrl}"
+                      IsReadOnly="True">
+                <DataGrid.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OpenMovieUrlInWebBrowserCommand}"/>
+                </DataGrid.InputBindings>
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="Auto"
                                         Header="Tytuł"
@@ -114,6 +118,8 @@
                     <ContextMenu>
                         <MenuItem Header="Skasuj link do filmu"
                                   Command="{Binding DeleteMovieUrlCommandAsync}" />
+                        <MenuItem Header="Otwórz film"
+                                  Command="{Binding OpenMovieUrlInWebBrowserCommand}" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>

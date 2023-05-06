@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Data;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace KnitterNotebook.Views.Windows
 {

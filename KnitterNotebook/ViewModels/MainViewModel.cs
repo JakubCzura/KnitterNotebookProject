@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
@@ -55,6 +56,7 @@ namespace KnitterNotebook.ViewModels
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
             DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
+            OpenMovieUrlInWebBrowserCommand = new RelayCommand(OpenMovieUrlInWebBrowser);
             SelectedSample = Samples.FirstOrDefault() ?? new Sample();
         }
 
@@ -84,6 +86,8 @@ namespace KnitterNotebook.ViewModels
         public ICommand SetSamplesUserControlVisibleCommand { get; }
         public ICommand ShowMovieUrlAddingWindowCommand { get; }
         public ICommand ShowSettingsWindowCommand { get; }
+
+        public ICommand OpenMovieUrlInWebBrowserCommand { get; }
 
         public string Greetings
         {
@@ -187,6 +191,17 @@ namespace KnitterNotebook.ViewModels
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Błąd wyboru zawartości okna głównego");
+            }
+        }
+
+        private void OpenMovieUrlInWebBrowser()
+        {
+            if (SelectedMovieUrl != null)
+            {
+                // Open the URL in the default web browser
+               // System.Diagnostics.Process.Start(SelectedMovieUrl.Link.ToString());
+                //System.Diagnostics.Process.Start("http://www.google.com");
+                System.Diagnostics.Process.Start("cmd", "/C start" + " " + SelectedMovieUrl.Link.ToString());
             }
         }
 

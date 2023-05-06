@@ -45,8 +45,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <materialDesign:PackIcon Grid.Column="0" Kind="Email" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    <materialDesign:PackIcon Margin="5,5,5,15" Grid.Column="0" Kind="Email" VerticalAlignment="Center"/>
+                    <TextBox Margin="5,5,5,15" Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          Background="White"
                          Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          adorners:Watermark.Text="e-mail"
@@ -54,14 +54,21 @@
                          VerticalContentAlignment="Center" VerticalAlignment="Top"
                          />
                 </Grid>
-               
-                <PasswordBox x:Name="UserPasswordPasswordBox"
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon Margin="5,5,5,15" Grid.Column="0" Kind="Password" VerticalAlignment="Center"/>
+                    <PasswordBox Margin="5,5,5,15" Grid.Column="1" x:Name="UserPasswordPasswordBox"
                              Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
                              Background="White"
                              adorners:Watermark.Text="hasło"
                              adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                              VerticalContentAlignment="Center"
-                             Margin="0,0,0,10" />
+                             />
+                </Grid>
                 <Button Style="{StaticResource LoginButtonStyle}"
                         Content="Zaloguj się"
                         Command="{Binding LogInCommandAsync}" />
