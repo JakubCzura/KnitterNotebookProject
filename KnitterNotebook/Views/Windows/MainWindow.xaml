@@ -55,7 +55,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="0">
-                    <ScrollViewer>
+                    <ScrollViewer Visibility="Visible">
                         <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Top">
                             <Button Style="{DynamicResource MainMenuButtonStyle}"

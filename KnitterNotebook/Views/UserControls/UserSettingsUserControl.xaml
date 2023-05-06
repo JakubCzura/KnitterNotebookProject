@@ -26,7 +26,9 @@
                      adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                      VerticalContentAlignment="Center"
                      Text="{Binding Path=NewNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=UserSettings}" />
-            <Button Content="Potwierdź"
+            <Button Content="Potwierdź" 
+                    MaxWidth="100"
+                    HorizontalAlignment="Left"
                     Command="{Binding Path=ChangeNicknameCommandAsync, ElementName=UserSettings}" />
             <TextBlock Text="Zmiana e-mail"
                        Style="{DynamicResource SettingsElementTextBlockStyle}" />
@@ -35,6 +37,8 @@
                      VerticalContentAlignment="Center"
                      Text="{Binding Path=NewEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=UserSettings}" />
             <Button  Content="Potwierdź"
+                     MaxWidth="100"
+                     HorizontalAlignment="Left"
                      Command="{Binding Path=ChangeEmailCommandAsync, ElementName=UserSettings}" />
             <TextBlock Text="Zmiana hasła"
                        Style="{DynamicResource SettingsElementTextBlockStyle}" />
@@ -45,8 +49,11 @@
             <PasswordBox Name="RepeatedNewPasswordPasswordBox"
                          adorners:Watermark.Text="Powtórz hasło"
                          adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                         VerticalContentAlignment="Center" />
+                         VerticalContentAlignment="Center"
+                         Style="{StaticResource MaterialDesignPasswordBox}"/>
             <Button Content="Potwierdź"
+                    MaxWidth="100"
+                    HorizontalAlignment="Left"
                     Command="{Binding Path=ChangePasswordCommandAsync, ElementName=UserSettings}" />
         </StackPanel>
     </Grid>
