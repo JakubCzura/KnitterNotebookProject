@@ -14,13 +14,13 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid Grid.Column="0" 
+        <DataGrid Style="{StaticResource MaterialDesignDataGrid}" Grid.Column="0" 
                   ItemsSource="{Binding Samples}" 
                   AutoGenerateColumns="False" 
                   IsReadOnly="True" 
                   SelectedItem="{Binding SelectedSample}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Sample name" 
+                <DataGridTextColumn Header="Yarn name" 
                                     Binding="{Binding Path=YarnName}" 
                                     Width="*"/>
             </DataGrid.Columns>
@@ -28,10 +28,12 @@
         <StackPanel Margin="10,0,10,10" Grid.Column="1">
             <TextBlock FontWeight="Bold" Margin="5,0,5,5" FontSize="25" Text="Yarn name"/>
             <TextBlock Margin="5,0,5,25" FontSize="20" Text="{Binding SelectedSample.YarnName}"/>
-            <TextBlock FontWeight="Bold" Margin="5,0,5,5" FontSize="25" Text="Mashes x rows"/>
+            <TextBlock FontWeight="Bold" Margin="5,0,5,5" FontSize="25" Text="Loops x rows"/>
             <TextBlock Margin="5,0,5,25" FontSize="20" Text="{Binding SelectedSampleMashesXRows}"/>
             <TextBlock FontWeight="Bold" Margin="5,0,5,5" FontSize="25" Text="Needle size"/>
             <TextBlock Margin="5,0,5,25" FontSize="20" Text="{Binding SelectedSampleNeedleSize}"/>
+            <TextBlock FontWeight="Bold" Margin="5,0,5,5" FontSize="25" Text="Description"/>
+            <TextBlock Margin="5,0,5,25" FontSize="20" Text="{Binding SelectedSample.Description}"/>
         </StackPanel>
     </Grid>
 </UserControl>

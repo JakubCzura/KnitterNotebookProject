@@ -72,10 +72,10 @@ namespace KnitterNotebook.ViewModels
         private Sample _selectedSample = new();
         private List<Sample> _samples = new()
         {
-            new Sample(1, "woolen", 1,2, 4, "mm", new User()),
-            new Sample(2, "woolen2", 31,2, 42, "m", new User()),
-            new Sample(3, "woolen3", 41,2, 24, "nm", new User()),
-            new Sample(4, "woolen4", 41,2, 24, "nm", new User()),
+            new Sample(1, "woolen", 1,2, 4, "mm", "description1", new User()),
+            new Sample(2, "woolen2", 31,2, 42, "m", "description12", new User()),
+            new Sample(3, "woolen3", 41,2, 24, "nm", "description13", new User()),
+            new Sample(4, "woolen4", 41,2, 24, "nm", "description14", new User()),
         };
         public ICommand DeleteMovieUrlCommandAsync { get; }
         public ICommand SetPlannedProjectsUserControlVisibleCommand { get; }
@@ -147,7 +147,7 @@ namespace KnitterNotebook.ViewModels
             set { _samples = value; OnPropertyChanged(); }
         }
 
-        public string SelectedSampleMashesXRows => $"{SelectedSample.MashesQuantity}x{SelectedSample.RowsQuantity}";
+        public string SelectedSampleMashesXRows => $"{SelectedSample.LoopsQuantity}x{SelectedSample.RowsQuantity}";
         public string SelectedSampleNeedleSize => $"{SelectedSample.NeedleSize}{SelectedSample.NeedleSizeUnit}";
 
         #endregion Properties

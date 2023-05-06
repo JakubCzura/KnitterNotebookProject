@@ -12,15 +12,16 @@ namespace KnitterNotebook.Models
         {
         }
 
-        public Sample(int id, string yarnName, int mashesQuantity, int rowsQuantity, int needleSize, string needleSizeUnit, User user)
+        public Sample(int id, string yarnName, int loopsQuantity, int rowsQuantity, int needleSize, string needleSizeUnit, string description, User user)
         {
             Id = id;
             YarnName = yarnName;
-            MashesQuantity = mashesQuantity;
+            LoopsQuantity = loopsQuantity;
             RowsQuantity = rowsQuantity;
             NeedleSize = needleSize;
             NeedleSizeUnit = needleSizeUnit;
             User = user;
+            Description = description;
         }
 
         public int Id { get; set; }
@@ -29,7 +30,7 @@ namespace KnitterNotebook.Models
         public string YarnName { get; set; } = string.Empty;
 
         //Ilość oczek
-        public int MashesQuantity { get; set; }
+        public int LoopsQuantity { get; set; }
 
         //Ilość rzędów
         public int RowsQuantity { get; set; }
@@ -39,6 +40,9 @@ namespace KnitterNotebook.Models
 
         //Jednostka rozmiaru druta
         public string NeedleSizeUnit { get; set; } = string.Empty;
+
+        //dodatkowy opis
+        public string Description { get; set; } = string.Empty;
 
         public User User { get; set; } = new();
     }
