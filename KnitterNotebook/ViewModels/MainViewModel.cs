@@ -81,6 +81,7 @@ namespace KnitterNotebook.ViewModels
                 "sssssssssssssssssssssssss" +
                 "sssssssssssssssssssssssssiption13", new User()),
             new Sample(4, "woolen4", 41,2, 24, "nm", "description14", new User()),
+            new Sample(5, "Cotton", 12, 6, 24, "mm", "Cotton yarn to make a cozy sweater", new User()),
         };
         public ICommand DeleteMovieUrlCommandAsync { get; }
         public ICommand SetPlannedProjectsUserControlVisibleCommand { get; }
