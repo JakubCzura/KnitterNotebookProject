@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
-                   Text="Konto"
+                   Text="Motyw aplikacji"
                    Style="{DynamicResource SettingsHeaderTextBlockStyle}" />
 
         <StackPanel Grid.Row="1">
