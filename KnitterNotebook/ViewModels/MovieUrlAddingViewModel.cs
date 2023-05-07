@@ -4,8 +4,6 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
-using KnitterNotebook.Validators;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -64,7 +62,7 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 User? user = await _userService.GetAsync(LoggedUserInformation.Id);
-                if(user != null) 
+                if (user != null)
                 {
                     CreateMovieUrl createMovieUrl = new(Title, Link, user);
                     var validation = _createMovieUrlValidator.Validate(createMovieUrl);
@@ -74,7 +72,7 @@ namespace KnitterNotebook.ViewModels
                         NewMovieUrlAdded?.Invoke();
                         MessageBox.Show("Dodano nowy film");
                     }
-                }  
+                }
                 else
                 {
                     MessageBox.Show("Błąd podczas dodania filmu", "Nie odnaleziono użytkownika");

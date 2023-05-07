@@ -1,5 +1,4 @@
 ﻿using KnitterNotebook.Models;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Repositories.Interfaces

@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
-                   Text="Konto"
+                   Text="Motyw aplikacji"
                    Style="{DynamicResource SettingsHeaderTextBlockStyle}" />
 
         <StackPanel Grid.Row="1">
@@ -30,9 +30,9 @@
             </UniformGrid>
 
             <Button Content="Potwierdź"
-                    Command="{Binding Path=ChangeThemeCommandAsync, ElementName=ThemeSettings}" 
+                    Command="{Binding Path=ChangeThemeCommandAsync, ElementName=ThemeSettings}"
                     HorizontalAlignment="Left"
-                    MaxWidth="100"/>
+                    MaxWidth="100" />
         </StackPanel>
     </Grid>
 </UserControl>

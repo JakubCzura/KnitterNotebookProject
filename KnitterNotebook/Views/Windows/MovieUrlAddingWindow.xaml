@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:KnitterNotebook.Views.Windows"
         xmlns:adorners="http://gu.se/Adorners"
         xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         d:DataContext="{d:DesignInstance Type=viewModels:MovieUrlAddingViewModel}"
         mc:Ignorable="d"
         Title="KnitterNotebook"
@@ -38,20 +39,30 @@
             <StackPanel Margin="50,10,50,10">
                 <Label Style="{DynamicResource LabelAboveLoginInputStyle}"
                        Content="Tytuł filmu" />
-                <TextBox Style="{DynamicResource InputLoginDataTextBoxStyle}"
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon Margin="5,0,5,0" Grid.Column="0" Kind="FormatTitle" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="1" Style="{DynamicResource InputLoginDataTextBoxStyle}"
                          Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          adorners:Watermark.Text="Tytuł"
-                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                         VerticalContentAlignment="Center"
-                         Margin="0,0,0,10" />
+                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused" />
+                </Grid>
                 <Label Style="{DynamicResource LabelAboveLoginInputStyle}"
                        Content="Link do filmu" />
-                <TextBox Style="{DynamicResource InputLoginDataTextBoxStyle}"
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon Margin="5,0,5,0" Grid.Column="0" Kind="Link" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="1" Style="{DynamicResource InputLoginDataTextBoxStyle}"
                          Text="{Binding Link, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          adorners:Watermark.Text="Link"
-                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                         VerticalContentAlignment="Center"
-                         Margin="0,0,0,10" />
+                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused" />
+                </Grid>
                 <Button Style="{DynamicResource LoginButtonStyle}"
                         Margin="0,10,0,0"
                         Content="Dodaj film"

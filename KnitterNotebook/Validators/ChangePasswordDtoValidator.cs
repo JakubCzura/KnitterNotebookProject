@@ -1,9 +1,6 @@
 ﻿using FluentValidation;
-using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
-using KnitterNotebook.Repositories.Interfaces;
 using KnitterNotebook.Services.Interfaces;
-using OneOf.Types;
 using System.Linq;
 
 namespace KnitterNotebook.Validators
@@ -27,7 +24,7 @@ namespace KnitterNotebook.Validators
               .Must(y => y.Any(char.IsDigit)).WithMessage("Hasło musi zawierać conajmniej jedną cyfrę")
               .Must(y => y.Any(char.IsAsciiLetterLower)).WithMessage("Hasło musi zawierać conajmniej jedną małą literę")
               .Must(y => y.Any(char.IsAsciiLetterUpper)).WithMessage("Hasło musi zawierać conajmniej jedną wielką literę")
-              .Equal(x => x.ConfirmPassword).WithMessage("Nowe hasło ma dwie różne wartości");         
+              .Equal(x => x.ConfirmPassword).WithMessage("Nowe hasło ma dwie różne wartości");
         }
     }
 }

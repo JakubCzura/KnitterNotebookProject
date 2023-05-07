@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
-using KnitterNotebook.Repositories.Interfaces;
 using KnitterNotebook.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;

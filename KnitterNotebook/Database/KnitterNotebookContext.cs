@@ -46,7 +46,6 @@ namespace KnitterNotebook.Database
 
                 u.HasMany(x => x.MovieUrls)
                  .WithOne(c => c.User);
-
             });
 
             modelBuilder.Entity<Project>(p =>
