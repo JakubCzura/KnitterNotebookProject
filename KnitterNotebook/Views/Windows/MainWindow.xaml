@@ -58,7 +58,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Border Margin="5,5,5,5" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="10">
+                <Border Grid.Column="0" Margin="5,5,5,5" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="10">
                     <Border Background="#FFBA6FCA" BorderThickness="0" CornerRadius="10">
                         <ScrollViewer Visibility="Visible">
                             <StackPanel Orientation="Vertical"
