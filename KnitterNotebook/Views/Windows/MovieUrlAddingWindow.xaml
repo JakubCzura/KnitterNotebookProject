@@ -41,10 +41,10 @@
                        Content="Tytuł filmu" />
                 <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <materialDesign:PackIcon Margin="5,0,5,0" Grid.Column="0" Kind="FormatTitle" VerticalAlignment="Center"/>
+                    <materialDesign:PackIcon Margin="5,0,5,0" Grid.Column="0" Kind="FormatTitle" VerticalAlignment="Center" />
                     <TextBox Grid.Column="1" Style="{DynamicResource InputLoginDataTextBoxStyle}"
                          Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          adorners:Watermark.Text="Tytuł"
@@ -54,10 +54,10 @@
                        Content="Link do filmu" />
                 <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <materialDesign:PackIcon Margin="5,0,5,0" Grid.Column="0" Kind="Link" VerticalAlignment="Center"/>
+                    <materialDesign:PackIcon Margin="5,0,5,0" Grid.Column="0" Kind="Link" VerticalAlignment="Center" />
                     <TextBox Grid.Column="1" Style="{DynamicResource InputLoginDataTextBoxStyle}"
                          Text="{Binding Link, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          adorners:Watermark.Text="Link"

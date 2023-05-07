@@ -1,5 +1,4 @@
-﻿using KnitterNotebook.ViewModels;
-using System.Windows;
+﻿using System.Windows;
 
 namespace KnitterNotebook.Views.Windows
 {

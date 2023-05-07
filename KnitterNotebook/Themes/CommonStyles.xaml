@@ -14,14 +14,14 @@
 
     <sys:Double x:Key="InputLoginDataTextBoxHeight">50</sys:Double>
 
-    <Style TargetType="{x:Type TextBox}" x:Key="InputLoginDataTextBoxStyle" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}" >
-        <Setter Property="Background" Value="White"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Style TargetType="{x:Type TextBox}" x:Key="InputLoginDataTextBoxStyle" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
 
     <Style TargetType="PasswordBox" x:Key="InputPasswordPasswordBoxStyle" BasedOn="{StaticResource MaterialDesignOutlinedRevealPasswordBox}">
-        <Setter Property="Background" Value="White"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="White" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
 
     <Style TargetType="TextBlock" x:Key="WrapTextBlockStyle" BasedOn="{StaticResource WrapTextBlock}" />

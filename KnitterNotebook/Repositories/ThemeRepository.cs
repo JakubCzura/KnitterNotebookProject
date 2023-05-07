@@ -2,7 +2,6 @@
 using KnitterNotebook.Models;
 using KnitterNotebook.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Repositories

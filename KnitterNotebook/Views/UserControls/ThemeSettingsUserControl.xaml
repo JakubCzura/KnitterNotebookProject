@@ -30,9 +30,9 @@
             </UniformGrid>
 
             <Button Content="Potwierdź"
-                    Command="{Binding Path=ChangeThemeCommandAsync, ElementName=ThemeSettings}" 
+                    Command="{Binding Path=ChangeThemeCommandAsync, ElementName=ThemeSettings}"
                     HorizontalAlignment="Left"
-                    MaxWidth="100"/>
+                    MaxWidth="100" />
         </StackPanel>
     </Grid>
 </UserControl>

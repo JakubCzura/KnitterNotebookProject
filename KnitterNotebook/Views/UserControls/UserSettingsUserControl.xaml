@@ -26,7 +26,7 @@
                      adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                      VerticalContentAlignment="Center"
                      Text="{Binding Path=NewNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=UserSettings}" />
-            <Button Content="Potwierdź" 
+            <Button Content="Potwierdź"
                     MaxWidth="100"
                     HorizontalAlignment="Left"
                     Command="{Binding Path=ChangeNicknameCommandAsync, ElementName=UserSettings}" />
@@ -50,7 +50,7 @@
                          adorners:Watermark.Text="Powtórz hasło"
                          adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                          VerticalContentAlignment="Center"
-                         Style="{StaticResource MaterialDesignPasswordBox}"/>
+                         Style="{StaticResource MaterialDesignPasswordBox}" />
             <Button Content="Potwierdź"
                     MaxWidth="100"
                     HorizontalAlignment="Left"

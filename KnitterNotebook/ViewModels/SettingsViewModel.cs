@@ -3,7 +3,6 @@ using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
-using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Themes;
@@ -75,6 +74,7 @@ namespace KnitterNotebook.ViewModels
             ChangePasswordCommandAsync = new AsyncRelayCommand(ChangePasswordAsync);
             ChangeThemeCommandAsync = new AsyncRelayCommand(ChangeThemeAsync);
         }
+
         public ICommand ChangeEmailCommandAsync { get; }
 
         public ICommand ChangeNicknameCommandAsync { get; }

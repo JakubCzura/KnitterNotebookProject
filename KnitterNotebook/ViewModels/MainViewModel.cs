@@ -8,10 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
@@ -72,6 +70,7 @@ namespace KnitterNotebook.ViewModels
         private MovieUrl _selectedMovieUrl = new();
         private User _user = new();
         private Sample _selectedSample = new();
+
         private List<Sample> _samples = new()
         {
             new Sample(1, "woolen", 1,2, 4, "mm", "description1", new User()),
@@ -83,6 +82,7 @@ namespace KnitterNotebook.ViewModels
             new Sample(4, "woolen4", 41,2, 24, "nm", "description14", new User()),
             new Sample(5, "Cotton", 12, 6, 24, "mm", "Cotton yarn to make a cozy sweater", new User()),
         };
+
         public ICommand DeleteMovieUrlCommandAsync { get; }
         public ICommand SetPlannedProjectsUserControlVisibleCommand { get; }
         public ICommand SetProjectsInProgressUserControlVisibleCommand { get; }
@@ -143,7 +143,9 @@ namespace KnitterNotebook.ViewModels
         public Sample SelectedSample
         {
             get { return _selectedSample; }
-            set { _selectedSample = value; OnPropertyChanged();
+            set
+            {
+                _selectedSample = value; OnPropertyChanged();
                 OnPropertyChanged(nameof(SelectedSampleMashesXRows));
                 OnPropertyChanged(nameof(SelectedSampleNeedleSize));
             }
