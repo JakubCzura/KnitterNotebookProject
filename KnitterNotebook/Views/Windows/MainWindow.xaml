@@ -40,13 +40,13 @@
                     <MenuItem Style="{DynamicResource NavigationMenuItemStyle}"
                               Header="Ustawienia" />
                 </Menu>
-                <Border Margin="5,5,5,5" BorderBrush="AliceBlue" BorderThickness="0" CornerRadius="10">
-                    <Border Background="#FFE2AFFB" BorderThickness="0" CornerRadius="10">
+                <!--<Border Margin="5,5,5,5" BorderBrush="AliceBlue" BorderThickness="0" CornerRadius="10">
+                    <Border Background="#FFE2AFFB" BorderThickness="0" CornerRadius="10">-->
                         <TextBlock Margin="5,5,5,5" DockPanel.Dock="Bottom"
                            Style="{DynamicResource WelcomeTextBlockStyle}"
                            Text="{Binding Greetings, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </Border>
-                </Border>
+                    <!--</Border>
+                </Border>-->
             </DockPanel>
         </Grid>
 
