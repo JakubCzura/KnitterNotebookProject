@@ -15,10 +15,11 @@
                 <ColumnDefinition Width="0.7*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" Margin="5,5,5,5" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="10">
-                <Border Background="#FFBA6FCA" BorderThickness="0" CornerRadius="10">
+            <Border Grid.Column="0" Margin="5,5,5,5" BorderBrush="AliceBlue" BorderThickness="0" CornerRadius="10">
+                <Border Background="#FFE2AFFB" BorderThickness="0" CornerRadius="10">
 
                     <DataGrid Margin="5,5,5,5"
+                              Background="#FFE2AFFB"
                               Style="{StaticResource MaterialDesignDataGrid}" Grid.Column="0"
                   ItemsSource="{Binding Samples}"
                   AutoGenerateColumns="False"
@@ -32,8 +33,8 @@
                     </DataGrid>
                 </Border>
             </Border>
-            <Border Grid.Column="1" Margin="5,5,5,5" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="10">
-                <Border Background="#FFBA6FCA" BorderThickness="0" CornerRadius="10">
+            <Border Grid.Column="1" Margin="5,5,5,5" BorderBrush="AliceBlue" BorderThickness="0" CornerRadius="10">
+                <Border Background="#FFE2AFFB" BorderThickness="0" CornerRadius="10">
                     <StackPanel Margin="5,5,5,5">
                         <TextBlock TextWrapping="Wrap" FontWeight="Medium" Margin="5,0,5,0" FontSize="20" Text="Yarn name:" />
                         <TextBlock TextWrapping="Wrap" Margin="5,0,5,5" FontSize="15" Text="{Binding SelectedSample.YarnName}" />
@@ -46,8 +47,8 @@
                     </StackPanel>
                 </Border>
             </Border>
-            <Border Margin="5,5,5,5" Grid.Column="3" BorderBrush="AliceBlue" BorderThickness="2" CornerRadius="10">
-                <Border Background="#FFBA6FCA" BorderThickness="0" CornerRadius="10">
+            <Border Margin="5,5,5,5" Grid.Column="3" BorderBrush="AliceBlue" BorderThickness="0" CornerRadius="10">
+                <Border Background="#FFE2AFFB" BorderThickness="0" CornerRadius="10">
                     <Image Margin="5,5,5,5" Source="C:\Users\czura\Desktop\exampleyarn.jpg" />
                 </Border>
             </Border>

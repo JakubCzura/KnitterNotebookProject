@@ -4,11 +4,12 @@
     <SolidColorBrush x:Key="LoginButtonBackgroundLight">#FFF1C86D</SolidColorBrush>
     <SolidColorBrush x:Key="LoginButtonBackgroundDark">#FFF1C86D</SolidColorBrush>
 
-    <SolidColorBrush x:Key="ApplicationBackgroundColorDefault">#FFCE97D4</SolidColorBrush>
+    <!--<SolidColorBrush x:Key="ApplicationBackgroundColorDefault">#FFCE97D4</SolidColorBrush>-->
+    <SolidColorBrush x:Key="ApplicationBackgroundColorDefault">#FFBA6FCA</SolidColorBrush>
     <SolidColorBrush x:Key="ApplicationBackgroundColorLight">#f2f0f2</SolidColorBrush>
     <SolidColorBrush x:Key="ApplicationBackgroundColorDark">#262025</SolidColorBrush>
 
-    <SolidColorBrush x:Key="MainMenuBackgroundColorDefault">#FFE2AFFB</SolidColorBrush>
+    <SolidColorBrush x:Key="MainMenuBackgroundColorDefault">#FFBA6FCA</SolidColorBrush>
     <SolidColorBrush x:Key="MainMenuBackgroundColorLight">#FFF9F9F9</SolidColorBrush>
     <SolidColorBrush x:Key="MainMenuBackgroundColorDark">#FF423F44</SolidColorBrush>
 
