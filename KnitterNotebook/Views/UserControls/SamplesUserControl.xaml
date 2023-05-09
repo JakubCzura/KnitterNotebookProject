@@ -15,42 +15,41 @@
                 <ColumnDefinition Width="0.7*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" Margin="5,5,5,5" BorderBrush="AliceBlue" BorderThickness="0" CornerRadius="10">
-                <Border Background="#FFE2AFFB" BorderThickness="0" CornerRadius="10">
 
-                    <DataGrid Margin="5,5,5,5"
-                              Background="#FFE2AFFB"
+            <Border Grid.Column="0" Margin="5,5,5,5" Background="#FFE2AFFB" CornerRadius="10">
+                <DockPanel Margin="5,5,5,5">
+                <DataGrid DockPanel.Dock="Top" Background="#FFE2AFFB"
                               Style="{StaticResource MaterialDesignDataGrid}" Grid.Column="0"
                   ItemsSource="{Binding Samples}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   SelectedItem="{Binding SelectedSample}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Yarn name"
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Yarn name"
                                     Binding="{Binding Path=YarnName}"
                                     Width="*" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Border>
+                    </DataGrid.Columns>
+                </DataGrid>
+                    <Button DockPanel.Dock="Bottom" 
+                            Content="Nowa próbka" 
+                            VerticalAlignment="Bottom"
+                            Command="{Binding ShowSampleAddingWindowCommand}"/>
+                </DockPanel>
             </Border>
-            <Border Grid.Column="1" Margin="5,5,5,5" BorderBrush="AliceBlue" BorderThickness="0" CornerRadius="10">
-                <Border Background="#FFE2AFFB" BorderThickness="0" CornerRadius="10">
-                    <StackPanel Margin="5,5,5,5">
-                        <TextBlock TextWrapping="Wrap" FontWeight="Medium" Margin="5,0,5,0" FontSize="20" Text="Yarn name:" />
-                        <TextBlock TextWrapping="Wrap" Margin="5,0,5,5" FontSize="15" Text="{Binding SelectedSample.YarnName}" />
-                        <TextBlock TextWrapping="Wrap" FontWeight="Medium" Margin="5,0,5,0" FontSize="20" Text="Loops x rows:" />
-                        <TextBlock TextWrapping="Wrap" Margin="5,0,5,5" FontSize="15" Text="{Binding SelectedSampleMashesXRows}" />
-                        <TextBlock TextWrapping="Wrap" FontWeight="Medium" Margin="5,0,5,0" FontSize="20" Text="Needle size:" />
-                        <TextBlock TextWrapping="Wrap" Margin="5,0,5,5" FontSize="15" Text="{Binding SelectedSampleNeedleSize}" />
-                        <TextBlock TextWrapping="Wrap" FontWeight="Medium" Margin="5,0,5,0" FontSize="20" Text="Description:" />
-                        <TextBlock TextWrapping="Wrap" Margin="5,0,5,5" FontSize="15" Text="{Binding SelectedSample.Description}" />
-                    </StackPanel>
-                </Border>
+            <Border Grid.Column="1" Margin="5,5,5,5" Background="#FFE2AFFB" CornerRadius="10">
+                <StackPanel Margin="5,5,5,5">
+                    <TextBlock TextWrapping="Wrap" FontWeight="Medium" Margin="5,0,5,0" FontSize="20" Text="Yarn name:" />
+                    <TextBlock TextWrapping="Wrap" Margin="5,0,5,5" FontSize="15" Text="{Binding SelectedSample.YarnName}" />
+                    <TextBlock TextWrapping="Wrap" FontWeight="Medium" Margin="5,0,5,0" FontSize="20" Text="Loops x rows:" />
+                    <TextBlock TextWrapping="Wrap" Margin="5,0,5,5" FontSize="15" Text="{Binding SelectedSampleMashesXRows}" />
+                    <TextBlock TextWrapping="Wrap" FontWeight="Medium" Margin="5,0,5,0" FontSize="20" Text="Needle size:" />
+                    <TextBlock TextWrapping="Wrap" Margin="5,0,5,5" FontSize="15" Text="{Binding SelectedSampleNeedleSize}" />
+                    <TextBlock TextWrapping="Wrap" FontWeight="Medium" Margin="5,0,5,0" FontSize="20" Text="Description:" />
+                    <TextBlock TextWrapping="Wrap" Margin="5,0,5,5" FontSize="15" Text="{Binding SelectedSample.Description}" />
+                </StackPanel>
             </Border>
-            <Border Margin="5,5,5,5" Grid.Column="3" BorderBrush="AliceBlue" BorderThickness="0" CornerRadius="10">
-                <Border Background="#FFE2AFFB" BorderThickness="0" CornerRadius="10">
-                    <Image Margin="5,5,5,5" Source="C:\Users\czura\Desktop\exampleyarn.jpg" />
-                </Border>
+            <Border Margin="5,5,5,5" Grid.Column="2" Background="#FFE2AFFB" BorderThickness="0" CornerRadius="10">
+                <Image Margin="5,5,5,5" Source="C:\Users\czura\Desktop\exampleyarn.jpg" />
             </Border>
         </Grid>
     </ScrollViewer>
