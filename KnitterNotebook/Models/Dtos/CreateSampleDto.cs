@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KnitterNotebook.Models.Dtos
+﻿namespace KnitterNotebook.Models.Dtos
 {
     public class CreateSampleDto
     {
@@ -19,5 +13,9 @@ namespace KnitterNotebook.Models.Dtos
         public string NeedleSizeUnit { get; set; } = string.Empty;
 
         public string Description { get; set; } = string.Empty;
+
+        public User User = new();
+
+        public Image? Image { get; set; } = null;
     }
 }

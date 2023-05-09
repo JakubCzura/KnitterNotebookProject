@@ -6,7 +6,7 @@
         {
         }
 
-        public Sample(int id, string yarnName, int loopsQuantity, int rowsQuantity, int needleSize, string needleSizeUnit, string description, User user)
+        public Sample(int id, string yarnName, int loopsQuantity, int rowsQuantity, int needleSize, string needleSizeUnit, string description, User user, Image? image = null)
         {
             Id = id;
             YarnName = yarnName;
@@ -14,8 +14,9 @@
             RowsQuantity = rowsQuantity;
             NeedleSize = needleSize;
             NeedleSizeUnit = needleSizeUnit;
-            User = user;
             Description = description;
+            User = user;
+            Image = image;
         }
 
         public int Id { get; set; }
@@ -37,6 +38,8 @@
 
         //dodatkowy opis
         public string Description { get; set; } = string.Empty;
+
+        public Image? Image { get; set; } = null;
 
         public User User { get; set; } = new();
     }

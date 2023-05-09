@@ -15,7 +15,6 @@ namespace KnitterNotebook.Services
     public class SampleService : CrudService<Sample>, ISampleService
     {
         private readonly ISampleRepository _sampleRepository;
-
         public SampleService(ISampleRepository sampleRepository) : base(sampleRepository)
         {
             _sampleRepository = sampleRepository;
@@ -30,7 +29,9 @@ namespace KnitterNotebook.Services
                 RowsQuantity = createSampleDto.RowsQuantity,
                 NeedleSize = createSampleDto.NeedleSize,
                 NeedleSizeUnit = createSampleDto.NeedleSizeUnit,
-                Description = createSampleDto.Description
+                Description = createSampleDto.Description,
+                User = createSampleDto.User,
+                Image = createSampleDto.Image
             };
             await _sampleRepository.CreateAsync(sample);
         }
