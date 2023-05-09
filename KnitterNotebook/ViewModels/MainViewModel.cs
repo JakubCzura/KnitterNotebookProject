@@ -52,6 +52,7 @@ namespace KnitterNotebook.ViewModels
                 SetUserControlsVisibilityHidden(); SamplesUserControlVisibility = Visibility.Visible;
             });
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
+            ShowSampleAddingWindowCommand = new RelayCommand(ShowSampleAddingWindow);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
             DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
             OpenMovieUrlInWebBrowserCommand = new RelayCommand(OpenMovieUrlInWebBrowser);
@@ -90,7 +91,7 @@ namespace KnitterNotebook.ViewModels
         public ICommand SetSamplesUserControlVisibleCommand { get; }
         public ICommand ShowMovieUrlAddingWindowCommand { get; }
         public ICommand ShowSettingsWindowCommand { get; }
-
+        public ICommand ShowSampleAddingWindowCommand { get; }
         public ICommand OpenMovieUrlInWebBrowserCommand { get; }
 
         public string Greetings
@@ -226,6 +227,11 @@ namespace KnitterNotebook.ViewModels
         private void ShowSettingsWindow()
         {
             ShowWindow<SettingsWindow>();
+        }
+
+        private void ShowSampleAddingWindow()
+        {
+            ShowWindow<SampleAddingWindow>();
         }
 
         #endregion Methods
