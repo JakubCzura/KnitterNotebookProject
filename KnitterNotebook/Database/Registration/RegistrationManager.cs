@@ -7,9 +7,9 @@ namespace KnitterNotebook.Database.Registration
     {
         private readonly IRegistration _registration;
         private readonly User _user;
-        private readonly KnitterNotebookContext _knitterNotebookContext;
+        private readonly DatabaseContext _knitterNotebookContext;
 
-        public RegistrationManager(IRegistration registration, User user, KnitterNotebookContext knitterNotebookContext)
+        public RegistrationManager(IRegistration registration, User user, DatabaseContext knitterNotebookContext)
         {
             _registration = registration;
             _user = user;

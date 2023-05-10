@@ -19,7 +19,7 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public class LoginViewModel : BaseViewModel
     {
-        public LoginViewModel(KnitterNotebookContext knitterNotebookContext)
+        public LoginViewModel(DatabaseContext knitterNotebookContext)
         {
             _knitterNotebookContext = knitterNotebookContext;
             ShowRegistrationWindowCommand = new RelayCommand(ShowRegisterWindow);
@@ -28,7 +28,7 @@ namespace KnitterNotebook.ViewModels
 
         #region Properties
 
-        private readonly KnitterNotebookContext _knitterNotebookContext;
+        private readonly DatabaseContext _knitterNotebookContext;
 
         private string _email = string.Empty;
 

@@ -1,6 +1,9 @@
-﻿using KnitterNotebook.Repositories.Interfaces;
+﻿using KnitterNotebook.Database;
+using KnitterNotebook.Repositories.Interfaces;
 using KnitterNotebook.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services
@@ -11,36 +14,42 @@ namespace KnitterNotebook.Services
     /// <typeparam name="T">Object to be stored in database</typeparam>
     public class CrudService<T> : ICrudService<T> where T : class
     {
-        private readonly ICrudRepository<T> _crudRepository;
+        private readonly DatabaseContext _databaseContext;
+        private readonly DbSet<T> _dbSet;
 
-        public CrudService(ICrudRepository<T> crudRepository)
+        public CrudService(DatabaseContext knitterNotebookContext)
         {
-            _crudRepository = crudRepository;
+            _databaseContext = knitterNotebookContext;
+            _dbSet = _databaseContext.Set<T>();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _crudRepository.GetAllAsync();
+            return await _dbSet.ToListAsync();
         }
 
         public async Task<T> GetAsync(int id)
         {
-            return await _crudRepository.GetAsync(id);
+            return await _dbSet.FindAsync(id) ?? null!;
         }
 
-        public async Task CreateAsync(T entity)
+        public async Task CreateAsync(T data)
         {
-            await _crudRepository.CreateAsync(entity);
+            await _dbSet.AddAsync(data);
+            await _databaseContext.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task UpdateAsync(T data)
         {
-            await _crudRepository.UpdateAsync(entity);
+            _dbSet.Update(data);
+            await _databaseContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
-            await _crudRepository.DeleteAsync(id);
+            T data = await _dbSet.FindAsync(id);
+            _dbSet.Remove(data);
+            await _databaseContext.SaveChangesAsync();
         }
     }
 }

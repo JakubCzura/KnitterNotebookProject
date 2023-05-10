@@ -16,7 +16,7 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public class MovieUrlAddingViewModel : BaseViewModel
     {
-        public MovieUrlAddingViewModel(KnitterNotebookContext knitterNotebookContext, IMovieUrlService movieUrlService, IValidator<CreateMovieUrl> createMovieUrlValidator, IUserService userService)
+        public MovieUrlAddingViewModel(DatabaseContext knitterNotebookContext, IMovieUrlService movieUrlService, IValidator<CreateMovieUrl> createMovieUrlValidator, IUserService userService)
         {
             _knitterNotebookContext = knitterNotebookContext;
             _movieUrlService = movieUrlService;
@@ -33,7 +33,7 @@ namespace KnitterNotebook.ViewModels
 
         #region Properties
 
-        private readonly KnitterNotebookContext _knitterNotebookContext;
+        private readonly DatabaseContext _knitterNotebookContext;
         private readonly IMovieUrlService _movieUrlService;
         private readonly IUserService _userService;
         private readonly IValidator<CreateMovieUrl> _createMovieUrlValidator;

@@ -14,26 +14,30 @@ namespace KnitterNotebook.Services
 {
     public class SampleService : CrudService<Sample>, ISampleService
     {
-        private readonly ISampleRepository _sampleRepository;
-        public SampleService(ISampleRepository sampleRepository) : base(sampleRepository)
+        private readonly DatabaseContext _databaseContext;
+        
+        public SampleService(DatabaseContext databaseContext) : base(databaseContext)
         {
-            _sampleRepository = sampleRepository;
+            _databaseContext = databaseContext;
         }
 
         public async Task CreateAsync(CreateSampleDto createSampleDto)
         {
-            Sample sample = new()
-            {
-                YarnName = createSampleDto.YarnName,
-                LoopsQuantity = createSampleDto.LoopsQuantity,
-                RowsQuantity = createSampleDto.RowsQuantity,
-                NeedleSize = createSampleDto.NeedleSize,
-                NeedleSizeUnit = createSampleDto.NeedleSizeUnit,
-                Description = createSampleDto.Description,
-                User = createSampleDto.User,
-                Image = createSampleDto.Image
-            };
-            await _sampleRepository.CreateAsync(sample);
+            throw new NotImplementedException("SampleService - CreateAsync");
+            
+            //Sample sample = new()
+            //{
+            //    YarnName = createSampleDto.YarnName,
+            //    LoopsQuantity = createSampleDto.LoopsQuantity,
+            //    RowsQuantity = createSampleDto.RowsQuantity,
+            //    NeedleSize = createSampleDto.NeedleSize,
+            //    NeedleSizeUnit = createSampleDto.NeedleSizeUnit,
+            //    Description = createSampleDto.Description,
+            //    User = createSampleDto.User,
+            //    Image = createSampleDto.Image
+            //};
+            //await _databaseContext.Samples.AddAsync(sample);
+            //await _databaseContext.SaveChangesAsync();
         }
     }
 }

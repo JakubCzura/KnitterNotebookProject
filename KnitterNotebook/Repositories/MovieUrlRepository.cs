@@ -6,7 +6,7 @@ namespace KnitterNotebook.Repositories
 {
     public class MovieUrlRepository : CrudRepository<MovieUrl>, IMovieUrlRepository
     {
-        public MovieUrlRepository(KnitterNotebookContext knitterNotebookContext) : base(knitterNotebookContext)
+        public MovieUrlRepository(DatabaseContext knitterNotebookContext) : base(knitterNotebookContext)
         {
         }
     }

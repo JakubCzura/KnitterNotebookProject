@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KnitterNotebook.Migrations
 {
-    [DbContext(typeof(KnitterNotebookContext))]
+    [DbContext(typeof(DatabaseContext))]
     partial class KnitterNotebookContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

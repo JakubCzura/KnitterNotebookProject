@@ -9,9 +9,9 @@ namespace KnitterNotebook.Database.Login
         private readonly ILoggingIn _loggingIn;
         private readonly string _email;
         private readonly string _password;
-        private readonly KnitterNotebookContext _knitterNotebookContext;
+        private readonly DatabaseContext _knitterNotebookContext;
 
-        public LoggingInManager(ILoggingIn loggingIN, string email, string password, KnitterNotebookContext knitterNotebookContext)
+        public LoggingInManager(ILoggingIn loggingIN, string email, string password, DatabaseContext knitterNotebookContext)
         {
             _loggingIn = loggingIN;
             _email = email;

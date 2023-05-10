@@ -7,9 +7,9 @@ namespace KnitterNotebook.Validators
 {
     public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
     {
-        private readonly KnitterNotebookContext _knitterNotebookContext;
+        private readonly DatabaseContext _knitterNotebookContext;
 
-        public RegisterUserDtoValidator(KnitterNotebookContext knitterNotebookContext)
+        public RegisterUserDtoValidator(DatabaseContext knitterNotebookContext)
         {
             _knitterNotebookContext = knitterNotebookContext;
 

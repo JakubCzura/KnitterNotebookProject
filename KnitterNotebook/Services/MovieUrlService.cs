@@ -1,4 +1,5 @@
-﻿using KnitterNotebook.Models;
+﻿using KnitterNotebook.Database;
+using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Repositories.Interfaces;
 using KnitterNotebook.Services.Interfaces;
@@ -9,13 +10,12 @@ namespace KnitterNotebook.Services
 {
     public class MovieUrlService : CrudService<MovieUrl>, IMovieUrlService
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IMovieUrlRepository _movieUrlRepository;
-
-        public MovieUrlService(IMovieUrlRepository movieUrlRepository, IUserRepository userRepository) : base(movieUrlRepository)
+        //private readonly IUserRepository _userRepository;
+        //private readonly IMovieUrlRepository _movieUrlRepository;
+        private readonly DatabaseContext _databaseContext;
+        public MovieUrlService(DatabaseContext databaseContext) : base(databaseContext)
         {
-            _movieUrlRepository = movieUrlRepository;
-            _userRepository = userRepository;
+            _databaseContext = databaseContext;
         }
 
         public async Task CreateAsync(CreateMovieUrl createMovieUrl)
@@ -26,7 +26,8 @@ namespace KnitterNotebook.Services
                 Link = new Uri(createMovieUrl.Link),
                 User = createMovieUrl.User
             };
-            await _movieUrlRepository.CreateAsync(movieUrl);
+            await _databaseContext.AddAsync(movieUrl);
+            await _databaseContext.SaveChangesAsync();
         }
     }
 }

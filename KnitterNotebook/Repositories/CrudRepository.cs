@@ -12,10 +12,10 @@ namespace KnitterNotebook.Repositories
     /// <typeparam name="T">Object to be stored in database</typeparam>
     public class CrudRepository<T> : ICrudRepository<T> where T : class
     {
-        private readonly KnitterNotebookContext _knitterNotebookContext;
+        private readonly DatabaseContext _knitterNotebookContext;
         private readonly DbSet<T> _dbSet;
 
-        public CrudRepository(KnitterNotebookContext knitterNotebookContext)
+        public CrudRepository(DatabaseContext knitterNotebookContext)
         {
             _knitterNotebookContext = knitterNotebookContext;
             _dbSet = _knitterNotebookContext.Set<T>();

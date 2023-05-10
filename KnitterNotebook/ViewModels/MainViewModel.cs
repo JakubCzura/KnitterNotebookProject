@@ -16,7 +16,7 @@ namespace KnitterNotebook.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public MainViewModel(KnitterNotebookContext knitterNotebookContext, IMovieUrlService movieUrlService)
+        public MainViewModel(DatabaseContext knitterNotebookContext, IMovieUrlService movieUrlService)
         {
             _knitterNotebookContext = knitterNotebookContext;
             _movieUrlService = movieUrlService;
@@ -61,7 +61,7 @@ namespace KnitterNotebook.ViewModels
 
         #region Properties
 
-        private readonly KnitterNotebookContext _knitterNotebookContext;
+        private readonly DatabaseContext _knitterNotebookContext;
         private readonly IMovieUrlService _movieUrlService;
         private ObservableCollection<MovieUrl> _movieUrls = new();
         private Visibility _plannedProjectsUserControlVisibility = Visibility.Hidden;

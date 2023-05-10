@@ -11,6 +11,6 @@ namespace KnitterNotebook.Database.Registration
         /// <param name="user">User to register</param>
         /// <param name="knitterNotebookContext">Instance of database context</param>
         /// <returns></returns>
-        Task RegisterUser(User user, KnitterNotebookContext knitterNotebookContext);
+        Task RegisterUser(User user, DatabaseContext knitterNotebookContext);
     }
 }

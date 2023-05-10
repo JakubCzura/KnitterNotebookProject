@@ -9,13 +9,12 @@ namespace KnitterNotebook.Services
 {
     public class UserService : CrudService<User>, IUserService
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IThemeRepository _themeRepository;
-
-        public UserService(IUserRepository userRepository, IThemeRepository themeRepository) : base(userRepository)
+        private readonly DatabaseContext _databaseContext;
+        private readonly IThemeService _themeService;
+        public UserService(DatabaseContext databaseContext, IThemeService themeService) : base(databaseContext)
         {
-            _userRepository = userRepository;
-            _themeRepository = themeRepository;
+            _databaseContext = databaseContext;
+            _themeService = themeService;
         }
 
         public async Task CreateAsync(RegisterUserDto registerUserDto)
@@ -26,35 +25,40 @@ namespace KnitterNotebook.Services
                 Email = registerUserDto.Email,
                 Password = PasswordHasher.HashPassword(registerUserDto.Password),
             };
-            await _userRepository.CreateAsync(user);
+            await _databaseContext.Users.AddAsync(user);
+            await _databaseContext.SaveChangesAsync();
         }
 
         public async Task ChangePasswordAsync(ChangePasswordDto changePasswordDto)
         {
-            User user = await _userRepository.GetAsync(changePasswordDto.UserId);
-            user.Password = PasswordHasher.HashPassword(changePasswordDto.NewPassword);
-            await _userRepository.UpdateAsync(user);
+            User? user = await _databaseContext.Users.FindAsync(changePasswordDto.UserId);
+            user!.Password = PasswordHasher.HashPassword(changePasswordDto.NewPassword);
+            _databaseContext.Users.Update(user);
+            await _databaseContext.SaveChangesAsync(true);
         }
 
         public async Task ChangeNicknameAsync(ChangeNicknameDto changeNicknameDto)
         {
-            User user = await _userRepository.GetAsync(changeNicknameDto.UserId);
-            user.Nickname = changeNicknameDto.Nickname;
-            await _userRepository.UpdateAsync(user);
+            User? user = await _databaseContext.Users.FindAsync(changeNicknameDto.UserId);
+            user!.Nickname = changeNicknameDto.Nickname;
+            _databaseContext.Users.Update(user);
+            await _databaseContext.SaveChangesAsync();
         }
 
         public async Task ChangeEmailAsync(ChangeEmailDto changeEmailDto)
         {
-            User user = await _userRepository.GetAsync(changeEmailDto.UserId);
-            user.Email = changeEmailDto.Email;
-            await _userRepository.UpdateAsync(user);
+            User? user = await _databaseContext.Users.FindAsync(changeEmailDto.UserId);
+            user!.Email = changeEmailDto.Email;
+            _databaseContext.Users.Update(user);
+            await _databaseContext.SaveChangesAsync();
         }
 
         public async Task ChangeThemeAsync(ChangeThemeDto changeThemeDto)
         {
-            User user = await _userRepository.GetAsync(changeThemeDto.UserId);
-            user.Theme = await _themeRepository.GetByNameAsync(changeThemeDto.ThemeName);
-            await _userRepository.UpdateAsync(user);
+            User? user = await _databaseContext.Users.FindAsync(changeThemeDto.UserId);
+            user!.Theme = await _themeService.GetByNameAsync(changeThemeDto.ThemeName);
+            _databaseContext.Users.Update(user);
+            await _databaseContext.SaveChangesAsync();
         }
     }
 }

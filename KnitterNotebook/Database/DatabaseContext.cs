@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebook.Database
 {
-    public class KnitterNotebookContext : DbContext
+    public class DatabaseContext : DbContext
     {
-        public KnitterNotebookContext()
+        public DatabaseContext()
         {
             Database.EnsureCreated();
         }
 
-        public KnitterNotebookContext(DbContextOptions options) : base(options)
+        public DatabaseContext(DbContextOptions options) : base(options)
         {
             Database.EnsureCreated();
         }

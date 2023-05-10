@@ -7,7 +7,7 @@ namespace KnitterNotebook.Database.Login
 {
     public class StandardLoggingIn : ILoggingIn
     {
-        public async Task<User>? LogInUser(string email, string password, KnitterNotebookContext knitterNotebookContext)
+        public async Task<User>? LogInUser(string email, string password, DatabaseContext knitterNotebookContext)
         {
             User? user = await knitterNotebookContext.Users
                 //  .Where(x => x.Email == email)

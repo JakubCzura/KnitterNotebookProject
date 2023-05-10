@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KnitterNotebook.Migrations
 {
-    [DbContext(typeof(KnitterNotebookContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20230211004240_InitializeMigration")]
     partial class InitializeMigration
     {

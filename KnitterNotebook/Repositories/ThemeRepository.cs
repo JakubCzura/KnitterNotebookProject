@@ -8,9 +8,9 @@ namespace KnitterNotebook.Repositories
 {
     public class ThemeRepository : CrudRepository<Theme>, IThemeRepository
     {
-        private readonly KnitterNotebookContext _knitterNotebookContext;
+        private readonly DatabaseContext _knitterNotebookContext;
 
-        public ThemeRepository(KnitterNotebookContext knitterNotebookContext) : base(knitterNotebookContext)
+        public ThemeRepository(DatabaseContext knitterNotebookContext) : base(knitterNotebookContext)
         {
             _knitterNotebookContext = knitterNotebookContext;
         }

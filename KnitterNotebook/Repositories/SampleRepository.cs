@@ -5,7 +5,7 @@ namespace KnitterNotebook.Repositories.Interfaces
 {
     public class SampleRepository : CrudRepository<Sample>, ISampleRepository
     {
-        public SampleRepository(KnitterNotebookContext knitterNotebookContext) : base(knitterNotebookContext)
+        public SampleRepository(DatabaseContext databaseContext) : base(databaseContext)
         {
         }
     }
