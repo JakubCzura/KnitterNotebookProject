@@ -56,8 +56,11 @@ namespace KnitterNotebook.ViewModels
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
             DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
             OpenMovieUrlInWebBrowserCommand = new RelayCommand(OpenMovieUrlInWebBrowser);
+            LogOutCommand = new RelayCommand(LogOut);
             SelectedSample = Samples.FirstOrDefault() ?? new Sample();
         }
+
+        
 
         #region Properties
 
@@ -93,6 +96,7 @@ namespace KnitterNotebook.ViewModels
         public ICommand ShowSettingsWindowCommand { get; }
         public ICommand ShowSampleAddingWindowCommand { get; }
         public ICommand OpenMovieUrlInWebBrowserCommand { get; }
+        public ICommand LogOutCommand { get; }
 
         public string Greetings
         {
@@ -232,6 +236,11 @@ namespace KnitterNotebook.ViewModels
         private void ShowSampleAddingWindow()
         {
             ShowWindow<SampleAddingWindow>();
+        }
+
+        private void LogOut()
+        {
+            Environment.Exit(0);
         }
 
         #endregion Methods
