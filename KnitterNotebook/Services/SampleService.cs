@@ -1,8 +1,6 @@
 ﻿using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
-using KnitterNotebook.Repositories;
-using KnitterNotebook.Repositories.Interfaces;
 using KnitterNotebook.Services.Interfaces;
 using System;
 using System.Collections.Generic;

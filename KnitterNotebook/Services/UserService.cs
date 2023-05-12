@@ -1,7 +1,6 @@
 ﻿using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
-using KnitterNotebook.Repositories.Interfaces;
 using KnitterNotebook.Services.Interfaces;
 using System.Threading.Tasks;
 
@@ -11,6 +10,7 @@ namespace KnitterNotebook.Services
     {
         private readonly DatabaseContext _databaseContext;
         private readonly IThemeService _themeService;
+
         public UserService(DatabaseContext databaseContext, IThemeService themeService) : base(databaseContext)
         {
             _databaseContext = databaseContext;

@@ -1,9 +1,7 @@
 ﻿using KnitterNotebook.Database;
-using KnitterNotebook.Repositories.Interfaces;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services

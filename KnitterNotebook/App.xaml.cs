@@ -9,9 +9,11 @@ using KnitterNotebook.ViewModels;
 using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using System.Configuration;
 using System.IO;
 using System.Windows;
 
@@ -24,6 +26,7 @@ namespace KnitterNotebook
     {
         public static IHost? AppHost { get; private set; }
         private AppSettings AppSettings { get; set; }
+        private IConfiguration Configuration { get; set; }
 
         public App()
         {
@@ -32,10 +35,11 @@ namespace KnitterNotebook
                 {
                     services.AddDbContext<DatabaseContext>(options =>
                     {
-                        string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
-                        string appSettingsString = File.ReadAllText(appSettingsPath);
-                        AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString)!;
-                        options.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
+
+                        //string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
+                        //string appSettingsString = File.ReadAllText(appSettingsPath);
+                        //AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString)!;
+                        options.UseSqlServer(Configuration.GetConnectionString("KnitterNotebookConnectionString"));
                     }, ServiceLifetime.Scoped);
 
                     services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
@@ -91,6 +95,11 @@ namespace KnitterNotebook
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            Configuration = builder.Build();
+
             await AppHost!.StartAsync();
             var startupWindow = AppHost.Services.GetService<LoginWindow>();
             startupWindow?.Show();
