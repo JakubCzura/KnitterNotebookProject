@@ -29,6 +29,17 @@
         <Menu Margin="0,0,0,10"
               Grid.Row="0" Style="{DynamicResource NavigationMenuStyle}"  >
             <MenuItem Style="{DynamicResource NavigationMenuItemStyle}"
+                      Header="Opcje">
+                <MenuItem Style="{DynamicResource NavigationMenuItemStyle}"
+                                  Header="Wyloguj"
+                                  Command="{Binding LogOutCommand}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Logout"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem Style="{DynamicResource NavigationMenuItemStyle}"
                               Header="Ustawienia">
                 <MenuItem Style="{DynamicResource NavigationMenuItemStyle}"
                                   Header="Ustawienia"
