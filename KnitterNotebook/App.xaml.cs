@@ -25,7 +25,6 @@ namespace KnitterNotebook
     public partial class App : Application
     {
         public static IHost? AppHost { get; private set; }
-        private AppSettings AppSettings { get; set; }
         private IConfiguration Configuration { get; set; }
 
         public App()
