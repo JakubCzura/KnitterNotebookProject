@@ -4,8 +4,66 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KnitterNotebook.Views.Windows"
+        xmlns:adorners="http://gu.se/Adorners"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewModels:MovieUrlAddingViewModel}"
         mc:Ignorable="d"
-        Title="SampleAddingWindow" Height="450" Width="800">
+        Title="SampleAddingWindow"
+        Height="550"
+        Width="500"  
+        WindowStartupLocation="CenterScreen"
+        Style="{DynamicResource WindowStyle}">
+    
+    <Window.Resources>
+        <!--<viewModels:MovieUrlAddingViewModel x:Key="MovieUrlAddingViewModel" />-->
+    </Window.Resources>
+
+    <!--<Window.InputBindings>
+        <KeyBinding Key="Enter"
+                    Command="{Binding Source={StaticResource MovieUrlAddingViewModel}, Path=AddMovieUrlCommandAsync}" />
+    </Window.InputBindings>-->
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Margin="0,30,0,50"
+              Grid.Row="0">
+            <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}"
+                       Text="Dodanie próbki obliczeniowej" />
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <StackPanel Margin="50,10,50,10">
+                <UniformGrid>
+
+                </UniformGrid>
+                <Label Style="{DynamicResource LabelAboveLoginInputStyle}"
+                       Content="Tytuł filmu" />
+               
+                <DockPanel Margin="0,0,0,10">
+                    <materialDesign:PackIcon Margin="5,0,5,0" Kind="FormatTitle" VerticalAlignment="Center" />
+                    <TextBox Style="{DynamicResource InputLoginDataTextBoxStyle}"
+                         Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         adorners:Watermark.Text="Tytuł"
+                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused" />
+                </DockPanel>
+                <Label Style="{DynamicResource LabelAboveLoginInputStyle}"
+                       Content="Link do filmu" />
+                <DockPanel Margin="0,0,0,10">
+                    <materialDesign:PackIcon Margin="5,0,5,0" Kind="Link" VerticalAlignment="Center" />
+                    <TextBox Style="{DynamicResource InputLoginDataTextBoxStyle}"
+                         Text="{Binding Link, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         adorners:Watermark.Text="Link"
+                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused" />
+                </DockPanel>
+                <Button Style="{DynamicResource LoginButtonStyle}"
+                        Margin="0,10,0,0"
+                        Content="Dodaj film"
+                        Command="{Binding AddMovieUrlCommandAsync}" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
