@@ -1,16 +1,16 @@
 ﻿<Window
     x:Class="KnitterNotebook.Views.Windows.SampleAddingWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:adorners="http://gu.se/Adorners"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:adorners="http://gu.se/Adorners"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     Title="SampleAddingWindow"
     Width="1000"
     Height="650"
-    d:DataContext="{d:DesignInstance Type=viewModels:MovieUrlAddingViewModel}"
+    d:DataContext="{d:DesignInstance Type=viewModels:SampleAddingViewModel}"
     Style="{DynamicResource WindowStyle}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -36,7 +36,7 @@
                         <ColumnDefinition Width="0.9*" />
                         <ColumnDefinition Width="0.9*" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Margin="0,0,10,0" Grid.Column="0">
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0">
                         <Label Content="Nazwa włóczki" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                         <DockPanel Margin="0,0,0,10">
                             <materialDesign:PackIcon
@@ -44,7 +44,7 @@
                                 VerticalAlignment="Center"
                                 Kind="FormatTitle" />
                             <TextBox
-                                adorners:Watermark.Text="Tytuł"
+                                adorners:Watermark.Text="Nazwa włóczki"
                                 adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                 Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                 Text="{Binding YarnName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
@@ -56,7 +56,7 @@
                                 VerticalAlignment="Center"
                                 Kind="Link" />
                             <TextBox
-                                adorners:Watermark.Text="Link"
+                                adorners:Watermark.Text="Ilość oczek"
                                 adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                 Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                 Text="{Binding LoopsQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
@@ -68,36 +68,49 @@
                                 VerticalAlignment="Center"
                                 Kind="FormatTitle" />
                             <TextBox
-                                adorners:Watermark.Text="Tytuł"
+                                adorners:Watermark.Text="Opis"
                                 adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                 Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                 Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                         </DockPanel>
                     </StackPanel>
-                    <StackPanel Margin="10,0,0,0" Grid.Column="1">
-                        <Label Content="Ilość rzędów" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <Label Content="Rozmiar drutu" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                         <DockPanel Margin="0,0,0,10">
                             <materialDesign:PackIcon
                                 Margin="5,0,5,0"
                                 VerticalAlignment="Center"
                                 Kind="FormatTitle" />
-                            <TextBox
-                                adorners:Watermark.Text="Tytuł"
-                                adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                                Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                Text="{Binding RowsQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox
+                                    Grid.Column="0"
+                                    adorners:Watermark.Text="Rozmiar drutu"
+                                    adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
+                                    Style="{DynamicResource InputLoginDataTextBoxStyle}"
+                                    Text="{Binding NeedleSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                <ComboBox
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    ItemsSource="{Binding NeedleSizeUnits}"
+                                    SelectedItem="{Binding NeedleSizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+
                         </DockPanel>
-                        <Label Content="Rozmiar drutu" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                        <Label Content="Ilość rzędów" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                         <DockPanel Margin="0,0,0,10">
                             <materialDesign:PackIcon
                                 Margin="5,0,5,0"
                                 VerticalAlignment="Center"
                                 Kind="Link" />
                             <TextBox
-                                adorners:Watermark.Text="Link"
+                                adorners:Watermark.Text="Ilość rzędów"
                                 adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                 Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                Text="{Binding Link, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                Text="{Binding RowsQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                         </DockPanel>
                         <Label Content="Zdjęcie" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                         <DockPanel Margin="0,0,0,10">
@@ -106,7 +119,7 @@
                                 VerticalAlignment="Center"
                                 Kind="Link" />
                             <TextBox
-                                adorners:Watermark.Text="Link"
+                                adorners:Watermark.Text="Zdjęcie"
                                 adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                 Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                 Text="{Binding ImageLink, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
@@ -116,7 +129,7 @@
                 <Button
                     Margin="0,10,0,0"
                     Command="{Binding AddMovieUrlCommandAsync}"
-                    Content="Dodaj film"
+                    Content="Dodaj próbkę"
                     Style="{DynamicResource LoginButtonStyle}" />
             </StackPanel>
         </Grid>

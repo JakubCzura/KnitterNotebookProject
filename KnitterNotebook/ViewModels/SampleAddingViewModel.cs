@@ -20,14 +20,14 @@ namespace KnitterNotebook.ViewModels
         }
 
         private int _loopsQuantity;
-        public int LoopsQuantity 
-        { 
-            get { return _loopsQuantity; } 
+        public int LoopsQuantity
+        {
+            get { return _loopsQuantity; }
             set { _loopsQuantity = value; OnPropertyChanged(); }
         }
 
         private int _rowsQuantity;
-        public int RowsQuantity 
+        public int RowsQuantity
         {
             get { return _rowsQuantity; }
             set { _rowsQuantity = value; OnPropertyChanged(); }
@@ -42,9 +42,18 @@ namespace KnitterNotebook.ViewModels
 
         public string _needleSizeUnit = string.Empty;
         public string NeedleSizeUnit
-        { 
-            get { return _needleSizeUnit; } 
-            set { _needleSizeUnit = value; OnPropertyChanged(); } 
+        {
+            get { return _needleSizeUnit; }
+            set { _needleSizeUnit = value; OnPropertyChanged(); }
         }
+
+        private string _description = string.Empty;
+        public string Description
+        {
+            get { return _description; }
+            set { _description = value; OnPropertyChanged(); }
+        }
+
+        public static IEnumerable<string> NeedleSizeUnits => new[] { "cm", "mm" };
     }
 }
