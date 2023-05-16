@@ -1,17 +1,18 @@
-﻿<Window x:Class="KnitterNotebook.Views.Windows.SettingsWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
-        xmlns:userControls="clr-namespace:KnitterNotebook.Views.UserControls"
-        d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel}"
-        mc:Ignorable="d"
-        Title="KnitterNotebook"
-        Height="450"
-        Width="800"
-        WindowStartupLocation="CenterScreen"
-        Style="{DynamicResource WindowStyle}">
+﻿<Window
+    x:Class="KnitterNotebook.Views.Windows.SettingsWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+    xmlns:userControls="clr-namespace:KnitterNotebook.Views.UserControls"
+    Title="KnitterNotebook"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel}"
+    Style="{DynamicResource WindowStyle}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
 
     <Window.Resources>
         <!--<viewModels:SettingsViewModel x:Key="SettingsViewModel" />-->
@@ -24,12 +25,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Margin="0,0,0,10"
-              Grid.Row="0">
+        <Grid Grid.Row="0" Margin="0,0,0,10">
             <DockPanel>
-                <TextBlock DockPanel.Dock="Bottom"
-                           Style="{DynamicResource WelcomeTextBlockStyle}"
-                           Text="Ustawienia" />
+                <TextBlock
+                    DockPanel.Dock="Bottom"
+                    Style="{DynamicResource WelcomeTextBlockStyle}"
+                    Text="Ustawienia" />
             </DockPanel>
         </Grid>
 
@@ -43,33 +44,31 @@
                 <Grid Grid.Column="0">
                     <ScrollViewer>
                         <StackPanel>
-                            <Button Style="{DynamicResource MainMenuButtonStyle}"
-                                    Command="{Binding SetUserSettingsUserControlVisibleCommand}">
-                                <TextBlock Text="Konto"
-                                           Style="{DynamicResource WrapTextBlockStyle}" />
+                            <Button Command="{Binding SetUserSettingsUserControlVisibleCommand}" Style="{DynamicResource MainMenuButtonStyle}">
+                                <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Konto" />
                             </Button>
-                            <Button Style="{DynamicResource MainMenuButtonStyle}"
-                                    Command="{Binding SetThemeSettingsUserControlVisibleCommand}">
-                                <TextBlock Text="Motyw aplikacji"
-                                           Style="{DynamicResource WrapTextBlockStyle}" />
+                            <Button Command="{Binding SetThemeSettingsUserControlVisibleCommand}" Style="{DynamicResource MainMenuButtonStyle}">
+                                <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Motyw aplikacji" />
                             </Button>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
 
-                <userControls:UserSettingsUserControl Grid.Column="1"
-                                                      NewNickname="{Binding NewNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      ChangeNicknameCommandAsync="{Binding ChangeNicknameCommandAsync}"
-                                                      NewEmail="{Binding NewEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      ChangeEmailCommandAsync="{Binding ChangeEmailCommandAsync}"
-                                                      ChangePasswordCommandAsync="{Binding ChangePasswordCommandAsync}"
-                                                      Visibility="{Binding UserSettingsUserControlVisibility}" />
+                <userControls:UserSettingsUserControl
+                    Grid.Column="1"
+                    ChangeEmailCommandAsync="{Binding ChangeEmailCommandAsync}"
+                    ChangeNicknameCommandAsync="{Binding ChangeNicknameCommandAsync}"
+                    ChangePasswordCommandAsync="{Binding ChangePasswordCommandAsync}"
+                    NewEmail="{Binding NewEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    NewNickname="{Binding NewNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding UserSettingsUserControlVisibility}" />
 
-                <userControls:ThemeSettingsUserControl Grid.Column="1"
-                                                       NewTheme="{Binding NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                       ChangeThemeCommandAsync="{Binding ChangeThemeCommandAsync}"
-                                                       Themes="{Binding Themes}"
-                                                       Visibility="{Binding ThemeSettingsUserControlVisibility}" />
+                <userControls:ThemeSettingsUserControl
+                    Grid.Column="1"
+                    ChangeThemeCommandAsync="{Binding ChangeThemeCommandAsync}"
+                    NewTheme="{Binding NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Themes="{Binding Themes}"
+                    Visibility="{Binding ThemeSettingsUserControlVisibility}" />
             </Grid>
         </Grid>
     </Grid>

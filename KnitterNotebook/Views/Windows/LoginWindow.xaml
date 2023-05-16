@@ -1,20 +1,21 @@
-﻿<Window x:Class="KnitterNotebook.Views.Windows.LoginWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:adorners="http://gu.se/Adorners"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        d:DataContext="{d:DesignInstance Type=viewModels:LoginViewModel}"
-        mc:Ignorable="d"
-        Title="KnitterNotebook"
-        Height="650"
-        Width="500"
-        MaxHeight="650"
-        MaxWidth="500"
-        WindowStartupLocation="CenterScreen"
-        Style="{DynamicResource WindowStyle}">
+﻿<Window
+    x:Class="KnitterNotebook.Views.Windows.LoginWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:adorners="http://gu.se/Adorners"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+    Title="KnitterNotebook"
+    Width="500"
+    Height="650"
+    MaxWidth="500"
+    MaxHeight="650"
+    d:DataContext="{d:DesignInstance Type=viewModels:LoginViewModel}"
+    Style="{DynamicResource WindowStyle}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
 
     <!--<Window.Resources>
         <viewModels:LoginViewModel x:Key="LoginViewModel" />
@@ -30,41 +31,49 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Margin="0,30,0,50"
-              Grid.Row="0">
-            <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}"
-                       Text="Witaj w Dzienniku Dziewiarki" />
+        <Grid Grid.Row="0" Margin="0,30,0,50">
+            <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="Witaj w Dzienniku Dziewiarki" />
         </Grid>
 
         <Grid Grid.Row="1">
             <StackPanel Margin="50,10,50,10">
-                <Label Style="{DynamicResource LabelAboveLoginInputStyle}"
-                       Content="Zaloguj się" />
+                <Label Content="Zaloguj się" Style="{DynamicResource LabelAboveLoginInputStyle}" />
 
                 <DockPanel Margin="0,0,0,10">
-                    <materialDesign:PackIcon Margin="5,0,5,0" Kind="Email" VerticalAlignment="Center" />
-                    <TextBox Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                         Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                         adorners:Watermark.Text="e-mail"
-                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused" />
+                    <materialDesign:PackIcon
+                        Margin="5,0,5,0"
+                        VerticalAlignment="Center"
+                        Kind="Email" />
+                    <TextBox
+                        adorners:Watermark.Text="e-mail"
+                        adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
+                        Style="{DynamicResource InputLoginDataTextBoxStyle}"
+                        Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                 </DockPanel>
-                
+
                 <DockPanel Margin="0,0,0,25">
-                    <materialDesign:PackIcon Margin="5,0,5,0" Kind="Password" VerticalAlignment="Center" />
-                    <PasswordBox x:Name="UserPasswordPasswordBox"
-                             Style="{StaticResource InputPasswordPasswordBoxStyle}"
-                             adorners:Watermark.Text="hasło"
-                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused" />
+                    <materialDesign:PackIcon
+                        Margin="5,0,5,0"
+                        VerticalAlignment="Center"
+                        Kind="Password" />
+                    <PasswordBox
+                        x:Name="UserPasswordPasswordBox"
+                        adorners:Watermark.Text="hasło"
+                        adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
+                        Style="{StaticResource InputPasswordPasswordBoxStyle}" />
                 </DockPanel>
-                <Button Style="{StaticResource LoginButtonStyle}"
-                        Content="Zaloguj się"
-                        Command="{Binding LogInCommandAsync}" />
-                <Label Style="{DynamicResource LabelAboveLoginInputStyle}"
-                       Content="Nie posiadasz konta?"
-                       Margin="0,50,0,0" />
-                <Button Style="{DynamicResource LoginButtonStyle}"
-                        Content="Zarejestruj się"
-                        Command="{Binding ShowRegistrationWindowCommand}" />
+                <Button
+                    Command="{Binding LogInCommandAsync}"
+                    Content="Zaloguj się"
+                    Style="{StaticResource LoginButtonStyle}" />
+                <Label
+                    Margin="0,50,0,0"
+                    Content="Nie posiadasz konta?"
+                    Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                <Button
+                    Command="{Binding ShowRegistrationWindowCommand}"
+                    Content="Zarejestruj się"
+                    Style="{DynamicResource LoginButtonStyle}" />
             </StackPanel>
         </Grid>
     </Grid>
