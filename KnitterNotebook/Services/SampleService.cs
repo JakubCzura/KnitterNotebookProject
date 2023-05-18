@@ -31,7 +31,7 @@ namespace KnitterNotebook.Services
                 NeedleSize = createSampleDto.NeedleSize,
                 NeedleSizeUnit = createSampleDto.NeedleSizeUnit,
                 Description = createSampleDto.Description,
-                User = createSampleDto.User,
+                User = createSampleDto.UserId,
                 Image = createSampleDto.Image
             };
             await _databaseContext.Samples.AddAsync(sample);

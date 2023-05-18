@@ -3,7 +3,6 @@ using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -28,7 +27,6 @@ namespace KnitterNotebook.ViewModels
         public ICommand ShowDialogWindowCommand { get; }
         public ICommand SaveFileCommand { get; }
         public ICommand DeletePhotoCommand { get; }
-
         public ICommand AddSampleCommandAsync { get; }
 
         private string _yarnName = string.Empty;
@@ -63,7 +61,7 @@ namespace KnitterNotebook.ViewModels
             set { _needleSize = value; OnPropertyChanged(); }
         }
 
-        public string _needleSizeUnit = string.Empty;
+        public string _needleSizeUnit = "mm";
 
         public string NeedleSizeUnit
         {
@@ -81,9 +79,9 @@ namespace KnitterNotebook.ViewModels
 
         public static IEnumerable<string> NeedleSizeUnits => new[] { "mm", "cm" };
 
-        private string fileName = string.Empty;
+        private string? fileName = null;
 
-        public string FileName
+        public string? FileName
         {
             get { return fileName; }
             set { fileName = value; OnPropertyChanged(); }
