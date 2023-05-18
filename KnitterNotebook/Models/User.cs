@@ -14,6 +14,8 @@ namespace KnitterNotebook.Models
 
         public List<Project> Projects { get; set; } = new();
 
+        public List<Sample> Samples { get; set; } = new();
+
         public List<MovieUrl> MovieUrls { get; set; } = new();
 
         public Theme? Theme { get; set; } = null;

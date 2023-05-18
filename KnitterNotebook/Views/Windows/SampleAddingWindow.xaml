@@ -151,7 +151,7 @@
                 </UniformGrid>
                 <Button
                     Margin="0,10,0,0"
-                    Command="{Binding AddMovieUrlCommandAsync}"
+                    Command="{Binding AddSampleCommandAsync}"
                     Content="Dodaj próbkę"
                     Style="{DynamicResource LoginButtonStyle}" />
             </StackPanel>

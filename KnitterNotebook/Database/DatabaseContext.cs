@@ -22,6 +22,8 @@ namespace KnitterNotebook.Database
         public DbSet<Theme> Themes { get; set; }
 
         public DbSet<MovieUrl> MovieUrls { get; set; }
+        public DbSet<Sample> Samples { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -46,6 +48,9 @@ namespace KnitterNotebook.Database
 
                 u.HasMany(x => x.MovieUrls)
                  .WithOne(c => c.User);
+
+                u.HasMany(x => x.Samples)
+                .WithOne(c => c.User);
             });
 
             modelBuilder.Entity<Project>(p =>
@@ -74,6 +79,27 @@ namespace KnitterNotebook.Database
                 m.Property(x => x.Id).IsRequired();
                 m.Property(x => x.Title).IsRequired();
                 m.Property(x => x.Link).IsRequired();
+            });
+
+            modelBuilder.Entity<Sample>(m =>
+                {
+                    m.HasKey(x => x.Id);
+                    m.Property(x => x.Id).IsRequired();
+                    m.Property(x => x.YarnName).IsRequired();
+                    m.Property(x => x.LoopsQuantity).IsRequired();
+                    m.Property(x => x.RowsQuantity).IsRequired();
+                    m.Property(x => x.NeedleSize).IsRequired();
+                    m.Property(x => x.NeedleSizeUnit).IsRequired();
+                    m.HasOne(x => x.Image)
+                    .WithOne(c => c.Sample)
+                    .HasForeignKey<Image>(y => y.SampleId);
+                });
+
+            modelBuilder.Entity<Image>(m =>
+            {
+                m.HasKey(x => x.Id);
+                m.Property(x => x.Id).IsRequired();
+                m.Property(x => x.Path).IsRequired();
             });
         }
     }

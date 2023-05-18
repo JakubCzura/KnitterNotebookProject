@@ -23,7 +23,6 @@ namespace KnitterNotebook.ViewModels
         }
 
         private readonly ISampleService _sampleService;
-
         public ICommand ShowDialogWindowCommand { get; }
         public ICommand SaveFileCommand { get; }
         public ICommand DeletePhotoCommand { get; }
@@ -138,7 +137,12 @@ namespace KnitterNotebook.ViewModels
 
         private async Task AddSampleAsync()
         {
-            var ImagePath = string.Empty;
+            SaveFile();
+            string? ImagePath = null;
+            if (string.IsNullOrWhiteSpace(FileName) == false)
+            {
+                ImagePath = Path.Combine(GetUserDirectoryName("Test"), Path.GetFileName(FileName));
+            }
             CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, ImagePath);
             await _sampleService.CreateAsync(createSampleDto);
         }

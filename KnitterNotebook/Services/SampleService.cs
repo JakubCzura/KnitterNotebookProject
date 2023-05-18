@@ -2,10 +2,6 @@
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services
@@ -13,16 +9,24 @@ namespace KnitterNotebook.Services
     public class SampleService : CrudService<Sample>, ISampleService
     {
         private readonly DatabaseContext _databaseContext;
-        
-        public SampleService(DatabaseContext databaseContext) : base(databaseContext)
+        private readonly IImageService _imageService;
+        private readonly IUserService _userService;
+
+        public SampleService(DatabaseContext databaseContext, IImageService imageService, IUserService userService) : base(databaseContext)
         {
             _databaseContext = databaseContext;
+            _imageService = imageService;
+            _userService = userService;
         }
 
         public async Task CreateAsync(CreateSampleDto createSampleDto)
         {
-            //throw new NotImplementedException("SampleService - CreateAsync");
-
+            Image? image = null;
+            if (!string.IsNullOrWhiteSpace(createSampleDto.ImagePath))
+            {
+                image = new(createSampleDto.ImagePath);
+                await _imageService.CreateAsync(image);
+            }
             Sample sample = new()
             {
                 YarnName = createSampleDto.YarnName,
@@ -31,8 +35,8 @@ namespace KnitterNotebook.Services
                 NeedleSize = createSampleDto.NeedleSize,
                 NeedleSizeUnit = createSampleDto.NeedleSizeUnit,
                 Description = createSampleDto.Description,
-                User = createSampleDto.UserId,
-                Image = createSampleDto.Image
+                User = await _userService.GetAsync(LoggedUserInformation.Id),
+                ImageId = image?.Id
             };
             await _databaseContext.Samples.AddAsync(sample);
             await _databaseContext.SaveChangesAsync();

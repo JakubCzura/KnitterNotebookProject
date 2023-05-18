@@ -37,9 +37,11 @@
         public string NeedleSizeUnit { get; set; } = string.Empty;
 
         //dodatkowy opis
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; } = null;
 
         public Image? Image { get; set; } = null;
+
+        public int? ImageId { get; set; }
 
         public User User { get; set; } = new();
     }

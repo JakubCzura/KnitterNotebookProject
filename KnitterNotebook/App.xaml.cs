@@ -34,7 +34,10 @@ namespace KnitterNotebook
                 {
                     services.AddDbContext<DatabaseContext>(options =>
                     {
-
+                        var builder = new ConfigurationBuilder()
+           .SetBasePath(Directory.GetCurrentDirectory())
+           .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                        Configuration = builder.Build();
                         //string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
                         //string appSettingsString = File.ReadAllText(appSettingsPath);
                         //AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString)!;
@@ -50,6 +53,8 @@ namespace KnitterNotebook
                     services.AddScoped<IMovieUrlService, MovieUrlService>();
                     services.AddScoped<IUserService, UserService>();
                     services.AddScoped<IThemeService, ThemeService>();
+                    services.AddScoped<ISampleService, SampleService>();
+                    services.AddScoped<IImageService, ImageService>();
                     services.AddTransient<LoginViewModel>();
                     services.AddTransient(s => new LoginWindow()
                     {
@@ -90,10 +95,7 @@ namespace KnitterNotebook
 
         protected override async void OnStartup(StartupEventArgs e)
         {
-            var builder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-            Configuration = builder.Build();
+           
 
             await AppHost!.StartAsync();
             var startupWindow = AppHost.Services.GetService<LoginWindow>();
