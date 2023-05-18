@@ -1,22 +1,35 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.ApplicationInformation;
+using KnitterNotebook.Database;
+using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
 {
-    internal class SampleAddingViewModel : BaseViewModel
+    public class SampleAddingViewModel : BaseViewModel
     {
-        public SampleAddingViewModel()
+        public SampleAddingViewModel(ISampleService sampleService)
         {
+            _sampleService = sampleService;
             ShowDialogWindowCommand = new RelayCommand(ShowDialogWindow);
             SaveFileCommand = new RelayCommand(SaveFile);
+            DeletePhotoCommand = new RelayCommand(DeletePhoto);
+            AddSampleCommandAsync = new AsyncRelayCommand(AddSampleAsync);
         }
+
+        private readonly ISampleService _sampleService;
 
         public ICommand ShowDialogWindowCommand { get; }
         public ICommand SaveFileCommand { get; }
+        public ICommand DeletePhotoCommand { get; }
+
+        public ICommand AddSampleCommandAsync { get; }
 
         private string _yarnName = string.Empty;
 
@@ -42,9 +55,9 @@ namespace KnitterNotebook.ViewModels
             set { _rowsQuantity = value; OnPropertyChanged(); }
         }
 
-        private int _needleSize;
+        private double _needleSize;
 
-        public int NeedleSize
+        public double NeedleSize
         {
             get { return _needleSize; }
             set { _needleSize = value; OnPropertyChanged(); }
@@ -95,6 +108,11 @@ namespace KnitterNotebook.ViewModels
             return Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "UsersDirectories", userDirectoryName);
         }
 
+        private void DeletePhoto()
+        {
+            FileName = string.Empty;
+        }
+
         private void SaveFile()
         {
             var dir = (Path.Combine(GetUserDirectoryName("Test")));
@@ -118,6 +136,13 @@ namespace KnitterNotebook.ViewModels
             //Path.Combine(GetUserDirectoryName("Test"), GetPhotoName(dialog.FileName));
             //Directory.CreateDirectory(Path.Combine(GetUserDirectoryName("Test")));
             //File.Create(FileName);
+        }
+
+        private async Task AddSampleAsync()
+        {
+            var ImagePath = string.Empty;
+            CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, ImagePath);
+            await _sampleService.CreateAsync(createSampleDto);
         }
     }
 }

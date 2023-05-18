@@ -31,7 +31,7 @@
         public int RowsQuantity { get; set; }
 
         //Rozmiar druta
-        public int NeedleSize { get; set; }
+        public double NeedleSize { get; set; }
 
         //Jednostka rozmiaru druta
         public string NeedleSizeUnit { get; set; } = string.Empty;

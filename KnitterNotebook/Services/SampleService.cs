@@ -21,21 +21,21 @@ namespace KnitterNotebook.Services
 
         public async Task CreateAsync(CreateSampleDto createSampleDto)
         {
-            throw new NotImplementedException("SampleService - CreateAsync");
-            
-            //Sample sample = new()
-            //{
-            //    YarnName = createSampleDto.YarnName,
-            //    LoopsQuantity = createSampleDto.LoopsQuantity,
-            //    RowsQuantity = createSampleDto.RowsQuantity,
-            //    NeedleSize = createSampleDto.NeedleSize,
-            //    NeedleSizeUnit = createSampleDto.NeedleSizeUnit,
-            //    Description = createSampleDto.Description,
-            //    User = createSampleDto.User,
-            //    Image = createSampleDto.Image
-            //};
-            //await _databaseContext.Samples.AddAsync(sample);
-            //await _databaseContext.SaveChangesAsync();
+            //throw new NotImplementedException("SampleService - CreateAsync");
+
+            Sample sample = new()
+            {
+                YarnName = createSampleDto.YarnName,
+                LoopsQuantity = createSampleDto.LoopsQuantity,
+                RowsQuantity = createSampleDto.RowsQuantity,
+                NeedleSize = createSampleDto.NeedleSize,
+                NeedleSizeUnit = createSampleDto.NeedleSizeUnit,
+                Description = createSampleDto.Description,
+                User = createSampleDto.User,
+                Image = createSampleDto.Image
+            };
+            await _databaseContext.Samples.AddAsync(sample);
+            await _databaseContext.SaveChangesAsync();
         }
     }
 }
