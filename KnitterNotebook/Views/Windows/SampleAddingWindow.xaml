@@ -140,7 +140,7 @@
                 <UniformGrid Rows="1">
                     <Button
                         Margin="0,10,0,0"
-                        Command="{Binding ShowDialogWindowCommand}"
+                        Command="{Binding ChooseImageCommand}"
                         Content="Wybierz zdjęcie"
                         Style="{DynamicResource LoginButtonStyle}" />
                     <Button

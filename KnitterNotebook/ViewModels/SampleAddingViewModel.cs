@@ -3,6 +3,7 @@ using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
+using Microsoft.Win32;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -16,15 +17,13 @@ namespace KnitterNotebook.ViewModels
         public SampleAddingViewModel(ISampleService sampleService)
         {
             _sampleService = sampleService;
-            ShowDialogWindowCommand = new RelayCommand(ShowDialogWindow);
-            SaveFileCommand = new RelayCommand(SaveFile);
-            DeletePhotoCommand = new RelayCommand(DeletePhoto);
+            ChooseImageCommand = new RelayCommand(ChooseImage);
+            DeletePhotoCommand = new RelayCommand(() => FileName = null);
             AddSampleCommandAsync = new AsyncRelayCommand(AddSampleAsync);
         }
 
         private readonly ISampleService _sampleService;
-        public ICommand ShowDialogWindowCommand { get; }
-        public ICommand SaveFileCommand { get; }
+        public ICommand ChooseImageCommand { get; }
         public ICommand DeletePhotoCommand { get; }
         public ICommand AddSampleCommandAsync { get; }
 
@@ -86,65 +85,37 @@ namespace KnitterNotebook.ViewModels
             set { fileName = value; OnPropertyChanged(); }
         }
 
-        public bool CreateUserDirectory(string userDirectoryName)
+        private static void SaveFile(string fileToSave, string newFile)
         {
-            string path = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "UsersDirectories");
-            path = Path.Combine(path, userDirectoryName);
-
-            File.Create(path);
-            return File.Exists(path);
-        }
-
-        public string GetPhotoName(string fullPath)
-        {
-            return Path.GetFileName(fullPath);
-        }
-
-        public string GetUserDirectoryName(string userDirectoryName)
-        {
-            return Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "UsersDirectories", userDirectoryName);
-        }
-
-        private void DeletePhoto()
-        {
-            FileName = string.Empty;
-        }
-
-        private void SaveFile()
-        {
-            var dir = (Path.Combine(GetUserDirectoryName("Test")));
-            Directory.CreateDirectory(dir);
-            var newPhoto = Path.Combine(dir, Path.GetFileName(FileName));
-            if (File.Exists(newPhoto))
+            new FileInfo(newFile)?.Directory?.Create();
+            if (File.Exists(newFile))
             {
-                MessageBox.Show("File exists");
+                MessageBox.Show("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
             }
             else
             {
-                File.Copy(FileName, newPhoto);
+                File.Copy(fileToSave, newFile);
             }
         }
 
-        private void ShowDialogWindow()
+        private void ChooseImage()
         {
-            var dialog = new Microsoft.Win32.OpenFileDialog();
+            OpenFileDialog dialog = new();
             dialog.ShowDialog();
             FileName = dialog.FileName;
-            //Path.Combine(GetUserDirectoryName("Test"), GetPhotoName(dialog.FileName));
-            //Directory.CreateDirectory(Path.Combine(GetUserDirectoryName("Test")));
-            //File.Create(FileName);
         }
 
         private async Task AddSampleAsync()
         {
-            SaveFile();
-            string? ImagePath = null;
-            if (string.IsNullOrWhiteSpace(FileName) == false)
+            string? imagePath = null;
+            if (!string.IsNullOrWhiteSpace(FileName))
             {
-                ImagePath = Path.Combine(GetUserDirectoryName("Test"), Path.GetFileName(FileName));
+                imagePath = Path.Combine(Paths.UserDirectory("Test"), Path.GetFileName(FileName));
+                SaveFile(FileName, imagePath);
             }
-            CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, ImagePath);
+            CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
             await _sampleService.CreateAsync(createSampleDto);
+            MessageBox.Show("Zapisano nową próbkę obliczeniową");
         }
     }
 }
