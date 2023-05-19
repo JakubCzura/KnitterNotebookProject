@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
+using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.Win32;
@@ -14,15 +15,18 @@ namespace KnitterNotebook.ViewModels
 {
     public class SampleAddingViewModel : BaseViewModel
     {
-        public SampleAddingViewModel(ISampleService sampleService)
+        public SampleAddingViewModel(ISampleService sampleService, IUserService userService)
         {
             _sampleService = sampleService;
+            _userService = userService;
             ChooseImageCommand = new RelayCommand(ChooseImage);
             DeletePhotoCommand = new RelayCommand(() => FileName = null);
             AddSampleCommandAsync = new AsyncRelayCommand(AddSampleAsync);
         }
 
         private readonly ISampleService _sampleService;
+
+        private readonly IUserService _userService;
         public ICommand ChooseImageCommand { get; }
         public ICommand DeletePhotoCommand { get; }
         public ICommand AddSampleCommandAsync { get; }
@@ -107,10 +111,11 @@ namespace KnitterNotebook.ViewModels
 
         private async Task AddSampleAsync()
         {
+            User user = await _userService.GetAsync(LoggedUserInformation.Id);
             string? imagePath = null;
             if (!string.IsNullOrWhiteSpace(FileName))
             {
-                imagePath = Path.Combine(Paths.UserDirectory("Test"), Path.GetFileName(FileName));
+                imagePath = Path.Combine(Paths.UserDirectory(user.Nickname), Path.GetFileName(FileName));
                 SaveFile(FileName, imagePath);
             }
             CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
