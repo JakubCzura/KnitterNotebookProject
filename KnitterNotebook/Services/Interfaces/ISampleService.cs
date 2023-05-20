@@ -10,6 +10,6 @@ namespace KnitterNotebook.Services.Interfaces
 {
     public interface ISampleService : ICrudService<Sample>
     {
-        Task CreateAsync(CreateSampleDto createSampleDto);
+        Task<bool> CreateAsync(CreateSampleDto createSampleDto);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
+using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
@@ -89,22 +90,26 @@ namespace KnitterNotebook.ViewModels
             set { fileName = value; OnPropertyChanged(); }
         }
 
-        private static void SaveFile(string fileToSave, string newFile)
+        private static bool SaveFile(string fileToSave, string newFile)
         {
             new FileInfo(newFile)?.Directory?.Create();
             if (File.Exists(newFile))
             {
-                MessageBox.Show("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
+                return false;
             }
             else
             {
                 File.Copy(fileToSave, newFile);
+                return true;
             }
         }
 
         private void ChooseImage()
         {
-            OpenFileDialog dialog = new();
+            OpenFileDialog dialog = new()
+            {
+                Filter = "Image Files (*.jpg; *.jpeg; *.png; *.gif; *.bmp)|*.jpg; *.jpeg; *.png; *.gif; *.bmp"
+            };
             dialog.ShowDialog();
             FileName = dialog.FileName;
         }
@@ -112,15 +117,26 @@ namespace KnitterNotebook.ViewModels
         private async Task AddSampleAsync()
         {
             User user = await _userService.GetAsync(LoggedUserInformation.Id);
-            string? imagePath = null;
-            if (!string.IsNullOrWhiteSpace(FileName))
-            {
-                imagePath = Path.Combine(Paths.UserDirectory(user.Nickname), Path.GetFileName(FileName));
-                SaveFile(FileName, imagePath);
-            }
+            string? imagePath = string.IsNullOrWhiteSpace(FileName) ? null : Paths.ImageToSavePath(user.Nickname, Path.GetFileName(FileName));
             CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
-            await _sampleService.CreateAsync(createSampleDto);
-            MessageBox.Show("Zapisano nową próbkę obliczeniową");
+            if (await _sampleService.CreateAsync(createSampleDto))
+            {
+                if (!string.IsNullOrWhiteSpace(FileName) && !string.IsNullOrWhiteSpace(imagePath) && ImageHelper.IsImageFile(imagePath))
+                {
+                    if (SaveFile(FileName, imagePath))
+                    {
+                        MessageBox.Show("Zapisano nową próbkę obliczeniową");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Wybierz zdjęcie z innym formatem, na przykład .jpg .png");
+                }
+            }
         }
     }
 }

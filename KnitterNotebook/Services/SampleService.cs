@@ -19,7 +19,7 @@ namespace KnitterNotebook.Services
             _userService = userService;
         }
 
-        public async Task CreateAsync(CreateSampleDto createSampleDto)
+        public async Task<bool> CreateAsync(CreateSampleDto createSampleDto)
         {
             Image? image = null;
             if (!string.IsNullOrWhiteSpace(createSampleDto.ImagePath))
@@ -40,6 +40,7 @@ namespace KnitterNotebook.Services
             };
             await _databaseContext.Samples.AddAsync(sample);
             await _databaseContext.SaveChangesAsync();
+            return true;
         }
     }
 }
