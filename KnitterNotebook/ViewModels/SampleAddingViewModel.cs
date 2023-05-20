@@ -88,21 +88,7 @@ namespace KnitterNotebook.ViewModels
         {
             get { return fileName; }
             set { fileName = value; OnPropertyChanged(); }
-        }
-
-        private static bool SaveFile(string fileToSave, string newFile)
-        {
-            new FileInfo(newFile)?.Directory?.Create();
-            if (File.Exists(newFile))
-            {
-                return false;
-            }
-            else
-            {
-                File.Copy(fileToSave, newFile);
-                return true;
-            }
-        }
+        }   
 
         private void ChooseImage()
         {
@@ -123,7 +109,7 @@ namespace KnitterNotebook.ViewModels
             {
                 if (!string.IsNullOrWhiteSpace(FileName) && !string.IsNullOrWhiteSpace(imagePath) && ImageHelper.IsImageFile(imagePath))
                 {
-                    if (SaveFile(FileName, imagePath))
+                    if (FileHelper.CopyFileWithDirectoryCreation(FileName, imagePath))
                     {
                         MessageBox.Show("Zapisano nową próbkę obliczeniową");
                     }
