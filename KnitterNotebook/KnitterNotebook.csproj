@@ -40,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="UsersDirectories\" />
     <Folder Include="ViewModels\Helpers\" />
     <Folder Include="ViewModels\Interfaces\" />
   </ItemGroup>

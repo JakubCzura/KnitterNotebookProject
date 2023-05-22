@@ -39,10 +39,10 @@
         //dodatkowy opis
         public string? Description { get; set; } = null;
 
-        public Image? Image { get; set; } = null;
+        public virtual Image? Image { get; set; } = null;
 
         public int? ImageId { get; set; }
 
-        public User User { get; set; } = new();
+        public virtual User User { get; set; } = new();
     }
 }

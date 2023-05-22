@@ -19,8 +19,8 @@ namespace KnitterNotebook.Models
 
         public string Title { get; set; } = string.Empty;
 
-        public Uri Link { get; set; } = null!;
+        public virtual Uri Link { get; set; } = null!;
 
-        public User User { get; set; } = new();
+        public virtual User User { get; set; } = new();
     }
 }

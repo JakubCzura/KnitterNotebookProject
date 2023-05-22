@@ -17,7 +17,7 @@ namespace KnitterNotebook.Models
 
         public string Path { get; set; } = string.Empty;
 
-        public Sample Sample { get; set; } = new();
+        public virtual Sample Sample { get; set; } = new();
 
         public int SampleId { get; set; }
     }

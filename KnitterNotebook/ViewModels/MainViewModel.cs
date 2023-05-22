@@ -16,10 +16,11 @@ namespace KnitterNotebook.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public MainViewModel(DatabaseContext knitterNotebookContext, IMovieUrlService movieUrlService)
+        public MainViewModel(DatabaseContext knitterNotebookContext, IMovieUrlService movieUrlService, ISampleService sampleService)
         {
             _knitterNotebookContext = knitterNotebookContext;
             _movieUrlService = movieUrlService;
+            _sampleService = sampleService;
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
             try
             {
@@ -27,9 +28,10 @@ namespace KnitterNotebook.ViewModels
                        .Include(x => x.MovieUrls)
                        .Include(x => x.Projects)
                        .Include(x => x.Theme)
+                       .Include(x => x.Samples).ThenInclude(x => x.Image)
                        .FirstOrDefault(x => x.Id == LoggedUserInformation.Id)!;
-
                 MovieUrls = new ObservableCollection<MovieUrl>(User.MovieUrls);
+                Samples = new ObservableCollection<Sample>(User.Samples);
             }
             catch (Exception exception)
             {
@@ -66,7 +68,9 @@ namespace KnitterNotebook.ViewModels
 
         private readonly DatabaseContext _knitterNotebookContext;
         private readonly IMovieUrlService _movieUrlService;
+        private readonly ISampleService _sampleService;
         private ObservableCollection<MovieUrl> _movieUrls = new();
+        private ObservableCollection<Sample> _samples = new();
         private Visibility _plannedProjectsUserControlVisibility = Visibility.Hidden;
         private Visibility _projectsInProgressUserControlVisibility = Visibility.Hidden;
         private Visibility _projectsUserControlVisibility = Visibility.Visible;
@@ -75,17 +79,16 @@ namespace KnitterNotebook.ViewModels
         private User _user = new();
         private Sample _selectedSample = new();
 
-        private List<Sample> _samples = new()
-        {
-            new Sample(1, "woolen", 1,2, 4, "mm", "description1", new User()),
-            new Sample(2, "woolen2", 31,2, 42, "m", "description12", new User()),
-            new Sample(3, "woolen3", 41,2, 24, "nm", "descrssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" +
-                "sssssssssssssssssssssssssss" +
-                "sssssssssssssssssssssssss" +
-                "sssssssssssssssssssssssssiption13", new User()),
-            new Sample(4, "woolen4", 41,2, 24, "nm", "description14", new User()),
-            new Sample(5, "Cotton", 12, 6, 24, "mm", "Cotton yarn to make a cozy sweater", new User()),
-        };
+        //{
+        //    new Sample(1, "woolen", 1,2, 4, "mm", "description1", new User()),
+        //    new Sample(2, "woolen2", 31,2, 42, "m", "description12", new User()),
+        //    new Sample(3, "woolen3", 41,2, 24, "nm", "descrssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" +
+        //        "sssssssssssssssssssssssssss" +
+        //        "sssssssssssssssssssssssss" +
+        //        "sssssssssssssssssssssssssiption13", new User()),
+        //    new Sample(4, "woolen4", 41,2, 24, "nm", "description14", new User()),
+        //    new Sample(5, "Cotton", 12, 6, 24, "mm", "Cotton yarn to make a cozy sweater", new User()),
+        //};
 
         public ICommand DeleteMovieUrlCommandAsync { get; }
         public ICommand SetPlannedProjectsUserControlVisibleCommand { get; }
@@ -156,7 +159,7 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
-        public List<Sample> Samples
+        public ObservableCollection<Sample> Samples
         {
             get { return _samples; }
             set { _samples = value; OnPropertyChanged(); }

@@ -12,12 +12,12 @@ namespace KnitterNotebook.Models
 
         public string Password { get; set; } = string.Empty;
 
-        public List<Project> Projects { get; set; } = new();
+        public virtual List<Project> Projects { get; set; } = new();
 
-        public List<Sample> Samples { get; set; } = new();
+        public virtual List<Sample> Samples { get; set; } = new();
 
-        public List<MovieUrl> MovieUrls { get; set; } = new();
+        public virtual List<MovieUrl> MovieUrls { get; set; } = new();
 
-        public Theme? Theme { get; set; } = null;
+        public virtual Theme? Theme { get; set; } = null;
     }
 }
