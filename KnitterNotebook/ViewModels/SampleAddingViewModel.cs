@@ -110,18 +110,28 @@ namespace KnitterNotebook.ViewModels
             }
             else
             {
-                if (!string.IsNullOrWhiteSpace(FileName) && !string.IsNullOrWhiteSpace(imagePath) && ImageHelper.IsImageFile(imagePath))
-                {
-                    CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
-                    if (await _sampleService.CreateAsync(createSampleDto) && FileHelper.CopyFileWithDirectoryCreation(FileName, imagePath))
+                CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
+                if (string.IsNullOrEmpty(imagePath))
+                {                   
+                    if (await _sampleService.CreateAsync(createSampleDto))
                     {
                         MessageBox.Show("Zapisano nową próbkę obliczeniową");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Wybierz zdjęcie z innym formatem, na przykład .jpg .png");
-                }
+                    if (!string.IsNullOrWhiteSpace(FileName) && ImageHelper.IsImageFile(imagePath))
+                    {
+                        if (await _sampleService.CreateAsync(createSampleDto) && FileHelper.CopyFileWithDirectoryCreation(FileName, imagePath))
+                        {
+                            MessageBox.Show("Zapisano nową próbkę obliczeniową");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Wybierz zdjęcie z innym formatem, na przykład .jpg .png");
+                    }
+                }             
             }
         }
     }
