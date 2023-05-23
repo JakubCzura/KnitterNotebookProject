@@ -104,19 +104,19 @@ namespace KnitterNotebook.ViewModels
         {
             User user = await _userService.GetAsync(LoggedUserInformation.Id);
             string? imagePath = string.IsNullOrWhiteSpace(FileName) ? null : Paths.ImageToSavePath(user.Nickname, Path.GetFileName(FileName));
-            if (File.Exists(imagePath))
+            CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
+            if (string.IsNullOrEmpty(imagePath))
             {
-                MessageBox.Show("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
+                if (await _sampleService.CreateAsync(createSampleDto))
+                {
+                    MessageBox.Show("Zapisano nową próbkę obliczeniową");
+                }
             }
             else
             {
-                CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
-                if (string.IsNullOrEmpty(imagePath))
-                {                   
-                    if (await _sampleService.CreateAsync(createSampleDto))
-                    {
-                        MessageBox.Show("Zapisano nową próbkę obliczeniową");
-                    }
+                if (File.Exists(imagePath))
+                {
+                    MessageBox.Show("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
                 }
                 else
                 {
@@ -131,7 +131,7 @@ namespace KnitterNotebook.ViewModels
                     {
                         MessageBox.Show("Wybierz zdjęcie z innym formatem, na przykład .jpg .png");
                     }
-                }             
+                }
             }
         }
     }
