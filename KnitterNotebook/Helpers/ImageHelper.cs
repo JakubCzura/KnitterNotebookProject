@@ -13,7 +13,6 @@ namespace KnitterNotebook.Helpers
         {
             string extension = Path.GetExtension(filePath);
             string[] validExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
-
             return validExtensions.Contains(extension, StringComparer.OrdinalIgnoreCase);
         }
     }

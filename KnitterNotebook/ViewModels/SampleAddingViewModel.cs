@@ -88,7 +88,7 @@ namespace KnitterNotebook.ViewModels
         {
             get { return fileName; }
             set { fileName = value; OnPropertyChanged(); }
-        }   
+        }
 
         private void ChooseImage()
         {
@@ -104,18 +104,18 @@ namespace KnitterNotebook.ViewModels
         {
             User user = await _userService.GetAsync(LoggedUserInformation.Id);
             string? imagePath = string.IsNullOrWhiteSpace(FileName) ? null : Paths.ImageToSavePath(user.Nickname, Path.GetFileName(FileName));
-            CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
-            if (await _sampleService.CreateAsync(createSampleDto))
+            if (File.Exists(imagePath))
+            {
+                MessageBox.Show("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
+            }
+            else
             {
                 if (!string.IsNullOrWhiteSpace(FileName) && !string.IsNullOrWhiteSpace(imagePath) && ImageHelper.IsImageFile(imagePath))
                 {
-                    if (FileHelper.CopyFileWithDirectoryCreation(FileName, imagePath))
+                    CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
+                    if (await _sampleService.CreateAsync(createSampleDto) && FileHelper.CopyFileWithDirectoryCreation(FileName, imagePath))
                     {
                         MessageBox.Show("Zapisano nową próbkę obliczeniową");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
                     }
                 }
                 else
