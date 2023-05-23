@@ -114,41 +114,28 @@ namespace KnitterNotebook.ViewModels
                 string? imagePath = string.IsNullOrWhiteSpace(FileName) ? null : Paths.ImageToSavePath(user.Nickname, Path.GetFileName(FileName));
                 CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
                 var validation = _createSampleDtoValidator.Validate(createSampleDto);
-                if (validation.IsValid)
+                if (!validation.IsValid)
                 {
-                    if (string.IsNullOrEmpty(imagePath))
+                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    MessageBox.Show(errorMessage, "Błąd podczas dodawania próbki obliczeniowej", MessageBoxButton.OK);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(imagePath))
+                {
+                    if (await _sampleService.CreateAsync(createSampleDto))
                     {
-                        if (await _sampleService.CreateAsync(createSampleDto))
-                        {
-                            MessageBox.Show("Zapisano nową próbkę obliczeniową");
-                        }
-                    }
-                    else
-                    {
-                        if (File.Exists(imagePath))
-                        {
-                            MessageBox.Show("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
-                        }
-                        else
-                        {
-                            if (!string.IsNullOrWhiteSpace(FileName) && ImageHelper.IsImageFile(imagePath))
-                            {
-                                if (await _sampleService.CreateAsync(createSampleDto) && FileHelper.CopyFileWithDirectoryCreation(FileName, imagePath))
-                                {
-                                    MessageBox.Show("Zapisano nową próbkę obliczeniową");
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Wybierz zdjęcie z innym formatem, na przykład .jpg .png");
-                            }
-                        }
+                        MessageBox.Show("Zapisano nową próbkę obliczeniową");
                     }
                 }
                 else
                 {
-                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
-                    MessageBox.Show(errorMessage, "Błąd podczas dodawania próbki obliczeniowej", MessageBoxButton.OK);
+                    if (!string.IsNullOrWhiteSpace(FileName))
+                    {
+                        if (await _sampleService.CreateAsync(createSampleDto) && FileHelper.CopyFileWithDirectoryCreation(FileName, imagePath))
+                        {
+                            MessageBox.Show("Zapisano nową próbkę obliczeniową");
+                        }
+                    }
                 }
             }
             catch (Exception exception)

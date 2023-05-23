@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using KnitterNotebook.Helpers;
 using KnitterNotebook.Models.Dtos;
+using System.IO;
 
 namespace KnitterNotebook.Validators
 {
@@ -29,6 +31,17 @@ namespace KnitterNotebook.Validators
 
             RuleFor(x => x.ImagePath)
                 .MaximumLength(1000).WithMessage("Długość ścieżki do zapisu zdjęcia nie może być większa niż 1000 znaków");
+
+            RuleFor(x => x.ImagePath).Must(x =>
+            {
+                return string.IsNullOrWhiteSpace(x) || ImageHelper.IsImageFile(x);
+            }).WithMessage("Wybierz zdjęcie z innym formatem, na przykład .jpg .png lub usuń odnośnik do zdjęcia");
+
+            //Returns false if file exists, returns true if file doesn't exists or file's path is null
+            RuleFor(x => x.ImagePath).Must(x =>
+            {
+                return !File.Exists(x);
+            }).WithMessage("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
         }
     }
 }
