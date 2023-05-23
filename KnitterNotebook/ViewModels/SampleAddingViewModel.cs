@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using FluentValidation;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Helpers;
@@ -6,8 +7,10 @@ using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -16,10 +19,11 @@ namespace KnitterNotebook.ViewModels
 {
     public class SampleAddingViewModel : BaseViewModel
     {
-        public SampleAddingViewModel(ISampleService sampleService, IUserService userService)
+        public SampleAddingViewModel(ISampleService sampleService, IUserService userService, IValidator<CreateSampleDto> createSampleDtoValidator)
         {
             _sampleService = sampleService;
             _userService = userService;
+            _createSampleDtoValidator = createSampleDtoValidator;
             ChooseImageCommand = new RelayCommand(ChooseImage);
             DeletePhotoCommand = new RelayCommand(() => FileName = null);
             AddSampleCommandAsync = new AsyncRelayCommand(AddSampleAsync);
@@ -28,6 +32,8 @@ namespace KnitterNotebook.ViewModels
         private readonly ISampleService _sampleService;
 
         private readonly IUserService _userService;
+
+        private readonly IValidator<CreateSampleDto> _createSampleDtoValidator;
         public ICommand ChooseImageCommand { get; }
         public ICommand DeletePhotoCommand { get; }
         public ICommand AddSampleCommandAsync { get; }
@@ -102,36 +108,52 @@ namespace KnitterNotebook.ViewModels
 
         private async Task AddSampleAsync()
         {
-            User user = await _userService.GetAsync(LoggedUserInformation.Id);
-            string? imagePath = string.IsNullOrWhiteSpace(FileName) ? null : Paths.ImageToSavePath(user.Nickname, Path.GetFileName(FileName));
-            CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
-            if (string.IsNullOrEmpty(imagePath))
+            try
             {
-                if (await _sampleService.CreateAsync(createSampleDto))
+                User user = await _userService.GetAsync(LoggedUserInformation.Id);
+                string? imagePath = string.IsNullOrWhiteSpace(FileName) ? null : Paths.ImageToSavePath(user.Nickname, Path.GetFileName(FileName));
+                CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
+                var validation = _createSampleDtoValidator.Validate(createSampleDto);
+                if (validation.IsValid)
                 {
-                    MessageBox.Show("Zapisano nową próbkę obliczeniową");
-                }
-            }
-            else
-            {
-                if (File.Exists(imagePath))
-                {
-                    MessageBox.Show("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
-                }
-                else
-                {
-                    if (!string.IsNullOrWhiteSpace(FileName) && ImageHelper.IsImageFile(imagePath))
+                    if (string.IsNullOrEmpty(imagePath))
                     {
-                        if (await _sampleService.CreateAsync(createSampleDto) && FileHelper.CopyFileWithDirectoryCreation(FileName, imagePath))
+                        if (await _sampleService.CreateAsync(createSampleDto))
                         {
                             MessageBox.Show("Zapisano nową próbkę obliczeniową");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Wybierz zdjęcie z innym formatem, na przykład .jpg .png");
+                        if (File.Exists(imagePath))
+                        {
+                            MessageBox.Show("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrWhiteSpace(FileName) && ImageHelper.IsImageFile(imagePath))
+                            {
+                                if (await _sampleService.CreateAsync(createSampleDto) && FileHelper.CopyFileWithDirectoryCreation(FileName, imagePath))
+                                {
+                                    MessageBox.Show("Zapisano nową próbkę obliczeniową");
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Wybierz zdjęcie z innym formatem, na przykład .jpg .png");
+                            }
+                        }
                     }
                 }
+                else
+                {
+                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    MessageBox.Show(errorMessage, "Błąd podczas dodawania próbki obliczeniowej", MessageBoxButton.OK);
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
             }
         }
     }
