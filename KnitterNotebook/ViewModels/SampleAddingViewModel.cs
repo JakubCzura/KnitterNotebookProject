@@ -120,14 +120,14 @@ namespace KnitterNotebook.ViewModels
                     MessageBox.Show(errorMessage, "Błąd podczas dodawania próbki obliczeniowej", MessageBoxButton.OK);
                     return;
                 }
-                if (string.IsNullOrWhiteSpace(imagePath) && await _sampleService.CreateAsync(createSampleDto))
+                if (await _sampleService.CreateAsync(createSampleDto))
                 {
-                    MessageBox.Show("Zapisano nową próbkę obliczeniową");
+                    if (!string.IsNullOrWhiteSpace(FileName) && !string.IsNullOrWhiteSpace(imagePath))
+                    {
+                        FileHelper.CopyFileWithDirectoryCreation(FileName, imagePath);
+                    }
                 }
-                else if (!string.IsNullOrWhiteSpace(FileName) && !string.IsNullOrWhiteSpace(imagePath) && await _sampleService.CreateAsync(createSampleDto) && FileHelper.CopyFileWithDirectoryCreation(FileName, imagePath))
-                {
-                    MessageBox.Show("Zapisano nową próbkę obliczeniową");
-                }
+                MessageBox.Show("Zapisano nową próbkę obliczeniową");
             }
             catch (Exception exception)
             {

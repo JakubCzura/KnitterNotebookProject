@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UsersDirectories\**" />
+    <EmbeddedResource Remove="UsersDirectories\**" />
+    <None Remove="UsersDirectories\**" />
+    <Page Remove="UsersDirectories\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="appsettings.json" />
   </ItemGroup>
 
