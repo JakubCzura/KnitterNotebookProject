@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services;
@@ -12,8 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
-using System.Configuration;
 using System.IO;
 using System.Windows;
 
@@ -96,8 +93,6 @@ namespace KnitterNotebook
 
         protected override async void OnStartup(StartupEventArgs e)
         {
-           
-
             await AppHost!.StartAsync();
             var startupWindow = AppHost.Services.GetService<LoginWindow>();
             startupWindow?.Show();

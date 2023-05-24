@@ -12,6 +12,7 @@ namespace KnitterNotebook.Services
         //private readonly IUserRepository _userRepository;
         //private readonly IMovieUrlRepository _movieUrlRepository;
         private readonly DatabaseContext _databaseContext;
+
         public MovieUrlService(DatabaseContext databaseContext) : base(databaseContext)
         {
             _databaseContext = databaseContext;

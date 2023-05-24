@@ -101,7 +101,6 @@
                                         ItemsSource="{Binding NeedleSizeUnits}"
                                         SelectedItem="{Binding NeedleSizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </Grid>
-
                             </DockPanel>
                             <Label Content="Ilość rzędów" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
@@ -134,7 +133,6 @@
                                 Source="{Binding ImageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </Grid>
-
 
                     <UniformGrid Rows="1">
                         <Button

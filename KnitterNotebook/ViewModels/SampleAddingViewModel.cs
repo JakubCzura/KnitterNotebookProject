@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
-using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
@@ -9,7 +8,6 @@ using KnitterNotebook.Services.Interfaces;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
