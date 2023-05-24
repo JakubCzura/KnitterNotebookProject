@@ -66,18 +66,8 @@
                         Command="{Binding LogInCommandAsync}"
                         Content="Zaloguj się"
                         Style="{StaticResource LoginButtonStyle}" />
-                    <Grid Margin="0,20,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Separator Grid.Column="0" />
-                        <Label Grid.Column="1">lub</Label>
-                        <Separator Grid.Column="2" />
-                    </Grid>
                     <Label
-                        Margin="0,20,0,-10"
+                        Margin="0,50,0,-10"
                         Content="Nie posiadasz konta?"
                         FontSize="20"
                         Style="{DynamicResource LabelAboveLoginInputStyle}" />
