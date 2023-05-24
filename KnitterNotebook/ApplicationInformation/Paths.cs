@@ -12,8 +12,8 @@ namespace KnitterNotebook.ApplicationInformation
     {
         public static string UsersDirectories => Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "UsersDirectories");
         
-        public static string UserDirectory(string userName) => Path.Combine(UsersDirectories, userName);
+        public static string UserDirectory(string nickname) => Path.Combine(UsersDirectories, nickname);
 
-        public static string ImageToSavePath(string userName, string imageName) => Path.Combine(UserDirectory(userName), imageName);
+        public static string ImageToSavePath(string nickname, string sourceImageName) => Path.Combine(UserDirectory(nickname), sourceImageName);
     }
 }

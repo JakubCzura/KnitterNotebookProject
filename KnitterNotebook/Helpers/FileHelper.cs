@@ -4,10 +4,10 @@ namespace KnitterNotebook.Helpers
 {
     public class FileHelper
     {
-        public static void CopyFileWithDirectoryCreation(string fileToSave, string newFile)
+        public static void CopyWithDirectoryCreation(string sourceFileName, string destinationFileName)
         {
-            new FileInfo(newFile)?.Directory?.Create();
-            File.Copy(fileToSave, newFile);
+            new FileInfo(destinationFileName)?.Directory?.Create();
+            File.Copy(sourceFileName, destinationFileName);
         }
     }
 }

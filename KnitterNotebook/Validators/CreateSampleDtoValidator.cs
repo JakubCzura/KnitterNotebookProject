@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using KnitterNotebook.Helpers;
 using KnitterNotebook.Models.Dtos;
 using System.IO;
 
@@ -34,7 +33,7 @@ namespace KnitterNotebook.Validators
 
             RuleFor(x => x.ImagePath).Must(x =>
             {
-                return string.IsNullOrWhiteSpace(x) || ImageHelper.IsImageFile(x);
+                return string.IsNullOrWhiteSpace(x) || ImageExtensionValidator.IsImage(x);
             }).WithMessage("Wybierz zdjęcie z innym formatem, na przykład .jpg .png lub usuń odnośnik do zdjęcia");
 
             //Returns false if file exists, returns true if file doesn't exists or file's path is null

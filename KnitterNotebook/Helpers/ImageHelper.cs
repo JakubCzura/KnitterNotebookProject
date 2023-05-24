@@ -1,4 +1,6 @@
-﻿using System;
+﻿using KnitterNotebook.ApplicationInformation;
+using KnitterNotebook.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,11 +11,9 @@ namespace KnitterNotebook.Helpers
 {
     public class ImageHelper
     {
-        public static bool IsImageFile(string filePath)
+        public static string? CreateImageToSavePath(string userName, string? sourceImageName)
         {
-            string extension = Path.GetExtension(filePath);
-            string[] validExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
-            return validExtensions.Contains(extension, StringComparer.OrdinalIgnoreCase);
+            return string.IsNullOrWhiteSpace(sourceImageName) ? null : Paths.ImageToSavePath(userName, Path.GetFileName(sourceImageName));
         }
     }
 }

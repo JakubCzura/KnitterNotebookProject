@@ -25,7 +25,7 @@ namespace KnitterNotebook.ViewModels
             _userService = userService;
             _createSampleDtoValidator = createSampleDtoValidator;
             ChooseImageCommand = new RelayCommand(ChooseImage);
-            DeletePhotoCommand = new RelayCommand(() => FileName = null);
+            DeletePhotoCommand = new RelayCommand(() => ImageName = null);
             AddSampleCommandAsync = new AsyncRelayCommand(AddSampleAsync);
         }
 
@@ -88,12 +88,12 @@ namespace KnitterNotebook.ViewModels
 
         public static IEnumerable<string> NeedleSizeUnits => new[] { "mm", "cm" };
 
-        private string? fileName = null;
+        private string? imageName = null;
 
-        public string? FileName
+        public string? ImageName
         {
-            get { return fileName; }
-            set { fileName = value; OnPropertyChanged(); }
+            get { return imageName; }
+            set { imageName = value; OnPropertyChanged(); }
         }
 
         private void ChooseImage()
@@ -103,7 +103,7 @@ namespace KnitterNotebook.ViewModels
                 Filter = "Image Files (*.jpg; *.jpeg; *.png; *.gif; *.bmp)|*.jpg; *.jpeg; *.png; *.gif; *.bmp"
             };
             dialog.ShowDialog();
-            FileName = dialog.FileName;
+            ImageName = dialog.FileName;
         }
 
         private async Task AddSampleAsync()
@@ -111,7 +111,7 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 User user = await _userService.GetAsync(LoggedUserInformation.Id);
-                string? imagePath = string.IsNullOrWhiteSpace(FileName) ? null : Paths.ImageToSavePath(user.Nickname, Path.GetFileName(FileName));
+                string? imagePath = ImageHelper.CreateImageToSavePath(user.Nickname, ImageName);
                 CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
                 var validation = _createSampleDtoValidator.Validate(createSampleDto);
                 if (!validation.IsValid)
@@ -122,9 +122,9 @@ namespace KnitterNotebook.ViewModels
                 }
                 if (await _sampleService.CreateAsync(createSampleDto))
                 {
-                    if (!string.IsNullOrWhiteSpace(FileName) && !string.IsNullOrWhiteSpace(imagePath))
+                    if (!string.IsNullOrWhiteSpace(ImageName) && !string.IsNullOrWhiteSpace(imagePath))
                     {
-                        FileHelper.CopyFileWithDirectoryCreation(FileName, imagePath);
+                        FileHelper.CopyWithDirectoryCreation(ImageName, imagePath);
                     }
                 }
                 MessageBox.Show("Zapisano nową próbkę obliczeniową");
