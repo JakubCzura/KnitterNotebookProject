@@ -33,42 +33,62 @@
                         Text="Ustawienia" />
                 </DockPanel>
             </Grid>
-
             <Grid Grid.Row="1">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
-                    <Grid Grid.Column="0">
-                        <ScrollViewer>
-                            <StackPanel>
-                                <Button Command="{Binding SetUserSettingsUserControlVisibleCommand}" Style="{DynamicResource MainMenuButtonStyle}">
-                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Konto" />
-                                </Button>
-                                <Button Command="{Binding SetThemeSettingsUserControlVisibleCommand}" Style="{DynamicResource MainMenuButtonStyle}">
-                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Motyw aplikacji" />
-                                </Button>
-                            </StackPanel>
-                        </ScrollViewer>
-                    </Grid>
-
-                    <userControls:UserSettingsUserControl
+                    <Border
+                        Grid.Column="0"
+                        Margin="5,5,5,5"
+                        BorderBrush="AliceBlue"
+                        BorderThickness="0"
+                        CornerRadius="10">
+                        <Border
+                            Background="#FFE2AFFB"
+                            BorderThickness="0"
+                            CornerRadius="10">
+                            <Grid Grid.Column="0">
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                    <StackPanel>
+                                        <Button Command="{Binding SetUserSettingsUserControlVisibleCommand}" Style="{DynamicResource MainMenuButtonStyle}">
+                                            <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Konto" />
+                                        </Button>
+                                        <Button Command="{Binding SetThemeSettingsUserControlVisibleCommand}" Style="{DynamicResource MainMenuButtonStyle}">
+                                            <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Motyw aplikacji" />
+                                        </Button>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <Border
                         Grid.Column="1"
-                        ChangeEmailCommandAsync="{Binding ChangeEmailCommandAsync}"
-                        ChangeNicknameCommandAsync="{Binding ChangeNicknameCommandAsync}"
-                        ChangePasswordCommandAsync="{Binding ChangePasswordCommandAsync}"
-                        NewEmail="{Binding NewEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        NewNickname="{Binding NewNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Visibility="{Binding UserSettingsUserControlVisibility}" />
-
-                    <userControls:ThemeSettingsUserControl
-                        Grid.Column="1"
-                        ChangeThemeCommandAsync="{Binding ChangeThemeCommandAsync}"
-                        NewTheme="{Binding NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Themes="{Binding Themes}"
-                        Visibility="{Binding ThemeSettingsUserControlVisibility}" />
+                        Margin="5,5,5,5"
+                        BorderBrush="AliceBlue"
+                        BorderThickness="0"
+                        CornerRadius="10">
+                        <Border
+                            Background="#FFE2AFFB"
+                            BorderThickness="0"
+                            CornerRadius="10">
+                            <Grid Margin="5,5,5,5">
+                                <userControls:UserSettingsUserControl
+                                    ChangeEmailCommandAsync="{Binding ChangeEmailCommandAsync}"
+                                    ChangeNicknameCommandAsync="{Binding ChangeNicknameCommandAsync}"
+                                    ChangePasswordCommandAsync="{Binding ChangePasswordCommandAsync}"
+                                    NewEmail="{Binding NewEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    NewNickname="{Binding NewNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Visibility="{Binding UserSettingsUserControlVisibility}" />
+                                <userControls:ThemeSettingsUserControl
+                                    ChangeThemeCommandAsync="{Binding ChangeThemeCommandAsync}"
+                                    NewTheme="{Binding NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Themes="{Binding Themes}"
+                                    Visibility="{Binding ThemeSettingsUserControlVisibility}" />
+                            </Grid>
+                        </Border>
+                    </Border>
                 </Grid>
             </Grid>
         </Grid>

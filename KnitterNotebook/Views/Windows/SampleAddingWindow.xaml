@@ -25,11 +25,9 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-
             <Grid Grid.Row="0" Margin="0,30,0,50">
                 <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="Dodanie próbki obliczeniowej" />
             </Grid>
-
             <Grid Grid.Row="1">
                 <StackPanel Margin="50,10,50,10">
                     <Grid>
@@ -91,7 +89,7 @@
                                     Kind="Numeric" />
                                 <Grid Width="300">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition MaxWidth="300" Width="*" />
+                                        <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="45" />
                                     </Grid.ColumnDefinitions>
                                     <TextBox
