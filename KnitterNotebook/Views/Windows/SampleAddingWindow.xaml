@@ -86,12 +86,12 @@
                             <Label Content="Rozmiar drutu" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
-                                    Margin="5,0,20,0"
+                                    Margin="5,0,5,0"
                                     VerticalAlignment="Center"
                                     Kind="Numeric" />
-                                <Grid>
+                                <Grid Width="300">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition MaxWidth="300" Width="*" />
                                         <ColumnDefinition Width="45" />
                                     </Grid.ColumnDefinitions>
                                     <TextBox
