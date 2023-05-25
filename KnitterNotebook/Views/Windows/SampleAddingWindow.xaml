@@ -86,13 +86,13 @@
                             <Label Content="Rozmiar drutu" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
-                                    Margin="5,0,30,0"
+                                    Margin="5,0,20,0"
                                     VerticalAlignment="Center"
                                     Kind="Numeric" />
-                                <Grid MaxWidth="340">
+                                <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="40" />
+                                        <ColumnDefinition Width="45" />
                                     </Grid.ColumnDefinitions>
                                     <TextBox
                                         Grid.Column="0"
@@ -104,7 +104,6 @@
                                         TextWrapping="NoWrap" />
                                     <ComboBox
                                         Grid.Column="1"
-                                        Margin="5,0,0,0"
                                         HorizontalAlignment="Right"
                                         ItemsSource="{Binding NeedleSizeUnits}"
                                         SelectedItem="{Binding NeedleSizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
