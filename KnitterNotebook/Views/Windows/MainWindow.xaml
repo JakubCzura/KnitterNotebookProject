@@ -17,7 +17,7 @@
     <Window.Resources>
         <!--<viewModels:MainViewModel x:Key="MainViewModel" />-->
     </Window.Resources>
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+    <!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">-->
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -67,7 +67,7 @@
                             Background="#FFE2AFFB"
                             BorderThickness="0"
                             CornerRadius="10">
-                            <ScrollViewer Visibility="Visible">
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                                 <StackPanel VerticalAlignment="Top" Orientation="Vertical">
                                     <Button Command="{Binding SetProjectsUserControlVisibleCommand}" Style="{DynamicResource MainMenuButtonStyle}">
                                         <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Moje projekty" />
@@ -144,5 +144,5 @@
                 </Border>
             </Border>
         </Grid>
-    </ScrollViewer>
+    <!--</ScrollViewer>-->
 </Window>

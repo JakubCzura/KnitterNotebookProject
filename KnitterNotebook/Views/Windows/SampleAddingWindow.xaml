@@ -18,7 +18,8 @@
     <Window.Resources>
         <!--<viewModels:MovieUrlAddingViewModel x:Key="MovieUrlAddingViewModel" />-->
     </Window.Resources>
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -45,10 +46,12 @@
                                     VerticalAlignment="Center"
                                     Kind="Text" />
                                 <TextBox
+                                    MaxWidth="300"
                                     adorners:Watermark.Text="Nazwa włóczki"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                    Text="{Binding YarnName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                    Text="{Binding YarnName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    TextWrapping="NoWrap" />
                             </DockPanel>
                             <Label Content="Ilość oczek" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
@@ -57,10 +60,12 @@
                                     VerticalAlignment="Center"
                                     Kind="Numeric" />
                                 <TextBox
+                                    MaxWidth="300"
                                     adorners:Watermark.Text="Ilość oczek"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                    Text="{Binding LoopsQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                    Text="{Binding LoopsQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    TextWrapping="NoWrap" />
                             </DockPanel>
                             <Label Content="Opis" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
@@ -69,33 +74,36 @@
                                     VerticalAlignment="Center"
                                     Kind="Text" />
                                 <TextBox
+                                    MaxWidth="300"
                                     adorners:Watermark.Text="Opis"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                    Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                    Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    TextWrapping="Wrap" />
                             </DockPanel>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="10,0,0,0">
                             <Label Content="Rozmiar drutu" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
-                                    Margin="5,0,5,0"
+                                    Margin="5,0,30,0"
                                     VerticalAlignment="Center"
                                     Kind="Numeric" />
-                                <Grid>
+                                <Grid MaxWidth="340">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="40" />
                                     </Grid.ColumnDefinitions>
                                     <TextBox
                                         Grid.Column="0"
+                                        MaxWidth="300"
                                         adorners:Watermark.Text="Rozmiar drutu"
                                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                         Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding NeedleSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                        Text="{Binding NeedleSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        TextWrapping="NoWrap" />
                                     <ComboBox
                                         Grid.Column="1"
-                                        Width="40"
                                         Margin="5,0,0,0"
                                         HorizontalAlignment="Right"
                                         ItemsSource="{Binding NeedleSizeUnits}"
@@ -109,10 +117,12 @@
                                     VerticalAlignment="Center"
                                     Kind="Numeric" />
                                 <TextBox
+                                    MaxWidth="300"
                                     adorners:Watermark.Text="Ilość rzędów"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                    Text="{Binding RowsQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                    Text="{Binding RowsQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    TextWrapping="NoWrap" />
                             </DockPanel>
                             <Label Content="Zdjęcie" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
@@ -121,9 +131,11 @@
                                     VerticalAlignment="Center"
                                     Kind="InsertPhoto" />
                                 <TextBox
+                                    MaxWidth="300"
                                     IsReadOnly="True"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                    Text="{Binding ImageName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                                    Text="{Binding ImageName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                                    TextWrapping="NoWrap" />
                             </DockPanel>
                         </StackPanel>
                         <Grid Grid.Column="2" Margin="10,0,0,0">

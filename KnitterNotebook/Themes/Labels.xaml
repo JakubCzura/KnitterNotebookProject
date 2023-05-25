@@ -1,8 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style TargetType="Label" x:Key="LabelAboveLoginInput">
-        <Setter Property="FontSize" Value="25"></Setter>
-        <Setter Property="Height" Value="50"></Setter>
-        <Setter Property="FontWeight" Value="DemiBold"></Setter>
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="LabelAboveLoginInput" TargetType="Label">
+        <Setter Property="FontSize" Value="25" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="FontWeight" Value="DemiBold" />
     </Style>
 </ResourceDictionary>

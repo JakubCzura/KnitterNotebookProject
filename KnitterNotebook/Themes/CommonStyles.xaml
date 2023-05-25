@@ -1,9 +1,12 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <!-- xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    allows to use sys:Double and define height-->
+    <!--
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        allows to use sys:Double and define height
+    -->
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Fonts.xaml" />
@@ -14,15 +17,25 @@
 
     <sys:Double x:Key="InputLoginDataTextBoxHeight">50</sys:Double>
 
-    <Style TargetType="{x:Type TextBox}" x:Key="InputLoginDataTextBoxStyle" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+    <Style
+        x:Key="InputLoginDataTextBoxStyle"
+        BasedOn="{StaticResource MaterialDesignOutlinedTextBox}"
+        TargetType="{x:Type TextBox}">
         <Setter Property="Background" Value="White" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
 
-    <Style TargetType="PasswordBox" x:Key="InputPasswordPasswordBoxStyle" BasedOn="{StaticResource MaterialDesignOutlinedRevealPasswordBox}">
+    <Style
+        x:Key="InputPasswordPasswordBoxStyle"
+        BasedOn="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"
+        TargetType="PasswordBox">
         <Setter Property="Background" Value="White" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="WrapTextBlockStyle" BasedOn="{StaticResource WrapTextBlock}" />
+    <Style
+        x:Key="WrapTextBlockStyle"
+        BasedOn="{StaticResource WrapTextBlock}"
+        TargetType="TextBlock" />
 </ResourceDictionary>
