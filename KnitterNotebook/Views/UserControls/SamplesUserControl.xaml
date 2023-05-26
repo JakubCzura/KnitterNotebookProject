@@ -40,6 +40,11 @@
                             Binding="{Binding Path=YarnName}"
                             Header="Yarn name" />
                     </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding DeleteSampleCommandAsync}" Header="Skasuj próbkę" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                 </DataGrid>
             </DockPanel>
         </Border>

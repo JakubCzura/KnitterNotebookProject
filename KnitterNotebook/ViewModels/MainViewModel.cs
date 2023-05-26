@@ -59,6 +59,7 @@ namespace KnitterNotebook.ViewModels
             OpenMovieUrlInWebBrowserCommand = new RelayCommand(OpenMovieUrlInWebBrowser);
             LogOutCommand = new RelayCommand(LogOut);
             SelectedSample = Samples.FirstOrDefault() ?? new Sample();
+            DeleteSampleCommandAsync = new AsyncRelayCommand(DeleteSampleAsync);
         }
 
         #region Properties
@@ -86,6 +87,7 @@ namespace KnitterNotebook.ViewModels
         public ICommand ShowSampleAddingWindowCommand { get; }
         public ICommand OpenMovieUrlInWebBrowserCommand { get; }
         public ICommand LogOutCommand { get; }
+        public ICommand DeleteSampleCommandAsync { get; }
 
         public string Greetings
         {
@@ -151,8 +153,8 @@ namespace KnitterNotebook.ViewModels
             set { _samples = value; OnPropertyChanged(); }
         }
 
-        public string SelectedSampleMashesXRows => $"{SelectedSample.LoopsQuantity}x{SelectedSample.RowsQuantity}";
-        public string SelectedSampleNeedleSize => $"{SelectedSample.NeedleSize}{SelectedSample.NeedleSizeUnit}";
+        public string SelectedSampleMashesXRows => $"{SelectedSample?.LoopsQuantity}x{SelectedSample?.RowsQuantity}";
+        public string SelectedSampleNeedleSize => $"{SelectedSample?.NeedleSize}{SelectedSample?.NeedleSizeUnit}";
 
         #endregion Properties
 
@@ -172,6 +174,27 @@ namespace KnitterNotebook.ViewModels
             {
                 MessageBox.Show("Błąd podczas kasowania filmu", exception.Message);
             }
+        }
+
+        private async Task DeleteSampleAsync()
+        {
+            try
+            {
+                if(SelectedSample != null)
+                {
+                    await _sampleService.DeleteAsync(SelectedSample.Id);
+                    Samples = GetSamples(User);
+                }
+            }
+            catch(Exception exception) 
+            {
+                MessageBox.Show("Błąd podczas kasowania próbki obliczeniowej", exception.Message);
+            }
+        }
+
+        private ObservableCollection<Sample> GetSamples(User user)
+        {
+            return new ObservableCollection<Sample>(_databaseContext.Samples.Where(x => x.User == user));
         }
 
         private ObservableCollection<MovieUrl> GetMovieUrls(User user)
