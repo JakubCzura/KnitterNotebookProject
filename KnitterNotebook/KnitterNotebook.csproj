@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="UsersDirectories\**" />
+    <Compile Remove="ViewModels\Helpers\**" />
     <EmbeddedResource Remove="UsersDirectories\**" />
+    <EmbeddedResource Remove="ViewModels\Helpers\**" />
     <None Remove="UsersDirectories\**" />
+    <None Remove="ViewModels\Helpers\**" />
     <Page Remove="UsersDirectories\**" />
+    <Page Remove="ViewModels\Helpers\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,7 +51,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Helpers\" />
     <Folder Include="ViewModels\Interfaces\" />
   </ItemGroup>
 
