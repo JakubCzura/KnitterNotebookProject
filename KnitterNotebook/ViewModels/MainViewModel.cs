@@ -15,15 +15,15 @@ namespace KnitterNotebook.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public MainViewModel(DatabaseContext knitterNotebookContext, IMovieUrlService movieUrlService, ISampleService sampleService)
+        public MainViewModel(DatabaseContext databaseContext, IMovieUrlService movieUrlService, ISampleService sampleService)
         {
-            _knitterNotebookContext = knitterNotebookContext;
+            _databaseContext = databaseContext;
             _movieUrlService = movieUrlService;
             _sampleService = sampleService;
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
             try
             {
-                User = _knitterNotebookContext.Users
+                User = _databaseContext.Users
                        .Include(x => x.MovieUrls)
                        .Include(x => x.Projects)
                        .Include(x => x.Theme)
@@ -63,7 +63,7 @@ namespace KnitterNotebook.ViewModels
 
         #region Properties
 
-        private readonly DatabaseContext _knitterNotebookContext;
+        private readonly DatabaseContext _databaseContext;
         private readonly IMovieUrlService _movieUrlService;
         private readonly ISampleService _sampleService;
         private ObservableCollection<MovieUrl> _movieUrls = new();
@@ -176,7 +176,7 @@ namespace KnitterNotebook.ViewModels
 
         private ObservableCollection<MovieUrl> GetMovieUrls(User user)
         {
-            return new ObservableCollection<MovieUrl>(_knitterNotebookContext.MovieUrls.Where(x => x.User == user));
+            return new ObservableCollection<MovieUrl>(_databaseContext.MovieUrls.Where(x => x.User == user));
         }
 
         private void SetUserControlsVisibilityHidden()

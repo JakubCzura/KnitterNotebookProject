@@ -19,7 +19,7 @@ namespace KnitterNotebook.ViewModels
 {
     public class SettingsViewModel : BaseViewModel
     {
-        private readonly DatabaseContext _knitterNotebookContext;
+        private readonly DatabaseContext _databaseContext;
 
         private readonly IUserService _userService;
 
@@ -45,7 +45,7 @@ namespace KnitterNotebook.ViewModels
 
         private Visibility _userSettingsUserControlVisibility = Visibility.Visible;
 
-        public SettingsViewModel(DatabaseContext knitterNotebookContext,
+        public SettingsViewModel(DatabaseContext databaseContext,
             IUserService userService,
             IValidator<ChangeNicknameDto> changeNicknameDtoValidator,
             IValidator<ChangeEmailDto> changeEmailDtoValidator,
@@ -53,7 +53,7 @@ namespace KnitterNotebook.ViewModels
             IValidator<ChangeThemeDto> changeThemeDtoValidator,
             IThemeService themeService)
         {
-            _knitterNotebookContext = knitterNotebookContext;
+            _databaseContext = databaseContext;
             _userService = userService;
             _changeNicknameDtoValidator = changeNicknameDtoValidator;
             _changeEmailDtoValidator = changeEmailDtoValidator;

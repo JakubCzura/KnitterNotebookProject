@@ -9,14 +9,14 @@ namespace KnitterNotebook.Database.Login
         private readonly ILoggingIn _loggingIn;
         private readonly string _email;
         private readonly string _password;
-        private readonly DatabaseContext _knitterNotebookContext;
+        private readonly DatabaseContext _databaseContext;
 
-        public LoggingInManager(ILoggingIn loggingIN, string email, string password, DatabaseContext knitterNotebookContext)
+        public LoggingInManager(ILoggingIn loggingIN, string email, string password, DatabaseContext databaseContext)
         {
             _loggingIn = loggingIN;
             _email = email;
             _password = password;
-            _knitterNotebookContext = knitterNotebookContext;
+            _databaseContext = databaseContext;
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace KnitterNotebook.Database.Login
         /// <returns>User instance if user is logged in, otherwise null</returns>
         public async Task<User>? LogIn()
         {
-            return await _loggingIn.LogInUser(_email, _password, _knitterNotebookContext)!;
+            return await _loggingIn.LogInUser(_email, _password, _databaseContext)!;
         }
     }
 }

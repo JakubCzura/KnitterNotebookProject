@@ -10,8 +10,8 @@ namespace KnitterNotebook.Database.Interfaces
         /// </summary>
         /// <param name="email">User's email</param>
         /// <param name="password">User's password</param>
-        /// <param name="knitterNotebookContext">Database context</param>
+        /// <param name="databaseContext">Database context</param>
         /// <returns>User instance if user is logged in, otherwise null</returns>
-        Task<User>? LogInUser(string email, string password, DatabaseContext knitterNotebookContext);
+        Task<User>? LogInUser(string email, string password, DatabaseContext databaseContext);
     }
 }

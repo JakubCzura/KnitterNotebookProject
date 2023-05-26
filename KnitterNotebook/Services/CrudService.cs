@@ -15,9 +15,9 @@ namespace KnitterNotebook.Services
         private readonly DatabaseContext _databaseContext;
         private readonly DbSet<T> _dbSet;
 
-        public CrudService(DatabaseContext knitterNotebookContext)
+        public CrudService(DatabaseContext databaseContext)
         {
-            _databaseContext = knitterNotebookContext;
+            _databaseContext = databaseContext;
             _dbSet = _databaseContext.Set<T>();
         }
 

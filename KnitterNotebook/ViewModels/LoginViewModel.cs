@@ -19,16 +19,16 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public class LoginViewModel : BaseViewModel
     {
-        public LoginViewModel(DatabaseContext knitterNotebookContext)
+        public LoginViewModel(DatabaseContext databaseContext)
         {
-            _knitterNotebookContext = knitterNotebookContext;
+            _databaseContext = databaseContext;
             ShowRegistrationWindowCommand = new RelayCommand(ShowRegisterWindow);
             LogInCommandAsync = new AsyncRelayCommand(LogInAsync);
         }
 
         #region Properties
 
-        private readonly DatabaseContext _knitterNotebookContext;
+        private readonly DatabaseContext _databaseContext;
 
         private string _email = string.Empty;
 
@@ -51,7 +51,7 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 StandardLoggingIn standardLoggingIn = new();
-                LoggingInManager loggingInManager = new(standardLoggingIn, Email, LoginWindow.Instance.UserPasswordPasswordBox.Password, _knitterNotebookContext);
+                LoggingInManager loggingInManager = new(standardLoggingIn, Email, LoginWindow.Instance.UserPasswordPasswordBox.Password, _databaseContext);
                 User user = await loggingInManager.LogIn()!;
                 if (user == null)
                 {
@@ -61,7 +61,7 @@ namespace KnitterNotebook.ViewModels
                 {
                     LoggedUserInformation.Id = user.Id;
 
-                    Theme? theme = _knitterNotebookContext.Themes.FirstOrDefault(x => x == user.Theme);
+                    Theme? theme = _databaseContext.Themes.FirstOrDefault(x => x == user.Theme);
                     if (theme != null)
                     {
                         string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{theme.Name}Mode.xaml");

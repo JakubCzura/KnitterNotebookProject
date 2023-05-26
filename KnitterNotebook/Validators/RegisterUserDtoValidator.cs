@@ -7,11 +7,11 @@ namespace KnitterNotebook.Validators
 {
     public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
     {
-        private readonly DatabaseContext _knitterNotebookContext;
+        private readonly DatabaseContext _databaseContext;
 
-        public RegisterUserDtoValidator(DatabaseContext knitterNotebookContext)
+        public RegisterUserDtoValidator(DatabaseContext databaseContext)
         {
-            _knitterNotebookContext = knitterNotebookContext;
+            _databaseContext = databaseContext;
 
             RuleFor(x => x.Nickname)
                 .NotEmpty().WithMessage("Nazwa użytkownika nie może być pusta")
@@ -34,7 +34,7 @@ namespace KnitterNotebook.Validators
             RuleFor(x => x.Nickname)
                .Custom((value, context) =>
                {
-                   bool isNicknameUsed = _knitterNotebookContext.Users.Any(x => x.Nickname == value);
+                   bool isNicknameUsed = _databaseContext.Users.Any(x => x.Nickname == value);
                    if (isNicknameUsed)
                    {
                        context.AddFailure(nameof(RegisterUserDto.Nickname), "Nick jest już używany");
@@ -44,7 +44,7 @@ namespace KnitterNotebook.Validators
             RuleFor(x => x.Email)
                 .Custom((value, context) =>
                 {
-                    bool isEmailUsed = _knitterNotebookContext.Users.Any(x => x.Email == value);
+                    bool isEmailUsed = _databaseContext.Users.Any(x => x.Email == value);
                     if (isEmailUsed)
                     {
                         context.AddFailure(nameof(RegisterUserDto.Email), "E-mail jest już używany");
