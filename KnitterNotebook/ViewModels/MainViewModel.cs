@@ -2,6 +2,7 @@
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Services.Interfaces;
+using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
@@ -36,22 +38,41 @@ namespace KnitterNotebook.ViewModels
             {
                 MessageBox.Show(exception.Message);
             }
+            //SetPlannedProjectsUserControlVisibleCommand = new RelayCommand(() =>
+            //{
+            //    SetUserControlsVisibilityHidden(); PlannedProjectsUserControlVisibility = Visibility.Visible;
+            //});
+            //SetProjectsInProgressUserControlVisibleCommand = new RelayCommand(() =>
+            //{
+            //    SetUserControlsVisibilityHidden(); ProjectsInProgressUserControlVisibility = Visibility.Visible;
+            //});
+            //SetProjectsUserControlVisibleCommand = new RelayCommand(() =>
+            //{
+            //    SetUserControlsVisibilityHidden(); ProjectsUserControlVisibility = Visibility.Visible;
+            //});
+            //SetSamplesUserControlVisibleCommand = new RelayCommand(() =>
+            //{
+            //    SetUserControlsVisibilityHidden(); SamplesUserControlVisibility = Visibility.Visible;
+            //});
+
             SetPlannedProjectsUserControlVisibleCommand = new RelayCommand(() =>
             {
-                SetUserControlsVisibilityHidden(); PlannedProjectsUserControlVisibility = Visibility.Visible;
+                ChosenMainWindowContent = new PlannedProjectsUserControl();
             });
             SetProjectsInProgressUserControlVisibleCommand = new RelayCommand(() =>
             {
-                SetUserControlsVisibilityHidden(); ProjectsInProgressUserControlVisibility = Visibility.Visible;
+                ChosenMainWindowContent = new ProjectsInProgressUserControl();
             });
             SetProjectsUserControlVisibleCommand = new RelayCommand(() =>
             {
-                SetUserControlsVisibilityHidden(); ProjectsUserControlVisibility = Visibility.Visible;
+                ChosenMainWindowContent = new ProjectsUserControl();
             });
             SetSamplesUserControlVisibleCommand = new RelayCommand(() =>
             {
-                SetUserControlsVisibilityHidden(); SamplesUserControlVisibility = Visibility.Visible;
+                ChosenMainWindowContent = new SamplesUserControl();
             });
+
+
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
             ShowSampleAddingWindowCommand = new RelayCommand(ShowSampleAddingWindow);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
@@ -76,7 +97,7 @@ namespace KnitterNotebook.ViewModels
         private MovieUrl _selectedMovieUrl = new();
         private User _user = new();
         private Sample _selectedSample = new();
-
+        private UserControl _chosenMainWindowContent = new SamplesUserControl();
         public ICommand DeleteMovieUrlCommandAsync { get; }
         public ICommand SetPlannedProjectsUserControlVisibleCommand { get; }
         public ICommand SetProjectsInProgressUserControlVisibleCommand { get; }
@@ -147,6 +168,12 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
+        public UserControl ChosenMainWindowContent
+        {
+            get { return _chosenMainWindowContent; }
+            set {  _chosenMainWindowContent = value; OnPropertyChanged(); }
+        }
+
         public ObservableCollection<Sample> Samples
         {
             get { return _samples; }
@@ -180,13 +207,13 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                if(SelectedSample != null)
+                if (SelectedSample != null)
                 {
                     await _sampleService.DeleteAsync(SelectedSample.Id);
                     Samples = GetSamples(User);
                 }
             }
-            catch(Exception exception) 
+            catch (Exception exception)
             {
                 MessageBox.Show("Błąd podczas kasowania próbki obliczeniowej", exception.Message);
             }
