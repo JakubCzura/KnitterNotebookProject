@@ -192,12 +192,12 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
-        private ObservableCollection<Sample> GetSamples(User user)
+        private static ObservableCollection<Sample> GetSamples(User user)
         {
             return new ObservableCollection<Sample>(user.Samples);
         }
 
-        private ObservableCollection<MovieUrl> GetMovieUrls(User user)
+        private static ObservableCollection<MovieUrl> GetMovieUrls(User user)
         {
             return new ObservableCollection<MovieUrl>(user.MovieUrls);
         }
