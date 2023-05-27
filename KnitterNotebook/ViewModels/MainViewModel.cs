@@ -22,7 +22,6 @@ namespace KnitterNotebook.ViewModels
             _databaseContext = databaseContext;
             _movieUrlService = movieUrlService;
             _sampleService = sampleService;
-            ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowMovieUrlAddingWindow);
             try
             {
                 User = _databaseContext.Users
@@ -31,25 +30,26 @@ namespace KnitterNotebook.ViewModels
                        .Include(x => x.Theme)
                        .Include(x => x.Samples).ThenInclude(x => x.Image)
                        .FirstOrDefault(x => x.Id == LoggedUserInformation.Id)!;
-                MovieUrls = new ObservableCollection<MovieUrl>(User.MovieUrls);
-                Samples = new ObservableCollection<Sample>(User.Samples);
+                MovieUrls = GetMovieUrls(User);
+                Samples = GetSamples(User);
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
-            SetPlannedProjectsUserControlVisibleCommand = new RelayCommand(() => ChosenMainWindowContent = new PlannedProjectsUserControl());
-            SetProjectsInProgressUserControlVisibleCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsInProgressUserControl());
-            SetProjectsUserControlVisibleCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsUserControl());
-            SetSamplesUserControlVisibleCommand = new RelayCommand(() => ChosenMainWindowContent = new SamplesUserControl());
-            ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
-            ShowSampleAddingWindowCommand = new RelayCommand(ShowSampleAddingWindow);
-            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
+            SelectedSample = Samples.FirstOrDefault() ?? new Sample();
+            ChoosePlannedProjectsUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new PlannedProjectsUserControl());
+            ChooseProjectsInProgressUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsInProgressUserControl());
+            ChooseProjectsUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsUserControl());
+            ChooseSamplesUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new SamplesUserControl());
+            ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
+            ShowSettingsWindowCommand = new RelayCommand(ShowWindow<SettingsWindow>);
+            ShowSampleAddingWindowCommand = new RelayCommand(ShowWindow<SampleAddingWindow>);
             DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
             OpenMovieUrlInWebBrowserCommand = new RelayCommand(OpenMovieUrlInWebBrowser);
             LogOutCommand = new RelayCommand(LogOut);
-            SelectedSample = Samples.FirstOrDefault() ?? new Sample();
             DeleteSampleCommandAsync = new AsyncRelayCommand(DeleteSampleAsync);
+            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
         }
 
         #region Properties
@@ -59,19 +59,15 @@ namespace KnitterNotebook.ViewModels
         private readonly ISampleService _sampleService;
         private ObservableCollection<MovieUrl> _movieUrls = new();
         private ObservableCollection<Sample> _samples = new();
-        private Visibility _plannedProjectsUserControlVisibility = Visibility.Hidden;
-        private Visibility _projectsInProgressUserControlVisibility = Visibility.Hidden;
-        private Visibility _projectsUserControlVisibility = Visibility.Visible;
-        private Visibility _samplesUserControlVisibility = Visibility.Hidden;
         private MovieUrl _selectedMovieUrl = new();
         private User _user = new();
         private Sample _selectedSample = new();
         private UserControl _chosenMainWindowContent = new SamplesUserControl();
         public ICommand DeleteMovieUrlCommandAsync { get; }
-        public ICommand SetPlannedProjectsUserControlVisibleCommand { get; }
-        public ICommand SetProjectsInProgressUserControlVisibleCommand { get; }
-        public ICommand SetProjectsUserControlVisibleCommand { get; }
-        public ICommand SetSamplesUserControlVisibleCommand { get; }
+        public ICommand ChoosePlannedProjectsUserControlCommand { get; }
+        public ICommand ChooseProjectsInProgressUserControlCommand { get; }
+        public ICommand ChooseProjectsUserControlCommand { get; }
+        public ICommand ChooseSamplesUserControlCommand { get; }
         public ICommand ShowMovieUrlAddingWindowCommand { get; }
         public ICommand ShowSettingsWindowCommand { get; }
         public ICommand ShowSampleAddingWindowCommand { get; }
@@ -79,39 +75,12 @@ namespace KnitterNotebook.ViewModels
         public ICommand LogOutCommand { get; }
         public ICommand DeleteSampleCommandAsync { get; }
 
-        public string Greetings
-        {
-            get { return $"Miło Cię widzieć {User.Nickname}!"; }
-        }
+        public string Greetings => $"Miło Cię widzieć {User?.Nickname}!";
 
         public ObservableCollection<MovieUrl> MovieUrls
         {
             get { return _movieUrls; }
             set { _movieUrls = value; OnPropertyChanged(); }
-        }
-
-        public Visibility PlannedProjectsUserControlVisibility
-        {
-            get { return _plannedProjectsUserControlVisibility; }
-            set { _plannedProjectsUserControlVisibility = value; OnPropertyChanged(); }
-        }
-
-        public Visibility ProjectsInProgressUserControlVisibility
-        {
-            get { return _projectsInProgressUserControlVisibility; }
-            set { _projectsInProgressUserControlVisibility = value; OnPropertyChanged(); }
-        }
-
-        public Visibility ProjectsUserControlVisibility
-        {
-            get { return _projectsUserControlVisibility; }
-            set { _projectsUserControlVisibility = value; OnPropertyChanged(); }
-        }
-
-        public Visibility SamplesUserControlVisibility
-        {
-            get { return _samplesUserControlVisibility; }
-            set { _samplesUserControlVisibility = value; OnPropertyChanged(); }
         }
 
         public MovieUrl SelectedMovieUrl
@@ -188,15 +157,9 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
-        private static ObservableCollection<Sample> GetSamples(User user)
-        {
-            return new ObservableCollection<Sample>(user.Samples);
-        }
+        private static ObservableCollection<Sample> GetSamples(User user) => new(user.Samples);
 
-        private static ObservableCollection<MovieUrl> GetMovieUrls(User user)
-        {
-            return new ObservableCollection<MovieUrl>(user.MovieUrls);
-        }
+        private static ObservableCollection<MovieUrl> GetMovieUrls(User user) => new(user.MovieUrls);
 
         private void OpenMovieUrlInWebBrowser()
         {
@@ -205,8 +168,6 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedMovieUrl != null)
                 {
                     // Open the URL in the default web browser
-                    // System.Diagnostics.Process.Start(SelectedMovieUrl.Link.ToString());
-                    //System.Diagnostics.Process.Start("http://www.google.com");
                     System.Diagnostics.Process.Start("cmd", "/C start" + " " + SelectedMovieUrl.Link.ToString());
                 }
             }
@@ -214,26 +175,6 @@ namespace KnitterNotebook.ViewModels
             {
                 MessageBox.Show(exception.Message, "Błąd otworzenia filmu");
             }
-        }
-
-        private void ShowMovieUrlAddingWindow()
-        {
-            ShowWindow<MovieUrlAddingWindow>();
-        }
-
-        private void ShowSettingsWindow()
-        {
-            ShowWindow<SettingsWindow>();
-        }
-
-        private void ShowSampleAddingWindow()
-        {
-            ShowWindow<SampleAddingWindow>();
-        }
-
-        private void LogOut()
-        {
-            Environment.Exit(0);
         }
 
         #endregion Methods

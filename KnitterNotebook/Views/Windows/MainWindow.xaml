@@ -23,7 +23,6 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="150" />
         </Grid.RowDefinitions>
-
         <Grid Grid.Row="0" Margin="0,0,0,10">
             <DockPanel>
                 <Menu DockPanel.Dock="Top" Style="{DynamicResource NavigationMenuStyle}">
@@ -61,16 +60,16 @@
                         CornerRadius="10">
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <StackPanel VerticalAlignment="Top" Orientation="Vertical">
-                                <Button Command="{Binding SetProjectsUserControlVisibleCommand}" Style="{DynamicResource MainMenuButtonStyle}">
+                                <Button Command="{Binding ChooseProjectsUserControlCommand}" Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Moje projekty" />
                                 </Button>
-                                <Button Command="{Binding SetPlannedProjectsUserControlVisibleCommand}" Style="{DynamicResource MainMenuButtonStyle}">
+                                <Button Command="{Binding ChoosePlannedProjectsUserControlCommand}" Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Projekty w planach" />
                                 </Button>
-                                <Button Command="{Binding SetProjectsInProgressUserControlVisibleCommand}" Style="{DynamicResource MainMenuButtonStyle}">
+                                <Button Command="{Binding ChooseProjectsInProgressUserControlCommand}" Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Projekty w trakcie" />
                                 </Button>
-                                <Button Command="{Binding SetSamplesUserControlVisibleCommand}" Style="{DynamicResource MainMenuButtonStyle}">
+                                <Button Command="{Binding ChooseSamplesUserControlCommand}" Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Próbki obliczeniowe" />
                                 </Button>
                             </StackPanel>

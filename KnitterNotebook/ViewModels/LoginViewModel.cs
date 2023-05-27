@@ -22,7 +22,7 @@ namespace KnitterNotebook.ViewModels
         public LoginViewModel(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
-            ShowRegistrationWindowCommand = new RelayCommand(ShowRegisterWindow);
+            ShowRegistrationWindowCommand = new RelayCommand(ShowWindow<RegistrationWindow>);
             LogInCommandAsync = new AsyncRelayCommand(LogInAsync);
         }
 
@@ -67,9 +67,7 @@ namespace KnitterNotebook.ViewModels
                         string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{theme.Name}Mode.xaml");
                         ThemeChanger.SetTheme(themeFullName);
                     }
-
                     ShowWindow<MainWindow>();
-
                     Window.GetWindow(LoginWindow.Instance).Close();
                 }
             }
@@ -78,12 +76,6 @@ namespace KnitterNotebook.ViewModels
                 MessageBox.Show(exception.Message);
             }
         }
-
-        private void ShowRegisterWindow()
-        {
-            ShowWindow<RegistrationWindow>();
-        }
-
         #endregion Methods
     }
 }

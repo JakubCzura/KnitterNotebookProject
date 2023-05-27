@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -27,6 +28,11 @@ namespace KnitterNotebook.ViewModels
         {
             T? window = App.AppHost?.Services.GetService<T>();
             window?.Show();
+        }
+
+        public static void LogOut()
+        {
+            Environment.Exit(0);
         }
 
         #endregion Methods
