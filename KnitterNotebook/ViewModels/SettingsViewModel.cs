@@ -177,16 +177,14 @@ namespace KnitterNotebook.ViewModels
                     UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password,
                     UserSettingsUserControl.Instance.RepeatedNewPasswordPasswordBox.Password);
                 ValidationResult validation = _changePasswordDtoValidator.Validate(changePasswordDto);
-                if (validation.IsValid)
-                {
-                    await _userService.ChangePasswordAsync(changePasswordDto);
-                    MessageBox.Show($"Zmieniono hasło");
-                }
-                else
+                if (!validation.IsValid)
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
                     MessageBox.Show(errorMessage, "Błąd zmiany hasła");
+                    return;
                 }
+                await _userService.ChangePasswordAsync(changePasswordDto);
+                MessageBox.Show($"Zmieniono hasło");
             }
             catch (Exception exception)
             {
@@ -205,18 +203,16 @@ namespace KnitterNotebook.ViewModels
             {
                 ChangeThemeDto changeThemeDto = new(LoggedUserInformation.Id, NewTheme);
                 ValidationResult validation = _changeThemeDtoValidator.Validate(changeThemeDto);
-                if (validation.IsValid)
-                {
-                    await _userService.ChangeThemeAsync(changeThemeDto);
-                    string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{NewTheme}Mode.xaml");
-                    ThemeChanger.SetTheme(themeFullName);
-                    MessageBox.Show($"Zmieniono interfejs aplikacji na {NewTheme}");
-                }
-                else
+                if (!validation.IsValid)
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
                     MessageBox.Show(errorMessage, "Błąd zmiany motywu");
+                    return;
                 }
+                await _userService.ChangeThemeAsync(changeThemeDto);
+                string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{NewTheme}Mode.xaml");
+                ThemeChanger.SetTheme(themeFullName);
+                MessageBox.Show($"Zmieniono interfejs aplikacji na {NewTheme}");
             }
             catch (Exception exception)
             {

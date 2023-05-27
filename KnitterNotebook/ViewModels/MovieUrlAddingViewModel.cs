@@ -62,20 +62,18 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 User? user = await _userService.GetAsync(LoggedUserInformation.Id);
-                if (user != null)
-                {
-                    CreateMovieUrl createMovieUrl = new(Title, Link, user);
-                    var validation = _createMovieUrlValidator.Validate(createMovieUrl);
-                    if (validation.IsValid)
-                    {
-                        await _movieUrlService.CreateAsync(createMovieUrl);
-                        NewMovieUrlAdded?.Invoke();
-                        MessageBox.Show("Dodano nowy film");
-                    }
-                }
-                else
+                if (user == null)
                 {
                     MessageBox.Show("Błąd podczas dodania filmu", "Nie odnaleziono użytkownika");
+                    return;
+                }
+                CreateMovieUrl createMovieUrl = new(Title, Link, user);
+                var validation = _createMovieUrlValidator.Validate(createMovieUrl);
+                if (validation.IsValid)
+                {
+                    await _movieUrlService.CreateAsync(createMovieUrl);
+                    NewMovieUrlAdded?.Invoke();
+                    MessageBox.Show("Dodano nowy film");
                 }
             }
             catch (Exception exception)

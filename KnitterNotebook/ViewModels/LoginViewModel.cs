@@ -56,26 +56,24 @@ namespace KnitterNotebook.ViewModels
                 if (user == null)
                 {
                     MessageBox.Show("Nieprawidłowe dane logowania");
+                    return;
                 }
-                else
+                LoggedUserInformation.Id = user.Id;
+                Theme? theme = _databaseContext.Themes.FirstOrDefault(x => x == user.Theme);
+                if (theme != null)
                 {
-                    LoggedUserInformation.Id = user.Id;
-
-                    Theme? theme = _databaseContext.Themes.FirstOrDefault(x => x == user.Theme);
-                    if (theme != null)
-                    {
-                        string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{theme.Name}Mode.xaml");
-                        ThemeChanger.SetTheme(themeFullName);
-                    }
-                    ShowWindow<MainWindow>();
-                    Window.GetWindow(LoginWindow.Instance).Close();
+                    string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{theme.Name}Mode.xaml");
+                    ThemeChanger.SetTheme(themeFullName);
                 }
+                ShowWindow<MainWindow>();
+                Window.GetWindow(LoginWindow.Instance).Close();
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
         }
+
         #endregion Methods
     }
 }

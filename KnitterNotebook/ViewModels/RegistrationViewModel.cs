@@ -51,17 +51,15 @@ namespace KnitterNotebook.ViewModels
             {
                 RegisterUserDto registerUserDto = new(Nickname, Email, RegistrationWindow.Instance.UserPasswordPasswordBox.Password);
                 var validation = _registerUserDtoValidator.Validate(registerUserDto);
-                if (validation.IsValid)
-                {
-                    await _userService.CreateAsync(registerUserDto);
-                    Window.GetWindow(RegistrationWindow.Instance).Close();
-                    MessageBox.Show("Rejestracja przebiegła pomyślnie");
-                }
-                else
+                if (!validation.IsValid)
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
                     MessageBox.Show(errorMessage, "Błąd podczas rejestracji", MessageBoxButton.OK);
+                    return;
                 }
+                await _userService.CreateAsync(registerUserDto);
+                Window.GetWindow(RegistrationWindow.Instance).Close();
+                MessageBox.Show("Rejestracja przebiegła pomyślnie");
             }
             catch (Exception exception)
             {
