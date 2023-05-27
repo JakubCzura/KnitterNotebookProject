@@ -78,12 +78,6 @@
                     </Border>
                 </Border>
                 <ContentControl Grid.Column="1" Content="{Binding ChosenMainWindowContent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-
-
-                <!--<userControls:ProjectsUserControl Grid.Column="1" Visibility="{Binding ProjectsUserControlVisibility}" />
-                <userControls:PlannedProjectsUserControl Grid.Column="1" Visibility="{Binding PlannedProjectsUserControlVisibility}" />
-                <userControls:ProjectsInProgressUserControl Grid.Column="1" Visibility="{Binding ProjectsInProgressUserControlVisibility}" />
-                <userControls:SamplesUserControl Grid.Column="1" Visibility="{Binding SamplesUserControlVisibility}" />-->
             </Grid>
         </Grid>
         <Border

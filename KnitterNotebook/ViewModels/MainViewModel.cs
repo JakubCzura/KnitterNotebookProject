@@ -38,41 +38,10 @@ namespace KnitterNotebook.ViewModels
             {
                 MessageBox.Show(exception.Message);
             }
-            //SetPlannedProjectsUserControlVisibleCommand = new RelayCommand(() =>
-            //{
-            //    SetUserControlsVisibilityHidden(); PlannedProjectsUserControlVisibility = Visibility.Visible;
-            //});
-            //SetProjectsInProgressUserControlVisibleCommand = new RelayCommand(() =>
-            //{
-            //    SetUserControlsVisibilityHidden(); ProjectsInProgressUserControlVisibility = Visibility.Visible;
-            //});
-            //SetProjectsUserControlVisibleCommand = new RelayCommand(() =>
-            //{
-            //    SetUserControlsVisibilityHidden(); ProjectsUserControlVisibility = Visibility.Visible;
-            //});
-            //SetSamplesUserControlVisibleCommand = new RelayCommand(() =>
-            //{
-            //    SetUserControlsVisibilityHidden(); SamplesUserControlVisibility = Visibility.Visible;
-            //});
-
-            SetPlannedProjectsUserControlVisibleCommand = new RelayCommand(() =>
-            {
-                ChosenMainWindowContent = new PlannedProjectsUserControl();
-            });
-            SetProjectsInProgressUserControlVisibleCommand = new RelayCommand(() =>
-            {
-                ChosenMainWindowContent = new ProjectsInProgressUserControl();
-            });
-            SetProjectsUserControlVisibleCommand = new RelayCommand(() =>
-            {
-                ChosenMainWindowContent = new ProjectsUserControl();
-            });
-            SetSamplesUserControlVisibleCommand = new RelayCommand(() =>
-            {
-                ChosenMainWindowContent = new SamplesUserControl();
-            });
-
-
+            SetPlannedProjectsUserControlVisibleCommand = new RelayCommand(() => ChosenMainWindowContent = new PlannedProjectsUserControl());
+            SetProjectsInProgressUserControlVisibleCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsInProgressUserControl());
+            SetProjectsUserControlVisibleCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsUserControl());
+            SetSamplesUserControlVisibleCommand = new RelayCommand(() => ChosenMainWindowContent = new SamplesUserControl());
             ShowSettingsWindowCommand = new RelayCommand(ShowSettingsWindow);
             ShowSampleAddingWindowCommand = new RelayCommand(ShowSampleAddingWindow);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
@@ -171,7 +140,7 @@ namespace KnitterNotebook.ViewModels
         public UserControl ChosenMainWindowContent
         {
             get { return _chosenMainWindowContent; }
-            set {  _chosenMainWindowContent = value; OnPropertyChanged(); }
+            set { _chosenMainWindowContent = value; OnPropertyChanged(); }
         }
 
         public ObservableCollection<Sample> Samples
@@ -227,21 +196,6 @@ namespace KnitterNotebook.ViewModels
         private static ObservableCollection<MovieUrl> GetMovieUrls(User user)
         {
             return new ObservableCollection<MovieUrl>(user.MovieUrls);
-        }
-
-        private void SetUserControlsVisibilityHidden()
-        {
-            try
-            {
-                ProjectsUserControlVisibility = Visibility.Hidden;
-                PlannedProjectsUserControlVisibility = Visibility.Hidden;
-                ProjectsInProgressUserControlVisibility = Visibility.Hidden;
-                SamplesUserControlVisibility = Visibility.Hidden;
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Błąd wyboru zawartości okna głównego");
-            }
         }
 
         private void OpenMovieUrlInWebBrowser()
