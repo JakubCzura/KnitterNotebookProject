@@ -52,10 +52,10 @@
                             <Grid Grid.Column="0">
                                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                                     <StackPanel>
-                                        <Button Command="{Binding SetUserSettingsUserControlVisibleCommand}" Style="{DynamicResource MainMenuButtonStyle}">
+                                        <Button Command="{Binding ChooseUserSettingsUserControlCommand}" Style="{DynamicResource MainMenuButtonStyle}">
                                             <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Konto" />
                                         </Button>
-                                        <Button Command="{Binding SetThemeSettingsUserControlVisibleCommand}" Style="{DynamicResource MainMenuButtonStyle}">
+                                        <Button Command="{Binding ChooseThemeSettingsUserControlCommand}" Style="{DynamicResource MainMenuButtonStyle}">
                                             <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Motyw aplikacji" />
                                         </Button>
                                     </StackPanel>
@@ -74,7 +74,8 @@
                             BorderThickness="0"
                             CornerRadius="10">
                             <Grid Margin="5,5,5,5">
-                                <userControls:UserSettingsUserControl
+                                <ContentControl Content="{Binding SettingsWindowContent}" />
+                                <!--<userControls:UserSettingsUserControl
                                     ChangeEmailCommandAsync="{Binding ChangeEmailCommandAsync}"
                                     ChangeNicknameCommandAsync="{Binding ChangeNicknameCommandAsync}"
                                     ChangePasswordCommandAsync="{Binding ChangePasswordCommandAsync}"
@@ -85,7 +86,7 @@
                                     ChangeThemeCommandAsync="{Binding ChangeThemeCommandAsync}"
                                     NewTheme="{Binding NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Themes="{Binding Themes}"
-                                    Visibility="{Binding ThemeSettingsUserControlVisibility}" />
+                                    Visibility="{Binding ThemeSettingsUserControlVisibility}" />-->
                             </Grid>
                         </Border>
                     </Border>

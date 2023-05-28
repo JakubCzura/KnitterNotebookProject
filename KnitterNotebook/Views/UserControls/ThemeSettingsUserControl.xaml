@@ -4,9 +4,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     x:Name="ThemeSettings"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel}"
     Style="{DynamicResource SettingsUserControlStyle}"
     mc:Ignorable="d">
     <Grid>
@@ -23,14 +25,14 @@
         <StackPanel Grid.Row="1">
             <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="Zmiana motywu aplikacji" />
             <UniformGrid Rows="1">
-                <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="{Binding Path=NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=ThemeSettings}" />
-                <ComboBox ItemsSource="{Binding Path=Themes, ElementName=ThemeSettings}" SelectedItem="{Binding Path=NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ElementName=ThemeSettings}" />
+                <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="{Binding Path=NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </UniformGrid>
 
             <Button
                 MaxWidth="100"
                 HorizontalAlignment="Left"
-                Command="{Binding Path=ChangeThemeCommandAsync, ElementName=ThemeSettings}"
+                Command="{Binding ChangeThemeCommandAsync}"
                 Content="Potwierdź" />
         </StackPanel>
     </Grid>

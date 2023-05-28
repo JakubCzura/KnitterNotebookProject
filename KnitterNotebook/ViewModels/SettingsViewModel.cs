@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
-using FluentValidation.Results;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
@@ -13,7 +12,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace KnitterNotebook.ViewModels
 {
@@ -41,10 +42,6 @@ namespace KnitterNotebook.ViewModels
 
         private IEnumerable<string> _themes = Enumerable.Empty<string>();
 
-        private Visibility _themeSettingsUserControlVisibility = Visibility.Hidden;
-
-        private Visibility _userSettingsUserControlVisibility = Visibility.Visible;
-
         public SettingsViewModel(DatabaseContext databaseContext,
             IUserService userService,
             IValidator<ChangeNicknameDto> changeNicknameDtoValidator,
@@ -60,14 +57,8 @@ namespace KnitterNotebook.ViewModels
             _changePasswordDtoValidator = changePasswordDtoValidator;
             _changeThemeDtoValidator = changeThemeDtoValidator;
             _themeService = themeService;
-            SetUserSettingsUserControlVisibleCommand = new RelayCommand(() =>
-            {
-                SetUserControlsVisibilityHidden(); UserSettingsUserControlVisibility = Visibility.Visible;
-            });
-            SetThemeSettingsUserControlVisibleCommand = new RelayCommand(() =>
-            {
-                SetUserControlsVisibilityHidden(); ThemeSettingsUserControlVisibility = Visibility.Visible;
-            });
+            ChooseSettingsUserControlChooseCommand = new RelayCommand(() => SettingsWindowContent = new UserSettingsUserControl());
+            ChooseThemeSettingsUserControlCommand = new RelayCommand(() => SettingsWindowContent = new ThemeSettingsUserControl());
             Themes = ApplicationThemes.GetThemes();
             ChangeNicknameCommandAsync = new AsyncRelayCommand(ChangeNicknameAsync);
             ChangeEmailCommandAsync = new AsyncRelayCommand(ChangeEmailAsync);
@@ -83,9 +74,17 @@ namespace KnitterNotebook.ViewModels
 
         public ICommand ChangeThemeCommandAsync { get; }
 
-        public ICommand SetThemeSettingsUserControlVisibleCommand { get; }
+        public ICommand ChooseThemeSettingsUserControlCommand { get; }
 
-        public ICommand SetUserSettingsUserControlVisibleCommand { get; }
+        public ICommand ChooseSettingsUserControlChooseCommand { get; }
+
+        private UserControl _settingsWindowContent = new UserSettingsUserControl();
+
+        public UserControl SettingsWindowContent
+        {
+            get { return _settingsWindowContent; }
+            set { _settingsWindowContent = value; OnPropertyChanged(); }
+        }
 
         public string NewEmail
         {
@@ -109,18 +108,6 @@ namespace KnitterNotebook.ViewModels
         {
             get { return _themes; }
             set { _themes = value; OnPropertyChanged(); }
-        }
-
-        public Visibility ThemeSettingsUserControlVisibility
-        {
-            get { return _themeSettingsUserControlVisibility; }
-            set { _themeSettingsUserControlVisibility = value; OnPropertyChanged(); }
-        }
-
-        public Visibility UserSettingsUserControlVisibility
-        {
-            get { return _userSettingsUserControlVisibility; }
-            set { _userSettingsUserControlVisibility = value; OnPropertyChanged(); }
         }
 
         private async Task ChangeEmailAsync()
@@ -217,19 +204,6 @@ namespace KnitterNotebook.ViewModels
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
-            }
-        }
-
-        private void SetUserControlsVisibilityHidden()
-        {
-            try
-            {
-                UserSettingsUserControlVisibility = Visibility.Hidden;
-                ThemeSettingsUserControlVisibility = Visibility.Hidden;
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Błąd wyboru zawartości okna ustawień");
             }
         }
     }

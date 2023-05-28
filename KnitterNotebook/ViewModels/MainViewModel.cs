@@ -1,12 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Services.Interfaces;
+using KnitterNotebook.Themes;
 using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
+using MaterialDesignThemes.Wpf;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,6 +36,8 @@ namespace KnitterNotebook.ViewModels
                        .FirstOrDefault(x => x.Id == LoggedUserInformation.Id)!;
                 MovieUrls = GetMovieUrls(User);
                 Samples = GetSamples(User);
+                string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{User?.Theme?.Name}Mode.xaml");
+                ThemeChanger.SetTheme(themeFullName);
             }
             catch (Exception exception)
             {
@@ -49,7 +55,7 @@ namespace KnitterNotebook.ViewModels
             OpenMovieUrlInWebBrowserCommand = new RelayCommand(OpenMovieUrlInWebBrowser);
             LogOutCommand = new RelayCommand(LogOut);
             DeleteSampleCommandAsync = new AsyncRelayCommand(DeleteSampleAsync);
-            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
+            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User!));
         }
 
         #region Properties

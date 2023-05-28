@@ -15,8 +15,8 @@ namespace KnitterNotebook.Themes
             try
             {
                 //Gets current theme
-                var result = App.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source.ToString().Contains("Mode.xaml"));
-                App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(resourceDictionaryFullName) });
+                var result = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source.ToString().Contains("Mode.xaml"));
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(resourceDictionaryFullName) });
             }
             catch (Exception exception)
             {

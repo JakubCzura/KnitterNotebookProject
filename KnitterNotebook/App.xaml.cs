@@ -82,6 +82,14 @@ namespace KnitterNotebook
                     {
                         DataContext = x.GetRequiredService<MainViewModel>()
                     });
+                    services.AddTransient(x => new UserSettingsUserControl()
+                    {
+                        DataContext = x.GetRequiredService<SettingsViewModel>()
+                    });
+                    services.AddTransient(x => new ThemeSettingsUserControl()
+                    {
+                        DataContext = x.GetRequiredService<SettingsViewModel>()
+                    });
                     services.AddTransient<SampleAddingViewModel>();
                     services.AddTransient(s => new SampleAddingWindow()
                     {

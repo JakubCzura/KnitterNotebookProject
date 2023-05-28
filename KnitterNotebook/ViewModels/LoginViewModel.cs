@@ -5,6 +5,7 @@ using KnitterNotebook.Database.Login;
 using KnitterNotebook.Models;
 using KnitterNotebook.Themes;
 using KnitterNotebook.Views.Windows;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
 using System.Linq;
@@ -59,12 +60,6 @@ namespace KnitterNotebook.ViewModels
                     return;
                 }
                 LoggedUserInformation.Id = user.Id;
-                Theme? theme = _databaseContext.Themes.FirstOrDefault(x => x == user.Theme);
-                if (theme != null)
-                {
-                    string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{theme.Name}Mode.xaml");
-                    ThemeChanger.SetTheme(themeFullName);
-                }
                 ShowWindow<MainWindow>();
                 Window.GetWindow(LoginWindow.Instance).Close();
             }
