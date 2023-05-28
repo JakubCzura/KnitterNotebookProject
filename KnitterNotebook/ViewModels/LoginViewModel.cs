@@ -1,14 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Database.Login;
 using KnitterNotebook.Models;
-using KnitterNotebook.Themes;
 using KnitterNotebook.Views.Windows;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;

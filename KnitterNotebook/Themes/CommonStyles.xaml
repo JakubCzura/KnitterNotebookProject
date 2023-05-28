@@ -31,7 +31,6 @@
         TargetType="PasswordBox">
         <Setter Property="Background" Value="White" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-
     </Style>
 
     <Style

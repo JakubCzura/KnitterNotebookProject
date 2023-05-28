@@ -6,7 +6,6 @@ using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Themes;
 using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
-using MaterialDesignThemes.Wpf;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.ObjectModel;
