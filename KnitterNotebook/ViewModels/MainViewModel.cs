@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
+using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Themes;
@@ -35,24 +36,15 @@ namespace KnitterNotebook.ViewModels
                        .FirstOrDefault(x => x.Id == LoggedUserInformation.Id)!;
                 MovieUrls = GetMovieUrls(User);
                 Samples = GetSamples(User);
-                if(User.Theme != null)
+                if (User.Theme != null)
                 {
-                    string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{User?.Theme?.Name}Mode.xaml");
+                    string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{User.Theme.Name}Mode.xaml");
                     ThemeChanger.SetTheme(themeFullName);
                 }
-
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
-                if(Directory.Exists(Paths.UserDirectory(User!.Nickname)))
+                if (User != null && User.Samples != null)
                 {
-                    var images = Directory.GetFiles(Paths.UserDirectory(User.Nickname));
-                    var userImages = User.Samples.Where(x => x.Image != null);
-                    foreach (string image in images)
-                    {
-                        if (userImages.Any(x => x?.Image?.Path == image) == false)
-                        {
-                            File.Delete(image);
-                        }
-                    }
+                    FileHelper.DeleteUnusedUserImages(User.Samples, User.Nickname);
                 }
             }
             catch (Exception exception)
@@ -72,7 +64,6 @@ namespace KnitterNotebook.ViewModels
             LogOutCommand = new RelayCommand(LogOut);
             DeleteSampleCommandAsync = new AsyncRelayCommand(DeleteSampleAsync);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User!));
-       
         }
 
         #region Properties
@@ -166,7 +157,6 @@ namespace KnitterNotebook.ViewModels
 
         private async Task DeleteSampleAsync()
         {
-
             try
             {
                 if (SelectedSample != null)
