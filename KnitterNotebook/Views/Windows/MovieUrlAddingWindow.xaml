@@ -1,10 +1,10 @@
 ﻿<Window
     x:Class="KnitterNotebook.Views.Windows.MovieUrlAddingWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:adorners="http://gu.se/Adorners"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:adorners="http://gu.se/Adorners"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     Title="KnitterNotebook"
@@ -15,14 +15,9 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <Window.Resources>
-        <!--<viewModels:MovieUrlAddingViewModel x:Key="MovieUrlAddingViewModel" />-->
-    </Window.Resources>
-
-    <!--<Window.InputBindings>
-        <KeyBinding Key="Enter"
-                    Command="{Binding Source={StaticResource MovieUrlAddingViewModel}, Path=AddMovieUrlCommandAsync}" />
-    </Window.InputBindings>-->
+    <Window.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding AddMovieUrlCommandAsync}" />
+    </Window.InputBindings>
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>

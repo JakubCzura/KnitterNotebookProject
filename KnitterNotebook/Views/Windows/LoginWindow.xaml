@@ -17,12 +17,8 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <!--<Window.Resources>
-        <viewModels:LoginViewModel x:Key="LoginViewModel" />
-    </Window.Resources>-->
-
     <Window.InputBindings>
-        <!--<KeyBinding Key="Enter" Command="{Binding Source={StaticResource LoginViewModel}, Path=LogInCommandAsync}" />-->
+        <KeyBinding Key="Enter" Command="{Binding LogInCommandAsync}" />
     </Window.InputBindings>
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>

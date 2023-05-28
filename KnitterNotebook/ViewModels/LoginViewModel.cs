@@ -1,9 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Database.Login;
 using KnitterNotebook.Models;
 using KnitterNotebook.Views.Windows;
 using System;
+using System.Configuration;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -55,6 +59,7 @@ namespace KnitterNotebook.ViewModels
                     return;
                 }
                 LoggedUserInformation.Id = user.Id;
+                
                 ShowWindow<MainWindow>();
                 Window.GetWindow(LoginWindow.Instance).Close();
             }

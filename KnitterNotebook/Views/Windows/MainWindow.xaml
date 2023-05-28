@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:userControls="clr-namespace:KnitterNotebook.Views.UserControls"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     Title="KnitterNotebook"
     Width="1200"
@@ -14,9 +13,6 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <Window.Resources>
-        <!--<viewModels:MainViewModel x:Key="MainViewModel" />-->
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -32,8 +28,6 @@
                             Header="Ustawienia"
                             Style="{DynamicResource NavigationMenuItemStyle}" />
                     </MenuItem>
-                    <MenuItem Header="Ustawienia" Style="{DynamicResource NavigationMenuItemStyle}" />
-                    <MenuItem Header="Ustawienia" Style="{DynamicResource NavigationMenuItemStyle}" />
                 </Menu>
                 <TextBlock
                     Margin="5,5,5,5"
@@ -61,7 +55,7 @@
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <StackPanel VerticalAlignment="Top" Orientation="Vertical">
                                 <Button Command="{Binding ChooseProjectsUserControlCommand}" Style="{DynamicResource MainMenuButtonStyle}">
-                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Moje projekty" />
+                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Ukończone projekty" />
                                 </Button>
                                 <Button Command="{Binding ChoosePlannedProjectsUserControlCommand}" Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Projekty w planach" />

@@ -57,7 +57,7 @@ namespace KnitterNotebook.ViewModels
             _changePasswordDtoValidator = changePasswordDtoValidator;
             _changeThemeDtoValidator = changeThemeDtoValidator;
             _themeService = themeService;
-            ChooseSettingsUserControlChooseCommand = new RelayCommand(() => SettingsWindowContent = new UserSettingsUserControl());
+            ChooseUserSettingsUserControlCommand = new RelayCommand(() => SettingsWindowContent = new UserSettingsUserControl());
             ChooseThemeSettingsUserControlCommand = new RelayCommand(() => SettingsWindowContent = new ThemeSettingsUserControl());
             Themes = ApplicationThemes.GetThemes();
             ChangeNicknameCommandAsync = new AsyncRelayCommand(ChangeNicknameAsync);
@@ -76,7 +76,7 @@ namespace KnitterNotebook.ViewModels
 
         public ICommand ChooseThemeSettingsUserControlCommand { get; }
 
-        public ICommand ChooseSettingsUserControlChooseCommand { get; }
+        public ICommand ChooseUserSettingsUserControlCommand { get; }
 
         private UserControl _settingsWindowContent = new UserSettingsUserControl();
 

@@ -15,10 +15,9 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <Window.Resources>
-        <!--<viewModels:MovieUrlAddingViewModel x:Key="MovieUrlAddingViewModel" />-->
-    </Window.Resources>
-
+    <Window.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding AddSampleCommandAsync}" />
+    </Window.InputBindings>
     <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
