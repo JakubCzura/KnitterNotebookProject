@@ -4,10 +4,138 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock FontSize="60">Planned Projects User Control</TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="0.7*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border
+            Grid.Column="0"
+            Margin="5,5,5,5"
+            Background="#FFE2AFFB"
+            CornerRadius="10">
+            <DockPanel Margin="5,5,5,5">
+                <Button
+                    Command="{Binding ShowSampleAddingWindowCommand}"
+                    Content="Zaplanuj projekt"
+                    DockPanel.Dock="Bottom" />
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    Background="#FFE2AFFB"
+                    DockPanel.Dock="Top"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding Samples}"
+                    SelectedItem="{Binding SelectedSample}"
+                    Style="{StaticResource MaterialDesignDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Path=YarnName}"
+                            Header="Planowany projekt" />
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding DeleteSampleCommandAsync}" Header="Skasuj planowany projekt" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+        <Border
+            Grid.Column="1"
+            Margin="5,5,5,5"
+            Background="#FFE2AFFB"
+            CornerRadius="10">
+            <ScrollViewer>
+                <StackPanel Margin="5,5,5,5">
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Planowany projekt:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedSample.YarnName}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Nazwa włóczki:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedSampleMashesXRows}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Nazwa wzoru:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedSampleMashesXRows}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Rozmiary drutów:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedSampleNeedleSize}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Zamienniki włóczki:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedSampleNeedleSize}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Inne:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedSample.Description}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        <Border
+            Grid.Column="2"
+            Margin="5,5,5,5"
+            Background="#FFE2AFFB"
+            BorderThickness="0"
+            CornerRadius="10">
+            <Image
+                MaxWidth="600"
+                MaxHeight="600"
+                Margin="5,5,5,5"
+                VerticalAlignment="Top"
+                Source="{Binding SelectedSample.Image.Path}" />
+        </Border>
     </Grid>
 </UserControl>
