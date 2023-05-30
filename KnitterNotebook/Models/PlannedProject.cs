@@ -10,6 +10,8 @@ namespace KnitterNotebook.Models
 
         public string YarnName { get; set; } = string.Empty;
 
+        public string PatternName { get; set; } = string.Empty;
+
         public string Description { get; set; } = string.Empty;
 
        // public virtual List<Needle> Needles { get; set; } = new();
