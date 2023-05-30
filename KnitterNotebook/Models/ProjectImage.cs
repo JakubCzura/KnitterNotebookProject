@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Models
 {
-    public class Needle
+    public class ProjectImage
     {
         public int Id { get; set; }
 
-        public double Size { get; set; }
+        public DateTime DateTime { get; set; } = DateTime.Today;
 
-        public string SizeUnit { get; set; } = string.Empty;
-
-        public Project Project { get; set; } = new();
+        public string Path { get; set; } = string.Empty;
     }
 }
