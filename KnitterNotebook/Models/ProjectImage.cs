@@ -13,5 +13,7 @@ namespace KnitterNotebook.Models
         public DateTime DateTime { get; set; } = DateTime.Today;
 
         public string Path { get; set; } = string.Empty;
+
+        public Project Project { get; set; } = new();
     }
 }

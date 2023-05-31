@@ -24,11 +24,11 @@ namespace KnitterNotebook.Models
         //Tzw. "inne"
        // public string Description { get; set; } = string.Empty;
 
-       // public Status Status { get; set; } = new(); 
+        public ProjectStatus ProjectStatus { get; set; } = new(); 
 
         //public string PDFFilePath { get; set; } = string.Empty;
 
-        //public virtual List<Image> ProjectImages = new();
+        //public virtual List<ProjectImage> ProjectImages = new();
 
         public virtual User User { get; set; } = new();
     }

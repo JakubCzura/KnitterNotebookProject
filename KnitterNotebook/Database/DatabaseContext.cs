@@ -24,6 +24,7 @@ namespace KnitterNotebook.Database
         public DbSet<MovieUrl> MovieUrls { get; set; }
         public DbSet<Sample> Samples { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<ProjectStatus> ProjectStatuses { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -70,6 +71,19 @@ namespace KnitterNotebook.Database
                           new Theme() { Id = 3, Name = "Dark" });
                 t.HasMany(x => x.Users)
                  .WithOne(c => c.Theme)
+                 .OnDelete(DeleteBehavior.NoAction);
+            });
+
+            modelBuilder.Entity<ProjectStatus>(t =>
+            {
+                t.HasKey(x => x.Id);
+                t.Property(x => x.Id).IsRequired();
+                t.Property(x => x.Status).IsRequired();
+                t.HasData(new ProjectStatus() { Id = 1, Status = "Planned" },
+                          new ProjectStatus() { Id = 2, Status = "InProgress" },
+                          new ProjectStatus() { Id = 3, Status = "Finished" });
+                t.HasMany(x => x.Projects)
+                 .WithOne(c => c.ProjectStatus)
                  .OnDelete(DeleteBehavior.NoAction);
             });
 
