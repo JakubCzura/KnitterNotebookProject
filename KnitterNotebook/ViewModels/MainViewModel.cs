@@ -10,6 +10,7 @@ using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -181,8 +182,7 @@ namespace KnitterNotebook.ViewModels
             {
                 if (SelectedMovieUrl != null)
                 {
-                    // Open the URL in the default web browser
-                    System.Diagnostics.Process.Start("cmd", "/C start" + " " + SelectedMovieUrl.Link.ToString());
+                    WebBrowserHelper.OpenUrlInWebBrowser(SelectedMovieUrl.Link.ToString());
                 }
             }
             catch (Exception exception)

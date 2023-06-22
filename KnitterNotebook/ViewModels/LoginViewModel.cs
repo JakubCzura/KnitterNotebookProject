@@ -1,13 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Database.Login;
 using KnitterNotebook.Models;
 using KnitterNotebook.Views.Windows;
 using System;
-using System.Configuration;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -24,6 +20,7 @@ namespace KnitterNotebook.ViewModels
             _databaseContext = databaseContext;
             ShowRegistrationWindowCommand = new RelayCommand(ShowWindow<RegistrationWindow>);
             LogInCommandAsync = new AsyncRelayCommand(LogInAsync);
+            ShowResetPasswordWindowCommand = new RelayCommand(ShowWindow<ResetPasswordWindow>);
         }
 
         #region Properties
@@ -42,6 +39,8 @@ namespace KnitterNotebook.ViewModels
 
         public ICommand ShowRegistrationWindowCommand { get; }
 
+        public ICommand ShowResetPasswordWindowCommand { get; }
+
         #endregion Properties
 
         #region Methods
@@ -59,7 +58,7 @@ namespace KnitterNotebook.ViewModels
                     return;
                 }
                 LoggedUserInformation.Id = user.Id;
-                
+
                 ShowWindow<MainWindow>();
                 Window.GetWindow(LoginWindow.Instance).Close();
             }

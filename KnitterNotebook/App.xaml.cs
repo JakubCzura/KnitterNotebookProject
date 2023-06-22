@@ -48,6 +48,7 @@ namespace KnitterNotebook
                     services.AddScoped<IValidator<ChangeThemeDto>, ChangeThemeDtoValidator>();
                     services.AddScoped<IValidator<CreateMovieUrl>, CreateMovieUrlValidator>();
                     services.AddScoped<IValidator<CreateSampleDto>, CreateSampleDtoValidator>();
+                    services.AddScoped<IValidator<ResetPasswordDto>, ResetPasswordDtoValidator>();
                     services.AddScoped<IMovieUrlService, MovieUrlService>();
                     services.AddScoped<IUserService, UserService>();
                     services.AddScoped<IThemeService, ThemeService>();
@@ -94,6 +95,11 @@ namespace KnitterNotebook
                     services.AddTransient(s => new SampleAddingWindow()
                     {
                         DataContext = s.GetRequiredService<SampleAddingViewModel>()
+                    });
+                    services.AddTransient<ResetPasswordViewModel>();
+                    services.AddTransient(s => new ResetPasswordWindow()
+                    {
+                        DataContext = s.GetRequiredService<ResetPasswordViewModel>()
                     });
                 })
                 .Build();

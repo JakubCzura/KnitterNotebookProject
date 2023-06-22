@@ -76,7 +76,10 @@
                         Content="Zapomniałeś hasła?"
                         FontSize="20"
                         Style="{DynamicResource LabelAboveLoginInputStyle}" />
-                    <Button Content="Zresetuj hasło" Style="{DynamicResource LoginButtonStyle}" />
+                    <Button
+                        Command="{Binding ShowResetPasswordWindowCommand}"
+                        Content="Zresetuj hasło"
+                        Style="{DynamicResource LoginButtonStyle}" />
                 </StackPanel>
             </Grid>
         </Grid>
