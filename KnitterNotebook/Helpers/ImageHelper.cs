@@ -5,9 +5,9 @@ namespace KnitterNotebook.Helpers
 {
     public class ImageHelper
     {
-        public static string? CreateImageToSavePath(string userName, string? sourceImageName)
+        public static string? CreatePathToSaveImage(string userName, string? sourceImageFullPath)
         {
-            return string.IsNullOrWhiteSpace(sourceImageName) ? null : Paths.ImageToSavePath(userName, Path.GetFileName(sourceImageName));
+            return string.IsNullOrWhiteSpace(sourceImageFullPath) ? null : Paths.ImageToSavePath(userName, Path.GetFileName(sourceImageFullPath));
         }
     }
 }

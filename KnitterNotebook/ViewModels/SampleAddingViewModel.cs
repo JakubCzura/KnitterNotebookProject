@@ -109,7 +109,7 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 User user = await _userService.GetAsync(LoggedUserInformation.Id);
-                string? imagePath = ImageHelper.CreateImageToSavePath(user.Nickname, ImageName);
+                string? imagePath = ImageHelper.CreatePathToSaveImage(user.Nickname, ImageName);
                 CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
                 var validation = _createSampleDtoValidator.Validate(createSampleDto);
                 if (!validation.IsValid)
