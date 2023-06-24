@@ -39,8 +39,8 @@ namespace KnitterNotebook.ViewModels
                 Samples = GetSamples(User);
                 if (User.Theme != null)
                 {
-                    string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{User.Theme.Name}Mode.xaml");
-                    ThemeChanger.SetTheme(themeFullName);
+                    string themeFullPath = Paths.ThemeFullPath(User.Theme.Name);
+                    ThemeChanger.SetTheme(themeFullPath);
                 }
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
                 if (User != null && User.Samples != null)

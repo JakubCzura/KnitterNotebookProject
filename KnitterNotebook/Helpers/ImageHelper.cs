@@ -9,7 +9,7 @@ namespace KnitterNotebook.Helpers
         {
             return string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(sourceImageFullPath) 
                 ? null 
-                : Paths.ImageToSavePath(userName, Path.GetFileName(sourceImageFullPath));
+                : Paths.PathToSaveImage(userName, Path.GetFileName(sourceImageFullPath));
         }
     }
 }
