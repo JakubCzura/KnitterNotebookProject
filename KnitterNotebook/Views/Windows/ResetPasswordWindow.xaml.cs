@@ -19,9 +19,11 @@ namespace KnitterNotebook.Views.Windows
     /// </summary>
     public partial class ResetPasswordWindow : Window
     {
+        public static ResetPasswordWindow Instance { get; private set; } = null!;
         public ResetPasswordWindow()
         {
             InitializeComponent();
+            Instance = this;
         }
     }
 }

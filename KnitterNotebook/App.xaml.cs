@@ -35,9 +35,6 @@ namespace KnitterNotebook
                            .SetBasePath(Directory.GetCurrentDirectory())
                            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
                         Configuration = builder.Build();
-                        //string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
-                        //string appSettingsString = File.ReadAllText(appSettingsPath);
-                        //AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString)!;
                         options.UseSqlServer(Configuration.GetConnectionString("KnitterNotebookConnectionString"));
                     }, ServiceLifetime.Scoped);
 

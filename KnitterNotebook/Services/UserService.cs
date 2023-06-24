@@ -2,6 +2,7 @@
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services
@@ -57,6 +58,14 @@ namespace KnitterNotebook.Services
         {
             User? user = await _databaseContext.Users.FindAsync(changeThemeDto.UserId);
             user!.Theme = await _themeService.GetByNameAsync(changeThemeDto.ThemeName);
+            _databaseContext.Users.Update(user);
+            await _databaseContext.SaveChangesAsync();
+        }
+
+        public async Task ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
+        {
+            User? user = await _databaseContext.Users.FirstOrDefaultAsync(x => x.Email == resetPasswordDto.EmailOrNickname || x.Nickname == resetPasswordDto.EmailOrNickname);
+            user!.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync();
         }

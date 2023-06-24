@@ -15,5 +15,7 @@ namespace KnitterNotebook.Services.Interfaces
         Task ChangePasswordAsync(ChangePasswordDto changePasswordDto);
 
         Task ChangeThemeAsync(ChangeThemeDto changeThemeDto);
+
+        Task ResetPasswordAsync(ResetPasswordDto resetPasswordDto);
     }
 }
