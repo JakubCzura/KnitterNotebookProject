@@ -9,9 +9,8 @@ using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -37,6 +36,7 @@ namespace KnitterNotebook.ViewModels
                        .FirstOrDefault(x => x.Id == LoggedUserInformation.Id)!;
                 MovieUrls = GetMovieUrls(User);
                 Samples = GetSamples(User);
+                FilteredSamples = Samples;
                 if (User.Theme != null)
                 {
                     string themeFullPath = Paths.ThemeFullPath(User.Theme.Name);
@@ -74,6 +74,7 @@ namespace KnitterNotebook.ViewModels
         private readonly ISampleService _sampleService;
         private ObservableCollection<MovieUrl> _movieUrls = new();
         private ObservableCollection<Sample> _samples = new();
+        private ObservableCollection<Sample> _filteredSamples = new();
         private MovieUrl _selectedMovieUrl = new();
         private User _user = new();
         private Sample _selectedSample = new();
@@ -90,7 +91,46 @@ namespace KnitterNotebook.ViewModels
         public ICommand LogOutCommand { get; }
         public ICommand DeleteSampleCommandAsync { get; }
 
+        public static IEnumerable<string> NeedleSizeUnits => new[] { "mm", "cm" };
         public string Greetings => $"Miło Cię widzieć {User?.Nickname}!";
+
+        private double? _filterNeedleSize;
+
+        public double? FilterNeedleSize
+        {
+            get => _filterNeedleSize;
+            set 
+            {  _filterNeedleSize = value; OnPropertyChanged();
+                if (value is not null && value > 0)
+                {
+                    FilteredSamples = FilterSamples(Samples, Convert.ToDouble(value), FilterNeedleSizeUnit);
+                }
+                else
+                {
+                    FilteredSamples = Samples;
+                }
+            }
+        }
+
+        private string _filterNeedleSizeUnit = "mm";
+
+        public string FilterNeedleSizeUnit
+        {
+            get => _filterNeedleSizeUnit;
+            set
+            {
+                _filterNeedleSizeUnit = value; OnPropertyChanged();
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    FilteredSamples = FilterSamples(Samples, Convert.ToDouble(FilterNeedleSize), value);
+                }
+            }
+        }
+
+        private static ObservableCollection<Sample> FilterSamples(IEnumerable<Sample> samples, double needleSize, string needleSizeUnit)
+        {
+            return new ObservableCollection<Sample>(samples.ToList().Where(x => x.NeedleSize == needleSize && x.NeedleSizeUnit.Equals(needleSizeUnit, StringComparison.OrdinalIgnoreCase)));
+        }
 
         public ObservableCollection<MovieUrl> MovieUrls
         {
@@ -130,7 +170,18 @@ namespace KnitterNotebook.ViewModels
         public ObservableCollection<Sample> Samples
         {
             get { return _samples; }
-            set { _samples = value; OnPropertyChanged(); }
+            set { _samples = value; OnPropertyChanged();
+                if (FilterNeedleSize != null)
+                    FilteredSamples = FilterSamples(value, Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit);
+                else
+                    FilteredSamples = value;
+            }
+        }
+
+        public ObservableCollection<Sample> FilteredSamples
+        {
+            get { return _filteredSamples; }
+            set { _filteredSamples = value; OnPropertyChanged(); }
         }
 
         public string SelectedSampleMashesXRows => $"{SelectedSample?.LoopsQuantity}x{SelectedSample?.RowsQuantity}";
