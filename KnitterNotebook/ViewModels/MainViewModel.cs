@@ -65,6 +65,7 @@ namespace KnitterNotebook.ViewModels
             LogOutCommand = new RelayCommand(LogOut);
             DeleteSampleCommandAsync = new AsyncRelayCommand(DeleteSampleAsync);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User!));
+            SampleAddingViewModel.NewSampleAdded += new Action(() => Samples = GetSamples(User!));
         }
 
         #region Properties
@@ -99,8 +100,9 @@ namespace KnitterNotebook.ViewModels
         public double? FilterNeedleSize
         {
             get => _filterNeedleSize;
-            set 
-            {  _filterNeedleSize = value; OnPropertyChanged();
+            set
+            {
+                _filterNeedleSize = value; OnPropertyChanged();
                 if (value is not null && value > 0)
                 {
                     FilteredSamples = FilterSamples(Samples, Convert.ToDouble(value), FilterNeedleSizeUnit);
@@ -120,10 +122,7 @@ namespace KnitterNotebook.ViewModels
             set
             {
                 _filterNeedleSizeUnit = value; OnPropertyChanged();
-                if (!string.IsNullOrWhiteSpace(value))
-                {
-                    FilteredSamples = FilterSamples(Samples, Convert.ToDouble(FilterNeedleSize), value);
-                }
+                FilteredSamples = FilterSamples(Samples, Convert.ToDouble(FilterNeedleSize), value);
             }
         }
 
@@ -170,8 +169,10 @@ namespace KnitterNotebook.ViewModels
         public ObservableCollection<Sample> Samples
         {
             get { return _samples; }
-            set { _samples = value; OnPropertyChanged();
-                if (FilterNeedleSize != null)
+            set
+            {
+                _samples = value; OnPropertyChanged();
+                if (FilterNeedleSize is not null && FilterNeedleSize > 0)
                     FilteredSamples = FilterSamples(value, Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit);
                 else
                     FilteredSamples = value;
