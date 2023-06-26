@@ -82,31 +82,31 @@ namespace KnitterNotebook.ViewModels
 
         public UserControl SettingsWindowContent
         {
-            get { return _settingsWindowContent; }
+            get => _settingsWindowContent;
             set { _settingsWindowContent = value; OnPropertyChanged(); }
         }
 
         public string NewEmail
         {
-            get { return _newEmail; }
+            get => _newEmail;
             set { _newEmail = value; OnPropertyChanged(); }
         }
 
         public string NewNickname
         {
-            get { return _newNickname; }
+            get => _newNickname;
             set { _newNickname = value; OnPropertyChanged(); }
         }
 
         public string NewTheme
         {
-            get { return _newTheme; }
+            get => _newTheme;
             set { _newTheme = value; OnPropertyChanged(); }
         }
 
         public IEnumerable<string> Themes
         {
-            get { return _themes; }
+            get => _themes;
             set { _themes = value; OnPropertyChanged(); }
         }
 
@@ -118,14 +118,12 @@ namespace KnitterNotebook.ViewModels
                 ValidationResult validation = await _changeEmailDtoValidator.ValidateAsync(changeEmailDto);
                 if (validation.IsValid)
                 {
-                    await _userService.ChangeEmailAsync(changeEmailDto);
-                    MessageBox.Show($"Zmieniono email na: {changeEmailDto.Email}");
-                }
-                else
-                {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
                     MessageBox.Show(errorMessage, "Błąd zmiany email");
+                    return;
                 }
+                await _userService.ChangeEmailAsync(changeEmailDto);
+                MessageBox.Show($"Zmieniono email na: {changeEmailDto.Email}");
             }
             catch (Exception exception)
             {
@@ -139,16 +137,14 @@ namespace KnitterNotebook.ViewModels
             {
                 ChangeNicknameDto changeNicknameDto = new(LoggedUserInformation.Id, NewNickname);
                 ValidationResult validation = await _changeNicknameDtoValidator.ValidateAsync(changeNicknameDto);
-                if (validation.IsValid)
-                {
-                    await _userService.ChangeNicknameAsync(changeNicknameDto);
-                    MessageBox.Show($"Zmieniono nazwę użytkownika");
-                }
-                else
+                if (!validation.IsValid)
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
                     MessageBox.Show(errorMessage, "Błąd zmiany nazwy użytkownika");
+                    return;
                 }
+                await _userService.ChangeNicknameAsync(changeNicknameDto);
+                MessageBox.Show($"Zmieniono nazwę użytkownika");
             }
             catch (Exception exception)
             {

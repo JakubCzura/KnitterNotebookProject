@@ -40,7 +40,7 @@ namespace KnitterNotebook.ViewModels
 
         public string YarnName
         {
-            get { return _yarnName; }
+            get => _yarnName;
             set { _yarnName = value; OnPropertyChanged(); }
         }
 
@@ -48,7 +48,7 @@ namespace KnitterNotebook.ViewModels
 
         public int LoopsQuantity
         {
-            get { return _loopsQuantity; }
+            get => _loopsQuantity;
             set { _loopsQuantity = value; OnPropertyChanged(); }
         }
 
@@ -56,7 +56,7 @@ namespace KnitterNotebook.ViewModels
 
         public int RowsQuantity
         {
-            get { return _rowsQuantity; }
+            get => _rowsQuantity;
             set { _rowsQuantity = value; OnPropertyChanged(); }
         }
 
@@ -64,7 +64,7 @@ namespace KnitterNotebook.ViewModels
 
         public double NeedleSize
         {
-            get { return _needleSize; }
+            get => _needleSize;
             set { _needleSize = value; OnPropertyChanged(); }
         }
 
@@ -72,7 +72,7 @@ namespace KnitterNotebook.ViewModels
 
         public string NeedleSizeUnit
         {
-            get { return _needleSizeUnit; }
+            get => _needleSizeUnit;
             set { _needleSizeUnit = value; OnPropertyChanged(); }
         }
 
@@ -80,7 +80,7 @@ namespace KnitterNotebook.ViewModels
 
         public string Description
         {
-            get { return _description; }
+            get => _description;
             set { _description = value; OnPropertyChanged(); }
         }
 
@@ -90,7 +90,7 @@ namespace KnitterNotebook.ViewModels
 
         public string? ImageName
         {
-            get { return imageName; }
+            get => imageName;
             set { imageName = value; OnPropertyChanged(); }
         }
 
@@ -116,7 +116,7 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 User user = await _userService.GetAsync(LoggedUserInformation.Id);
-                string? imagePath = ImageHelper.CreatePathToSaveImage(user.Nickname, ImageName);
+                string? imagePath = ImagePathCreator.CreatePathToSaveImage(user.Nickname, ImageName);
                 CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
                 var validation = _createSampleDtoValidator.Validate(createSampleDto);
                 if (!validation.IsValid)

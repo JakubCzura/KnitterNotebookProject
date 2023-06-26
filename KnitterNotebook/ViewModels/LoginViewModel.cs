@@ -31,7 +31,7 @@ namespace KnitterNotebook.ViewModels
 
         public string Email
         {
-            get { return _email; }
+            get => _email;
             set { _email = value; OnPropertyChanged(); }
         }
 

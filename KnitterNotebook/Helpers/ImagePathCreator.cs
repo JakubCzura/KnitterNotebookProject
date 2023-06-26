@@ -3,7 +3,7 @@ using System.IO;
 
 namespace KnitterNotebook.Helpers
 {
-    public class ImageHelper
+    public class ImagePathCreator
     {
         public static string? CreatePathToSaveImage(string userName, string sourceImageFullPath)
         {

@@ -103,9 +103,9 @@ namespace KnitterNotebook.ViewModels
             set
             {
                 _filterNeedleSize = value; OnPropertyChanged();
-                if (value is not null && value > 0)
+                if (value > 0)
                 {
-                    FilteredSamples = FilterSamples(Samples, Convert.ToDouble(value), FilterNeedleSizeUnit);
+                    FilteredSamples = SamplesFilter.FilterByNeedleSize(Samples, Convert.ToDouble(value), FilterNeedleSizeUnit);
                 }
                 else
                 {
@@ -122,36 +122,38 @@ namespace KnitterNotebook.ViewModels
             set
             {
                 _filterNeedleSizeUnit = value; OnPropertyChanged();
-                FilteredSamples = FilterSamples(Samples, Convert.ToDouble(FilterNeedleSize), value);
+                if (FilterNeedleSize > 0)
+                {
+                    FilteredSamples = SamplesFilter.FilterByNeedleSize(Samples, Convert.ToDouble(FilterNeedleSize), value);
+                }
+                else
+                {
+                    FilteredSamples = Samples;
+                }
             }
-        }
-
-        private static ObservableCollection<Sample> FilterSamples(IEnumerable<Sample> samples, double needleSize, string needleSizeUnit)
-        {
-            return new ObservableCollection<Sample>(samples.ToList().Where(x => x.NeedleSize == needleSize && x.NeedleSizeUnit.Equals(needleSizeUnit, StringComparison.OrdinalIgnoreCase)));
-        }
+        }       
 
         public ObservableCollection<MovieUrl> MovieUrls
         {
-            get { return _movieUrls; }
+            get => _movieUrls;
             set { _movieUrls = value; OnPropertyChanged(); }
         }
 
         public MovieUrl SelectedMovieUrl
         {
-            get { return _selectedMovieUrl; }
+            get => _selectedMovieUrl;
             set { _selectedMovieUrl = value; OnPropertyChanged(); }
         }
 
         public User User
         {
-            get { return _user; }
+            get => _user;
             set { _user = value; OnPropertyChanged(); }
         }
 
         public Sample SelectedSample
         {
-            get { return _selectedSample; }
+            get => _selectedSample;
             set
             {
                 _selectedSample = value; OnPropertyChanged();
@@ -162,19 +164,19 @@ namespace KnitterNotebook.ViewModels
 
         public UserControl ChosenMainWindowContent
         {
-            get { return _chosenMainWindowContent; }
+            get => _chosenMainWindowContent;
             set { _chosenMainWindowContent = value; OnPropertyChanged(); }
         }
 
         public ObservableCollection<Sample> Samples
         {
-            get { return _samples; }
+            get => _samples;
             set
             {
                 _samples = value; OnPropertyChanged();
-                if (FilterNeedleSize is not null && FilterNeedleSize > 0)
+                if (FilterNeedleSize > 0)
                 {
-                    FilteredSamples = FilterSamples(value, Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit);
+                    FilteredSamples = SamplesFilter.FilterByNeedleSize(value, Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit);
                 }
                 else
                 {
@@ -185,12 +187,14 @@ namespace KnitterNotebook.ViewModels
 
         public ObservableCollection<Sample> FilteredSamples
         {
-            get { return _filteredSamples; }
+            get => _filteredSamples;
             set { _filteredSamples = value; OnPropertyChanged(); }
         }
 
         public string SelectedSampleMashesXRows => $"{SelectedSample?.LoopsQuantity}x{SelectedSample?.RowsQuantity}";
         public string SelectedSampleNeedleSize => $"{SelectedSample?.NeedleSize}{SelectedSample?.NeedleSizeUnit}";
+        private static ObservableCollection<Sample> GetSamples(User user) => new(user.Samples);
+        private static ObservableCollection<MovieUrl> GetMovieUrls(User user) => new(user.MovieUrls);
 
         #endregion Properties
 
@@ -200,7 +204,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                if (SelectedMovieUrl is not null)
+                if (SelectedMovieUrl?.Id > 0)
                 {
                     await _movieUrlService.DeleteAsync(SelectedMovieUrl.Id);
                     MovieUrls = GetMovieUrls(User);
@@ -216,7 +220,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                if (SelectedSample is not null)
+                if (SelectedSample?.Id > 0)
                 {
                     await _sampleService.DeleteAsync(SelectedSample.Id);
                     Samples = GetSamples(User);
@@ -228,9 +232,7 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
-        private static ObservableCollection<Sample> GetSamples(User user) => new(user.Samples);
-
-        private static ObservableCollection<MovieUrl> GetMovieUrls(User user) => new(user.MovieUrls);
+       
 
         private void OpenMovieUrlInWebBrowser()
         {
@@ -238,7 +240,7 @@ namespace KnitterNotebook.ViewModels
             {
                 if (SelectedMovieUrl?.Link is not null)
                 {
-                    WebBrowserHelper.OpenUrlInWebBrowser(SelectedMovieUrl.Link.ToString());
+                    UrlOpener.OpenInWebBrowser(SelectedMovieUrl.Link.ToString());
                 }
             }
             catch (Exception exception)

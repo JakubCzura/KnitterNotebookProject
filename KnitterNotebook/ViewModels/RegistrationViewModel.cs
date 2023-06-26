@@ -29,13 +29,13 @@ namespace KnitterNotebook.ViewModels
 
         public string Email
         {
-            get { return _email; }
+            get =>_email;
             set { _email = value; OnPropertyChanged(); }
         }
 
         public string Nickname
         {
-            get { return _nickname; }
+            get => _nickname;
             set { _nickname = value; OnPropertyChanged(); }
         }
 
