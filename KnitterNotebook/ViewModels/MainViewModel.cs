@@ -105,7 +105,7 @@ namespace KnitterNotebook.ViewModels
                 _filterNeedleSize = value; OnPropertyChanged();
                 if (value > 0)
                 {
-                    FilteredSamples = SamplesFilter.FilterByNeedleSize(Samples, Convert.ToDouble(value), FilterNeedleSizeUnit);
+                    FilteredSamples = FilteredSamples.FilterByNeedleSize(Convert.ToDouble(value), FilterNeedleSizeUnit);
                 }
                 else
                 {
@@ -124,7 +124,7 @@ namespace KnitterNotebook.ViewModels
                 _filterNeedleSizeUnit = value; OnPropertyChanged();
                 if (FilterNeedleSize > 0)
                 {
-                    FilteredSamples = SamplesFilter.FilterByNeedleSize(Samples, Convert.ToDouble(FilterNeedleSize), value);
+                    FilteredSamples = FilteredSamples.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), value);
                 }
                 else
                 {
@@ -176,7 +176,7 @@ namespace KnitterNotebook.ViewModels
                 _samples = value; OnPropertyChanged();
                 if (FilterNeedleSize > 0)
                 {
-                    FilteredSamples = SamplesFilter.FilterByNeedleSize(value, Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit);
+                    FilteredSamples = FilteredSamples.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit);
                 }
                 else
                 {
