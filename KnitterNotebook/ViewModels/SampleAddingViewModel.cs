@@ -96,6 +96,11 @@ namespace KnitterNotebook.ViewModels
 
         public static Action NewSampleAdded { get; set; } = null!;
 
+        public static void OnNewSampleAdded()
+        {
+            NewSampleAdded.Invoke();
+        }
+
         private void ChooseImage()
         {
             OpenFileDialog dialog = new()
@@ -126,7 +131,7 @@ namespace KnitterNotebook.ViewModels
                     {
                         FileHelper.CopyWithDirectoryCreation(ImageName, imagePath);
                     }
-                    NewSampleAdded?.Invoke();
+                    OnNewSampleAdded();
                 }
                 MessageBox.Show("Zapisano nową próbkę obliczeniową");
             }

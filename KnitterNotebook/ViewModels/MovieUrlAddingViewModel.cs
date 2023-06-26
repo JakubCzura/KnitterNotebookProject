@@ -5,6 +5,7 @@ using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using System;
+using System.Security.RightsManagement;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -28,6 +29,11 @@ namespace KnitterNotebook.ViewModels
         #region Delegates
 
         public static Action NewMovieUrlAdded { get; set; } = null!;
+
+        public static void OnNewMovieUrlAdded()
+        {
+            NewMovieUrlAdded?.Invoke();
+        }
 
         #endregion Delegates
 
@@ -72,7 +78,7 @@ namespace KnitterNotebook.ViewModels
                 if (validation.IsValid)
                 {
                     await _movieUrlService.CreateAsync(createMovieUrl);
-                    NewMovieUrlAdded?.Invoke();
+                    OnNewMovieUrlAdded();
                     MessageBox.Show("Dodano nowy film");
                 }
             }

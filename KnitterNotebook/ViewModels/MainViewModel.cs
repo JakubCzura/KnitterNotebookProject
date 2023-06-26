@@ -37,13 +37,13 @@ namespace KnitterNotebook.ViewModels
                 MovieUrls = GetMovieUrls(User);
                 Samples = GetSamples(User);
                 FilteredSamples = Samples;
-                if (User.Theme != null)
+                if (User?.Theme is not null)
                 {
                     string themeFullPath = Paths.ThemeFullPath(User.Theme.Name);
                     ThemeChanger.SetTheme(themeFullPath);
                 }
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
-                if (User != null && User.Samples != null)
+                if (User?.Samples is not null)
                 {
                     FileHelper.DeleteUnusedUserImages(User.Samples, User.Nickname);
                 }
@@ -173,9 +173,13 @@ namespace KnitterNotebook.ViewModels
             {
                 _samples = value; OnPropertyChanged();
                 if (FilterNeedleSize is not null && FilterNeedleSize > 0)
+                {
                     FilteredSamples = FilterSamples(value, Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit);
+                }
                 else
+                {
                     FilteredSamples = value;
+                }
             }
         }
 
@@ -196,7 +200,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                if (SelectedMovieUrl != null)
+                if (SelectedMovieUrl is not null)
                 {
                     await _movieUrlService.DeleteAsync(SelectedMovieUrl.Id);
                     MovieUrls = GetMovieUrls(User);
@@ -212,7 +216,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                if (SelectedSample != null)
+                if (SelectedSample is not null)
                 {
                     await _sampleService.DeleteAsync(SelectedSample.Id);
                     Samples = GetSamples(User);
@@ -232,7 +236,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                if (SelectedMovieUrl != null)
+                if (SelectedMovieUrl?.Link is not null)
                 {
                     WebBrowserHelper.OpenUrlInWebBrowser(SelectedMovieUrl.Link.ToString());
                 }
