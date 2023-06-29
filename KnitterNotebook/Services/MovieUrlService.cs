@@ -18,7 +18,7 @@ namespace KnitterNotebook.Services
             _databaseContext = databaseContext;
         }
 
-        public async Task CreateAsync(CreateMovieUrl createMovieUrl)
+        public async Task CreateAsync(CreateMovieUrlDto createMovieUrl)
         {
             MovieUrl movieUrl = new()
             {

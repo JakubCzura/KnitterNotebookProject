@@ -3,7 +3,7 @@ using KnitterNotebook.Models.Dtos;
 
 namespace KnitterNotebook.Validators
 {
-    public class CreateMovieUrlValidator : AbstractValidator<CreateMovieUrl>
+    public class CreateMovieUrlValidator : AbstractValidator<CreateMovieUrlDto>
     {
         public CreateMovieUrlValidator()
         {

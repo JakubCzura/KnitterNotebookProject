@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
+using FluentValidation.Results;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
@@ -29,7 +30,7 @@ namespace KnitterNotebook.ViewModels
 
         public string Email
         {
-            get =>_email;
+            get => _email;
             set { _email = value; OnPropertyChanged(); }
         }
 
@@ -50,7 +51,7 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 RegisterUserDto registerUserDto = new(Nickname, Email, RegistrationWindow.Instance.UserPasswordPasswordBox.Password);
-                var validation = _registerUserDtoValidator.Validate(registerUserDto);
+                ValidationResult validation = _registerUserDtoValidator.Validate(registerUserDto);
                 if (!validation.IsValid)
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));

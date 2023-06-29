@@ -3,6 +3,7 @@ using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,7 +62,6 @@ namespace KnitterNotebookTests.Helpers
         public void FilterByNeedleSize_ForValidData_ReturnsFilteredData(IEnumerable<Sample> samples, double needleSize, string needleSizeUnit, IEnumerable<Sample> result)
         {
             //Act
-
             samples = samples.FilterByNeedleSize(needleSize, needleSizeUnit);
 
             //Assert
@@ -69,17 +69,29 @@ namespace KnitterNotebookTests.Helpers
         }
 
         [Fact]
-        public void FilterByNeedleSize_ForNullData_ReturnsFilteredData()
+        public void FilterByNeedleSize_ForNullData_ThrowsArgumentNullException()
         {
             //Arrange
             IEnumerable<Sample> samples = null!;
 
             //Act
-
             Action act = () => samples = samples.FilterByNeedleSize(2, "cm");
 
             //Assert
             act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void FilterByNeedleSize_ForEmptyData_ReturnsEmptyData()
+        {
+            //Arrange
+            ObservableCollection<Sample> samples = new ();
+
+            //Act
+            samples = samples.FilterByNeedleSize(2, "cm");
+
+            //Assert
+            samples.Should().BeEmpty();
         }
     }
 }

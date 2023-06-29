@@ -157,8 +157,8 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 ChangePasswordDto changePasswordDto = new(LoggedUserInformation.Id,
-                    UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password,
-                    UserSettingsUserControl.Instance.RepeatedNewPasswordPasswordBox.Password);
+                                                        UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password,
+                                                        UserSettingsUserControl.Instance.RepeatedNewPasswordPasswordBox.Password);
                 ValidationResult validation = _changePasswordDtoValidator.Validate(changePasswordDto);
                 if (!validation.IsValid)
                 {

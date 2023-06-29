@@ -47,8 +47,8 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 ResetPasswordDto resetPasswordDto = new(EmailOrNickname,
-                    ResetPasswordWindow.Instance.NewPasswordPasswordBox.Password,
-                    ResetPasswordWindow.Instance.RepeatedNewPasswordPasswordBox.Password);
+                                                        ResetPasswordWindow.Instance.NewPasswordPasswordBox.Password,
+                                                        ResetPasswordWindow.Instance.RepeatedNewPasswordPasswordBox.Password);
                 ValidationResult validation = await _resetPasswordDtoValidator.ValidateAsync(resetPasswordDto);
                 if (!validation.IsValid)
                 {

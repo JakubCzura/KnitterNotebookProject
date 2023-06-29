@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
+using FluentValidation.Results;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
@@ -17,7 +18,7 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public class MovieUrlAddingViewModel : BaseViewModel
     {
-        public MovieUrlAddingViewModel(IMovieUrlService movieUrlService, IValidator<CreateMovieUrl> createMovieUrlValidator, IUserService userService)
+        public MovieUrlAddingViewModel(IMovieUrlService movieUrlService, IValidator<CreateMovieUrlDto> createMovieUrlValidator, IUserService userService)
         {
             _movieUrlService = movieUrlService;
             AddMovieUrlCommandAsync = new AsyncRelayCommand(AddMovieUrlAsync);
@@ -29,17 +30,14 @@ namespace KnitterNotebook.ViewModels
 
         public static Action NewMovieUrlAdded { get; set; } = null!;
 
-        public static void OnNewMovieUrlAdded()
-        {
-            NewMovieUrlAdded?.Invoke();
-        }
+        public static void OnNewMovieUrlAdded() => NewMovieUrlAdded?.Invoke();
 
         #endregion Delegates
 
         #region Properties
         private readonly IMovieUrlService _movieUrlService;
         private readonly IUserService _userService;
-        private readonly IValidator<CreateMovieUrl> _createMovieUrlValidator;
+        private readonly IValidator<CreateMovieUrlDto> _createMovieUrlValidator;
         private string _link = string.Empty;
         private string _title = string.Empty;
         public ICommand AddMovieUrlCommandAsync { get; }
@@ -70,8 +68,8 @@ namespace KnitterNotebook.ViewModels
                     MessageBox.Show("Błąd podczas dodania filmu", "Nie odnaleziono użytkownika");
                     return;
                 }
-                CreateMovieUrl createMovieUrl = new(Title, Link, user);
-                var validation = _createMovieUrlValidator.Validate(createMovieUrl);
+                CreateMovieUrlDto createMovieUrl = new(Title, Link, user);
+                ValidationResult validation = _createMovieUrlValidator.Validate(createMovieUrl);
                 if (validation.IsValid)
                 {
                     await _movieUrlService.CreateAsync(createMovieUrl);

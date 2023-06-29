@@ -1,8 +1,8 @@
 ﻿namespace KnitterNotebook.Models.Dtos
 {
-    public class CreateMovieUrl
+    public class CreateMovieUrlDto
     {
-        public CreateMovieUrl(string title, string link, User user)
+        public CreateMovieUrlDto(string title, string link, User user)
         {
             Title = title;
             Link = link;

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
+using FluentValidation.Results;
 using KnitterNotebook.Database;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
@@ -116,9 +117,9 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 User user = await _userService.GetAsync(LoggedUserInformation.Id);
-                string? imagePath = ImagePathCreator.CreatePathToSaveImage(user.Nickname, ImageName);
+                string? imagePath = ImagePathCreator.CreatePathToSaveImage(user.Nickname, ImageName!);
                 CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
-                var validation = _createSampleDtoValidator.Validate(createSampleDto);
+                ValidationResult validation = _createSampleDtoValidator.Validate(createSampleDto);
                 if (!validation.IsValid)
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
