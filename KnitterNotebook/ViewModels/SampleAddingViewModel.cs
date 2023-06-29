@@ -68,7 +68,7 @@ namespace KnitterNotebook.ViewModels
             set { _needleSize = value; OnPropertyChanged(); }
         }
 
-        public string _needleSizeUnit = "mm";
+        public string _needleSizeUnit = NeedleSizeUnits.Units.mm.ToString();
 
         public string NeedleSizeUnit
         {
@@ -84,7 +84,7 @@ namespace KnitterNotebook.ViewModels
             set { _description = value; OnPropertyChanged(); }
         }
 
-        public static IEnumerable<string> NeedleSizeUnits => new[] { "mm", "cm" };
+        public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
 
         private string? imageName = null;
 

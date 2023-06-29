@@ -20,20 +20,12 @@ namespace KnitterNotebook.ViewModels
         #region Methods
 
         public void OnPropertyChanged([CallerMemberName] string name = null!)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
         public static void ShowWindow<T>() where T : Window
-        {
-            T? window = App.AppHost?.Services.GetService<T>();
-            window?.Show();
-        }
+            => App.AppHost?.Services.GetService<T>()?.Show();
 
-        public static void LogOut()
-        {
-            Environment.Exit(0);
-        }
+        public static void LogOut() => Environment.Exit(0);
 
         #endregion Methods
     }

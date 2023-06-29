@@ -92,7 +92,8 @@ namespace KnitterNotebook.ViewModels
         public ICommand LogOutCommand { get; }
         public ICommand DeleteSampleCommandAsync { get; }
 
-        public static IEnumerable<string> NeedleSizeUnits => new[] { "mm", "cm" };
+        public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
+
         public string Greetings => $"Miło Cię widzieć {User?.Nickname}!";
 
         private double? _filterNeedleSize;
@@ -103,18 +104,11 @@ namespace KnitterNotebook.ViewModels
             set
             {
                 _filterNeedleSize = value; OnPropertyChanged();
-                if (value > 0)
-                {
-                    FilteredSamples = FilteredSamples.FilterByNeedleSize(Convert.ToDouble(value), FilterNeedleSizeUnit);
-                }
-                else
-                {
-                    FilteredSamples = Samples;
-                }
+                FilteredSamples = value > 0 ? Samples.FilterByNeedleSize(Convert.ToDouble(value), FilterNeedleSizeUnit) : Samples;
             }
         }
 
-        private string _filterNeedleSizeUnit = "mm";
+        private string _filterNeedleSizeUnit = NeedleSizeUnits.Units.cm.ToString();
 
         public string FilterNeedleSizeUnit
         {
@@ -131,7 +125,7 @@ namespace KnitterNotebook.ViewModels
                     FilteredSamples = Samples;
                 }
             }
-        }       
+        }
 
         public ObservableCollection<MovieUrl> MovieUrls
         {
@@ -176,7 +170,7 @@ namespace KnitterNotebook.ViewModels
                 _samples = value; OnPropertyChanged();
                 if (FilterNeedleSize > 0)
                 {
-                    FilteredSamples = FilteredSamples.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit);
+                    FilteredSamples = value.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit);
                 }
                 else
                 {
@@ -193,7 +187,9 @@ namespace KnitterNotebook.ViewModels
 
         public string SelectedSampleMashesXRows => $"{SelectedSample?.LoopsQuantity}x{SelectedSample?.RowsQuantity}";
         public string SelectedSampleNeedleSize => $"{SelectedSample?.NeedleSize}{SelectedSample?.NeedleSizeUnit}";
+
         private static ObservableCollection<Sample> GetSamples(User user) => new(user.Samples);
+
         private static ObservableCollection<MovieUrl> GetMovieUrls(User user) => new(user.MovieUrls);
 
         #endregion Properties
@@ -231,8 +227,6 @@ namespace KnitterNotebook.ViewModels
                 MessageBox.Show("Błąd podczas kasowania próbki obliczeniowej", exception.Message);
             }
         }
-
-       
 
         private void OpenMovieUrlInWebBrowser()
         {
