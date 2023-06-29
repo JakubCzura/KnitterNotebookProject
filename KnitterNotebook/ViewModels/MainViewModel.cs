@@ -9,6 +9,7 @@ using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -36,7 +37,6 @@ namespace KnitterNotebook.ViewModels
                        .FirstOrDefault(x => x.Id == LoggedUserInformation.Id)!;
                 MovieUrls = GetMovieUrls(User);
                 Samples = GetSamples(User);
-                FilteredSamples = Samples;
                 if (User?.Theme is not null)
                 {
                     string themeFullPath = Paths.ThemeFullPath(User.Theme.Name);
@@ -75,7 +75,6 @@ namespace KnitterNotebook.ViewModels
         private readonly ISampleService _sampleService;
         private ObservableCollection<MovieUrl> _movieUrls = new();
         private ObservableCollection<Sample> _samples = new();
-        private ObservableCollection<Sample> _filteredSamples = new();
         private MovieUrl _selectedMovieUrl = new();
         private User _user = new();
         private Sample _selectedSample = new();
@@ -104,7 +103,7 @@ namespace KnitterNotebook.ViewModels
             set
             {
                 _filterNeedleSize = value; OnPropertyChanged();
-                FilteredSamples = value > 0 ? Samples.FilterByNeedleSize(Convert.ToDouble(value), FilterNeedleSizeUnit) : Samples;
+                OnPropertyChanged(nameof(FilteredSamples));
             }
         }
 
@@ -116,7 +115,7 @@ namespace KnitterNotebook.ViewModels
             set
             {
                 _filterNeedleSizeUnit = value; OnPropertyChanged();
-                FilteredSamples = FilterNeedleSize > 0 ? Samples.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), value) : Samples;
+                OnPropertyChanged(nameof(FilteredSamples));
             }
         }
 
@@ -160,16 +159,14 @@ namespace KnitterNotebook.ViewModels
             get => _samples;
             set
             {
-                _samples = value; OnPropertyChanged();
-                FilteredSamples = FilterNeedleSize > 0 ? value.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit) : value;
+                _samples = value; OnPropertyChanged(); OnPropertyChanged(nameof(FilteredSamples));
             }
         }
 
-        public ObservableCollection<Sample> FilteredSamples
-        {
-            get => _filteredSamples;
-            set { _filteredSamples = value; OnPropertyChanged(); }
-        }
+        public ObservableCollection<Sample> FilteredSamples => FilterNeedleSize > 0 
+            ? Samples.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit) 
+            : Samples;
+
 
         public string SelectedSampleMashesXRows => $"{SelectedSample?.LoopsQuantity}x{SelectedSample?.RowsQuantity}";
         public string SelectedSampleNeedleSize => $"{SelectedSample?.NeedleSize}{SelectedSample?.NeedleSizeUnit}";
