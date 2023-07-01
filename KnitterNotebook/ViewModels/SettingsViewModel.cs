@@ -116,7 +116,7 @@ namespace KnitterNotebook.ViewModels
             {
                 ChangeEmailDto changeEmailDto = new(LoggedUserInformation.Id, NewEmail);
                 ValidationResult validation = await _changeEmailDtoValidator.ValidateAsync(changeEmailDto);
-                if (validation.IsValid)
+                if (!validation.IsValid)
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
                     MessageBox.Show(errorMessage, "Błąd zmiany email");
