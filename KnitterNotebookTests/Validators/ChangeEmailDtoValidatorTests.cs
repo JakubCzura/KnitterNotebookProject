@@ -32,6 +32,7 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new ChangeEmailDto(1, "test1@test.com") };
             yield return new object[] { new ChangeEmailDto(2, "test2@test.com") };
             yield return new object[] { new ChangeEmailDto(3, "test3@test.com") };
+            yield return new object[] { new ChangeEmailDto(4, "test3@test.com") };
             yield return new object[] { new ChangeEmailDto(3, "@@") };
             yield return new object[] { new ChangeEmailDto(3, "...") };
         }
@@ -62,7 +63,7 @@ namespace KnitterNotebookTests.Validators
 
         [Theory]
         [MemberData(nameof(InvalidData))]
-        public async Task ValidateAsync_ForInValidData_FailValidation(ChangeEmailDto changeEmailDto)
+        public async Task ValidateAsync_ForInvalidData_FailValidation(ChangeEmailDto changeEmailDto)
         {
             //Act
             var validationResult = await _validator.TestValidateAsync(changeEmailDto);

@@ -1,35 +1,36 @@
 ﻿using FluentValidation;
-using KnitterNotebook.Models;
+using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
-using KnitterNotebook.Services.Interfaces;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace KnitterNotebook.Validators
 {
     public class ChangeNicknameDtoValidator : AbstractValidator<ChangeNicknameDto>
     {
-        private readonly IUserService _userService;
+        private readonly DatabaseContext _databaseContext;
 
-        public ChangeNicknameDtoValidator(IUserService userService)
+        public ChangeNicknameDtoValidator(DatabaseContext databaseContext)
         {
-            _userService = userService;
+            _databaseContext = databaseContext;
+
+            RuleFor(dto => dto.UserId)
+              .MustAsync(async (id, cancellationToken) => await databaseContext.Users.AnyAsync(x => x.Id == id, cancellationToken))
+              .WithMessage("Nie znaleziono użytkownika");
 
             RuleFor(x => x.Nickname)
-              .NotEmpty().WithMessage("Nazwa użytkownika nie może być pusta")
-              .MinimumLength(1).WithMessage("Nazwa użytkownika musi mieć conajmniej 1 znak")
-              .MaximumLength(50).WithMessage("Nazwa użytkownika może mieć maksimum 50 znaków");
-
-            RuleFor(x => x.Nickname)
+               .NotNull().WithMessage("Wartość nie może być pusta")
                .CustomAsync(async (value, context, cancellationToken) =>
                {
-                   IEnumerable<User> users = await _userService.GetAllAsync();
-                   bool isNicknameUsed = users.Any(x => x.Nickname == value);
+                   bool isNicknameUsed = await _databaseContext.Users.AnyAsync(x => x.Nickname == value, cancellationToken);
                    if (isNicknameUsed)
-                   {
                        context.AddFailure(nameof(RegisterUserDto.Nickname), "Nick jest już używany");
-                   }
-               });
+
+                   if (value is not null && !value.All(x => char.IsLetterOrDigit(x)))
+                       context.AddFailure(nameof(RegisterUserDto.Nickname), "Nickname może zawierać tylko litery i cyfry");
+               })
+              .MinimumLength(1).WithMessage("Nazwa użytkownika musi mieć conajmniej 1 znak")
+              .MaximumLength(50).WithMessage("Nazwa użytkownika może mieć maksimum 50 znaków"); ;
         }
     }
 }

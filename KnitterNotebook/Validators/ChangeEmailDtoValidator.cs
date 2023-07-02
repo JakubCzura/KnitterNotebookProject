@@ -22,10 +22,6 @@ namespace KnitterNotebook.Validators
                 .WithMessage("Nie znaleziono użytkownika");
 
             RuleFor(x => x.Email)
-                .MaximumLength(50).WithMessage("E-mail może mieć maksimum 50 znaków")
-                .EmailAddress().WithMessage("Niepoprawny format e-mail");
-
-            RuleFor(x => x.Email)
                 .CustomAsync(async (value, context, cancellationToken) =>
                 {
                     bool isEmailUsed = await _databaseContext.Users.AnyAsync(x => x.Email == value, cancellationToken);
@@ -33,7 +29,9 @@ namespace KnitterNotebook.Validators
                     {
                         context.AddFailure(nameof(RegisterUserDto.Email), "E-mail jest już używany");
                     }
-                });
+                })
+                .MaximumLength(50).WithMessage("E-mail może mieć maksimum 50 znaków")
+                .EmailAddress().WithMessage("Niepoprawny format e-mail"); ;
         }
     }
 }
