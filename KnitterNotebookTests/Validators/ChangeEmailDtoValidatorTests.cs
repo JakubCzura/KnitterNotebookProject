@@ -16,7 +16,7 @@ namespace KnitterNotebookTests.Validators
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
             builder.UseInMemoryDatabase(CreateUniqueDatabaseName);
-            _databaseContext = new DatabaseContext(builder.Options); 
+            _databaseContext = new DatabaseContext(builder.Options);
             _validator = new ChangeEmailDtoValidator(_databaseContext);
             SeedUsers();
         }

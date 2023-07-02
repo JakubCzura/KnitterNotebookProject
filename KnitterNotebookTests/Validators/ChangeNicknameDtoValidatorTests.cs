@@ -1,14 +1,9 @@
-﻿using KnitterNotebook.Database;
-using KnitterNotebook.Models.Dtos;
+﻿using FluentValidation.TestHelper;
+using KnitterNotebook.Database;
 using KnitterNotebook.Models;
+using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Validators;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation.TestHelper;
 
 namespace KnitterNotebookTests.Validators
 {

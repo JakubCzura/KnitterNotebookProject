@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-
-namespace KnitterNotebook.Models.Dtos
+﻿namespace KnitterNotebook.Models.Dtos
 {
     public class ChangeEmailDto
     {

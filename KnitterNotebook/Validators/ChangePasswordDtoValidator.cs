@@ -1,30 +1,30 @@
 ﻿using FluentValidation;
+using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
-using KnitterNotebook.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace KnitterNotebook.Validators
 {
     public class ChangePasswordDtoValidator : AbstractValidator<ChangePasswordDto>
     {
-        private readonly IUserService _userService;
+        private readonly DatabaseContext _databaseContext;
 
-        public ChangePasswordDtoValidator(IUserService userService)
+        public ChangePasswordDtoValidator(DatabaseContext databaseContext)
         {
-            _userService = userService;
+            _databaseContext = databaseContext;
 
             RuleFor(dto => dto.UserId)
-                .Must(id => _userService.GetAsync(id) != null)
+                .MustAsync(async (id, cancellationToken) => await _databaseContext.Users.AnyAsync(x => x.Id == id, cancellationToken))
                 .WithMessage("Nie znaleziono użytkownika");
 
             RuleFor(x => x.NewPassword)
-              .NotEmpty().WithMessage("Hasło nie może być puste")
-              .MinimumLength(6).WithMessage("Hasło musi mieć conajmniej 6 znaków")
-              .MaximumLength(50).WithMessage("Hasło może mieć maksimum 50 znaków")
-              .Must(y => y.Any(char.IsDigit)).WithMessage("Hasło musi zawierać conajmniej jedną cyfrę")
-              .Must(y => y.Any(char.IsAsciiLetterLower)).WithMessage("Hasło musi zawierać conajmniej jedną małą literę")
-              .Must(y => y.Any(char.IsAsciiLetterUpper)).WithMessage("Hasło musi zawierać conajmniej jedną wielką literę")
-              .Equal(x => x.ConfirmPassword).WithMessage("Nowe hasło ma dwie różne wartości");
+                .MinimumLength(6).WithMessage("Hasło musi mieć conajmniej 6 znaków")
+                .MaximumLength(50).WithMessage("Hasło może mieć maksimum 50 znaków")
+                .Must(y => y is not null && y.Any(char.IsDigit)).WithMessage("Hasło musi zawierać conajmniej jedną cyfrę")
+                .Must(y => y is not null && y.Any(char.IsAsciiLetterLower)).WithMessage("Hasło musi zawierać conajmniej jedną małą literę")
+                .Must(y => y is not null && y.Any(char.IsAsciiLetterUpper)).WithMessage("Hasło musi zawierać conajmniej jedną wielką literę")
+                .Equal(x => x.ConfirmPassword).WithMessage("Nowe hasło ma dwie różne wartości");
         }
     }
 }

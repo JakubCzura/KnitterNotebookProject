@@ -1,10 +1,8 @@
-﻿using FluentAssertions;
-using FluentValidation;
-using FluentValidation.Results;
+﻿using FluentValidation;
+using FluentValidation.TestHelper;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Validators;
-using FluentValidation.TestHelper;
 
 namespace KnitterNotebookTests.Validators
 {
@@ -16,6 +14,7 @@ namespace KnitterNotebookTests.Validators
         {
             _validator = new CreateMovieUrlValidator();
         }
+
         public static IEnumerable<object[]> InvalidData()
         {
             yield return new object[] { new CreateMovieUrlDto(null!, "https://youtube.pl", new User()) };

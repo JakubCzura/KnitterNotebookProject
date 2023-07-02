@@ -6,7 +6,6 @@ using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using System;
-using System.Security.RightsManagement;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -35,6 +34,7 @@ namespace KnitterNotebook.ViewModels
         #endregion Delegates
 
         #region Properties
+
         private readonly IMovieUrlService _movieUrlService;
         private readonly IUserService _userService;
         private readonly IValidator<CreateMovieUrlDto> _createMovieUrlValidator;

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace KnitterNotebook.Models
+﻿namespace KnitterNotebook.Models
 {
     public class PlannedProject
     {
@@ -14,8 +12,8 @@ namespace KnitterNotebook.Models
 
         public string Description { get; set; } = string.Empty;
 
-       // public virtual List<Needle> Needles { get; set; } = new();
+        // public virtual List<Needle> Needles { get; set; } = new();
 
-       // public virtual List<Yarn> Yarns { get; set; } = new();
+        // public virtual List<Yarn> Yarns { get; set; } = new();
     }
 }

@@ -1,25 +1,17 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
-using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
-using KnitterNotebook.Validators;
-using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
 {
-  
     public class ResetPasswordViewModel : BaseViewModel
     {
         public ResetPasswordViewModel(IUserService userService, IValidator<ResetPasswordDto> resetPasswordDtoValidator)
@@ -35,7 +27,8 @@ namespace KnitterNotebook.ViewModels
 
         public ICommand ResetPasswordCommandAsync { get; }
 
-        private string _emailOrNickname = string.Empty; 
+        private string _emailOrNickname = string.Empty;
+
         public string EmailOrNickname
         {
             get => _emailOrNickname;

@@ -9,7 +9,6 @@ using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -163,10 +162,9 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
-        public ObservableCollection<Sample> FilteredSamples => FilterNeedleSize > 0 
-            ? Samples.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit) 
+        public ObservableCollection<Sample> FilteredSamples => FilterNeedleSize > 0
+            ? Samples.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit)
             : Samples;
-
 
         public string SelectedSampleMashesXRows => $"{SelectedSample?.LoopsQuantity}x{SelectedSample?.RowsQuantity}";
         public string SelectedSampleNeedleSize => $"{SelectedSample?.NeedleSize}{SelectedSample?.NeedleSizeUnit}";

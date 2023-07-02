@@ -7,8 +7,8 @@ namespace KnitterNotebook.Helpers
     {
         public static string? CreatePathToSaveImage(string userName, string sourceImageFullPath)
         {
-            return string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(sourceImageFullPath) 
-                ? null 
+            return string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(sourceImageFullPath)
+                ? null
                 : Paths.PathToSaveImage(userName, Path.GetFileName(sourceImageFullPath));
         }
     }

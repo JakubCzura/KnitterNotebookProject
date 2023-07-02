@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace KnitterNotebook.Models.Dtos
+﻿namespace KnitterNotebook.Models.Dtos
 {
     public class ChangeNicknameDto
     {

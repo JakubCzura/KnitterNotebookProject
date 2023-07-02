@@ -1,6 +1,5 @@
 ﻿using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Models;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

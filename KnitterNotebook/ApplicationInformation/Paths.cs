@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using System.IO;
+﻿using System.IO;
 
 namespace KnitterNotebook.ApplicationInformation
 {
