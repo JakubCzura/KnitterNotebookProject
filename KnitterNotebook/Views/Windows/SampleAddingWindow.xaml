@@ -130,7 +130,7 @@
                                     MaxWidth="300"
                                     IsReadOnly="True"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                    Text="{Binding ImageName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                                    Text="{Binding SourceImagePath, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
                         </StackPanel>
@@ -138,7 +138,7 @@
                             <Image
                                 MaxWidth="300"
                                 MaxHeight="300"
-                                Source="{Binding ImageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Source="{Binding SourceImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </Grid>
 

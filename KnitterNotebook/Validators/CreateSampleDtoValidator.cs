@@ -1,25 +1,30 @@
 ﻿using FluentValidation;
+using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
+using Microsoft.EntityFrameworkCore;
 using System.IO;
 
 namespace KnitterNotebook.Validators
 {
     public class CreateSampleDtoValidator : AbstractValidator<CreateSampleDto>
     {
-        public CreateSampleDtoValidator()
+        private readonly DatabaseContext _databaseContext;
+        public CreateSampleDtoValidator(DatabaseContext databaseContext)
         {
+            _databaseContext = databaseContext;
+
             RuleFor(x => x.YarnName)
                 .NotEmpty().WithMessage("Nazwa włóczki nie może być pusta")
-                .MaximumLength(100).WithMessage("Nazwa włóczki może mieć maksimum 100 znaków");
+                .MaximumLength(200).WithMessage("Nazwa włóczki może mieć maksimum 200 znaków");
 
             RuleFor(x => x.LoopsQuantity)
-                .LessThanOrEqualTo(int.MaxValue).WithMessage("Zbyt duża ilość oczek");
+                .InclusiveBetween(1, 100000).WithMessage("Ilość oczek musi być z zakresu 1-100000");
 
             RuleFor(x => x.RowsQuantity)
-                .LessThanOrEqualTo(int.MaxValue).WithMessage("Zbyt duża ilość rzędów");
+                .InclusiveBetween(1, 100000).WithMessage("Ilość rzędów musi być z zakresu 1-100000");
 
             RuleFor(x => x.NeedleSize)
-                .LessThanOrEqualTo(double.MaxValue).WithMessage("Zbyt duży rozmiar drutu");
+                .InclusiveBetween(0.1, 100).WithMessage("Rozmiar drutu musi być z zakresu 0.1-100");
 
             RuleFor(x => x.NeedleSizeUnit)
                 .NotEmpty().WithMessage("Jednostka miary nie może być pusta")
@@ -28,19 +33,23 @@ namespace KnitterNotebook.Validators
             RuleFor(x => x.Description)
                 .MaximumLength(10000).WithMessage("Opis może mieć maksymalnie 10000 znaków");
 
-            RuleFor(x => x.ImagePath)
-                .MaximumLength(1000).WithMessage("Długość ścieżki do zapisu zdjęcia nie może być większa niż 1000 znaków");
+            RuleFor(x => x.SourceImagePath)
+                .MaximumLength(1000).WithMessage("Długość ścieżki wybranego zdjęcia nie może być większa niż 1000 znaków")
+                .Must(ImageExtensionValidator.IsImage)
+                .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png, .gif, .bmp lub usuń odnośnik do zdjęcia");
 
-            RuleFor(x => x.ImagePath).Must(x =>
-            {
-                return string.IsNullOrWhiteSpace(x) || ImageExtensionValidator.IsImage(x);
-            }).WithMessage("Wybierz zdjęcie z innym formatem, na przykład .jpg .png lub usuń odnośnik do zdjęcia");
+            RuleFor(x => x.DestinationImagePath)
+                .MaximumLength(1000).WithMessage("Długość ścieżki do zapisu zdjęcia nie może być większa niż 1000 znaków")
+                .Must(ImageExtensionValidator.IsImage)
+                .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png, .gif, .bmp lub usuń odnośnik do zdjęcia");
 
-            //Returns false if file exists, returns true if file doesn't exists or file's path is null
-            RuleFor(x => x.ImagePath).Must(x =>
-            {
-                return !File.Exists(x);
-            }).WithMessage("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
+            //RuleFor(x => x.ImagePath)
+            //    .Must(x => !File.Exists(x))
+            //    .WithMessage("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
+
+            RuleFor(x => x.UserId)
+             .MustAsync(async (value, cancellationToken) => await _databaseContext.Users.AnyAsync(x => x.Id == value, cancellationToken))
+             .WithMessage("Nie odnaleziono użytkownika");
         }
     }
 }

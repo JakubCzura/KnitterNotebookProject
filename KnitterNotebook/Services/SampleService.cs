@@ -1,4 +1,5 @@
 ﻿using KnitterNotebook.Database;
+using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
@@ -22,9 +23,9 @@ namespace KnitterNotebook.Services
         public async Task<bool> CreateAsync(CreateSampleDto createSampleDto)
         {
             Image? image = null;
-            if (!string.IsNullOrWhiteSpace(createSampleDto.ImagePath))
+            if (!string.IsNullOrWhiteSpace(createSampleDto.DestinationImagePath))
             {
-                image = new(createSampleDto.ImagePath);
+                image = new(createSampleDto.DestinationImagePath);
                 await _imageService.CreateAsync(image);
             }
             Sample sample = new()
@@ -39,6 +40,10 @@ namespace KnitterNotebook.Services
                 Image = image,
                 ImageId = image?.Id
             };
+
+            if (!string.IsNullOrWhiteSpace(createSampleDto.SourceImagePath) && !string.IsNullOrWhiteSpace(createSampleDto.DestinationImagePath))
+                FileHelper.CopyWithDirectoryCreation(createSampleDto.SourceImagePath, createSampleDto.DestinationImagePath);
+
             await _databaseContext.Samples.AddAsync(sample);
             await _databaseContext.SaveChangesAsync();
             return true;

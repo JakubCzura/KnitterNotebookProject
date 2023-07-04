@@ -9,7 +9,7 @@ namespace KnitterNotebook.ApplicationInformation
 
         public static string UserDirectory(string nickname) => Path.Combine(UsersDirectories, nickname);
 
-        public static string PathToSaveImage(string nickname, string sourceImageName) => Path.Combine(UserDirectory(nickname), sourceImageName);
+        public static string PathToSaveImage(string nickname, string uniqueString, string sourceImageName) => Path.Combine(UserDirectory(nickname), uniqueString + sourceImageName);
 
         public static string ThemeFullPath(string themePath) => Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{themePath}Mode.xaml");
     }

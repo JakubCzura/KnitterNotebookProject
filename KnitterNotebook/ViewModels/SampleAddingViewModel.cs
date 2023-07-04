@@ -24,7 +24,7 @@ namespace KnitterNotebook.ViewModels
             _userService = userService;
             _createSampleDtoValidator = createSampleDtoValidator;
             ChooseImageCommand = new RelayCommand(ChooseImage);
-            DeletePhotoCommand = new RelayCommand(() => ImageName = null);
+            DeletePhotoCommand = new RelayCommand(() => SourceImagePath = null);
             AddSampleCommandAsync = new AsyncRelayCommand(AddSampleAsync);
         }
 
@@ -87,12 +87,12 @@ namespace KnitterNotebook.ViewModels
 
         public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
 
-        private string? imageName = null;
+        private string? sourceImagePath = null;
 
-        public string? ImageName
+        public string? SourceImagePath
         {
-            get => imageName;
-            set { imageName = value; OnPropertyChanged(); }
+            get => sourceImagePath;
+            set { sourceImagePath = value; OnPropertyChanged(); }
         }
 
         public static Action NewSampleAdded { get; set; } = null!;
@@ -109,7 +109,7 @@ namespace KnitterNotebook.ViewModels
                 Filter = "Image Files (*.jpg; *.jpeg; *.png; *.gif; *.bmp)|*.jpg; *.jpeg; *.png; *.gif; *.bmp"
             };
             dialog.ShowDialog();
-            ImageName = dialog.FileName;
+            SourceImagePath = dialog.FileName;
         }
 
         private async Task AddSampleAsync()
@@ -117,23 +117,17 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 User user = await _userService.GetAsync(LoggedUserInformation.Id);
-                string? imagePath = ImagePathCreator.CreatePathToSaveImage(user.Nickname, ImageName!);
-                CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, imagePath);
-                ValidationResult validation = _createSampleDtoValidator.Validate(createSampleDto);
+                string? destinationImagePath = ImagePathCreator.CreateUniquePathToSaveImage(user.Nickname, SourceImagePath);
+                CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, SourceImagePath, destinationImagePath);
+                ValidationResult validation = await _createSampleDtoValidator.ValidateAsync(createSampleDto);
                 if (!validation.IsValid)
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
                     MessageBox.Show(errorMessage, "Błąd podczas dodawania próbki obliczeniowej", MessageBoxButton.OK);
                     return;
                 }
-                if (await _sampleService.CreateAsync(createSampleDto))
-                {
-                    if (!string.IsNullOrWhiteSpace(ImageName) && !string.IsNullOrWhiteSpace(imagePath))
-                    {
-                        FileHelper.CopyWithDirectoryCreation(ImageName, imagePath);
-                    }
-                    OnNewSampleAdded();
-                }
+                await _sampleService.CreateAsync(createSampleDto);
+                OnNewSampleAdded();
                 MessageBox.Show("Zapisano nową próbkę obliczeniową");
             }
             catch (Exception exception)
