@@ -39,7 +39,26 @@ namespace KnitterNotebookTests.Validators
 
         public static IEnumerable<object[]> InvalidData()
         {
-            yield return new object[] { new CreateSampleDto("test", -2, -3 , 2, "cm", "test", 1, "c:", "c:")};
+            yield return new object[] { new CreateSampleDto("", 2, 3, 2, "cm", "test", 1, "c:\\test\\test.jpg", "c:\\test\\user\\test.jpg") };
+            yield return new object[] { new CreateSampleDto(null!, 2, 3, 2, "cm", "test", 1, "c:\\test\\test.jpg", "c:\\test\\user\\test.jpg") };
+            yield return new object[] { new CreateSampleDto(new string('K', 201), 2, 3, 2, "cm", "test", 1, "c:\\test\\test.jpg", "c:\\user\\test\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", -2, 3, 2, "cm", "test", 1, "c:\\test\\test.jpg", "c:\\test\\user\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 100001, 3, 2, "cm", "test", 1, "c:\\test\\test.jpg", "c:\\test\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, -3, 2, "cm", "test", 1, "c:\\test\\test.jpg", "c:\\test\\user\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 100001, 2, "cm", "test", 1, "c:\\test\\test.jpg", "c:\\test\\user\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 25, 0.09, "cm", "test", 1, "c:\\test\\test.jpg", "c:\\test\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 101, 101, "cm", "test", 1, "c:\\test\\test.jpg", "c:\\test\\user\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "m", "test", 1, "c:\\test\\test.jpg", "c:\\test\\user\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, null!, "test", 1, "c:\\test\\test.jpg", "c:\\test\\user\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "", "test", 1, "c:\\test\\test.jpg", "c:\\test\\user\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, " ", "test", 1, "c:\\test\\test.jpg", "c:\\test\\user\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", new string('K', 10001), 1, "c:\\test\\test.jpg", "c:\\test\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", -1, "c:\\test\\test.jpg", "c:\\test\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 0, "c:\\test\\test.jpg", "c:\\test\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 10, "c:\\test\\test.jpg", "c:\\test\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 1, "", "c:\\test\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 1, null!, "c:\\test\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 1, "c:\\test\\text.txt", "c:\\test\\test.jpg") };
         }
 
         [Theory]

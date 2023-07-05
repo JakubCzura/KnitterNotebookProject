@@ -27,25 +27,21 @@ namespace KnitterNotebook.Validators
                 .InclusiveBetween(0.1, 100).WithMessage("Rozmiar drutu musi być z zakresu 0.1-100");
 
             RuleFor(x => x.NeedleSizeUnit)
-                .NotEmpty().WithMessage("Jednostka miary nie może być pusta")
-                .MaximumLength(100).WithMessage("Jednostka miary może mieć maksimum 100 znaków");
+                .Must(value => value == "mm" || value == "cm")
+                .WithMessage("Jednostka miary może być określona tylko jako 'cm' lub 'mm' ");
 
             RuleFor(x => x.Description)
                 .MaximumLength(10000).WithMessage("Opis może mieć maksymalnie 10000 znaków");
 
             RuleFor(x => x.SourceImagePath)
-                .MaximumLength(1000).WithMessage("Długość ścieżki wybranego zdjęcia nie może być większa niż 1000 znaków")
                 .Must(ImageExtensionValidator.IsImage)
                 .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png, .gif, .bmp lub usuń odnośnik do zdjęcia");
 
             RuleFor(x => x.DestinationImagePath)
-                .MaximumLength(1000).WithMessage("Długość ścieżki do zapisu zdjęcia nie może być większa niż 1000 znaków")
                 .Must(ImageExtensionValidator.IsImage)
-                .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png, .gif, .bmp lub usuń odnośnik do zdjęcia");
-
-            //RuleFor(x => x.ImagePath)
-            //    .Must(x => !File.Exists(x))
-            //    .WithMessage("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
+                .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png, .gif, .bmp lub usuń odnośnik do zdjęcia")
+                .Must(x => !File.Exists(x))
+                .WithMessage("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");      
 
             RuleFor(x => x.UserId)
              .MustAsync(async (value, cancellationToken) => await _databaseContext.Users.AnyAsync(x => x.Id == value, cancellationToken))

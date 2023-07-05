@@ -37,7 +37,7 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new ChangeNicknameDto(1, "1 #") };
             yield return new object[] { new ChangeNicknameDto(1, "Nick1") };
             yield return new object[] { new ChangeNicknameDto(2, "Nick2") };
-            yield return new object[] { new ChangeNicknameDto(2, "MoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50Chars") };
+            yield return new object[] { new ChangeNicknameDto(2, new string('K', 51)) };
             yield return new object[] { new ChangeNicknameDto(90, "Nick333") };
         }
 

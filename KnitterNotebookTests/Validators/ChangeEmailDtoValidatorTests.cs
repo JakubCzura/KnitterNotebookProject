@@ -27,8 +27,8 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new ChangeEmailDto(-1, string.Empty) };
             yield return new object[] { new ChangeEmailDto(2, string.Empty) };
             yield return new object[] { new ChangeEmailDto(3, string.Empty) };
-            yield return new object[] { new ChangeEmailDto(4, "MoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50Chars@mail.com") };
-            yield return new object[] { new ChangeEmailDto(5, "MoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50Chars@mail.com") };
+            yield return new object[] { new ChangeEmailDto(4, new string('K', 51) + "@mail.com") };
+            yield return new object[] { new ChangeEmailDto(5, new string('K', 60) + "@testmail.") };
             yield return new object[] { new ChangeEmailDto(1, "test1@test.com") };
             yield return new object[] { new ChangeEmailDto(2, "test2@test.com") };
             yield return new object[] { new ChangeEmailDto(3, "test3@test.com") };

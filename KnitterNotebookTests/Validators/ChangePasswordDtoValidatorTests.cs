@@ -47,9 +47,9 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new ChangePasswordDto(2, ".", ".") };
             yield return new object[] { new ChangePasswordDto(2, "p@m1", "p@m1") };
             yield return new object[] { new ChangePasswordDto(2, "p@m1", "p22@m1") };
-            yield return new object[] { new ChangePasswordDto(2, "MoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50Chars", "MoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50Chars") };
-            yield return new object[] { new ChangePasswordDto(2, ".", "MoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50Chars") };
-            yield return new object[] { new ChangePasswordDto(12, "Ja@d1", "MoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50CharsMoreThan50Chars") };
+            yield return new object[] { new ChangePasswordDto(2, new string ('K', 51), new string('K', 51)) };
+            yield return new object[] { new ChangePasswordDto(2, ".", new string('K', 51)) };
+            yield return new object[] { new ChangePasswordDto(12, "Ja@d1", new string('K', 51)) };
         }
 
         public static IEnumerable<object[]> ValidData()
