@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentValidation.TestHelper;
+using KnitterNotebookTests.HelpersForTesting;
 
 namespace KnitterNotebookTests.Validators
 {
@@ -20,7 +21,7 @@ namespace KnitterNotebookTests.Validators
         public RegisterUserDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(CreateUniqueDatabaseName);
+            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
             _databaseContext = new DatabaseContext(builder.Options);
             _validator = new RegisterUserDtoValidator(_databaseContext);
             SeedUsers();
@@ -53,8 +54,6 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new RegisterUserDto("Valid Nickname", "uservalidemail@mail.com", "Pass123@word") };
             yield return new object[] { new RegisterUserDto("Nickname", "emailuser@mail.com", "Strong321@xSd") };
         }
-
-        private static string CreateUniqueDatabaseName => "TestDb" + DateTime.Now.Ticks.ToString();
 
         private void SeedUsers()
         {

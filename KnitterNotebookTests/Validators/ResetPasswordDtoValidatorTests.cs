@@ -3,6 +3,7 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Validators;
+using KnitterNotebookTests.HelpersForTesting;
 using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebookTests.Validators
@@ -15,7 +16,7 @@ namespace KnitterNotebookTests.Validators
         public ResetPasswordDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(CreateUniqueDatabaseName);
+            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
             _databaseContext = new DatabaseContext(builder.Options);
             _validator = new ResetPasswordDtoValidator(_databaseContext);
             SeedUsers();
@@ -38,8 +39,6 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new ResetPasswordDto("Nick1", "PasswordNew123", "PasswordNew123") };
             yield return new object[] { new ResetPasswordDto("Nick2", "PasswordNew123", "PasswordNew123") };
         }
-
-        private static string CreateUniqueDatabaseName => "TestDb" + DateTime.Now.Ticks.ToString();
 
         private void SeedUsers()
         {

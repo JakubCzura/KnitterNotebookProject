@@ -3,6 +3,7 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Validators;
+using KnitterNotebookTests.HelpersForTesting;
 using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebookTests.Validators
@@ -15,7 +16,7 @@ namespace KnitterNotebookTests.Validators
         public ChangeNicknameDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(CreateUniqueDatabaseName);
+            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
             _databaseContext = new DatabaseContext(builder.Options);
             _validator = new ChangeNicknameDtoValidator(_databaseContext);
             SeedUsers();
@@ -47,9 +48,6 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new ChangeNicknameDto(2, "NewNick2") };
             yield return new object[] { new ChangeNicknameDto(3, "NewNick3") };
         }
-
-        private static string CreateUniqueDatabaseName => "TestDb" + DateTime.Now.Ticks.ToString();
-
         private void SeedUsers()
         {
             List<User> users = new()

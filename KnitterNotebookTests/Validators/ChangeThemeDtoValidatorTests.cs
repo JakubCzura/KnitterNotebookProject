@@ -4,6 +4,7 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Validators;
+using KnitterNotebookTests.HelpersForTesting;
 using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebookTests.Validators
@@ -16,7 +17,7 @@ namespace KnitterNotebookTests.Validators
         public ChangeThemeDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(CreateUniqueDatabaseName);
+            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
             _databaseContext = new DatabaseContext(builder.Options);
             _validator = new ChangeThemeDtoValidator(_databaseContext);
             SeedThemes();
@@ -33,8 +34,6 @@ namespace KnitterNotebookTests.Validators
             _databaseContext.Themes.AddRange(themes);
             _databaseContext.SaveChanges();
         }
-
-        private static string CreateUniqueDatabaseName => "TestDb" + DateTime.Now.Ticks.ToString();
 
         public static IEnumerable<object[]> InvalidData()
         {

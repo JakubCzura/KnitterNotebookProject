@@ -3,6 +3,7 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Validators;
+using KnitterNotebookTests.HelpersForTesting;
 using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebookTests.Validators
@@ -15,7 +16,7 @@ namespace KnitterNotebookTests.Validators
         public ChangePasswordDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(CreateUniqueDatabaseName);
+            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
             _databaseContext = new DatabaseContext(builder.Options);
             _validator = new ChangePasswordDtoValidator(_databaseContext);
             SeedUsers();
@@ -59,8 +60,6 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new ChangePasswordDto(1, "PasswordAccepted123@", "PasswordAccepted123@") };
             yield return new object[] { new ChangePasswordDto(3, "P123123@k", "P123123@k") };
         }
-
-        private static string CreateUniqueDatabaseName => "TestDb" + DateTime.Now.Ticks.ToString();
 
         private void SeedUsers()
         {

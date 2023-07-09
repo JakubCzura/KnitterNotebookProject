@@ -11,6 +11,7 @@ using KnitterNotebook.Database;
 using Microsoft.EntityFrameworkCore;
 using System.IO.Abstractions.TestingHelpers;
 using KnitterNotebook.ApplicationInformation;
+using KnitterNotebookTests.HelpersForTesting;
 
 namespace KnitterNotebookTests.Validators
 {
@@ -21,13 +22,11 @@ namespace KnitterNotebookTests.Validators
         public CreateSampleDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(CreateUniqueDatabaseName);
+            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
             _databaseContext = new DatabaseContext(builder.Options);
             _validator = new CreateSampleDtoValidator(_databaseContext);
             SeedUsers();
         }
-        private static string CreateUniqueDatabaseName => "TestDb" + DateTime.Now.Ticks.ToString();
-
         private void SeedUsers()
         {
             List<User> users = new()
