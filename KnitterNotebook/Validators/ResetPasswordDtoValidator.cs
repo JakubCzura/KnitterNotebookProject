@@ -24,7 +24,9 @@ namespace KnitterNotebook.Validators
               .Must(y => y.Any(char.IsDigit)).WithMessage("Hasło musi zawierać conajmniej jedną cyfrę")
               .Must(y => y.Any(char.IsAsciiLetterLower)).WithMessage("Hasło musi zawierać conajmniej jedną małą literę")
               .Must(y => y.Any(char.IsAsciiLetterUpper)).WithMessage("Hasło musi zawierać conajmniej jedną wielką literę")
-              .Equal(x => x.RepeatedNewPassword).WithMessage("Nowe hasło ma dwie różne wartości")
+              .Equal(x => x.RepeatedNewPassword).WithMessage("Nowe hasło ma dwie różne wartości");
+
+            RuleFor(x => x.EmailOrNickname)
               .MustAsync(async (value, cancellationToken) => await _databaseContext.Users.AnyAsync(x => x.Nickname == value || x.Email == value, cancellationToken))
               .WithMessage("E-mail oraz nazwa użytkownika nie pasują do żadnego użytkownika");
         }
