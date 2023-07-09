@@ -9,6 +9,8 @@ using KnitterNotebook.Validators;
 using FluentValidation.TestHelper;
 using KnitterNotebook.Database;
 using Microsoft.EntityFrameworkCore;
+using System.IO.Abstractions.TestingHelpers;
+using KnitterNotebook.ApplicationInformation;
 
 namespace KnitterNotebookTests.Validators
 {
@@ -58,7 +60,15 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 10, "c:\\test\\test.jpg", "c:\\test\\test.jpg") };
             yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 1, "", "c:\\test\\test.jpg") };
             yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 1, null!, "c:\\test\\test.jpg") };
-            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 1, "c:\\test\\text.txt", "c:\\test\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 1, "c:\\test\\test.txt", "c:\\test\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 1, "c:\\test\\test.jpg", "c:\\test\\test.txt") };
+            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 20, "c:\\test\\test.jpg", "c:\\test\\test.jpg") };
+        }
+
+        public static IEnumerable<object[]> ValidData()
+        {
+            yield return new object[] { new CreateSampleDto("Name", 2, 3, 2, "cm", "Description", 1, "c:\\test\\test.jpg", "c:\\test\\user\\test.jpg") };  
+            yield return new object[] { new CreateSampleDto("Yarn Name", 1, 30, 1.5, "mm", "Description", 2, "c:\\test\\test.png", "c:\\test\\user\\test.png") };  
         }
 
         [Theory]
@@ -70,6 +80,34 @@ namespace KnitterNotebookTests.Validators
 
             //Assert
             validationResult.ShouldHaveAnyValidationError();
+        }
+
+        [Fact]
+        public async Task Validate_ForExistingImage_FailValidation()
+        {
+            //Arrange
+            string destionationImagePath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "DirectoryForTests", "UserName", "ImageName.jpg");
+            Directory.CreateDirectory(Path.GetDirectoryName(destionationImagePath)!);
+            File.Create(destionationImagePath);
+
+            CreateSampleDto createSampleDto = new("YarnName", 2, 2, 2, "cm", "Description", 1, "c:\\test\\ImageName.jpg", destionationImagePath);
+
+            //Act
+            var validationResult = await _validator.TestValidateAsync(createSampleDto);
+
+            //Assert
+            validationResult.ShouldHaveAnyValidationError();
+        }
+
+        [Theory]
+        [MemberData(nameof(ValidData))]
+        public async Task Validate_ForValidData_PassValidation(CreateSampleDto createSampleDto)
+        {
+            //Act
+            var validationResult = await _validator.TestValidateAsync(createSampleDto);
+
+            //Assert
+            validationResult.ShouldNotHaveAnyValidationErrors();
         }
     }
 }
