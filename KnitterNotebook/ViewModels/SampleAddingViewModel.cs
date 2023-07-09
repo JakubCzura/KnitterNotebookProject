@@ -123,7 +123,7 @@ namespace KnitterNotebook.ViewModels
                 if (!validation.IsValid)
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
-                    MessageBox.Show(errorMessage, "Błąd podczas dodawania próbki obliczeniowej", MessageBoxButton.OK);
+                    MessageBox.Show(errorMessage, "Błąd podczas dodawania próbki obliczeniowej");
                     return;
                 }
                 await _sampleService.CreateAsync(createSampleDto);

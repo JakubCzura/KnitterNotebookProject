@@ -2,10 +2,10 @@
 using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.Database;
-using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -62,20 +62,17 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                User? user = await _userService.GetAsync(LoggedUserInformation.Id);
-                if (user == null)
+                CreateMovieUrlDto createMovieUrl = new(Title, Link, LoggedUserInformation.Id);
+                ValidationResult validation = await _createMovieUrlValidator.ValidateAsync(createMovieUrl);
+                if (!validation.IsValid)
                 {
-                    MessageBox.Show("Błąd podczas dodania filmu", "Nie odnaleziono użytkownika");
+                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    MessageBox.Show(errorMessage, "Błąd podczas rejestracji");
                     return;
                 }
-                CreateMovieUrlDto createMovieUrl = new(Title, Link, user);
-                ValidationResult validation = _createMovieUrlValidator.Validate(createMovieUrl);
-                if (validation.IsValid)
-                {
-                    await _movieUrlService.CreateAsync(createMovieUrl);
-                    OnNewMovieUrlAdded();
-                    MessageBox.Show("Dodano nowy film");
-                }
+                await _movieUrlService.CreateAsync(createMovieUrl);
+                OnNewMovieUrlAdded();
+                MessageBox.Show("Dodano nowy film");
             }
             catch (Exception exception)
             {

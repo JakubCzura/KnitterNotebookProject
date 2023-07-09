@@ -9,13 +9,12 @@ namespace KnitterNotebook.Services
 {
     public class MovieUrlService : CrudService<MovieUrl>, IMovieUrlService
     {
-        //private readonly IUserRepository _userRepository;
-        //private readonly IMovieUrlRepository _movieUrlRepository;
         private readonly DatabaseContext _databaseContext;
-
-        public MovieUrlService(DatabaseContext databaseContext) : base(databaseContext)
+        private readonly IUserService _userService;
+        public MovieUrlService(DatabaseContext databaseContext, IUserService userService) : base(databaseContext)
         {
             _databaseContext = databaseContext;
+            _userService = userService;
         }
 
         public async Task CreateAsync(CreateMovieUrlDto createMovieUrl)
@@ -24,7 +23,7 @@ namespace KnitterNotebook.Services
             {
                 Title = createMovieUrl.Title,
                 Link = new Uri(createMovieUrl.Link),
-                User = createMovieUrl.User
+                User = await _userService.GetAsync(LoggedUserInformation.Id),
             };
             await _databaseContext.AddAsync(movieUrl);
             await _databaseContext.SaveChangesAsync();

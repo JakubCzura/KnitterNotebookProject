@@ -43,7 +43,7 @@ namespace KnitterNotebook
                     services.AddScoped<IValidator<ChangeEmailDto>, ChangeEmailDtoValidator>();
                     services.AddScoped<IValidator<ChangePasswordDto>, ChangePasswordDtoValidator>();
                     services.AddScoped<IValidator<ChangeThemeDto>, ChangeThemeDtoValidator>();
-                    services.AddScoped<IValidator<CreateMovieUrlDto>, CreateMovieUrlValidator>();
+                    services.AddScoped<IValidator<CreateMovieUrlDto>, CreateMovieUrlDtoValidator>();
                     services.AddScoped<IValidator<CreateSampleDto>, CreateSampleDtoValidator>();
                     services.AddScoped<IValidator<ResetPasswordDto>, ResetPasswordDtoValidator>();
                     services.AddScoped<IMovieUrlService, MovieUrlService>();
