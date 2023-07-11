@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
+using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
@@ -9,6 +10,7 @@ using KnitterNotebook.Services.Interfaces;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -117,7 +119,7 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 User user = await _userService.GetAsync(LoggedUserInformation.Id);
-                string? destinationImagePath = ImagePathCreator.CreateUniquePathToSaveImage(user.Nickname, SourceImagePath);
+                string? destinationImagePath = Paths.PathToSaveImage(user.Nickname, Path.GetFileName(SourceImagePath));
                 CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, SourceImagePath, destinationImagePath);
                 ValidationResult validation = await _createSampleDtoValidator.ValidateAsync(createSampleDto);
                 if (!validation.IsValid)

@@ -29,7 +29,12 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new ResetPasswordDto("nick1@mail.com", "KPasswordNew123", "PasswordNew123")};
             yield return new object[] { new ResetPasswordDto("Nick1@mail.com", "KPass4wordNew123", "PasswordNew123")};
             yield return new object[] { new ResetPasswordDto("nick2@mail.com", "KP3assw5ordNew123", "PasswordNew123")};
-            yield return new object[] { new ResetPasswordDto("Nick2@mail.com", "KPa3ssw56ordNew123", "PasswordNew123")};
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "KPa3ssw56ordNew123", "PasswordNew123")};
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "", "")};
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", null!, "")};
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "", null!)};
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "ValidPassword1", null!)};
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "", "ValidPassword1")};
         }
 
         public static IEnumerable<object[]> ValidData()

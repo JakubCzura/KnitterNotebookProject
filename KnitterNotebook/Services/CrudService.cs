@@ -22,14 +22,10 @@ namespace KnitterNotebook.Services
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
-        {
-            return await _dbSet.ToListAsync();
-        }
+            => await _dbSet.ToListAsync();
 
         public async Task<T> GetAsync(int id)
-        {
-            return await _dbSet.FindAsync(id) ?? null!;
-        }
+            => await _dbSet.FindAsync(id) ?? null!;
 
         public async Task CreateAsync(T data)
         {

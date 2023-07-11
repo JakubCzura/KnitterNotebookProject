@@ -19,11 +19,7 @@ namespace KnitterNotebook.Validators
 
             RuleFor(x => x.NewPassword)
               .NotEmpty().WithMessage("Hasło nie może być puste")
-              .MinimumLength(6).WithMessage("Hasło musi mieć conajmniej 6 znaków")
-              .MaximumLength(50).WithMessage("Hasło może mieć maksimum 50 znaków")
-              .Must(y => y.Any(char.IsDigit)).WithMessage("Hasło musi zawierać conajmniej jedną cyfrę")
-              .Must(y => y.Any(char.IsAsciiLetterLower)).WithMessage("Hasło musi zawierać conajmniej jedną małą literę")
-              .Must(y => y.Any(char.IsAsciiLetterUpper)).WithMessage("Hasło musi zawierać conajmniej jedną wielką literę")
+              .SetValidator(new PasswordValidator())
               .Equal(x => x.RepeatedNewPassword).WithMessage("Nowe hasło ma dwie różne wartości");
 
             RuleFor(x => x.EmailOrNickname)

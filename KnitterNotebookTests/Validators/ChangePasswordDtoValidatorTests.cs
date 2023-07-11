@@ -28,8 +28,11 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new ChangePasswordDto(0, null!, null!) };
             yield return new object[] { new ChangePasswordDto(0, string.Empty, null!) };
             yield return new object[] { new ChangePasswordDto(0, null!, string.Empty) };
-            yield return new object[] { new ChangePasswordDto(1, null!, null!) };
             yield return new object[] { new ChangePasswordDto(2, string.Empty, null!) };
+            yield return new object[] { new ChangePasswordDto(2, string.Empty, string.Empty) };
+            yield return new object[] { new ChangePasswordDto(1, null!, "321") };
+            yield return new object[] { new ChangePasswordDto(1, "321", null!) };
+            yield return new object[] { new ChangePasswordDto(1, "321", null!) };
             yield return new object[] { new ChangePasswordDto(3, null!, string.Empty) };
             yield return new object[] { new ChangePasswordDto(4, string.Empty, null!) };
             yield return new object[] { new ChangePasswordDto(5, null!, string.Empty!) };
@@ -48,7 +51,7 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new ChangePasswordDto(2, ".", ".") };
             yield return new object[] { new ChangePasswordDto(2, "p@m1", "p@m1") };
             yield return new object[] { new ChangePasswordDto(2, "p@m1", "p22@m1") };
-            yield return new object[] { new ChangePasswordDto(2, new string ('K', 51), new string('K', 51)) };
+            yield return new object[] { new ChangePasswordDto(2, new string('K', 51), new string('K', 51)) };
             yield return new object[] { new ChangePasswordDto(2, ".", new string('K', 51)) };
             yield return new object[] { new ChangePasswordDto(12, "Ja@d1", new string('K', 51)) };
         }

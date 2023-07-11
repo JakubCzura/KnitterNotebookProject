@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KnitterNotebookTests.HelpersForTesting
+﻿namespace KnitterNotebookTests.HelpersForTesting
 {
     public class DatabaseHelper
     {
+        /// <summary>
+        /// Creates unique name of database
+        /// </summary>
         public static string CreateUniqueDatabaseName => "TestDb" + DateTime.Now.Ticks.ToString();
     }
 }

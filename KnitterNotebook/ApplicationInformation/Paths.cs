@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace KnitterNotebook.ApplicationInformation
 {
@@ -9,7 +10,10 @@ namespace KnitterNotebook.ApplicationInformation
 
         public static string UserDirectory(string nickname) => Path.Combine(UsersDirectories, nickname);
 
-        public static string PathToSaveImage(string nickname, string uniqueString, string sourceImageName) => Path.Combine(UserDirectory(nickname), uniqueString + sourceImageName);
+        public static string? PathToSaveImage(string? nickname, string? fileNameWithExtension)
+             => string.IsNullOrWhiteSpace(nickname) || string.IsNullOrWhiteSpace(fileNameWithExtension)
+             ? null
+             : Path.Combine(UserDirectory(nickname), DateTime.Now.Ticks.ToString() + fileNameWithExtension);
 
         public static string ThemeFullPath(string themePath) => Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{themePath}Mode.xaml");
     }
