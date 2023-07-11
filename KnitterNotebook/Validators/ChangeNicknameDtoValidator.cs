@@ -20,10 +20,9 @@ namespace KnitterNotebook.Validators
 
             RuleFor(x => x.Nickname)
                 .NotNull().WithMessage("Wartość nie może być pusta")
+                .SetValidator(new NicknameValidator())
                 .MustAsync(async (value, cancellationToken) => await _databaseContext.Users.AllAsync(x => x.Nickname != value, cancellationToken))
-                .WithMessage("Nick jest już używany")
-                .Must(value => value is not null && value.All(x => char.IsLetterOrDigit(x))).WithMessage("Nickname może zawierać tylko litery i cyfry")
-                .Length(1,50).WithMessage("Nazwa użytkownika musi mieć 1-50 znaków");
+                .WithMessage("Nick jest już używany");
         }
     }
 }
