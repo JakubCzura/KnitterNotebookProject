@@ -1,6 +1,7 @@
 ﻿using KnitterNotebook.Database;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,8 +25,8 @@ namespace KnitterNotebook.Services
         public async Task<IEnumerable<T>> GetAllAsync()
             => await _dbSet.ToListAsync();
 
-        public async Task<T> GetAsync(int id)
-            => await _dbSet.FindAsync(id) ?? null!;
+        public async Task<T?>? GetAsync(int id)
+            => await _dbSet.FindAsync(id);
 
         public async Task CreateAsync(T data)
         {
@@ -41,7 +42,7 @@ namespace KnitterNotebook.Services
 
         public async Task DeleteAsync(int id)
         {
-            T data = await _dbSet.FindAsync(id);
+            T data = await _dbSet.FindAsync(id) ?? throw new NullReferenceException("Null object value");
             _dbSet.Remove(data);
             await _databaseContext.SaveChangesAsync();
         }
