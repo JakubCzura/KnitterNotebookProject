@@ -17,12 +17,11 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public class MovieUrlAddingViewModel : BaseViewModel
     {
-        public MovieUrlAddingViewModel(IMovieUrlService movieUrlService, IValidator<CreateMovieUrlDto> createMovieUrlValidator, IUserService userService)
+        public MovieUrlAddingViewModel(IMovieUrlService movieUrlService, IValidator<CreateMovieUrlDto> createMovieUrlValidator)
         {
             _movieUrlService = movieUrlService;
             AddMovieUrlCommandAsync = new AsyncRelayCommand(AddMovieUrlAsync);
             _createMovieUrlValidator = createMovieUrlValidator;
-            _userService = userService;
         }
 
         #region Delegates
@@ -36,7 +35,6 @@ namespace KnitterNotebook.ViewModels
         #region Properties
 
         private readonly IMovieUrlService _movieUrlService;
-        private readonly IUserService _userService;
         private readonly IValidator<CreateMovieUrlDto> _createMovieUrlValidator;
         private string _link = string.Empty;
         private string _title = string.Empty;

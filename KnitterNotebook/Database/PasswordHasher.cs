@@ -8,19 +8,14 @@
         /// <param name="password">Unhashed password</param>
         /// <param name="hash">Hashed password</param>
         /// <returns>True if password matches, otherwise false</returns>
-        public static bool VerifyPassword(string password, string hash)
-        {
-            return BCrypt.Net.BCrypt.Verify(password, hash);
-        }
+        public static bool VerifyPassword(string password, string hash) => BCrypt.Net.BCrypt.Verify(password, hash);
+        
 
         /// <summary>
         /// Hashes password
         /// </summary>
         /// <param name="password">Unhashed password</param>
         /// <returns>Hashed password</returns>
-        public static string HashPassword(string password)
-        {
-            return BCrypt.Net.BCrypt.HashPassword(password);
-        }
+        public static string HashPassword(string password) => BCrypt.Net.BCrypt.HashPassword(password);
     }
 }
