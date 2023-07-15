@@ -60,7 +60,7 @@ namespace KnitterNotebook.ViewModels
                 LoggedUserInformation.Id = user.Id;
 
                 ShowWindow<MainWindow>();
-                Window.GetWindow(LoginWindow.Instance).Close();
+                Closewindow(LoginWindow.Instance);
             }
             catch (Exception exception)
             {

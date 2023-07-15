@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using KnitterNotebook.Views.Windows;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -24,6 +25,9 @@ namespace KnitterNotebook.ViewModels
 
         public static void ShowWindow<T>() where T : Window
             => App.AppHost?.Services.GetService<T>()?.Show();
+
+        public static void Closewindow(Window instance)
+           => Window.GetWindow(instance)?.Close();
 
         public static void LogOut() => Environment.Exit(0);
 

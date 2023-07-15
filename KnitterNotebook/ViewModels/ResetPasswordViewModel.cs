@@ -51,7 +51,7 @@ namespace KnitterNotebook.ViewModels
                 }
                 await _userService.ResetPasswordAsync(resetPasswordDto);
                 MessageBox.Show($"Ustawiono nowe hasło");
-                Window.GetWindow(ResetPasswordWindow.Instance).Close();
+                Closewindow(ResetPasswordWindow.Instance);
             }
             catch (Exception exception)
             {
