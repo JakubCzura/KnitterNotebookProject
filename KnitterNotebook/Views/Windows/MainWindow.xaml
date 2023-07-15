@@ -5,7 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+    xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels" 
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     Title="KnitterNotebook"
     Width="1200"
     Height="700"
@@ -13,6 +14,12 @@
     Style="{DynamicResource WindowStyle}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommandAsync}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -78,14 +85,14 @@
                         CornerRadius="10">
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <StackPanel VerticalAlignment="Top" Orientation="Vertical">
-                                <Button Command="{Binding ChooseProjectsUserControlCommand}" Style="{DynamicResource MainMenuButtonStyle}">
-                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Ukończone projekty" />
-                                </Button>
                                 <Button Command="{Binding ChoosePlannedProjectsUserControlCommand}" Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Projekty w planach" />
                                 </Button>
                                 <Button Command="{Binding ChooseProjectsInProgressUserControlCommand}" Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Projekty w trakcie" />
+                                </Button>
+                                <Button Command="{Binding ChooseProjectsUserControlCommand}" Style="{DynamicResource MainMenuButtonStyle}">
+                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Ukończone projekty" />
                                 </Button>
                                 <Button Command="{Binding ChooseSamplesUserControlCommand}" Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Próbki obliczeniowe" />

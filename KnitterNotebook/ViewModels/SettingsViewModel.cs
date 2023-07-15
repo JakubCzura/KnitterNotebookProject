@@ -185,7 +185,7 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 ChangeThemeDto changeThemeDto = new(LoggedUserInformation.Id, NewTheme);
-                ValidationResult validation = _changeThemeDtoValidator.Validate(changeThemeDto);
+                ValidationResult validation = await _changeThemeDtoValidator.ValidateAsync(changeThemeDto);
                 if (!validation.IsValid)
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));

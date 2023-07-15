@@ -26,31 +26,7 @@ namespace KnitterNotebook.ViewModels
             _databaseContext = databaseContext;
             _movieUrlService = movieUrlService;
             _sampleService = sampleService;
-            try
-            {
-                User = _databaseContext.Users
-                       .Include(x => x.MovieUrls)
-                       .Include(x => x.Projects)
-                       .Include(x => x.Theme)
-                       .Include(x => x.Samples).ThenInclude(x => x.Image)
-                       .FirstOrDefault(x => x.Id == LoggedUserInformation.Id)!;
-                MovieUrls = GetMovieUrls(User);
-                Samples = GetSamples(User);
-                if (User?.Theme is not null)
-                {
-                    string themeFullPath = Paths.ThemeFullPath(User.Theme.Name);
-                    ThemeChanger.SetTheme(themeFullPath);
-                }
-                //Deleting files which paths have been already deleted from database and they are not related to logged in user
-                if (User?.Samples is not null)
-                {
-                    FileHelper.DeleteUnusedUserImages(User.Samples, User.Nickname);
-                }
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
+            LoadedWindowCommandAsync = new AsyncRelayCommand(OnLoadedWindowAsync);
             SelectedSample = Samples.FirstOrDefault() ?? new Sample();
             ChoosePlannedProjectsUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new PlannedProjectsUserControl());
             ChooseProjectsInProgressUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsInProgressUserControl());
@@ -78,6 +54,7 @@ namespace KnitterNotebook.ViewModels
         private User _user = new();
         private Sample _selectedSample = new();
         private UserControl _chosenMainWindowContent = new SamplesUserControl();
+        public ICommand LoadedWindowCommandAsync { get; }
         public ICommand DeleteMovieUrlCommandAsync { get; }
         public ICommand ChoosePlannedProjectsUserControlCommand { get; }
         public ICommand ChooseProjectsInProgressUserControlCommand { get; }
@@ -176,6 +153,37 @@ namespace KnitterNotebook.ViewModels
         #endregion Properties
 
         #region Methods
+
+        private async Task OnLoadedWindowAsync()
+        {
+            try
+            {
+                User = await _databaseContext.Users
+                          .Include(x => x.MovieUrls)
+                          .Include(x => x.Projects)
+                          .Include(x => x.Theme)
+                          .Include(x => x.Samples).ThenInclude(x => x.Image)
+                          .FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.Id) ?? throw new Exception("User not found");
+
+                MovieUrls = GetMovieUrls(User);
+                Samples = GetSamples(User);
+
+                if (User?.Theme is not null)
+                {
+                    string themeFullPath = Paths.ThemeFullPath(User.Theme.Name);
+                    ThemeChanger.SetTheme(themeFullPath);
+                }
+                //Deleting files which paths have been already deleted from database and they are not related to logged in user
+                if (User?.Samples is not null)
+                {
+                    FileHelper.DeleteUnusedUserImages(User.Samples, User.Nickname);
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
 
         private async Task DeleteMovieUrlAsync()
         {
