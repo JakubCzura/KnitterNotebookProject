@@ -16,7 +16,7 @@
     mc:Ignorable="d">
 
     <Window.InputBindings>
-        <KeyBinding Key="Enter" Command="{Binding AddSampleCommandAsync}" />
+        <KeyBinding Key="Enter" Command="{Binding PlanProjectCommand}" />
     </Window.InputBindings>
     <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto">
         <Grid>
@@ -47,10 +47,10 @@
                                     adorners:Watermark.Text="Nazwa projektu"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                    Text="{Binding YarnName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
-                            <Label Content="Nazwa włóczki" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="Nazwy włóczek" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -58,7 +58,7 @@
                                     Kind="Numeric" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="Ilość oczek"
+                                    adorners:Watermark.Text="Nazwy oddzielone myślnikiem ; np.  w1 ; w2 ; w3 "
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding YarnName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -120,7 +120,7 @@
                                     Text="{Binding PatternName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
-                            <Label Content="Zdjęcie" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="PDF z planem" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -130,7 +130,7 @@
                                     MaxWidth="300"
                                     IsReadOnly="True"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                    Text="{Binding SourceImagePath, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                                    Text="{Binding PatternPdfPath, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
                         </StackPanel>
@@ -145,18 +145,18 @@
                     <UniformGrid Rows="1">
                         <Button
                             Margin="0,10,0,0"
-                            Command="{Binding ChooseImageCommand}"
+                            Command="{Binding ChoosePatternPdfCommand}"
                             Content="Wybierz zdjęcie"
                             Style="{DynamicResource LoginButtonStyle}" />
                         <Button
                             Margin="0,10,0,0"
-                            Command="{Binding DeletePhotoCommand}"
+                            Command="{Binding DeletePatternPdfCommand}"
                             Content="Skasuj zdjęcie"
                             Style="{DynamicResource LoginButtonStyle}" />
                     </UniformGrid>
                     <Button
                         Margin="0,10,0,0"
-                        Command="{Binding AddSampleCommandAsync}"
+                        Command="{Binding AddProjectCommand}"
                         Content="Dodaj próbkę"
                         Style="{DynamicResource LoginButtonStyle}" />
                 </StackPanel>

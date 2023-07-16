@@ -23,7 +23,7 @@
 
         public ProjectStatus ProjectStatus { get; set; } = new();
 
-        //public string PDFFilePath { get; set; } = string.Empty;
+        //public string PatternPdfPath { get; set; } = string.Empty;
 
         //public virtual List<ProjectImage> ProjectImages = new();
 

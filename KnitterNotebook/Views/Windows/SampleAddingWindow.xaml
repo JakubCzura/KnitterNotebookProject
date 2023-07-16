@@ -16,7 +16,7 @@
     mc:Ignorable="d">
 
     <Window.InputBindings>
-        <KeyBinding Key="Enter" Command="{Binding AddSampleCommandAsync}" />
+        <KeyBinding Key="Enter" Command="{Binding AddSampleCommand}" />
     </Window.InputBindings>
     <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto">
         <Grid>
