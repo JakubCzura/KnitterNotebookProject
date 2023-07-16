@@ -26,7 +26,7 @@ namespace KnitterNotebook.ViewModels
         private DateTime? _startDate = null;
 
         [ObservableProperty]
-        private string _yarnName = string.Empty;
+        public List<string> _yarnSemicolonList = new();
 
         [ObservableProperty]
         private string _patternName = string.Empty;
@@ -37,10 +37,42 @@ namespace KnitterNotebook.ViewModels
 
         //Tzw. "inne"
         [ObservableProperty]
-        private string _description = string.Empty;
+        private string? _description = null;
 
         [ObservableProperty]
         public string? _patternPdfPath = null;
+
+        [ObservableProperty]
+        public double? _needleSize1 = null;
+
+        [ObservableProperty]
+        public string _needleSizeUnit1 = "mm";
+
+        [ObservableProperty]
+        public double? _needleSize2 = null;
+
+        [ObservableProperty]
+        public string _needleSizeUnit2 = "mm";
+
+        [ObservableProperty]
+        public double? _needleSize3 = null;
+
+        [ObservableProperty]
+        public string _needleSizeUnit3 = "mm";
+
+        [ObservableProperty]
+        public double? _needleSize4 = null;
+
+        [ObservableProperty]
+        public string _needleSizeUnit4 = "mm";
+
+        [ObservableProperty]
+        public double? _needleSize5 = null;
+
+        [ObservableProperty]
+        public string _needleSizeUnit5 = "mm";
+
+        public List<string> NeedleSizeUnitList = new() { "mm", "cm" };
 
         [RelayCommand]
         private void ChoosePatternPdf()
