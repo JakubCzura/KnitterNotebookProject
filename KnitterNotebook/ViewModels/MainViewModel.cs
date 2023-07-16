@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Helpers;
@@ -16,30 +17,21 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
 namespace KnitterNotebook.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public partial class MainViewModel : BaseViewModel
     {
         public MainViewModel(DatabaseContext databaseContext, IMovieUrlService movieUrlService, ISampleService sampleService)
         {
             _databaseContext = databaseContext;
             _movieUrlService = movieUrlService;
             _sampleService = sampleService;
-            LoadedWindowCommandAsync = new AsyncRelayCommand(OnLoadedWindowAsync);
-            SelectedSample = Samples.FirstOrDefault() ?? new Sample();
+            SelectedSample = Samples.FirstOrDefault();
             ChoosePlannedProjectsUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new PlannedProjectsUserControl());
             ChooseProjectsInProgressUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsInProgressUserControl());
             ChooseProjectsUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsUserControl());
             ChooseSamplesUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new SamplesUserControl());
-            ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
-            ShowSettingsWindowCommand = new RelayCommand(ShowWindow<SettingsWindow>);
-            ShowSampleAddingWindowCommand = new RelayCommand(ShowWindow<SampleAddingWindow>);
-            ShowProjectPlanningWindowCommand = new RelayCommand(ShowWindow<ProjectPlanningWindow>);
-            DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
-            OpenMovieUrlInWebBrowserCommand = new RelayCommand(OpenMovieUrlInWebBrowser);
             LogOutCommand = new RelayCommand(LogOut);
-            DeleteSampleCommandAsync = new AsyncRelayCommand(DeleteSampleAsync);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User!));
             SampleAddingViewModel.NewSampleAdded += new Action(() => Samples = GetSamples(User!));
         }
@@ -49,103 +41,56 @@ namespace KnitterNotebook.ViewModels
         private readonly DatabaseContext _databaseContext;
         private readonly IMovieUrlService _movieUrlService;
         private readonly ISampleService _sampleService;
-        private ObservableCollection<MovieUrl> _movieUrls = new();
-        private ObservableCollection<Sample> _samples = new();
-        private MovieUrl _selectedMovieUrl = new();
-        private User _user = new();
-        private Sample _selectedSample = new();
-        private UserControl _chosenMainWindowContent = new SamplesUserControl();
-        public ICommand LoadedWindowCommandAsync { get; }
-        public ICommand DeleteMovieUrlCommandAsync { get; }
+    
         public ICommand ChoosePlannedProjectsUserControlCommand { get; }
         public ICommand ChooseProjectsInProgressUserControlCommand { get; }
         public ICommand ChooseProjectsUserControlCommand { get; }
         public ICommand ChooseSamplesUserControlCommand { get; }
-        public ICommand ShowMovieUrlAddingWindowCommand { get; }
-        public ICommand ShowSettingsWindowCommand { get; }
-        public ICommand ShowProjectPlanningWindowCommand { get; }
-        public ICommand ShowSampleAddingWindowCommand { get; }
-        public ICommand OpenMovieUrlInWebBrowserCommand { get; }
+        public ICommand ShowMovieUrlAddingWindowCommand { get; } = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
+        public ICommand ShowSettingsWindowCommand { get; } = new RelayCommand(ShowWindow<SettingsWindow>);
+        public ICommand ShowProjectPlanningWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectPlanningWindow>);
+        public ICommand ShowSampleAddingWindowCommand { get; } = new RelayCommand(ShowWindow<SampleAddingWindow>);
         public ICommand LogOutCommand { get; }
-        public ICommand DeleteSampleCommandAsync { get; }
 
         public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
 
         public string Greetings => $"Miło Cię widzieć {User?.Nickname}!";
 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FilteredSamples))]
         private double? _filterNeedleSize;
 
-        public double? FilterNeedleSize
-        {
-            get => _filterNeedleSize;
-            set
-            {
-                _filterNeedleSize = value; OnPropertyChanged();
-                OnPropertyChanged(nameof(FilteredSamples));
-            }
-        }
-
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FilteredSamples))]
         private string _filterNeedleSizeUnit = NeedleSizeUnits.Units.cm.ToString();
 
-        public string FilterNeedleSizeUnit
-        {
-            get => _filterNeedleSizeUnit;
-            set
-            {
-                _filterNeedleSizeUnit = value; OnPropertyChanged();
-                OnPropertyChanged(nameof(FilteredSamples));
-            }
-        }
+        [ObservableProperty]
+        private ObservableCollection<MovieUrl> _movieUrls = new();
 
-        public ObservableCollection<MovieUrl> MovieUrls
-        {
-            get => _movieUrls;
-            set { _movieUrls = value; OnPropertyChanged(); }
-        }
+        [ObservableProperty]
+        private MovieUrl _selectedMovieUrl = new();
 
-        public MovieUrl SelectedMovieUrl
-        {
-            get => _selectedMovieUrl;
-            set { _selectedMovieUrl = value; OnPropertyChanged(); }
-        }
+        [ObservableProperty]
+        private User _user = new();
 
-        public User User
-        {
-            get => _user;
-            set { _user = value; OnPropertyChanged(); }
-        }
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(SelectedSampleMashesXRows))]
+        [NotifyPropertyChangedFor(nameof(SelectedSampleNeedleSize))]
+        private Sample? _selectedSample = null;
 
-        public Sample SelectedSample
-        {
-            get => _selectedSample;
-            set
-            {
-                _selectedSample = value; OnPropertyChanged();
-                OnPropertyChanged(nameof(SelectedSampleMashesXRows));
-                OnPropertyChanged(nameof(SelectedSampleNeedleSize));
-            }
-        }
+        [ObservableProperty]
+        private UserControl _chosenMainWindowContent = new SamplesUserControl();
 
-        public UserControl ChosenMainWindowContent
-        {
-            get => _chosenMainWindowContent;
-            set { _chosenMainWindowContent = value; OnPropertyChanged(); }
-        }
-
-        public ObservableCollection<Sample> Samples
-        {
-            get => _samples;
-            set
-            {
-                _samples = value; OnPropertyChanged(); OnPropertyChanged(nameof(FilteredSamples));
-            }
-        }
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FilteredSamples))]
+        private ObservableCollection<Sample> _samples = new();
 
         public ObservableCollection<Sample> FilteredSamples => FilterNeedleSize > 0
             ? Samples.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit)
             : Samples;
 
-        public string SelectedSampleMashesXRows => $"{SelectedSample?.LoopsQuantity}x{SelectedSample?.RowsQuantity}";
+        public string SelectedSampleMashesXRows => SelectedSample is not null ? $"{SelectedSample.LoopsQuantity}x{SelectedSample.RowsQuantity}" : "";
+
         public string SelectedSampleNeedleSize => $"{SelectedSample?.NeedleSize}{SelectedSample?.NeedleSizeUnit}";
 
         private static ObservableCollection<Sample> GetSamples(User user) => new(user.Samples);
@@ -156,7 +101,8 @@ namespace KnitterNotebook.ViewModels
 
         #region Methods
 
-        private async Task OnLoadedWindowAsync()
+        [RelayCommand]
+        public async Task OnLoadedWindowAsync()
         {
             try
             {
@@ -187,6 +133,7 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
+        [RelayCommand]
         private async Task DeleteMovieUrlAsync()
         {
             try
@@ -203,6 +150,7 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
+        [RelayCommand]
         private async Task DeleteSampleAsync()
         {
             try
@@ -219,6 +167,7 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
+        [RelayCommand]
         private void OpenMovieUrlInWebBrowser()
         {
             try

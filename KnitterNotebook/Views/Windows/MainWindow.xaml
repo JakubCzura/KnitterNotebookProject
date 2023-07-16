@@ -17,7 +17,7 @@
     
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedWindowCommandAsync}" />
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -140,7 +140,7 @@
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Command="{Binding DeleteMovieUrlCommandAsync}" Header="Skasuj link do filmu" />
+                                <MenuItem Command="{Binding DeleteMovieUrlCommand}" Header="Skasuj link do filmu" />
                                 <MenuItem Command="{Binding OpenMovieUrlInWebBrowserCommand}" Header="Otwórz film" />
                             </ContextMenu>
                         </DataGrid.ContextMenu>

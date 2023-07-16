@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.Database;
 using KnitterNotebook.Database.Login;
 using KnitterNotebook.Models;
@@ -13,7 +14,7 @@ namespace KnitterNotebook.ViewModels
     /// <summary>
     /// View model for LoginWindow.xaml
     /// </summary>
-    public class LoginViewModel : BaseViewModel
+    public partial class LoginViewModel : BaseViewModel
     {
         public LoginViewModel(DatabaseContext databaseContext)
         {
@@ -27,13 +28,14 @@ namespace KnitterNotebook.ViewModels
 
         private readonly DatabaseContext _databaseContext;
 
+        [ObservableProperty]
         private string _email = string.Empty;
 
-        public string Email
-        {
-            get => _email;
-            set { _email = value; OnPropertyChanged(); }
-        }
+        //public string Email
+        //{
+        //    get => _email;
+        //    set { _email = value; OnPropertyChanged(); }
+        //}
 
         public ICommand LogInCommandAsync { get; }
 

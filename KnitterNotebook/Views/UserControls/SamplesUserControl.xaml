@@ -59,7 +59,7 @@
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Command="{Binding DeleteSampleCommandAsync}" Header="Skasuj próbkę" />
+                            <MenuItem Command="{Binding DeleteSampleCommand}" Header="Skasuj próbkę" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>
