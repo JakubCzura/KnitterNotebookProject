@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.Database;
@@ -8,19 +9,17 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
 {
     /// <summary>
     /// View model for MovieUrlAddingWindow.xaml
     /// </summary>
-    public class MovieUrlAddingViewModel : BaseViewModel
+    public partial class MovieUrlAddingViewModel : BaseViewModel
     {
         public MovieUrlAddingViewModel(IMovieUrlService movieUrlService, IValidator<CreateMovieUrlDto> createMovieUrlValidator)
         {
             _movieUrlService = movieUrlService;
-            AddMovieUrlCommandAsync = new AsyncRelayCommand(AddMovieUrlAsync);
             _createMovieUrlValidator = createMovieUrlValidator;
         }
 
@@ -36,26 +35,18 @@ namespace KnitterNotebook.ViewModels
 
         private readonly IMovieUrlService _movieUrlService;
         private readonly IValidator<CreateMovieUrlDto> _createMovieUrlValidator;
+
+        [ObservableProperty]
         private string _link = string.Empty;
+
+        [ObservableProperty]
         private string _title = string.Empty;
-        public ICommand AddMovieUrlCommandAsync { get; }
-
-        public string Link
-        {
-            get => _link;
-            set { _link = value; OnPropertyChanged(); }
-        }
-
-        public string Title
-        {
-            get => _title;
-            set { _title = value; OnPropertyChanged(); }
-        }
 
         #endregion Properties
 
         #region Methods
 
+        [RelayCommand]
         private async Task AddMovieUrlAsync()
         {
             try

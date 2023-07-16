@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.Models.Dtos;
@@ -8,44 +9,33 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
 {
-    public class RegistrationViewModel : BaseViewModel
+    public partial class RegistrationViewModel : BaseViewModel
     {
         public RegistrationViewModel(IUserService userService, IValidator<RegisterUserDto> registerUserDtoValidator)
         {
             _userService = userService;
             _registerUserDtoValidator = registerUserDtoValidator;
-            RegisterUserCommandAsync = new AsyncRelayCommand(RegisterUser);
         }
 
         #region Properties
 
         private readonly IUserService _userService;
         private readonly IValidator<RegisterUserDto> _registerUserDtoValidator;
+
+        [ObservableProperty]
         private string _email = string.Empty;
+
+        [ObservableProperty]
         private string _nickname = string.Empty;
-
-        public string Email
-        {
-            get => _email;
-            set { _email = value; OnPropertyChanged(); }
-        }
-
-        public string Nickname
-        {
-            get => _nickname;
-            set { _nickname = value; OnPropertyChanged(); }
-        }
-
-        public ICommand RegisterUserCommandAsync { get; }
 
         #endregion Properties
 
         #region Methods
 
+        [RelayCommand]
         private async Task RegisterUser()
         {
             try

@@ -33,7 +33,7 @@
             <Button
                 MaxWidth="100"
                 HorizontalAlignment="Left"
-                Command="{Binding ChangeNicknameCommandAsync}"
+                Command="{Binding ChangeNicknameCommand}"
                 Content="Potwierdź" />
             <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="Zmiana e-mail" />
             <TextBox
@@ -44,7 +44,7 @@
             <Button
                 MaxWidth="100"
                 HorizontalAlignment="Left"
-                Command="{Binding ChangeEmailCommandAsync}"
+                Command="{Binding ChangeEmailCommand}"
                 Content="Potwierdź" />
             <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="Zmiana hasła" />
             <PasswordBox
@@ -61,7 +61,7 @@
             <Button
                 MaxWidth="100"
                 HorizontalAlignment="Left"
-                Command="{Binding ChangePasswordCommandAsync}"
+                Command="{Binding ChangePasswordCommand}"
                 Content="Potwierdź" />
         </StackPanel>
     </Grid>

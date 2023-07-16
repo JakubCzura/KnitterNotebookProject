@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
@@ -18,9 +19,23 @@ using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace KnitterNotebook.ViewModels
 {
-    public class SettingsViewModel : BaseViewModel
+    public partial class SettingsViewModel : BaseViewModel
     {
-        private readonly DatabaseContext _databaseContext;
+        public SettingsViewModel(IUserService userService,
+            IValidator<ChangeNicknameDto> changeNicknameDtoValidator,
+            IValidator<ChangeEmailDto> changeEmailDtoValidator,
+            IValidator<ChangePasswordDto> changePasswordDtoValidator,
+            IValidator<ChangeThemeDto> changeThemeDtoValidator)
+        {
+            _userService = userService;
+            _changeNicknameDtoValidator = changeNicknameDtoValidator;
+            _changeEmailDtoValidator = changeEmailDtoValidator;
+            _changePasswordDtoValidator = changePasswordDtoValidator;
+            _changeThemeDtoValidator = changeThemeDtoValidator;
+            ChooseUserSettingsUserControlCommand = new RelayCommand(() => SettingsWindowContent = new UserSettingsUserControl());
+            ChooseThemeSettingsUserControlCommand = new RelayCommand(() => SettingsWindowContent = new ThemeSettingsUserControl());
+            Themes = ApplicationThemes.GetThemes();
+        }
 
         private readonly IUserService _userService;
 
@@ -32,84 +47,26 @@ namespace KnitterNotebook.ViewModels
 
         private readonly IValidator<ChangeThemeDto> _changeThemeDtoValidator;
 
-        private readonly IThemeService _themeService;
-
-        private string _newEmail = string.Empty;
-
-        private string _newNickname = string.Empty;
-
-        private string _newTheme = string.Empty;
-
-        private IEnumerable<string> _themes = Enumerable.Empty<string>();
-
-        public SettingsViewModel(DatabaseContext databaseContext,
-            IUserService userService,
-            IValidator<ChangeNicknameDto> changeNicknameDtoValidator,
-            IValidator<ChangeEmailDto> changeEmailDtoValidator,
-            IValidator<ChangePasswordDto> changePasswordDtoValidator,
-            IValidator<ChangeThemeDto> changeThemeDtoValidator,
-            IThemeService themeService)
-        {
-            _databaseContext = databaseContext;
-            _userService = userService;
-            _changeNicknameDtoValidator = changeNicknameDtoValidator;
-            _changeEmailDtoValidator = changeEmailDtoValidator;
-            _changePasswordDtoValidator = changePasswordDtoValidator;
-            _changeThemeDtoValidator = changeThemeDtoValidator;
-            _themeService = themeService;
-            ChooseUserSettingsUserControlCommand = new RelayCommand(() => SettingsWindowContent = new UserSettingsUserControl());
-            ChooseThemeSettingsUserControlCommand = new RelayCommand(() => SettingsWindowContent = new ThemeSettingsUserControl());
-            Themes = ApplicationThemes.GetThemes();
-            ChangeNicknameCommandAsync = new AsyncRelayCommand(ChangeNicknameAsync);
-            ChangeEmailCommandAsync = new AsyncRelayCommand(ChangeEmailAsync);
-            ChangePasswordCommandAsync = new AsyncRelayCommand(ChangePasswordAsync);
-            ChangeThemeCommandAsync = new AsyncRelayCommand(ChangeThemeAsync);
-        }
-
-        public ICommand ChangeEmailCommandAsync { get; }
-
-        public ICommand ChangeNicknameCommandAsync { get; }
-
-        public ICommand ChangePasswordCommandAsync { get; }
-
-        public ICommand ChangeThemeCommandAsync { get; }
-
         public ICommand ChooseThemeSettingsUserControlCommand { get; }
 
         public ICommand ChooseUserSettingsUserControlCommand { get; }
 
+        [ObservableProperty]
         private UserControl _settingsWindowContent = new UserSettingsUserControl();
 
-        public UserControl SettingsWindowContent
-        {
-            get => _settingsWindowContent;
-            set { _settingsWindowContent = value; OnPropertyChanged(); }
-        }
+        [ObservableProperty]
+        private string _newEmail = string.Empty;
 
-        public string NewEmail
-        {
-            get => _newEmail;
-            set { _newEmail = value; OnPropertyChanged(); }
-        }
+        [ObservableProperty]
+        private string _newNickname = string.Empty;
 
-        public string NewNickname
-        {
-            get => _newNickname;
-            set { _newNickname = value; OnPropertyChanged(); }
-        }
+        [ObservableProperty]
+        private string _newTheme = string.Empty;
 
-        public string NewTheme
-        {
-            get => _newTheme;
-            set { _newTheme = value; OnPropertyChanged(); }
-        }
+        [ObservableProperty]
+        private IEnumerable<string> _themes = Enumerable.Empty<string>();
 
-        public IEnumerable<string> Themes
-        {
-            get => _themes;
-            set { _themes = value; OnPropertyChanged(); }
-        }
-
+        [RelayCommand]
         private async Task ChangeEmailAsync()
         {
             try
@@ -131,6 +88,7 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
+        [RelayCommand]
         private async Task ChangeNicknameAsync()
         {
             try
@@ -152,6 +110,7 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
+        [RelayCommand]
         private async Task ChangePasswordAsync()
         {
             try
@@ -180,6 +139,7 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
+        [RelayCommand]
         private async Task ChangeThemeAsync()
         {
             try

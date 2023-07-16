@@ -1,31 +1,29 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using KnitterNotebook.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KnitterNotebook.ViewModels
 {
     public partial class ProjectPlanningViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string _userId = string.Empty;
-        //public string Name { get; set; } = string.Empty;
+        private string _name = string.Empty;
 
-        //public DateTime? StartDate { get; set; } = null;
+        [ObservableProperty]
+        private DateTime? _startDate = null;
 
-        //public string YarnName { get; set; } = string.Empty;
+        [ObservableProperty]
+        private string _yarnName = string.Empty;
 
-        //public string PatternName { get; set; } = string.Empty;
+        [ObservableProperty]
+        private string _patternName = string.Empty;
 
         ////public virtual List<Needle> Needles { get; set; } = new();
 
         ////public virtual List<Yarn> Yarns { get; set; } = new();
 
-        ////Tzw. "inne"
-        //public string Description { get; set; } = string.Empty;
+        //Tzw. "inne"
+        [ObservableProperty]
+        private string _description = string.Empty;
 
         //public ProjectStatus ProjectStatus { get; set; } = new();
 
@@ -33,6 +31,7 @@ namespace KnitterNotebook.ViewModels
 
         ////public virtual List<ProjectImage> ProjectImages = new();
 
-        //public int UserId;
+        [ObservableProperty]
+        private string _userId = string.Empty;
     }
 }

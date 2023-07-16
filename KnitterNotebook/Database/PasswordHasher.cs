@@ -9,7 +9,6 @@
         /// <param name="hash">Hashed password</param>
         /// <returns>True if password matches, otherwise false</returns>
         public static bool VerifyPassword(string password, string hash) => BCrypt.Net.BCrypt.Verify(password, hash);
-        
 
         /// <summary>
         /// Hashes password

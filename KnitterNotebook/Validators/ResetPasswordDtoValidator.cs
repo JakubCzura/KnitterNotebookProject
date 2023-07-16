@@ -1,11 +1,7 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Database;
-using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
-using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace KnitterNotebook.Validators
 {

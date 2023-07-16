@@ -32,7 +32,7 @@
             <Button
                 MaxWidth="100"
                 HorizontalAlignment="Left"
-                Command="{Binding ChangeThemeCommandAsync}"
+                Command="{Binding ChangeThemeCommand}"
                 Content="Potwierdź" />
         </StackPanel>
     </Grid>

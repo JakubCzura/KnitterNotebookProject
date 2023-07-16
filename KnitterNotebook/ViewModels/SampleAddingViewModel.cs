@@ -1,9 +1,9 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
-using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
@@ -18,16 +18,14 @@ using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
 {
-    public class SampleAddingViewModel : BaseViewModel
+    public partial class SampleAddingViewModel : BaseViewModel
     {
         public SampleAddingViewModel(ISampleService sampleService, IUserService userService, IValidator<CreateSampleDto> createSampleDtoValidator)
         {
             _sampleService = sampleService;
             _userService = userService;
             _createSampleDtoValidator = createSampleDtoValidator;
-            ChooseImageCommand = new RelayCommand(ChooseImage);
             DeletePhotoCommand = new RelayCommand(() => SourceImagePath = null);
-            AddSampleCommandAsync = new AsyncRelayCommand(AddSampleAsync);
         }
 
         private readonly ISampleService _sampleService;
@@ -35,75 +33,37 @@ namespace KnitterNotebook.ViewModels
         private readonly IUserService _userService;
 
         private readonly IValidator<CreateSampleDto> _createSampleDtoValidator;
-        public ICommand ChooseImageCommand { get; }
+    
         public ICommand DeletePhotoCommand { get; }
-        public ICommand AddSampleCommandAsync { get; }
 
+        [ObservableProperty]
         private string _yarnName = string.Empty;
 
-        public string YarnName
-        {
-            get => _yarnName;
-            set { _yarnName = value; OnPropertyChanged(); }
-        }
-
+        [ObservableProperty]
         private int _loopsQuantity;
 
-        public int LoopsQuantity
-        {
-            get => _loopsQuantity;
-            set { _loopsQuantity = value; OnPropertyChanged(); }
-        }
-
+        [ObservableProperty]
         private int _rowsQuantity;
 
-        public int RowsQuantity
-        {
-            get => _rowsQuantity;
-            set { _rowsQuantity = value; OnPropertyChanged(); }
-        }
-
+        [ObservableProperty]
         private double _needleSize;
 
-        public double NeedleSize
-        {
-            get => _needleSize;
-            set { _needleSize = value; OnPropertyChanged(); }
-        }
-
+        [ObservableProperty]
         public string _needleSizeUnit = NeedleSizeUnits.Units.mm.ToString();
 
-        public string NeedleSizeUnit
-        {
-            get => _needleSizeUnit;
-            set { _needleSizeUnit = value; OnPropertyChanged(); }
-        }
-
+        [ObservableProperty]
         private string _description = string.Empty;
-
-        public string Description
-        {
-            get => _description;
-            set { _description = value; OnPropertyChanged(); }
-        }
 
         public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
 
-        private string? sourceImagePath = null;
-
-        public string? SourceImagePath
-        {
-            get => sourceImagePath;
-            set { sourceImagePath = value; OnPropertyChanged(); }
-        }
+        [ObservableProperty]
+        private string? _sourceImagePath = null;
 
         public static Action NewSampleAdded { get; set; } = null!;
 
-        public static void OnNewSampleAdded()
-        {
-            NewSampleAdded.Invoke();
-        }
+        public static void OnNewSampleAdded() => NewSampleAdded.Invoke();
 
+        [RelayCommand]
         private void ChooseImage()
         {
             OpenFileDialog dialog = new()
@@ -114,6 +74,7 @@ namespace KnitterNotebook.ViewModels
             SourceImagePath = dialog.FileName;
         }
 
+        [RelayCommand]
         private async Task AddSampleAsync()
         {
             try

@@ -14,9 +14,6 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <Window.Resources>
-        <!--<viewModels:SettingsViewModel x:Key="SettingsViewModel" />-->
-    </Window.Resources>
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
@@ -75,18 +72,6 @@
                             CornerRadius="10">
                             <Grid Margin="5,5,5,5">
                                 <ContentControl Content="{Binding SettingsWindowContent}" />
-                                <!--<userControls:UserSettingsUserControl
-                                    ChangeEmailCommandAsync="{Binding ChangeEmailCommandAsync}"
-                                    ChangeNicknameCommandAsync="{Binding ChangeNicknameCommandAsync}"
-                                    ChangePasswordCommandAsync="{Binding ChangePasswordCommandAsync}"
-                                    NewEmail="{Binding NewEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    NewNickname="{Binding NewNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Visibility="{Binding UserSettingsUserControlVisibility}" />
-                                <userControls:ThemeSettingsUserControl
-                                    ChangeThemeCommandAsync="{Binding ChangeThemeCommandAsync}"
-                                    NewTheme="{Binding NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Themes="{Binding Themes}"
-                                    Visibility="{Binding ThemeSettingsUserControlVisibility}" />-->
                             </Grid>
                         </Border>
                     </Border>

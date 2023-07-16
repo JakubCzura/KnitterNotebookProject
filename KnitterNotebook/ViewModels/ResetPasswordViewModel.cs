@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.Models.Dtos;
@@ -12,11 +13,10 @@ using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
 {
-    public class ResetPasswordViewModel : BaseViewModel
+    public partial class ResetPasswordViewModel : BaseViewModel
     {
         public ResetPasswordViewModel(IUserService userService, IValidator<ResetPasswordDto> resetPasswordDtoValidator)
         {
-            ResetPasswordCommandAsync = new AsyncRelayCommand(ResetPasswordAsync);
             _userService = userService;
             _resetPasswordDtoValidator = resetPasswordDtoValidator;
         }
@@ -25,16 +25,10 @@ namespace KnitterNotebook.ViewModels
 
         private readonly IUserService _userService;
 
-        public ICommand ResetPasswordCommandAsync { get; }
-
+        [ObservableProperty]
         private string _emailOrNickname = string.Empty;
 
-        public string EmailOrNickname
-        {
-            get => _emailOrNickname;
-            set { _emailOrNickname = value; OnPropertyChanged(); }
-        }
-
+        [RelayCommand]
         public async Task ResetPasswordAsync()
         {
             try

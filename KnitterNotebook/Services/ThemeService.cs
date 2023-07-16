@@ -17,6 +17,5 @@ namespace KnitterNotebook.Services
 
         public async Task<Theme?> GetByNameAsync(string name)
             => await _databaseContext.Themes.FirstOrDefaultAsync(x => x.Name == name);
-        
     }
 }

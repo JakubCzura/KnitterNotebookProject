@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace KnitterNotebook.Models
+﻿namespace KnitterNotebook.Models
 {
     public class Project
     {

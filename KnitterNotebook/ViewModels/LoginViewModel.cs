@@ -19,9 +19,6 @@ namespace KnitterNotebook.ViewModels
         public LoginViewModel(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
-            ShowRegistrationWindowCommand = new RelayCommand(ShowWindow<RegistrationWindow>);
-            LogInCommandAsync = new AsyncRelayCommand(LogInAsync);
-            ShowResetPasswordWindowCommand = new RelayCommand(ShowWindow<ResetPasswordWindow>);
         }
 
         #region Properties
@@ -31,22 +28,15 @@ namespace KnitterNotebook.ViewModels
         [ObservableProperty]
         private string _email = string.Empty;
 
-        //public string Email
-        //{
-        //    get => _email;
-        //    set { _email = value; OnPropertyChanged(); }
-        //}
+        public ICommand ShowRegistrationWindowCommand { get; } = new RelayCommand(ShowWindow<RegistrationWindow>);
 
-        public ICommand LogInCommandAsync { get; }
-
-        public ICommand ShowRegistrationWindowCommand { get; }
-
-        public ICommand ShowResetPasswordWindowCommand { get; }
+        public ICommand ShowResetPasswordWindowCommand { get; } = new RelayCommand(ShowWindow<ResetPasswordWindow>);
 
         #endregion Properties
 
         #region Methods
 
+        [RelayCommand]
         private async Task LogInAsync()
         {
             try

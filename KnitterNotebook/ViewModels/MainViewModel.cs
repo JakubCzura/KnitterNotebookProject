@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+
 namespace KnitterNotebook.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
@@ -41,7 +42,7 @@ namespace KnitterNotebook.ViewModels
         private readonly DatabaseContext _databaseContext;
         private readonly IMovieUrlService _movieUrlService;
         private readonly ISampleService _sampleService;
-    
+
         public ICommand ChoosePlannedProjectsUserControlCommand { get; }
         public ICommand ChooseProjectsInProgressUserControlCommand { get; }
         public ICommand ChooseProjectsUserControlCommand { get; }
@@ -71,6 +72,7 @@ namespace KnitterNotebook.ViewModels
         private MovieUrl _selectedMovieUrl = new();
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(Greetings))]
         private User _user = new();
 
         [ObservableProperty]
@@ -115,7 +117,7 @@ namespace KnitterNotebook.ViewModels
 
                 MovieUrls = GetMovieUrls(User);
                 Samples = GetSamples(User);
-
+                
                 if (User?.Theme is not null)
                 {
                     string themeFullPath = Paths.ThemeFullPath(User.Theme.Name);

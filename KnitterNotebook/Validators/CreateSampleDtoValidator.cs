@@ -9,6 +9,7 @@ namespace KnitterNotebook.Validators
     public class CreateSampleDtoValidator : AbstractValidator<CreateSampleDto>
     {
         private readonly DatabaseContext _databaseContext;
+
         public CreateSampleDtoValidator(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
@@ -41,7 +42,7 @@ namespace KnitterNotebook.Validators
                 .Must(x => x is null || ImageExtensionValidator.IsImage(x))
                 .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png, .gif, .bmp lub usuń odnośnik do zdjęcia")
                 .Must(x => !File.Exists(x))
-                .WithMessage("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");      
+                .WithMessage("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
 
             RuleFor(x => x.UserId)
              .MustAsync(async (value, cancellationToken) => await _databaseContext.Users.AnyAsync(x => x.Id == value, cancellationToken))
