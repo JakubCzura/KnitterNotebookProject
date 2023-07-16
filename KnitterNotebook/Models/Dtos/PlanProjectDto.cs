@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace KnitterNotebook.Models
+namespace KnitterNotebook.Models.Dtos
 {
-    public class Project
+    class PlanProjectDto
     {
-        public int Id { get; set; }
-
         public string Name { get; set; } = string.Empty;
 
         public DateTime? StartDate { get; set; } = null;
-
-        public DateTime? EndDate { get; set; } = null;
 
         public string YarnName { get; set; } = string.Empty;
 
@@ -29,6 +29,6 @@ namespace KnitterNotebook.Models
 
         //public virtual List<ProjectImage> ProjectImages = new();
 
-        public virtual User User { get; set; } = new();
+        public int UserId;
     }
 }

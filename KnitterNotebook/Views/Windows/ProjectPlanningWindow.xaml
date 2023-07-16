@@ -10,7 +10,7 @@
         Title="ProjectPlanningWindow" 
         Height="700" 
         Width="1200"
-        d:DataContext="{d:DesignInstance Type=viewModels:SampleAddingViewModel}"
+        d:DataContext="{d:DesignInstance Type=viewModels:ProjectPlanningViewModel}"
         Style="{DynamicResource WindowStyle}"
         WindowStartupLocation="CenterScreen">
 
@@ -35,7 +35,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                            <Label Content="Nazwa włóczki" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="Nazwa projektu" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -43,13 +43,13 @@
                                     Kind="Text" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="Nazwa włóczki"
+                                    adorners:Watermark.Text="Nazwa projektu"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding YarnName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
-                            <Label Content="Ilość oczek" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="Nazwa włóczki" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -60,10 +60,10 @@
                                     adorners:Watermark.Text="Ilość oczek"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                    Text="{Binding LoopsQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    Text="{Binding YarnName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
-                            <Label Content="Opis" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="Inne" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -79,7 +79,7 @@
                             </DockPanel>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                            <Label Content="Rozmiar drutu" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="Data rozpoczęcia" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -96,7 +96,7 @@
                                         adorners:Watermark.Text="Rozmiar drutu"
                                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                         Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding NeedleSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        Text="{Binding StartDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         TextWrapping="NoWrap" />
                                     <ComboBox
                                         Grid.Column="1"
@@ -105,7 +105,7 @@
                                         SelectedItem="{Binding NeedleSizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </Grid>
                             </DockPanel>
-                            <Label Content="Ilość rzędów" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="Nazwa wzoru" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -116,7 +116,7 @@
                                     adorners:Watermark.Text="Ilość rzędów"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                    Text="{Binding RowsQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    Text="{Binding PatternName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
                             <Label Content="Zdjęcie" Style="{DynamicResource LabelAboveLoginInputStyle}" />

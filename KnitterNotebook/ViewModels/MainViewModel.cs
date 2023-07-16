@@ -35,6 +35,7 @@ namespace KnitterNotebook.ViewModels
             ShowMovieUrlAddingWindowCommand = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
             ShowSettingsWindowCommand = new RelayCommand(ShowWindow<SettingsWindow>);
             ShowSampleAddingWindowCommand = new RelayCommand(ShowWindow<SampleAddingWindow>);
+            ShowProjectPlanningWindowCommand = new RelayCommand(ShowWindow<ProjectPlanningWindow>);
             DeleteMovieUrlCommandAsync = new AsyncRelayCommand(DeleteMovieUrlAsync);
             OpenMovieUrlInWebBrowserCommand = new RelayCommand(OpenMovieUrlInWebBrowser);
             LogOutCommand = new RelayCommand(LogOut);
@@ -62,6 +63,7 @@ namespace KnitterNotebook.ViewModels
         public ICommand ChooseSamplesUserControlCommand { get; }
         public ICommand ShowMovieUrlAddingWindowCommand { get; }
         public ICommand ShowSettingsWindowCommand { get; }
+        public ICommand ShowProjectPlanningWindowCommand { get; }
         public ICommand ShowSampleAddingWindowCommand { get; }
         public ICommand OpenMovieUrlInWebBrowserCommand { get; }
         public ICommand LogOutCommand { get; }

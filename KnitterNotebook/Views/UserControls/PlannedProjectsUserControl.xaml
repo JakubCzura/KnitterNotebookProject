@@ -23,7 +23,7 @@
             CornerRadius="10">
             <DockPanel Margin="5,5,5,5">
                 <Button
-                    Command="{Binding ShowSampleAddingWindowCommand}"
+                    Command="{Binding ShowProjectPlanningWindowCommand}"
                     Content="Zaplanuj projekt"
                     DockPanel.Dock="Bottom" />
                 <DataGrid

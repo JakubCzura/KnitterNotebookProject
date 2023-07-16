@@ -88,6 +88,10 @@ namespace KnitterNotebook
                     {
                         DataContext = x.GetRequiredService<SettingsViewModel>()
                     });
+                    services.AddTransient(x => new PlannedProjectsUserControl()
+                    {
+                        DataContext = x.GetRequiredService<MainViewModel>()
+                    });
                     services.AddTransient<SampleAddingViewModel>();
                     services.AddTransient(s => new SampleAddingWindow()
                     {
@@ -97,6 +101,11 @@ namespace KnitterNotebook
                     services.AddTransient(s => new ResetPasswordWindow()
                     {
                         DataContext = s.GetRequiredService<ResetPasswordViewModel>()
+                    });
+                    services.AddTransient<ProjectPlanningViewModel>();
+                    services.AddTransient(s => new ProjectPlanningWindow()
+                    {
+                        DataContext = s.GetRequiredService<ProjectPlanningViewModel>()
                     });
                 })
                 .Build();
