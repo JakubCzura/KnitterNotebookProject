@@ -16,7 +16,7 @@
     mc:Ignorable="d">
 
     <Window.InputBindings>
-        <KeyBinding Key="Enter" Command="{Binding PlanProjectCommand}" />
+        <KeyBinding Key="Enter" Command="{Binding AddProjectCommand}" />
     </Window.InputBindings>
     <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto">
         <Grid>

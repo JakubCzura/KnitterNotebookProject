@@ -72,7 +72,7 @@ namespace KnitterNotebook.ViewModels
         [ObservableProperty]
         public string _needleSizeUnit5 = "mm";
 
-        public List<string> NeedleSizeUnitList = new() { "mm", "cm" };
+        public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
 
         [RelayCommand]
         private void ChoosePatternPdf()
