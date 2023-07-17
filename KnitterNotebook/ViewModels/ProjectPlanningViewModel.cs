@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
+using KnitterNotebook.Models.Dtos;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,6 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class ProjectPlanningViewModel : ObservableObject
     {
-
         public ProjectPlanningViewModel()
         {
             DeletePatternPdfCommand = new RelayCommand(() => PatternPdfPath = null);
@@ -43,34 +44,19 @@ namespace KnitterNotebook.ViewModels
         public string? _patternPdfPath = null;
 
         [ObservableProperty]
-        public double? _needleSize1 = null;
+        public NeedleToPlanProjectDto _needle1 = new();
 
         [ObservableProperty]
-        public string _needleSizeUnit1 = "mm";
+        public NeedleToPlanProjectDto _needle2 = new();
 
         [ObservableProperty]
-        public double? _needleSize2 = null;
+        public NeedleToPlanProjectDto _needle3 = new();
 
         [ObservableProperty]
-        public string _needleSizeUnit2 = "mm";
+        public NeedleToPlanProjectDto _needle4 = new();
 
         [ObservableProperty]
-        public double? _needleSize3 = null;
-
-        [ObservableProperty]
-        public string _needleSizeUnit3 = "mm";
-
-        [ObservableProperty]
-        public double? _needleSize4 = null;
-
-        [ObservableProperty]
-        public string _needleSizeUnit4 = "mm";
-
-        [ObservableProperty]
-        public double? _needleSize5 = null;
-
-        [ObservableProperty]
-        public string _needleSizeUnit5 = "mm";
+        public NeedleToPlanProjectDto _needle5 = new();
 
         public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
 
@@ -88,9 +74,7 @@ namespace KnitterNotebook.ViewModels
         [RelayCommand]
         private async Task AddProjectAsync()
         {
-
+            IEnumerable<NeedleToPlanProjectDto> needles = NeedlesToPlanProjectFilter.GetNeedlesWithSizeHasValue(Needle1, Needle2, Needle3, Needle4, Needle5);
         }
-
-        
     }
 }

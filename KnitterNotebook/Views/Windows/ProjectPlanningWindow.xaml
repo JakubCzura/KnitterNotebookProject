@@ -157,13 +157,13 @@
                                         adorners:Watermark.Text="Rozmiar drutu"
                                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                         Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding NeedleSize1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        Text="{Binding Needle1.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         TextWrapping="NoWrap" />
                                         <ComboBox
                                         Grid.Column="1"
                                         HorizontalAlignment="Right"
                                         ItemsSource="{Binding NeedleSizeUnitList}"
-                                        SelectedItem="{Binding NeedleSizeUnit1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        SelectedItem="{Binding Needle1.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
                                 <DockPanel Margin="0,0,0,10">
@@ -182,13 +182,13 @@
                                         adorners:Watermark.Text="Rozmiar drutu"
                                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                         Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding NeedleSize2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        Text="{Binding Needle2.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         TextWrapping="NoWrap" />
                                         <ComboBox
                                         Grid.Column="1"
                                         HorizontalAlignment="Right"
                                         ItemsSource="{Binding NeedleSizeUnitList}"
-                                        SelectedItem="{Binding NeedleSizeUnit2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        SelectedItem="{Binding Needle2.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
                                 <DockPanel Margin="0,0,0,10">
@@ -207,13 +207,13 @@
                                         adorners:Watermark.Text="Rozmiar drutu"
                                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                         Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding NeedleName3, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        Text="{Binding Needle3.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         TextWrapping="NoWrap" />
                                         <ComboBox
                                         Grid.Column="1"
                                         HorizontalAlignment="Right"
                                         ItemsSource="{Binding NeedleSizeUnitList}"
-                                        SelectedItem="{Binding NeedleSizeUnit3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        SelectedItem="{Binding Needle3.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
                                 <DockPanel Margin="0,0,0,10">
@@ -232,13 +232,13 @@
                                         adorners:Watermark.Text="Rozmiar drutu"
                                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                         Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding NeedleName4, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        Text="{Binding Needle4.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         TextWrapping="NoWrap" />
                                         <ComboBox
                                         Grid.Column="1"
                                         HorizontalAlignment="Right"
                                         ItemsSource="{Binding NeedleSizeUnitList}"
-                                        SelectedItem="{Binding NeedleSizeUnit4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        SelectedItem="{Binding Needle4.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
                                 <DockPanel Margin="0,0,0,10">
@@ -257,13 +257,13 @@
                                         adorners:Watermark.Text="Rozmiar drutu"
                                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                         Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding NeedleSize5, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        Text="{Binding Needle5.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         TextWrapping="NoWrap" />
                                         <ComboBox
                                         Grid.Column="1"
                                         HorizontalAlignment="Right"
                                         ItemsSource="{Binding NeedleSizeUnitList}"
-                                        SelectedItem="{Binding NeedleSizeUnit5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        SelectedItem="{Binding Needle5.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
                             </StackPanel>
