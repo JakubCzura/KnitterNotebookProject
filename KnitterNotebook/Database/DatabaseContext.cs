@@ -16,11 +16,8 @@ namespace KnitterNotebook.Database
         }
 
         public DbSet<Project> Projects { get; set; }
-
         public DbSet<User> Users { get; set; }
-
         public DbSet<Theme> Themes { get; set; }
-
         public DbSet<MovieUrl> MovieUrls { get; set; }
         public DbSet<Sample> Samples { get; set; }
         public DbSet<Image> Images { get; set; }
@@ -28,10 +25,6 @@ namespace KnitterNotebook.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //string appSettingsPath = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "appsettings.json");
-            //string appSettingsString = File.ReadAllText(appSettingsPath);
-            //AppSettings = JsonConvert.DeserializeObject<AppSettings>(appSettingsString)!;
-            //optionsBuilder.UseSqlServer(AppSettings.KnitterNotebookConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -105,8 +98,7 @@ namespace KnitterNotebook.Database
                     m.Property(x => x.NeedleSize).IsRequired();
                     m.Property(x => x.NeedleSizeUnit).IsRequired();
                     m.HasOne(x => x.Image)
-                    .WithOne(c => c.Sample)
-                    .HasForeignKey<Image>(y => y.SampleId);
+                    .WithOne(c => c.Sample);
                 });
 
             modelBuilder.Entity<Image>(m =>

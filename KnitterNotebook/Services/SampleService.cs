@@ -10,24 +10,20 @@ namespace KnitterNotebook.Services
     public class SampleService : CrudService<Sample>, ISampleService
     {
         private readonly DatabaseContext _databaseContext;
-        private readonly IImageService _imageService;
         private readonly IUserService _userService;
 
-        public SampleService(DatabaseContext databaseContext, IImageService imageService, IUserService userService) : base(databaseContext)
+        public SampleService(DatabaseContext databaseContext, IUserService userService) : base(databaseContext)
         {
             _databaseContext = databaseContext;
-            _imageService = imageService;
             _userService = userService;
         }
 
         public async Task<bool> CreateAsync(CreateSampleDto createSampleDto)
         {
-            Image? image = null;
-            if (!string.IsNullOrWhiteSpace(createSampleDto.DestinationImagePath))
-            {
-                image = new(createSampleDto.DestinationImagePath);
-                await _imageService.CreateAsync(image);
-            }
+            Image? image = !string.IsNullOrWhiteSpace(createSampleDto.DestinationImagePath)
+                            ? new(createSampleDto.DestinationImagePath)
+                            : null;
+
             Sample sample = new()
             {
                 YarnName = createSampleDto.YarnName,
@@ -38,7 +34,6 @@ namespace KnitterNotebook.Services
                 Description = createSampleDto.Description,
                 User = await _userService.GetAsync(LoggedUserInformation.Id),
                 Image = image,
-                ImageId = image?.Id
             };
 
             if (!string.IsNullOrWhiteSpace(createSampleDto.SourceImagePath) && !string.IsNullOrWhiteSpace(createSampleDto.DestinationImagePath))
