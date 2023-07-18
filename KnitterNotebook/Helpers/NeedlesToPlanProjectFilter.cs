@@ -6,7 +6,7 @@ namespace KnitterNotebook.Helpers
 {
     public class NeedlesToPlanProjectFilter
     {
-        public static IEnumerable<NeedleToPlanProjectDto> GetNeedlesWithSizeHasValue(params NeedleToPlanProjectDto[] needles)
+        public static IEnumerable<CreateNeedleDto> GetNeedlesWithSizeHasValue(params CreateNeedleDto[] needles)
             => needles.Where(x => x.Size.HasValue);
     }
 }

@@ -44,19 +44,19 @@ namespace KnitterNotebook.ViewModels
         public string? _patternPdfPath = null;
 
         [ObservableProperty]
-        public NeedleToPlanProjectDto _needle1 = new();
+        public CreateNeedleDto _needle1 = new(null, NeedleSizeUnits.Units.mm.ToString());
 
         [ObservableProperty]
-        public NeedleToPlanProjectDto _needle2 = new();
+        public CreateNeedleDto _needle2 = new(null, NeedleSizeUnits.Units.mm.ToString());
 
         [ObservableProperty]
-        public NeedleToPlanProjectDto _needle3 = new();
+        public CreateNeedleDto _needle3 = new(null, NeedleSizeUnits.Units.mm.ToString());
 
         [ObservableProperty]
-        public NeedleToPlanProjectDto _needle4 = new();
+        public CreateNeedleDto _needle4 = new(null, NeedleSizeUnits.Units.mm.ToString());
 
         [ObservableProperty]
-        public NeedleToPlanProjectDto _needle5 = new();
+        public CreateNeedleDto _needle5 = new(null, NeedleSizeUnits.Units.mm.ToString());
 
         public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
 
@@ -74,7 +74,9 @@ namespace KnitterNotebook.ViewModels
         [RelayCommand]
         private async Task AddProjectAsync()
         {
-            IEnumerable<NeedleToPlanProjectDto> needles = NeedlesToPlanProjectFilter.GetNeedlesWithSizeHasValue(Needle1, Needle2, Needle3, Needle4, Needle5);
+            IEnumerable<CreateNeedleDto> needles = NeedlesToPlanProjectFilter.GetNeedlesWithSizeHasValue(Needle1, Needle2, Needle3, Needle4, Needle5);
+
+            //PlanProjectDto planProjectDto = new();
         }
     }
 }
