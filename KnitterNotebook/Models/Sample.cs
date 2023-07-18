@@ -41,8 +41,6 @@
 
         public virtual Image? Image { get; set; } = null;
 
-        //public int? ImageId { get; set; }
-
         public virtual User User { get; set; } = new();
     }
 }
