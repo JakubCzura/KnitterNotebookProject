@@ -7,12 +7,11 @@ namespace KnitterNotebook.Models.Dtos
     (
         string Name,
         DateTime? StartDate,
-        string YarnName,
         string PatternName,
         IEnumerable<CreateNeedleDto> Needles,
-        IEnumerable<string> YarnNames,
-        string Description,
-        string PatternPdfPath,
+        IEnumerable<string> YarnsNames,
+        string? Description,
+        string? PatternPdfPath,
         int UserId
     );
 } 

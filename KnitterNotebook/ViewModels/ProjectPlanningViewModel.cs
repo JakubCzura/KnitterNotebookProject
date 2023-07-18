@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using KnitterNotebook.Database;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -27,7 +29,7 @@ namespace KnitterNotebook.ViewModels
         private DateTime? _startDate = null;
 
         [ObservableProperty]
-        public List<string> _yarnSemicolonList = new();
+        public string _yarnsWithSemicolons = string.Empty;
 
         [ObservableProperty]
         private string _patternName = string.Empty;
@@ -75,8 +77,9 @@ namespace KnitterNotebook.ViewModels
         private async Task AddProjectAsync()
         {
             IEnumerable<CreateNeedleDto> needles = NeedlesToPlanProjectFilter.GetNeedlesWithSizeHasValue(Needle1, Needle2, Needle3, Needle4, Needle5);
+            IEnumerable<string> yarnsNames = !string.IsNullOrWhiteSpace(YarnsWithSemicolons) ? YarnsWithSemicolons.Split(';') : Enumerable.Empty<string>();
 
-            //PlanProjectDto planProjectDto = new();
+            PlanProjectDto planProjectDto = new(Name, StartDate, PatternName, needles, yarnsNames, Description, PatternPdfPath, LoggedUserInformation.Id);
         }
     }
 }
