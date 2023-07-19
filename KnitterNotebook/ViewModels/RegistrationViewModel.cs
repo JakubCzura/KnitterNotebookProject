@@ -41,7 +41,7 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 RegisterUserDto registerUserDto = new(Nickname, Email, RegistrationWindow.Instance.UserPasswordPasswordBox.Password);
-                ValidationResult validation = _registerUserDtoValidator.Validate(registerUserDto);
+                ValidationResult validation = await _registerUserDtoValidator.ValidateAsync(registerUserDto);
                 if (!validation.IsValid)
                 {
                     string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));

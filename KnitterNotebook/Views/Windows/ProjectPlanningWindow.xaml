@@ -87,27 +87,10 @@
                                     VerticalAlignment="Center"
                                     Kind="Numeric" />
                                 <Grid Width="300">
-                                    <!--<Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="45" />
-                                    </Grid.ColumnDefinitions>-->
                                     <DatePicker Background="White"
-                                                Style="{DynamicResource MaterialDesignOutlinedDatePicker}">
-                                        
+                                                Style="{DynamicResource MaterialDesignOutlinedDatePicker}"
+                                                SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                     </DatePicker>
-                                    <!--<TextBox
-                                        Grid.Column="0"
-                                        MaxWidth="300"
-                                        adorners:Watermark.Text="Rozmiar drutu"
-                                        adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                                        Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding StartDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                        TextWrapping="NoWrap" />-->
-                                    <!--<ComboBox
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Right"
-                                        ItemsSource="{Binding NeedleSizeUnitList}"
-                                        SelectedItem="{Binding NeedleSizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
                                 </Grid>
                             </DockPanel>
                             <Label Content="Nazwa wzoru" Style="{DynamicResource LabelAboveLoginInputStyle}" />

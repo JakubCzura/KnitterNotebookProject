@@ -20,7 +20,7 @@ namespace KnitterNotebook.Validators
             RuleFor(x => x.Email)
                 .MustAsync(async (value, cancellationToken) => await _databaseContext.Users.AllAsync(x => x.Email != value, cancellationToken))
                 .WithMessage("E-mail jest już używany")
-                .EmailAddress().WithMessage("Niepoprawny format e-mail"); ;
+                .EmailAddress().WithMessage("Niepoprawny format e-mail");
         }
     }
 }

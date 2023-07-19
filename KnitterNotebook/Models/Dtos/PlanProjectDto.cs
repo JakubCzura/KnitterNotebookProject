@@ -14,4 +14,4 @@ namespace KnitterNotebook.Models.Dtos
         string? PatternPdfPath,
         int UserId
     );
-} 
+}
