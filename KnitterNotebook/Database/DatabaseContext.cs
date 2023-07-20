@@ -5,11 +5,6 @@ namespace KnitterNotebook.Database
 {
     public class DatabaseContext : DbContext
     {
-        public DatabaseContext()
-        {
-            Database.EnsureCreated();
-        }
-
         public DatabaseContext(DbContextOptions options) : base(options)
         {
             Database.EnsureCreated();
@@ -23,9 +18,6 @@ namespace KnitterNotebook.Database
         public DbSet<Image> Images { get; set; }
         public DbSet<ProjectStatus> ProjectStatuses { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

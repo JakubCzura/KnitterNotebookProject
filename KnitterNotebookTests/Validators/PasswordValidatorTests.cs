@@ -1,17 +1,6 @@
-﻿using KnitterNotebook.Database;
-using KnitterNotebook.Models.Dtos;
-using KnitterNotebook.Models;
-using KnitterNotebook.Validators;
-using KnitterNotebookTests.HelpersForTesting;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentAssertions;
 using FluentValidation.TestHelper;
-using Throw;
-using FluentAssertions;
+using KnitterNotebook.Validators;
 
 namespace KnitterNotebookTests.Validators
 {
@@ -31,13 +20,13 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { "invaliddpassword" };
             yield return new object[] { "invaliddpassword1" };
             yield return new object[] { "invaliddpassword2" };
-            yield return new object[] { " a "};
+            yield return new object[] { " a " };
             yield return new object[] { " " };
-            yield return new object[] { "                    " };
+            yield return new object[] { new string(' ', 20) };
             yield return new object[] { "invalidPassword" };
             yield return new object[] { "Testpassword" };
             yield return new object[] { "." };
-            yield return new object[] { ".                                             " };
+            yield return new object[] { "." + new string(' ', 50) };
             yield return new object[] { "p@m1" };
             yield return new object[] { "p@ m1" };
             yield return new object[] { new string('K', 51) };

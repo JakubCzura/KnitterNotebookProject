@@ -24,17 +24,17 @@ namespace KnitterNotebookTests.Validators
 
         public static IEnumerable<object[]> InvalidData()
         {
-            yield return new object[] { new ResetPasswordDto("test@test.com", "PasswordNew123", "PasswordNew123")};
-            yield return new object[] { new ResetPasswordDto("Nick333", "PasswordNew123", "PasswordNew123")};
-            yield return new object[] { new ResetPasswordDto("nick1@mail.com", "KPasswordNew123", "PasswordNew123")};
-            yield return new object[] { new ResetPasswordDto("Nick1@mail.com", "KPass4wordNew123", "PasswordNew123")};
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "KP3assw5ordNew123", "PasswordNew123")};
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "KPa3ssw56ordNew123", "PasswordNew123")};
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "", "")};
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", null!, "")};
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "", null!)};
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "ValidPassword1", null!)};
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "", "ValidPassword1")};
+            yield return new object[] { new ResetPasswordDto("test@test.com", "PasswordNew123", "PasswordNew123") };
+            yield return new object[] { new ResetPasswordDto("Nick333", "PasswordNew123", "PasswordNew123") };
+            yield return new object[] { new ResetPasswordDto("nick1@mail.com", "KPasswordNew123", "PasswordNew123") };
+            yield return new object[] { new ResetPasswordDto("Nick1@mail.com", "KPass4wordNew123", "PasswordNew123") };
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "KP3assw5ordNew123", "PasswordNew123") };
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "KPa3ssw56ordNew123", "PasswordNew123") };
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "", "") };
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", null!, "") };
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "", null!) };
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "ValidPassword1", null!) };
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "", "ValidPassword1") };
         }
 
         public static IEnumerable<object[]> ValidData()

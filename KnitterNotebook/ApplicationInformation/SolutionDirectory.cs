@@ -8,6 +8,6 @@ namespace KnitterNotebook.ApplicationInformation
         /// <summary>
         /// Path to solution's directory
         /// </summary>
-        public static string SolutionDirectoryFullPath { get => Path.Combine(Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.Parent!.FullName); }
+        public static string SolutionDirectoryFullPath => Path.Combine(Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.Parent!.FullName);
     }
 }

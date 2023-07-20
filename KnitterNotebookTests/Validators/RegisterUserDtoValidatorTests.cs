@@ -1,15 +1,10 @@
-﻿using KnitterNotebook.Database;
-using KnitterNotebook.Models.Dtos;
+﻿using FluentValidation.TestHelper;
+using KnitterNotebook.Database;
 using KnitterNotebook.Models;
+using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Validators;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation.TestHelper;
 using KnitterNotebookTests.HelpersForTesting;
+using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebookTests.Validators
 {
@@ -43,7 +38,7 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new RegisterUserDto("Valid Nick", "mail.com", "ValidPassword123@#") };
             yield return new object[] { new RegisterUserDto("Valid Nick", "validemail@mail.com", "") };
             yield return new object[] { new RegisterUserDto("Valid Nick", "validemail@mail.com", null!) };
-            yield return new object[] { new RegisterUserDto("Valid Nick", "validemail@mail.com", new string('K',5)) };
+            yield return new object[] { new RegisterUserDto("Valid Nick", "validemail@mail.com", new string('K', 5)) };
             yield return new object[] { new RegisterUserDto("Valid Nick", "validemail@mail.com", "kkdsgkkK") };
             yield return new object[] { new RegisterUserDto("Valid Nick", "validemail@mail.com", "KKDAS75645") };
             yield return new object[] { new RegisterUserDto("Valid Nick", "validemail@mail.com", "6542345") };

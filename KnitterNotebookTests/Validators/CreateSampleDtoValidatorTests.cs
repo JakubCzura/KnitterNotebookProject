@@ -1,17 +1,11 @@
-﻿using KnitterNotebook.Models.Dtos;
-using KnitterNotebook.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KnitterNotebook.Validators;
-using FluentValidation.TestHelper;
-using KnitterNotebook.Database;
-using Microsoft.EntityFrameworkCore;
-using System.IO.Abstractions.TestingHelpers;
+﻿using FluentValidation.TestHelper;
 using KnitterNotebook.ApplicationInformation;
+using KnitterNotebook.Database;
+using KnitterNotebook.Models;
+using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Validators;
 using KnitterNotebookTests.HelpersForTesting;
+using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebookTests.Validators
 {
@@ -19,6 +13,7 @@ namespace KnitterNotebookTests.Validators
     {
         private readonly CreateSampleDtoValidator _validator;
         private readonly DatabaseContext _databaseContext;
+
         public CreateSampleDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
@@ -27,6 +22,7 @@ namespace KnitterNotebookTests.Validators
             _validator = new CreateSampleDtoValidator(_databaseContext);
             SeedUsers();
         }
+
         private void SeedUsers()
         {
             List<User> users = new()
@@ -65,8 +61,8 @@ namespace KnitterNotebookTests.Validators
 
         public static IEnumerable<object[]> ValidData()
         {
-            yield return new object[] { new CreateSampleDto("Name", 2, 3, 2, "cm", "Description", 1, "c:\\test\\test.jpg", "c:\\test\\user\\test.jpg") };  
-            yield return new object[] { new CreateSampleDto("Yarn Name", 1, 30, 1.5, "mm", "Description", 2, "c:\\test\\test.png", "c:\\test\\user\\test.png") };  
+            yield return new object[] { new CreateSampleDto("Name", 2, 3, 2, "cm", "Description", 1, "c:\\test\\test.jpg", "c:\\test\\user\\test.jpg") };
+            yield return new object[] { new CreateSampleDto("Yarn Name", 1, 30, 1.5, "mm", "Description", 2, "c:\\test\\test.png", "c:\\test\\user\\test.png") };
         }
 
         [Theory]
