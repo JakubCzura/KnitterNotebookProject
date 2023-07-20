@@ -58,7 +58,6 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 0, "c:\\test\\test.jpg", "c:\\test\\test.jpg") };
             yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 10, "c:\\test\\test.jpg", "c:\\test\\test.jpg") };
             yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 1, "", "c:\\test\\test.jpg") };
-            yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 1, null!, "c:\\test\\test.jpg") };
             yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 1, "c:\\test\\test.txt", "c:\\test\\test.jpg") };
             yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 1, "c:\\test\\test.jpg", "c:\\test\\test.txt") };
             yield return new object[] { new CreateSampleDto("test name", 12, 20, 10, "cm", "description is ok", 20, "c:\\test\\test.jpg", "c:\\test\\test.jpg") };

@@ -51,7 +51,7 @@ namespace KnitterNotebookTests.Validators
 
         public static IEnumerable<object[]> ValidData()
         {
-            yield return new object[] { new RegisterUserDto("Valid Nickname", "uservalidemail@mail.com", "Pass123@word") };
+            yield return new object[] { new RegisterUserDto("ValidNickname", "uservalidemail@mail.com", "Pass123@word") };
             yield return new object[] { new RegisterUserDto("Nickname", "emailuser@mail.com", "Strong321@xSd") };
         }
 

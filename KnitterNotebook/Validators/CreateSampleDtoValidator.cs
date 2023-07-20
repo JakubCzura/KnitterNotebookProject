@@ -35,11 +35,11 @@ namespace KnitterNotebook.Validators
                 .MaximumLength(10000).WithMessage("Opis może mieć maksymalnie 10000 znaków");
 
             RuleFor(x => x.SourceImagePath)
-                .Must(x => x is null || ImageExtensionValidator.IsImage(x))
+                .Must(x => x is null || FileExtensionValidator.IsImage(x))
                 .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png, .gif, .bmp lub usuń odnośnik do zdjęcia");
 
             RuleFor(x => x.DestinationImagePath)
-                .Must(x => x is null || ImageExtensionValidator.IsImage(x))
+                .Must(x => x is null || FileExtensionValidator.IsImage(x))
                 .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png, .gif, .bmp lub usuń odnośnik do zdjęcia")
                 .Must(x => !File.Exists(x))
                 .WithMessage("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
