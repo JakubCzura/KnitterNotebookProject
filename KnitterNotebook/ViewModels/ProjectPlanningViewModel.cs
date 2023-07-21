@@ -43,10 +43,6 @@ namespace KnitterNotebook.ViewModels
         [ObservableProperty]
         private string _patternName = string.Empty;
 
-        public List<Needle> Needles { get; set; } = new();
-
-        public List<Yarn> Yarns { get; set; } = new();
-
         //Tzw. "inne"
         [ObservableProperty]
         private string? _description = null;
@@ -96,7 +92,6 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 PlanProjectDto planProjectDto = new(Name, StartDate, PatternName, needlesToCreate, yarnsNames, Description, PatternPdfPath, LoggedUserInformation.Id);
-
                 ValidationResult validation = await _planProjectDtoValidator.ValidateAsync(planProjectDto);
                 if (!validation.IsValid)
                 {
