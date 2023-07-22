@@ -6,6 +6,6 @@
 
         public string Name { get; set; } = string.Empty;
 
-        public Project Project = new();
+        public Project Project { get; set; } = new();
     }
 }

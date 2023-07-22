@@ -58,7 +58,7 @@
                                     Kind="Numeric" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="Nazwy oddzielone myślnikiem ; np.  w1 ; w2 ; w3 "
+                                    adorners:Watermark.Text="Nazwy oddzielone przecinkiem np.: w1 , w2 , w3"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding YarnsWithSemicolons, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -87,10 +87,10 @@
                                     VerticalAlignment="Center"
                                     Kind="Numeric" />
                                 <Grid Width="300">
-                                    <DatePicker Background="White"
-                                                Style="{DynamicResource MaterialDesignOutlinedDatePicker}"
-                                                SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                    </DatePicker>
+                                    <DatePicker
+                                        Background="White"
+                                        SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Style="{DynamicResource MaterialDesignOutlinedDatePicker}" />
                                 </Grid>
                             </DockPanel>
                             <Label Content="Nazwa wzoru" Style="{DynamicResource LabelAboveLoginInputStyle}" />
@@ -126,127 +126,127 @@
                                 <Label Content="Druty" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                                 <DockPanel Margin="0,0,0,10">
                                     <materialDesign:PackIcon
-                                    Margin="5,0,5,0"
-                                    VerticalAlignment="Center"
-                                    Kind="Numeric" />
+                                        Margin="5,0,5,0"
+                                        VerticalAlignment="Center"
+                                        Kind="Numeric" />
                                     <Grid Width="300">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="45" />
                                         </Grid.ColumnDefinitions>
                                         <TextBox
-                                        Grid.Column="0"
-                                        MaxWidth="300"
-                                        adorners:Watermark.Text="Rozmiar drutu"
-                                        adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                                        Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding Needle1.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                        TextWrapping="NoWrap" />
+                                            Grid.Column="0"
+                                            MaxWidth="300"
+                                            adorners:Watermark.Text="Rozmiar drutu"
+                                            adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
+                                            Style="{DynamicResource InputLoginDataTextBoxStyle}"
+                                            Text="{Binding Needle1.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=N2}"
+                                            TextWrapping="NoWrap" />
                                         <ComboBox
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Right"
-                                        ItemsSource="{Binding NeedleSizeUnitList}"
-                                        SelectedItem="{Binding Needle1.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Right"
+                                            ItemsSource="{Binding NeedleSizeUnitList}"
+                                            SelectedItem="{Binding Needle1.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
                                 <DockPanel Margin="0,0,0,10">
                                     <materialDesign:PackIcon
-                                    Margin="5,0,5,0"
-                                    VerticalAlignment="Center"
-                                    Kind="Numeric" />
+                                        Margin="5,0,5,0"
+                                        VerticalAlignment="Center"
+                                        Kind="Numeric" />
                                     <Grid Width="300">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="45" />
                                         </Grid.ColumnDefinitions>
                                         <TextBox
-                                        Grid.Column="0"
-                                        MaxWidth="300"
-                                        adorners:Watermark.Text="Rozmiar drutu"
-                                        adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                                        Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding Needle2.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                        TextWrapping="NoWrap" />
+                                            Grid.Column="0"
+                                            MaxWidth="300"
+                                            adorners:Watermark.Text="Rozmiar drutu"
+                                            adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
+                                            Style="{DynamicResource InputLoginDataTextBoxStyle}"
+                                            Text="{Binding Needle2.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=N2}"
+                                            TextWrapping="NoWrap" />
                                         <ComboBox
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Right"
-                                        ItemsSource="{Binding NeedleSizeUnitList}"
-                                        SelectedItem="{Binding Needle2.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Right"
+                                            ItemsSource="{Binding NeedleSizeUnitList}"
+                                            SelectedItem="{Binding Needle2.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
                                 <DockPanel Margin="0,0,0,10">
                                     <materialDesign:PackIcon
-                                    Margin="5,0,5,0"
-                                    VerticalAlignment="Center"
-                                    Kind="Numeric" />
+                                        Margin="5,0,5,0"
+                                        VerticalAlignment="Center"
+                                        Kind="Numeric" />
                                     <Grid Width="300">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="45" />
                                         </Grid.ColumnDefinitions>
                                         <TextBox
-                                        Grid.Column="0"
-                                        MaxWidth="300"
-                                        adorners:Watermark.Text="Rozmiar drutu"
-                                        adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                                        Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding Needle3.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                        TextWrapping="NoWrap" />
+                                            Grid.Column="0"
+                                            MaxWidth="300"
+                                            adorners:Watermark.Text="Rozmiar drutu"
+                                            adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
+                                            Style="{DynamicResource InputLoginDataTextBoxStyle}"
+                                            Text="{Binding Needle3.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=N2}"
+                                            TextWrapping="NoWrap" />
                                         <ComboBox
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Right"
-                                        ItemsSource="{Binding NeedleSizeUnitList}"
-                                        SelectedItem="{Binding Needle3.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Right"
+                                            ItemsSource="{Binding NeedleSizeUnitList}"
+                                            SelectedItem="{Binding Needle3.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
                                 <DockPanel Margin="0,0,0,10">
                                     <materialDesign:PackIcon
-                                    Margin="5,0,5,0"
-                                    VerticalAlignment="Center"
-                                    Kind="Numeric" />
+                                        Margin="5,0,5,0"
+                                        VerticalAlignment="Center"
+                                        Kind="Numeric" />
                                     <Grid Width="300">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="45" />
                                         </Grid.ColumnDefinitions>
                                         <TextBox
-                                        Grid.Column="0"
-                                        MaxWidth="300"
-                                        adorners:Watermark.Text="Rozmiar drutu"
-                                        adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                                        Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding Needle4.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                        TextWrapping="NoWrap" />
+                                            Grid.Column="0"
+                                            MaxWidth="300"
+                                            adorners:Watermark.Text="Rozmiar drutu"
+                                            adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
+                                            Style="{DynamicResource InputLoginDataTextBoxStyle}"
+                                            Text="{Binding Needle4.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=N2}"
+                                            TextWrapping="NoWrap" />
                                         <ComboBox
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Right"
-                                        ItemsSource="{Binding NeedleSizeUnitList}"
-                                        SelectedItem="{Binding Needle4.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Right"
+                                            ItemsSource="{Binding NeedleSizeUnitList}"
+                                            SelectedItem="{Binding Needle4.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
                                 <DockPanel Margin="0,0,0,10">
                                     <materialDesign:PackIcon
-                                    Margin="5,0,5,0"
-                                    VerticalAlignment="Center"
-                                    Kind="Numeric" />
+                                        Margin="5,0,5,0"
+                                        VerticalAlignment="Center"
+                                        Kind="Numeric" />
                                     <Grid Width="300">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="45" />
                                         </Grid.ColumnDefinitions>
                                         <TextBox
-                                        Grid.Column="0"
-                                        MaxWidth="300"
-                                        adorners:Watermark.Text="Rozmiar drutu"
-                                        adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                                        Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding Needle5.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                        TextWrapping="NoWrap" />
+                                            Grid.Column="0"
+                                            MaxWidth="300"
+                                            adorners:Watermark.Text="Rozmiar drutu"
+                                            adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
+                                            Style="{DynamicResource InputLoginDataTextBoxStyle}"
+                                            Text="{Binding Needle5.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=N2}"
+                                            TextWrapping="NoWrap" />
                                         <ComboBox
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Right"
-                                        ItemsSource="{Binding NeedleSizeUnitList}"
-                                        SelectedItem="{Binding Needle5.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Right"
+                                            ItemsSource="{Binding NeedleSizeUnitList}"
+                                            SelectedItem="{Binding Needle5.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
                             </StackPanel>

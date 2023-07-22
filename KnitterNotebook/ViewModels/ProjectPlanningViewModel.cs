@@ -17,6 +17,7 @@ using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
 {
+
     public partial class ProjectPlanningViewModel : ObservableObject
     {
         public ProjectPlanningViewModel(IProjectService projectService, IValidator<PlanProjectDto> planProjectDtoValidator)
@@ -38,7 +39,7 @@ namespace KnitterNotebook.ViewModels
         private DateTime? _startDate = null;
 
         [ObservableProperty]
-        public string _yarnsWithSemicolons = string.Empty;
+        private string _yarnsWithSemicolons = string.Empty;
 
         [ObservableProperty]
         private string _patternName = string.Empty;
@@ -48,22 +49,22 @@ namespace KnitterNotebook.ViewModels
         private string? _description = null;
 
         [ObservableProperty]
-        public string? _patternPdfPath = null;
+        private string? _patternPdfPath = null;
 
         [ObservableProperty]
-        public NullableSizeNeedle _needle1 = new(null, NeedleSizeUnits.Units.mm.ToString());
+        private NullableSizeNeedle _needle1 = new(null, NeedleSizeUnits.Units.mm.ToString());
 
         [ObservableProperty]
-        public NullableSizeNeedle _needle2 = new(null, NeedleSizeUnits.Units.mm.ToString());
+        private NullableSizeNeedle _needle2 = new(null, NeedleSizeUnits.Units.mm.ToString());
 
         [ObservableProperty]
-        public NullableSizeNeedle _needle3 = new(null, NeedleSizeUnits.Units.mm.ToString());
+        private NullableSizeNeedle _needle3 = new(null, NeedleSizeUnits.Units.mm.ToString());
 
         [ObservableProperty]
-        public NullableSizeNeedle _needle4 = new(null, NeedleSizeUnits.Units.mm.ToString());
+        private NullableSizeNeedle _needle4 = new(null, NeedleSizeUnits.Units.mm.ToString());
 
         [ObservableProperty]
-        public NullableSizeNeedle _needle5 = new(null, NeedleSizeUnits.Units.mm.ToString());
+        private NullableSizeNeedle _needle5 = new(null, NeedleSizeUnits.Units.mm.ToString());
 
         public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
 
@@ -87,7 +88,7 @@ namespace KnitterNotebook.ViewModels
         {
             IEnumerable<NullableSizeNeedle> needles = NullableSizeNeedlesFilter.GetNeedlesWithSizeHasValue(Needle1, Needle2, Needle3, Needle4, Needle5);
             IEnumerable<CreateNeedleDto> needlesToCreate = needles.Select(x => new CreateNeedleDto(Convert.ToDouble(x.Size), x.SizeUnit));
-            IEnumerable<string> yarnsNames = !string.IsNullOrWhiteSpace(YarnsWithSemicolons) ? YarnsWithSemicolons.Split(';') : Enumerable.Empty<string>();
+            IEnumerable<CreateYarnDto> yarnsNames = !string.IsNullOrWhiteSpace(YarnsWithSemicolons) ? YarnsWithSemicolons.Split(',').Select(x => new CreateYarnDto(x)) : Enumerable.Empty<CreateYarnDto>();
 
             try
             {

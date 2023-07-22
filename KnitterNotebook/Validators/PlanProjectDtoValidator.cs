@@ -34,12 +34,11 @@ namespace KnitterNotebook.Validators
                     needle.SetValidator(new CreateNeedleDtoValidator());
                 });
 
-            RuleFor(x => x.YarnsNames)
+            RuleFor(x => x.Yarns)
                 .Must(x => x is not null && x.Any()).WithMessage("Zbiór nazw włóczek nie może być pusty")
                 .ForEach(yarn =>
                 {
-                    yarn.NotEmpty().WithMessage("Nazwa włóczki nie może być pusta");
-                    yarn.Length(1, 100).WithMessage("Nazwa włóczki musi mieć 1-100 znaków");
+                    yarn.SetValidator(new CreateYarnDtoValidator());
                 });
 
             RuleFor(dto => dto.Description)

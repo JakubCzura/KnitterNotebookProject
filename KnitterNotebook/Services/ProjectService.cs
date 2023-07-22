@@ -25,8 +25,8 @@ namespace KnitterNotebook.Services
 
         public async Task PlanProjectAsync(PlanProjectDto planProjectDto)
         {
-            List<Needle> needles = planProjectDto.Needles.Select(x => new Needle() { Size = x.Size, SizeUnit = x.Unit }).ToList();
-            List<Yarn> yarns = planProjectDto.YarnsNames.Select(x => new Yarn() { Name = x }).ToList();
+            List<Needle> needles = planProjectDto.Needles.Select(x => new Needle() { Size = x.Size, SizeUnit = x.SizeUnit }).ToList();
+            List<Yarn> yarns = planProjectDto.Yarns.Select(x => new Yarn() { Name = x.Name }).ToList();
 
             int projectStatusId = planProjectDto.StartDate.HasValue && planProjectDto.StartDate.Value.CompareTo(DateTime.Today) >= 0 ? 2 : 1; 
 
@@ -40,7 +40,7 @@ namespace KnitterNotebook.Services
                 Description = planProjectDto.Description,
                 ProjectStatusId = projectStatusId,
                 PatternPdfPath = planProjectDto.PatternPdfPath,
-                UserId = LoggedUserInformation.Id
+                UserId = planProjectDto.UserId
             };
             
             await _databaseContext.Projects.AddAsync(project);
