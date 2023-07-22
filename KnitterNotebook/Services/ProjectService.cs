@@ -29,9 +29,7 @@ namespace KnitterNotebook.Services
             List<Yarn> yarns = planProjectDto.YarnsNames.Select(x => new Yarn() { Name = x }).ToList();
 
             int projectStatusId = planProjectDto.StartDate.HasValue && planProjectDto.StartDate.Value.CompareTo(DateTime.Today) >= 0 ? 2 : 1; 
-            ProjectStatus projectStatus = await _projectStatusService.GetAsync(projectStatusId)! ?? throw new NullReferenceException("Project status can not be null");
 
-            User user = await _userService.GetAsync(planProjectDto.UserId)! ?? throw new NullReferenceException("User can not be null"); ;
             Project project = new()
             {
                 Name = planProjectDto.Name,
@@ -40,9 +38,9 @@ namespace KnitterNotebook.Services
                 Needles = needles,
                 Yarns = yarns,
                 Description = planProjectDto.Description,
-                ProjectStatus = projectStatus,
+                ProjectStatusId = projectStatusId,
                 PatternPdfPath = planProjectDto.PatternPdfPath,
-                User = user
+                UserId = LoggedUserInformation.Id
             };
             
             await _databaseContext.Projects.AddAsync(project);
