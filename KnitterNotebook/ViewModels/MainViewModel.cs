@@ -117,7 +117,7 @@ namespace KnitterNotebook.ViewModels
 
                 MovieUrls = GetMovieUrls(User);
                 Samples = GetSamples(User);
-                
+
                 if (User?.Theme is not null)
                 {
                     string themeFullPath = Paths.ThemeFullPath(User.Theme.Name);
@@ -187,7 +187,6 @@ namespace KnitterNotebook.ViewModels
 
         [RelayCommand]
         private void LogOut() => _userService.LogOut();
-        
 
         #endregion Methods
     }

@@ -48,6 +48,7 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new ChangeNicknameDto(2, "NewNick2") };
             yield return new object[] { new ChangeNicknameDto(3, "NewNick3") };
         }
+
         private void SeedUsers()
         {
             List<User> users = new()

@@ -17,7 +17,6 @@ using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
 {
-
     public partial class ProjectPlanningViewModel : ObservableObject
     {
         public ProjectPlanningViewModel(IProjectService projectService, IValidator<PlanProjectDto> planProjectDtoValidator)

@@ -55,8 +55,8 @@ namespace KnitterNotebookTests.Validators
         {
             yield return new object[] { new ChangeThemeDto(1, "Default") };
             yield return new object[] { new ChangeThemeDto(1, "Light") };
-            yield return new object[] { new ChangeThemeDto(2, "Dark") };    
-            yield return new object[] { new ChangeThemeDto(3, "Default") };    
+            yield return new object[] { new ChangeThemeDto(2, "Dark") };
+            yield return new object[] { new ChangeThemeDto(3, "Default") };
         }
 
         [Theory]

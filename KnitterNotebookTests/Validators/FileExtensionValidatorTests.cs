@@ -17,6 +17,7 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { @"C:\computer\Files\Image4.gif" };
             yield return new object[] { @"C:\computer\Files\Image5.bmp" };
         }
+
         public static IEnumerable<object[]> PdfValidData()
         {
             yield return new object[] { @"C:\Users\computer\Downloads\File.pdf" };

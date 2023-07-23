@@ -33,7 +33,7 @@ namespace KnitterNotebook.ViewModels
         private readonly IUserService _userService;
 
         private readonly IValidator<CreateSampleDto> _createSampleDtoValidator;
-    
+
         public ICommand DeletePhotoCommand { get; }
 
         [ObservableProperty]

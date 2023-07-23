@@ -1,12 +1,10 @@
 ﻿using KnitterNotebook.Database;
-using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services
@@ -25,7 +23,7 @@ namespace KnitterNotebook.Services
             List<Needle> needles = planProjectDto.Needles.Select(x => new Needle() { Size = x.Size, SizeUnit = x.SizeUnit }).ToList();
             List<Yarn> yarns = planProjectDto.Yarns.Select(x => new Yarn() { Name = x.Name }).ToList();
 
-            int projectStatusId = planProjectDto.StartDate.HasValue && planProjectDto.StartDate.Value.CompareTo(DateTime.Today) >= 0 ? 2 : 1; 
+            int projectStatusId = planProjectDto.StartDate.HasValue && planProjectDto.StartDate.Value.CompareTo(DateTime.Today) >= 0 ? 2 : 1;
 
             Project project = new()
             {
@@ -39,7 +37,7 @@ namespace KnitterNotebook.Services
                 PatternPdfPath = planProjectDto.PatternPdfPath,
                 UserId = planProjectDto.UserId
             };
-            
+
             await _databaseContext.Projects.AddAsync(project);
             await _databaseContext.SaveChangesAsync();
         }
