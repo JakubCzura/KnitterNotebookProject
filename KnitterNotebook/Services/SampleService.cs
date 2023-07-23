@@ -10,12 +10,10 @@ namespace KnitterNotebook.Services
     public class SampleService : CrudService<Sample>, ISampleService
     {
         private readonly DatabaseContext _databaseContext;
-        private readonly IUserService _userService;
 
-        public SampleService(DatabaseContext databaseContext, IUserService userService) : base(databaseContext)
+        public SampleService(DatabaseContext databaseContext) : base(databaseContext)
         {
             _databaseContext = databaseContext;
-            _userService = userService;
         }
 
         public async Task<bool> CreateAsync(CreateSampleDto createSampleDto)
@@ -32,7 +30,7 @@ namespace KnitterNotebook.Services
                 NeedleSize = createSampleDto.NeedleSize,
                 NeedleSizeUnit = createSampleDto.NeedleSizeUnit,
                 Description = createSampleDto.Description,
-                User = await _userService.GetAsync(LoggedUserInformation.Id),
+                UserId = createSampleDto.UserId,
                 Image = image,
             };
 

@@ -14,13 +14,10 @@ namespace KnitterNotebook.Services
     public class ProjectService : CrudService<Project>, IProjectService
     {
         private readonly DatabaseContext _databaseContext;
-        private readonly IUserService _userService;
-        private readonly IProjectStatusService _projectStatusService;
-        public ProjectService(DatabaseContext databaseContext, IUserService userService, IProjectStatusService projectStatusService) : base(databaseContext)
+
+        public ProjectService(DatabaseContext databaseContext) : base(databaseContext)
         {
             _databaseContext = databaseContext;
-            _userService = userService;
-            _projectStatusService = projectStatusService;
         }
 
         public async Task PlanProjectAsync(PlanProjectDto planProjectDto)
@@ -29,9 +26,7 @@ namespace KnitterNotebook.Services
             List<Yarn> yarns = planProjectDto.YarnsNames.Select(x => new Yarn() { Name = x }).ToList();
 
             int projectStatusId = planProjectDto.StartDate.HasValue && planProjectDto.StartDate.Value.CompareTo(DateTime.Today) >= 0 ? 2 : 1; 
-            ProjectStatus projectStatus = await _projectStatusService.GetAsync(projectStatusId)! ?? throw new NullReferenceException("Project status can not be null");
 
-            User user = await _userService.GetAsync(planProjectDto.UserId)! ?? throw new NullReferenceException("User can not be null"); ;
             Project project = new()
             {
                 Name = planProjectDto.Name,
@@ -40,9 +35,9 @@ namespace KnitterNotebook.Services
                 Needles = needles,
                 Yarns = yarns,
                 Description = planProjectDto.Description,
-                ProjectStatus = projectStatus,
+                ProjectStatusId = projectStatusId,
                 PatternPdfPath = planProjectDto.PatternPdfPath,
-                User = user
+                UserId = planProjectDto.UserId
             };
             
             await _databaseContext.Projects.AddAsync(project);

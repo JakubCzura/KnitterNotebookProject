@@ -22,12 +22,15 @@ namespace KnitterNotebook.Models
         //Tzw. "inne"
         public string? Description { get; set; } = null;
 
-        public ProjectStatus ProjectStatus { get; set; } = new();
+        public ProjectStatus ProjectStatus { get; set; }
+        public int ProjectStatusId { get; set; }
 
         public string? PatternPdfPath { get; set; } = null;
 
         public virtual List<ProjectImage> ProjectImages { get; set; } = new();
 
-        public virtual User User { get; set; } = new();
+        public virtual User User { get; set; }
+
+        public int UserId { get; set; }
     }
 }

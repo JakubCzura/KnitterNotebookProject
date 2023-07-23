@@ -8,19 +8,15 @@ namespace KnitterNotebook.Models
         {
         }
 
-        public MovieUrl(string title, Uri link, User user)
-        {
-            Title = title;
-            Link = link;
-            User = user;
-        }
 
         public int Id { get; set; }
 
         public string Title { get; set; } = string.Empty;
 
-        public virtual Uri Link { get; set; } = null!;
+        public Uri Link { get; set; }
 
-        public virtual User User { get; set; } = new();
+        public virtual User User { get; set; }
+
+        public int UserId { get; set; }
     }
 }
