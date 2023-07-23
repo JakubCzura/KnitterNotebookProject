@@ -23,7 +23,6 @@ namespace KnitterNotebook.Models
         public string? Description { get; set; } = null;
 
         public ProjectStatus ProjectStatus { get; set; }
-
         public int ProjectStatusId { get; set; }
 
         public string? PatternPdfPath { get; set; } = null;

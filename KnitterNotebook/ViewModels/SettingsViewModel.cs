@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
+using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Themes;
@@ -34,7 +35,6 @@ namespace KnitterNotebook.ViewModels
             _changeThemeDtoValidator = changeThemeDtoValidator;
             ChooseUserSettingsUserControlCommand = new RelayCommand(() => SettingsWindowContent = new UserSettingsUserControl());
             ChooseThemeSettingsUserControlCommand = new RelayCommand(() => SettingsWindowContent = new ThemeSettingsUserControl());
-            Themes = ApplicationThemes.GetThemes();
         }
 
         private readonly IUserService _userService;
@@ -64,7 +64,7 @@ namespace KnitterNotebook.ViewModels
         private string _newTheme = string.Empty;
 
         [ObservableProperty]
-        private IEnumerable<string> _themes = Enumerable.Empty<string>();
+        private IEnumerable<string> _themes = ApplicationThemes.ThemesList();
 
         [RelayCommand]
         private async Task ChangeEmailAsync()
@@ -85,6 +85,10 @@ namespace KnitterNotebook.ViewModels
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
+            }
+            finally
+            {
+                NewEmail = string.Empty;
             }
         }
 
@@ -107,6 +111,10 @@ namespace KnitterNotebook.ViewModels
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
+            }
+            finally
+            {
+                NewNickname = string.Empty;
             }
         }
 

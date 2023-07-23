@@ -14,13 +14,10 @@ namespace KnitterNotebook.Services
     public class ProjectService : CrudService<Project>, IProjectService
     {
         private readonly DatabaseContext _databaseContext;
-        private readonly IUserService _userService;
-        private readonly IProjectStatusService _projectStatusService;
-        public ProjectService(DatabaseContext databaseContext, IUserService userService, IProjectStatusService projectStatusService) : base(databaseContext)
+
+        public ProjectService(DatabaseContext databaseContext) : base(databaseContext)
         {
             _databaseContext = databaseContext;
-            _userService = userService;
-            _projectStatusService = projectStatusService;
         }
 
         public async Task PlanProjectAsync(PlanProjectDto planProjectDto)

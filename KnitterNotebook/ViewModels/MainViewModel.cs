@@ -22,7 +22,7 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
     {
-        public MainViewModel(DatabaseContext databaseContext, IMovieUrlService movieUrlService, ISampleService sampleService)
+        public MainViewModel(DatabaseContext databaseContext, IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService)
         {
             _databaseContext = databaseContext;
             _movieUrlService = movieUrlService;
@@ -32,9 +32,9 @@ namespace KnitterNotebook.ViewModels
             ChooseProjectsInProgressUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsInProgressUserControl());
             ChooseProjectsUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsUserControl());
             ChooseSamplesUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new SamplesUserControl());
-            LogOutCommand = new RelayCommand(LogOut);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User!));
             SampleAddingViewModel.NewSampleAdded += new Action(() => Samples = GetSamples(User!));
+            _userService = userService;
         }
 
         #region Properties
@@ -42,6 +42,7 @@ namespace KnitterNotebook.ViewModels
         private readonly DatabaseContext _databaseContext;
         private readonly IMovieUrlService _movieUrlService;
         private readonly ISampleService _sampleService;
+        private readonly IUserService _userService;
 
         public ICommand ChoosePlannedProjectsUserControlCommand { get; }
         public ICommand ChooseProjectsInProgressUserControlCommand { get; }
@@ -51,7 +52,6 @@ namespace KnitterNotebook.ViewModels
         public ICommand ShowSettingsWindowCommand { get; } = new RelayCommand(ShowWindow<SettingsWindow>);
         public ICommand ShowProjectPlanningWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectPlanningWindow>);
         public ICommand ShowSampleAddingWindowCommand { get; } = new RelayCommand(ShowWindow<SampleAddingWindow>);
-        public ICommand LogOutCommand { get; }
 
         public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
 
@@ -184,6 +184,10 @@ namespace KnitterNotebook.ViewModels
                 MessageBox.Show(exception.Message, "Błąd otworzenia filmu");
             }
         }
+
+        [RelayCommand]
+        private void LogOut() => _userService.LogOut();
+        
 
         #endregion Methods
     }

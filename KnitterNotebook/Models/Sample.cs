@@ -41,6 +41,8 @@
 
         public virtual Image? Image { get; set; } = null;
 
-        public virtual User User { get; set; } = new();
+        public virtual User User { get; set; }
+
+        public int UserId { get; set; }
     }
 }

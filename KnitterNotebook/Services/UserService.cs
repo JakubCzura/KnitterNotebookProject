@@ -3,6 +3,7 @@ using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services
@@ -69,5 +70,7 @@ namespace KnitterNotebook.Services
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync();
         }
+
+        public void LogOut() => Environment.Exit(0);
     }
 }

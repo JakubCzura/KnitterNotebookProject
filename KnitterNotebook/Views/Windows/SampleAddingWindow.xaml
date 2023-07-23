@@ -97,7 +97,7 @@
                                         adorners:Watermark.Text="Rozmiar drutu"
                                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                         Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                        Text="{Binding NeedleSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=N2}"
+                                        Text="{Binding NeedleSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=F2}"
                                         TextWrapping="NoWrap" />
                                     <ComboBox
                                         Grid.Column="1"

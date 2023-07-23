@@ -19,8 +19,6 @@ namespace KnitterNotebook.ViewModels
         public static void Closewindow(Window instance)
            => Window.GetWindow(instance)?.Close();
 
-        public static void LogOut() => Environment.Exit(0);
-
         #endregion Methods
     }
 }
