@@ -140,7 +140,7 @@
                                             adorners:Watermark.Text="Rozmiar drutu"
                                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                            Text="{Binding Needle1.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=N2}"
+                                            Text="{Binding Needle1.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue='', StringFormat=F2}"
                                             TextWrapping="NoWrap" />
                                         <ComboBox
                                             Grid.Column="1"
@@ -165,7 +165,7 @@
                                             adorners:Watermark.Text="Rozmiar drutu"
                                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                            Text="{Binding Needle2.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=N2}"
+                                            Text="{Binding Needle2.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue='', StringFormat=F2}"
                                             TextWrapping="NoWrap" />
                                         <ComboBox
                                             Grid.Column="1"
@@ -190,7 +190,7 @@
                                             adorners:Watermark.Text="Rozmiar drutu"
                                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                            Text="{Binding Needle3.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=N2}"
+                                            Text="{Binding Needle3.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue='', StringFormat=F2}"
                                             TextWrapping="NoWrap" />
                                         <ComboBox
                                             Grid.Column="1"
@@ -215,7 +215,7 @@
                                             adorners:Watermark.Text="Rozmiar drutu"
                                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                            Text="{Binding Needle4.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=N2}"
+                                            Text="{Binding Needle4.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue='', StringFormat=F2}"
                                             TextWrapping="NoWrap" />
                                         <ComboBox
                                             Grid.Column="1"
@@ -240,7 +240,7 @@
                                             adorners:Watermark.Text="Rozmiar drutu"
                                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                            Text="{Binding Needle5.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=N2}"
+                                            Text="{Binding Needle5.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue='', StringFormat=F2}"
                                             TextWrapping="NoWrap" />
                                         <ComboBox
                                             Grid.Column="1"

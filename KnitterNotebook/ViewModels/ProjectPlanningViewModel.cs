@@ -51,19 +51,19 @@ namespace KnitterNotebook.ViewModels
         private string? _patternPdfPath = null;
 
         [ObservableProperty]
-        private NullableSizeNeedle _needle1 = new(null, NeedleSizeUnits.Units.mm.ToString());
+        private NullableSizeNeedle _needle1 = new();
 
         [ObservableProperty]
-        private NullableSizeNeedle _needle2 = new(null, NeedleSizeUnits.Units.mm.ToString());
+        private NullableSizeNeedle _needle2 = new();
 
         [ObservableProperty]
-        private NullableSizeNeedle _needle3 = new(null, NeedleSizeUnits.Units.mm.ToString());
+        private NullableSizeNeedle _needle3 = new();
 
         [ObservableProperty]
-        private NullableSizeNeedle _needle4 = new(null, NeedleSizeUnits.Units.mm.ToString());
+        private NullableSizeNeedle _needle4 = new();
 
         [ObservableProperty]
-        private NullableSizeNeedle _needle5 = new(null, NeedleSizeUnits.Units.mm.ToString());
+        private NullableSizeNeedle _needle5 = new();
 
         public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
 
