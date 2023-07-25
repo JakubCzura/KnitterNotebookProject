@@ -61,7 +61,7 @@
                                     adorners:Watermark.Text="Nazwy oddzielone przecinkiem np.: w1 , w2 , w3"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                    Text="{Binding YarnsWithSemicolons, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    Text="{Binding YarnsNamesWithDelimiter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
                             <Label Content="Inne" Style="{DynamicResource LabelAboveLoginInputStyle}" />

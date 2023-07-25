@@ -53,13 +53,13 @@ namespace KnitterNotebookTests.Helpers
 
         [Theory]
         [MemberData(nameof(ValidData))]
-        public void FilterByNeedleSize_ForValidData_ReturnsFilteredData(IEnumerable<Sample> samples, double needleSize, string needleSizeUnit, IEnumerable<Sample> result)
+        public void FilterByNeedleSize_ForValidData_ReturnsFilteredData(IEnumerable<Sample> samples, double needleSize, string needleSizeUnit, IEnumerable<Sample> expected)
         {
             //Act
             samples = samples.FilterByNeedleSize(needleSize, needleSizeUnit);
 
             //Assert
-            result.Should().BeEquivalentTo(samples);
+            expected.Should().BeEquivalentTo(samples);
         }
 
         [Fact]

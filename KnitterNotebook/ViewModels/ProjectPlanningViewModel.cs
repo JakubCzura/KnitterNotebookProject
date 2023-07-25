@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
+using KnitterNotebook.Converters;
 using KnitterNotebook.Database;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
@@ -38,7 +39,7 @@ namespace KnitterNotebook.ViewModels
         private DateTime? _startDate = null;
 
         [ObservableProperty]
-        private string _yarnsWithSemicolons = string.Empty;
+        private string _yarnsNamesWithDelimiter = string.Empty;
 
         [ObservableProperty]
         private string _patternName = string.Empty;
@@ -85,9 +86,12 @@ namespace KnitterNotebook.ViewModels
         [RelayCommand]
         private async Task AddProjectAsync()
         {
-            IEnumerable<NullableSizeNeedle> needles = NullableSizeNeedlesFilter.GetNeedlesWithSizeHasValue(Needle1, Needle2, Needle3, Needle4, Needle5);
-            IEnumerable<CreateNeedleDto> needlesToCreate = needles.Select(x => new CreateNeedleDto(Convert.ToDouble(x.Size), x.SizeUnit));
-            IEnumerable<CreateYarnDto> yarnsNames = !string.IsNullOrWhiteSpace(YarnsWithSemicolons) ? YarnsWithSemicolons.Split(',').Select(x => new CreateYarnDto(x)) : Enumerable.Empty<CreateYarnDto>();
+            IEnumerable<CreateNeedleDto> needlesToCreate = NullableSizeNeedlesFilter.GetNeedlesWithPositiveSizeValue(Needle1, Needle2, Needle3, Needle4, Needle5)
+                                                                                    .Select(CreateNeedleDtoConverter.Convert);
+            
+            IEnumerable<CreateYarnDto> yarnsNames = !string.IsNullOrWhiteSpace(YarnsNamesWithDelimiter) 
+                                                    ? CreateYarnDtoConverter.Convert(YarnsNamesWithDelimiter) 
+                                                    : Enumerable.Empty<CreateYarnDto>();
 
             try
             {
