@@ -101,7 +101,7 @@
                                     Kind="Numeric" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="Ilość rzędów"
+                                    adorners:Watermark.Text="Nazwa wzoru"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding PatternName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"

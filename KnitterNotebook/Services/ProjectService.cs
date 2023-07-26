@@ -1,4 +1,5 @@
 ﻿using KnitterNotebook.Database;
+using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
@@ -23,6 +24,10 @@ namespace KnitterNotebook.Services
             List<Needle> needles = planProjectDto.Needles.Select(x => new Needle() { Size = x.Size, SizeUnit = x.SizeUnit }).ToList();
             List<Yarn> yarns = planProjectDto.Yarns.Select(x => new Yarn() { Name = x.Name }).ToList();
 
+            PatternPdf? patternPdf = !string.IsNullOrWhiteSpace(planProjectDto.DestinationPatternPdfPath)
+                              ? new(planProjectDto.DestinationPatternPdfPath)
+                              : null;
+
             int projectStatusId = planProjectDto.StartDate.HasValue && planProjectDto.StartDate.Value.CompareTo(DateTime.Today) >= 0 ? 2 : 1;
 
             Project project = new()
@@ -34,9 +39,12 @@ namespace KnitterNotebook.Services
                 Yarns = yarns,
                 Description = planProjectDto.Description,
                 ProjectStatusId = projectStatusId,
-                PatternPdfPath = planProjectDto.PatternPdfPath,
+                PatternPdf = patternPdf,
                 UserId = planProjectDto.UserId
             };
+
+            if (!string.IsNullOrWhiteSpace(planProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(planProjectDto.DestinationPatternPdfPath))
+                FileHelper.CopyWithDirectoryCreation(planProjectDto.SourcePatternPdfPath, planProjectDto.DestinationPatternPdfPath);
 
             await _databaseContext.Projects.AddAsync(project);
             await _databaseContext.SaveChangesAsync();

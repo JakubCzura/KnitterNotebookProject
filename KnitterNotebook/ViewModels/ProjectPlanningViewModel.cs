@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
+using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Converters;
 using KnitterNotebook.Database;
 using KnitterNotebook.Helpers;
@@ -11,6 +12,7 @@ using KnitterNotebook.Services.Interfaces;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,14 +22,16 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class ProjectPlanningViewModel : ObservableObject
     {
-        public ProjectPlanningViewModel(IProjectService projectService, IValidator<PlanProjectDto> planProjectDtoValidator)
+        public ProjectPlanningViewModel(IProjectService projectService, IUserService userService, IValidator<PlanProjectDto> planProjectDtoValidator)
         {
             _projectService = projectService;
-            DeletePatternPdfCommand = new RelayCommand(() => PatternPdfPath = null);
+            _userService = userService;
             _planProjectDtoValidator = planProjectDtoValidator;
+            DeletePatternPdfCommand = new RelayCommand(() => PatternPdfPath = null);
         }
 
         private readonly IProjectService _projectService;
+        private readonly IUserService _userService;
         private readonly IValidator<PlanProjectDto> _planProjectDtoValidator;
 
         public ICommand DeletePatternPdfCommand { get; }
@@ -88,14 +92,17 @@ namespace KnitterNotebook.ViewModels
         {
             IEnumerable<CreateNeedleDto> needlesToCreate = NullableSizeNeedlesFilter.GetNeedlesWithPositiveSizeValue(Needle1, Needle2, Needle3, Needle4, Needle5)
                                                                                     .Select(CreateNeedleDtoConverter.Convert);
-            
-            IEnumerable<CreateYarnDto> yarnsNames = !string.IsNullOrWhiteSpace(YarnsNamesWithDelimiter) 
-                                                    ? CreateYarnDtoConverter.Convert(YarnsNamesWithDelimiter) 
+
+            IEnumerable<CreateYarnDto> yarnsToCreate = !string.IsNullOrWhiteSpace(YarnsNamesWithDelimiter)
+                                                    ? CreateYarnDtoConverter.Convert(YarnsNamesWithDelimiter)
                                                     : Enumerable.Empty<CreateYarnDto>();
 
             try
             {
-                PlanProjectDto planProjectDto = new(Name, StartDate, PatternName, needlesToCreate, yarnsNames, Description, PatternPdfPath, LoggedUserInformation.Id);
+                string nickname = await _userService.GetNicknameAsync(LoggedUserInformation.Id);
+                string? destinationPatternPdfPath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(PatternPdfPath));
+
+                PlanProjectDto planProjectDto = new(Name, StartDate, PatternName, needlesToCreate, yarnsToCreate, Description, PatternPdfPath, destinationPatternPdfPath, LoggedUserInformation.Id);
                 ValidationResult validation = await _planProjectDtoValidator.ValidateAsync(planProjectDto);
                 if (!validation.IsValid)
                 {

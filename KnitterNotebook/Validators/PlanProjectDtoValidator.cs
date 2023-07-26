@@ -44,9 +44,13 @@ namespace KnitterNotebook.Validators
             RuleFor(dto => dto.Description)
                 .MaximumLength(300).WithMessage("Długość opisu nie może być większa niż 300 znaków");
 
-            RuleFor(x => x.PatternPdfPath)
+            RuleFor(x => x.SourcePatternPdfPath)
                 .Must(x => x is null || PdfExtensionValidator.IsPdf(x))
-                .WithMessage("Wybierz plik z poprawnym rozszerzeniem .pdf lub usuń odnośnik do zdjęcia");
+                .WithMessage("Wybierz plik z poprawnym rozszerzeniem .pdf lub usuń odnośnik do wzoru");
+
+            RuleFor(x => x.DestinationPatternPdfPath)
+               .Must(x => x is null || PdfExtensionValidator.IsPdf(x))
+               .WithMessage("Wybierz plik z poprawnym rozszerzeniem .pdf lub usuń odnośnik do wzoru");
 
             RuleFor(dto => dto.UserId)
                 .MustAsync(async (id, cancellationToken) => await _databaseContext.Users.AnyAsync(x => x.Id == id, cancellationToken))

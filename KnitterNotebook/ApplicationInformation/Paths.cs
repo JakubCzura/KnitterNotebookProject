@@ -10,7 +10,7 @@ namespace KnitterNotebook.ApplicationInformation
 
         public static string UserDirectory(string nickname) => Path.Combine(UsersDirectories, nickname);
 
-        public static string? PathToSaveImage(string? nickname, string? fileNameWithExtension)
+        public static string? PathToSaveUserFile(string? nickname, string? fileNameWithExtension)
              => string.IsNullOrWhiteSpace(nickname) || string.IsNullOrWhiteSpace(fileNameWithExtension)
              ? null
              : Path.Combine(UserDirectory(nickname), DateTime.Now.Ticks.ToString() + fileNameWithExtension);

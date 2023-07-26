@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Xunit.Sdk;
 
 namespace KnitterNotebook.ViewModels
 {
@@ -79,8 +80,8 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                User user = await _userService.GetAsync(LoggedUserInformation.Id);
-                string? destinationImagePath = Paths.PathToSaveImage(user.Nickname, Path.GetFileName(SourceImagePath));
+                string nickname = await _userService.GetNicknameAsync(LoggedUserInformation.Id);
+                string? destinationImagePath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(SourceImagePath));
                 CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, SourceImagePath, destinationImagePath);
                 ValidationResult validation = await _createSampleDtoValidator.ValidateAsync(createSampleDto);
                 if (!validation.IsValid)

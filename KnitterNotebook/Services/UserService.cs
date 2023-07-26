@@ -31,6 +31,12 @@ namespace KnitterNotebook.Services
             await _databaseContext.SaveChangesAsync();
         }
 
+        public async Task<string> GetNicknameAsync(int id)
+        {
+            User user = await _databaseContext.Users.FindAsync(id);
+            return user!.Nickname;
+        }
+
         public async Task ChangePasswordAsync(ChangePasswordDto changePasswordDto)
         {
             User? user = await _databaseContext.Users.FindAsync(changePasswordDto.UserId);

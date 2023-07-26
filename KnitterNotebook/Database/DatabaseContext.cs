@@ -17,6 +17,9 @@ namespace KnitterNotebook.Database
         public DbSet<Sample> Samples { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<ProjectStatus> ProjectStatuses { get; set; }
+        public DbSet<PatternPdf> PatternPdfs { get; set; }
+        public DbSet<Needle> Needles { get; set; }
+        public DbSet<Yarn> Yarns { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,7 +38,7 @@ namespace KnitterNotebook.Database
                  .WithOne(c => c.User);
 
                 u.HasMany(x => x.Samples)
-                .WithOne(c => c.User);
+                 .WithOne(c => c.User);
             });
 
             modelBuilder.Entity<Project>(p =>
@@ -43,6 +46,15 @@ namespace KnitterNotebook.Database
                 p.HasKey(x => x.Id);
                 p.Property(x => x.Id).IsRequired();
                 p.Property(x => x.Name).IsRequired().HasMaxLength(100);
+
+                p.HasMany(x => x.Yarns)
+                 .WithOne(c => c.Project);
+
+                p.HasMany(x => x.Needles)
+                 .WithOne(c => c.Project);
+
+                p.HasOne(x => x.PatternPdf)
+                 .WithOne(c => c.Project);
             });
 
             modelBuilder.Entity<Theme>(t =>
@@ -80,23 +92,38 @@ namespace KnitterNotebook.Database
             });
 
             modelBuilder.Entity<Sample>(m =>
-                {
-                    m.HasKey(x => x.Id);
-                    m.Property(x => x.Id).IsRequired();
-                    m.Property(x => x.YarnName).IsRequired();
-                    m.Property(x => x.LoopsQuantity).IsRequired();
-                    m.Property(x => x.RowsQuantity).IsRequired();
-                    m.Property(x => x.NeedleSize).IsRequired();
-                    m.Property(x => x.NeedleSizeUnit).IsRequired();
-                    m.HasOne(x => x.Image)
-                    .WithOne(c => c.Sample);
-                });
+            {
+                m.HasKey(x => x.Id);
+                m.Property(x => x.Id).IsRequired();
+                m.Property(x => x.YarnName).IsRequired();
+                m.Property(x => x.LoopsQuantity).IsRequired();
+                m.Property(x => x.RowsQuantity).IsRequired();
+                m.Property(x => x.NeedleSize).IsRequired();
+                m.Property(x => x.NeedleSizeUnit).IsRequired();
+                m.HasOne(x => x.Image)
+                .WithOne(c => c.Sample);
+            });
 
             modelBuilder.Entity<Image>(m =>
             {
                 m.HasKey(x => x.Id);
                 m.Property(x => x.Id).IsRequired();
                 m.Property(x => x.Path).IsRequired();
+            });
+
+            modelBuilder.Entity<PatternPdf>(m =>
+            {
+                m.HasKey(x => x.Id);
+            });
+
+            modelBuilder.Entity<Needle>(m =>
+            {
+                m.HasKey(x => x.Id);
+            });
+
+            modelBuilder.Entity<Yarn>(m =>
+            {
+                m.HasKey(x => x.Id);
             });
         }
     }
