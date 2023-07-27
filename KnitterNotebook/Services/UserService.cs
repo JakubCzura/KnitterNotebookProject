@@ -1,4 +1,5 @@
 ﻿using KnitterNotebook.Database;
+using KnitterNotebook.Exceptions;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
@@ -32,47 +33,56 @@ namespace KnitterNotebook.Services
         }
 
         public async Task<string> GetNicknameAsync(int id)
-        {
-            User user = await _databaseContext.Users.FindAsync(id);
-            return user!.Nickname;
-        }
+            => (await _databaseContext.Users.FindAsync(id)
+                ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(id)))
+                .Nickname;
 
         public async Task ChangePasswordAsync(ChangePasswordDto changePasswordDto)
         {
-            User? user = await _databaseContext.Users.FindAsync(changePasswordDto.UserId);
-            user!.Password = PasswordHasher.HashPassword(changePasswordDto.NewPassword);
+            User user = await _databaseContext.Users.FindAsync(changePasswordDto.UserId)
+                        ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(changePasswordDto.UserId));
+
+            user.Password = PasswordHasher.HashPassword(changePasswordDto.NewPassword);
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync(true);
         }
 
         public async Task ChangeNicknameAsync(ChangeNicknameDto changeNicknameDto)
         {
-            User? user = await _databaseContext.Users.FindAsync(changeNicknameDto.UserId);
-            user!.Nickname = changeNicknameDto.Nickname;
+            User user = await _databaseContext.Users.FindAsync(changeNicknameDto.UserId)
+                        ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(changeNicknameDto.UserId));
+
+            user.Nickname = changeNicknameDto.Nickname;
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync();
         }
 
         public async Task ChangeEmailAsync(ChangeEmailDto changeEmailDto)
         {
-            User? user = await _databaseContext.Users.FindAsync(changeEmailDto.UserId);
-            user!.Email = changeEmailDto.Email;
+            User user = await _databaseContext.Users.FindAsync(changeEmailDto.UserId)
+                        ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(changeEmailDto.UserId));
+
+            user.Email = changeEmailDto.Email;
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync();
         }
 
         public async Task ChangeThemeAsync(ChangeThemeDto changeThemeDto)
         {
-            User? user = await _databaseContext.Users.FindAsync(changeThemeDto.UserId);
-            user!.Theme = await _themeService.GetByNameAsync(changeThemeDto.ThemeName);
+            User user = await _databaseContext.Users.FindAsync(changeThemeDto.UserId)
+                        ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(changeThemeDto.UserId));
+
+            user.Theme = await _themeService.GetByNameAsync(changeThemeDto.ThemeName)!;
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync();
         }
 
         public async Task ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
         {
-            User? user = await _databaseContext.Users.FirstOrDefaultAsync(x => x.Email == resetPasswordDto.EmailOrNickname || x.Nickname == resetPasswordDto.EmailOrNickname);
-            user!.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
+            User user = await _databaseContext.Users.FirstOrDefaultAsync(x => x.Email == resetPasswordDto.EmailOrNickname || x.Nickname == resetPasswordDto.EmailOrNickname)
+                        ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithNicknameOrEmailNotFound(resetPasswordDto.EmailOrNickname));
+
+            user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync();
         }
