@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
+using KnitterNotebook.Exceptions;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using KnitterNotebook.Services.Interfaces;
@@ -113,25 +114,27 @@ namespace KnitterNotebook.ViewModels
                           .Include(x => x.Projects)
                           .Include(x => x.Theme)
                           .Include(x => x.Samples).ThenInclude(x => x.Image)
-                          .FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.Id) ?? throw new Exception("User not found");
+                          .FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.Id)
+                          ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(LoggedUserInformation.Id));
 
                 MovieUrls = GetMovieUrls(User);
                 Samples = GetSamples(User);
 
-                if (User?.Theme is not null)
+                if (User.Theme is not null)
                 {
                     string themeFullPath = Paths.ThemeFullPath(User.Theme.Name);
                     ThemeChanger.SetTheme(themeFullPath);
                 }
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
-                if (User?.Samples is not null)
+                if (User.Samples is not null)
                 {
                     FileHelper.DeleteUnusedUserImages(User.Samples, User.Nickname);
                 }
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message);
+                MessageBox.Show(exception.Message + "\nThe application will shut down", "Unexpected database error");
+                Environment.Exit(0);
             }
         }
 

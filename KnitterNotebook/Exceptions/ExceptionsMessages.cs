@@ -4,5 +4,6 @@
     {
         public static string UserWithIdNotFound(int id) => $"User with {id} was not found";
         public static string UserWithNicknameOrEmailNotFound(string nicknameOrEmail) => $"User with {nicknameOrEmail} was not found";
+        public static string EntityWithIdNotFound(int id) => $"Entity with {id} was not found";
     }
 }

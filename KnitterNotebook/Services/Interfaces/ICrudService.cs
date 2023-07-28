@@ -11,7 +11,7 @@ namespace KnitterNotebook.Services.Interfaces
     {
         Task<IEnumerable<T>> GetAllAsync();
 
-        Task<T?>? GetAsync(int id);
+        Task<T?> GetAsync(int id);
 
         Task CreateAsync(T data);
 

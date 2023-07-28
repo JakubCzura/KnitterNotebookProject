@@ -15,6 +15,7 @@ namespace KnitterNotebook.Services
             _databaseContext = databaseContext;
         }
 
+        /// <returns>Theme object if theme with given name was found otherwise null</returns>
         public async Task<Theme?> GetByNameAsync(string name) => await _databaseContext.Themes.FirstOrDefaultAsync(x => x.Name == name);
     }
 }
