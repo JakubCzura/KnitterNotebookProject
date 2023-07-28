@@ -20,18 +20,18 @@ namespace KnitterNotebook.Services
             _themeService = themeService;
         }
 
-        ///// <returns>User object if found in database otherwise null</returns>
-        //public async Task<UserDto?> GetAsync(int id)
-        //{
-        //    User? user = await _databaseContext.Users
-        //                  .Include(x => x.MovieUrls)
-        //                  .Include(x => x.Projects)
-        //                  .Include(x => x.Theme)
-        //                  .Include(x => x.Samples).ThenInclude(x => x.Image)
-        //                  .FirstOrDefaultAsync(x => x.Id == id);
+        /// <returns>User object if found in database otherwise null</returns>
+        public new async Task<UserDto?> GetAsync(int id)
+        {
+            User? user = await _databaseContext.Users
+                          .Include(x => x.MovieUrls)
+                          .Include(x => x.Projects)
+                          .Include(x => x.Theme)
+                          .Include(x => x.Samples).ThenInclude(x => x.Image)
+                          .FirstOrDefaultAsync(x => x.Id == id);
 
-        //    return user is null ? null : new UserDto(user.Id, user.Nickname, user.Email, user.Projects, user.Samples, user.MovieUrls, user.Theme);
-        //}
+            return user is null ? null : new UserDto(user.Id, user.Nickname, user.Email, user.Projects, user.Samples, user.MovieUrls, user.Theme);
+        }
 
         public async Task CreateAsync(RegisterUserDto registerUserDto)
         {

@@ -5,6 +5,7 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
+using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Themes;
 using KnitterNotebook.Views.UserControls;
@@ -23,9 +24,8 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
     {
-        public MainViewModel(DatabaseContext databaseContext, IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService)
+        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService)
         {
-            _databaseContext = databaseContext;
             _movieUrlService = movieUrlService;
             _sampleService = sampleService;
             SelectedSample = Samples.FirstOrDefault();
@@ -33,14 +33,13 @@ namespace KnitterNotebook.ViewModels
             ChooseProjectsInProgressUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsInProgressUserControl());
             ChooseProjectsUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsUserControl());
             ChooseSamplesUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new SamplesUserControl());
-            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User!));
-            SampleAddingViewModel.NewSampleAdded += new Action(() => Samples = GetSamples(User!));
+            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
+            SampleAddingViewModel.NewSampleAdded += new Action(() => Samples = GetSamples(User));
             _userService = userService;
         }
 
         #region Properties
 
-        private readonly DatabaseContext _databaseContext;
         private readonly IMovieUrlService _movieUrlService;
         private readonly ISampleService _sampleService;
         private readonly IUserService _userService;
@@ -56,7 +55,7 @@ namespace KnitterNotebook.ViewModels
 
         public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
 
-        public string Greetings => $"Miło Cię widzieć {User?.Nickname}!";
+        public string Greetings => $"Miło Cię widzieć {User.Nickname}!";
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FilteredSamples))]
@@ -74,7 +73,7 @@ namespace KnitterNotebook.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(Greetings))]
-        private User _user = new();
+        private UserDto _user = new();
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SelectedSampleMashesXRows))]
@@ -96,9 +95,9 @@ namespace KnitterNotebook.ViewModels
 
         public string SelectedSampleNeedleSize => $"{SelectedSample?.NeedleSize}{SelectedSample?.NeedleSizeUnit}";
 
-        private static ObservableCollection<Sample> GetSamples(User user) => new(user.Samples);
+        private static ObservableCollection<Sample> GetSamples(UserDto user) => new(user.Samples);
 
-        private static ObservableCollection<MovieUrl> GetMovieUrls(User user) => new(user.MovieUrls);
+        private static ObservableCollection<MovieUrl> GetMovieUrls(UserDto user) => new(user.MovieUrls);
 
         #endregion Properties
 
@@ -109,13 +108,8 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                User = await _databaseContext.Users
-                          .Include(x => x.MovieUrls)
-                          .Include(x => x.Projects)
-                          .Include(x => x.Theme)
-                          .Include(x => x.Samples).ThenInclude(x => x.Image)
-                          .FirstOrDefaultAsync(x => x.Id == LoggedUserInformation.Id)
-                          ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(LoggedUserInformation.Id));
+                User = await _userService.GetAsync(LoggedUserInformation.Id)
+                       ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(LoggedUserInformation.Id));
 
                 MovieUrls = GetMovieUrls(User);
                 Samples = GetSamples(User);

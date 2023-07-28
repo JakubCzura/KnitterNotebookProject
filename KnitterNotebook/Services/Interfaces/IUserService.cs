@@ -8,6 +8,8 @@ namespace KnitterNotebook.Services.Interfaces
     {
         Task CreateAsync(RegisterUserDto data);
 
+        new Task<UserDto?> GetAsync(int id);
+
         Task<string?> GetNicknameAsync(int id);
 
         Task ChangeNicknameAsync(ChangeNicknameDto changeNicknameDto);
