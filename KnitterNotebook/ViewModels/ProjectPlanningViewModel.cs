@@ -99,10 +99,7 @@ namespace KnitterNotebook.ViewModels
 
             try
             {
-                string nickname = await _userService.GetNicknameAsync(LoggedUserInformation.Id);
-                string? destinationPatternPdfPath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(PatternPdfPath));
-
-                PlanProjectDto planProjectDto = new(Name, StartDate, PatternName, needlesToCreate, yarnsToCreate, Description, PatternPdfPath, destinationPatternPdfPath, LoggedUserInformation.Id);
+                PlanProjectDto planProjectDto = new(Name, StartDate, PatternName, needlesToCreate, yarnsToCreate, Description, PatternPdfPath, LoggedUserInformation.Id);
                 ValidationResult validation = await _planProjectDtoValidator.ValidateAsync(planProjectDto);
                 if (!validation.IsValid)
                 {

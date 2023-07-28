@@ -12,7 +12,6 @@ namespace KnitterNotebook.Models.Dtos
         IEnumerable<CreateYarnDto> Yarns,
         string? Description,
         string? SourcePatternPdfPath,
-        string? DestinationPatternPdfPath,
         int UserId
     );
 }

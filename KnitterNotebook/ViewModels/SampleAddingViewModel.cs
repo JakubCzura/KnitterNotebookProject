@@ -80,9 +80,8 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                string nickname = await _userService.GetNicknameAsync(LoggedUserInformation.Id);
-                string? destinationImagePath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(SourceImagePath));
-                CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, SourceImagePath, destinationImagePath);
+             
+                CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, SourceImagePath);
                 ValidationResult validation = await _createSampleDtoValidator.ValidateAsync(createSampleDto);
                 if (!validation.IsValid)
                 {

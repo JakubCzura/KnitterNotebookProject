@@ -32,10 +32,7 @@ namespace KnitterNotebook.Services
             await _databaseContext.SaveChangesAsync();
         }
 
-        public async Task<string> GetNicknameAsync(int id)
-            => (await _databaseContext.Users.FindAsync(id)
-                ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(id)))
-                .Nickname;
+        public async Task<string?> GetNicknameAsync(int id) => (await _databaseContext.Users.FindAsync(id))?.Nickname;
 
         public async Task ChangePasswordAsync(ChangePasswordDto changePasswordDto)
         {

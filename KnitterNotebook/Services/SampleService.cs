@@ -1,8 +1,10 @@
-﻿using KnitterNotebook.Database;
+﻿using KnitterNotebook.ApplicationInformation;
+using KnitterNotebook.Database;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services
@@ -11,15 +13,21 @@ namespace KnitterNotebook.Services
     {
         private readonly DatabaseContext _databaseContext;
 
-        public SampleService(DatabaseContext databaseContext) : base(databaseContext)
+        public SampleService(DatabaseContext databaseContext, IUserService userService) : base(databaseContext)
         {
             _databaseContext = databaseContext;
+            _userService = userService;
         }
+
+        private readonly IUserService _userService;
 
         public async Task<bool> CreateAsync(CreateSampleDto createSampleDto)
         {
-            Image? image = !string.IsNullOrWhiteSpace(createSampleDto.DestinationImagePath)
-                            ? new(createSampleDto.DestinationImagePath)
+            string? nickname = await _userService.GetNicknameAsync(LoggedUserInformation.Id);
+            string? destinationImagePath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(createSampleDto.SourceImagePath));
+
+            Image? image = !string.IsNullOrWhiteSpace(destinationImagePath)
+                            ? new(destinationImagePath)
                             : null;
 
             Sample sample = new()
@@ -34,8 +42,8 @@ namespace KnitterNotebook.Services
                 Image = image,
             };
 
-            if (!string.IsNullOrWhiteSpace(createSampleDto.SourceImagePath) && !string.IsNullOrWhiteSpace(createSampleDto.DestinationImagePath))
-                FileHelper.CopyWithDirectoryCreation(createSampleDto.SourceImagePath, createSampleDto.DestinationImagePath);
+            if (!string.IsNullOrWhiteSpace(createSampleDto.SourceImagePath) && !string.IsNullOrWhiteSpace(destinationImagePath))
+                FileHelper.CopyWithDirectoryCreation(createSampleDto.SourceImagePath, destinationImagePath);
 
             await _databaseContext.Samples.AddAsync(sample);
             await _databaseContext.SaveChangesAsync();

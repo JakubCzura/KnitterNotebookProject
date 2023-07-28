@@ -38,12 +38,6 @@ namespace KnitterNotebook.Validators
                 .Must(x => x is null || FileExtensionValidator.IsImage(x))
                 .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png, .gif, .bmp lub usuń odnośnik do zdjęcia");
 
-            RuleFor(x => x.DestinationImagePath)
-                .Must(x => x is null || FileExtensionValidator.IsImage(x))
-                .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png, .gif, .bmp lub usuń odnośnik do zdjęcia")
-                .Must(x => !File.Exists(x))
-                .WithMessage("Plik o podanej nazwie już istnieje, podaj inny plik lub zmień jego nazwę przed wyborem");
-
             RuleFor(x => x.UserId)
              .MustAsync(async (value, cancellationToken) => await _databaseContext.Users.AnyAsync(x => x.Id == value, cancellationToken))
              .WithMessage("Nie odnaleziono użytkownika");
