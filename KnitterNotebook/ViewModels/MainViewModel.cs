@@ -6,11 +6,11 @@ using KnitterNotebook.Exceptions;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Themes;
 using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,26 +28,18 @@ namespace KnitterNotebook.ViewModels
         {
             _movieUrlService = movieUrlService;
             _sampleService = sampleService;
+            _userService = userService;
             SelectedSample = Samples.FirstOrDefault();
-            ChoosePlannedProjectsUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new PlannedProjectsUserControl());
-            ChooseProjectsInProgressUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsInProgressUserControl());
-            ChooseProjectsUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new ProjectsUserControl());
-            ChooseSamplesUserControlCommand = new RelayCommand(() => ChosenMainWindowContent = new SamplesUserControl());
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
             SampleAddingViewModel.NewSampleAdded += new Action(() => Samples = GetSamples(User));
-            _userService = userService;
         }
 
         #region Properties
 
         private readonly IMovieUrlService _movieUrlService;
         private readonly ISampleService _sampleService;
-        private readonly IUserService _userService;
-
-        public ICommand ChoosePlannedProjectsUserControlCommand { get; }
-        public ICommand ChooseProjectsInProgressUserControlCommand { get; }
-        public ICommand ChooseProjectsUserControlCommand { get; }
-        public ICommand ChooseSamplesUserControlCommand { get; }
+        private readonly IUserService _userService;    
+        
         public ICommand ShowMovieUrlAddingWindowCommand { get; } = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
         public ICommand ShowSettingsWindowCommand { get; } = new RelayCommand(ShowWindow<SettingsWindow>);
         public ICommand ShowProjectPlanningWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectPlanningWindow>);
@@ -102,6 +94,17 @@ namespace KnitterNotebook.ViewModels
         #endregion Properties
 
         #region Methods
+
+        [RelayCommand]
+        private void ChooseMainWindowContent(MainWindowContentUserControls userControlName)
+           => ChosenMainWindowContent = userControlName switch
+           {
+               MainWindowContentUserControls.PlannedProjectsUserControl => new PlannedProjectsUserControl(),
+               MainWindowContentUserControls.ProjectsInProgressUserControl => new ProjectsInProgressUserControl(),
+               MainWindowContentUserControls.ProjectsUserControl => new ProjectsUserControl(),
+               MainWindowContentUserControls.SamplesUserControl => new SamplesUserControl(),
+               _ => new SamplesUserControl()
+           };
 
         [RelayCommand]
         public async Task OnLoadedWindowAsync()
