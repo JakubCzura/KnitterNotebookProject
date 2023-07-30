@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
-using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Converters;
 using KnitterNotebook.Database;
 using KnitterNotebook.Helpers;
@@ -12,11 +11,9 @@ using KnitterNotebook.Services.Interfaces;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
 {
@@ -27,14 +24,11 @@ namespace KnitterNotebook.ViewModels
             _projectService = projectService;
             _userService = userService;
             _planProjectDtoValidator = planProjectDtoValidator;
-            DeletePatternPdfCommand = new RelayCommand(() => PatternPdfPath = null);
         }
 
         private readonly IProjectService _projectService;
         private readonly IUserService _userService;
         private readonly IValidator<PlanProjectDto> _planProjectDtoValidator;
-
-        public ICommand DeletePatternPdfCommand { get; }
 
         [ObservableProperty]
         private string _name = string.Empty;
@@ -72,6 +66,10 @@ namespace KnitterNotebook.ViewModels
 
         public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
 
+        public static Action NewProjectPlanned { get; set; } = null!;
+
+        private static void OnNewProjectPlanned() => NewProjectPlanned?.Invoke();
+
         [RelayCommand]
         private void ChoosePatternPdf()
         {
@@ -83,9 +81,8 @@ namespace KnitterNotebook.ViewModels
             PatternPdfPath = dialog.FileName;
         }
 
-        public static Action NewProjectPlanned { get; set; } = null!;
-
-        private static void OnNewProjectPlanned() => NewProjectPlanned?.Invoke();
+        [RelayCommand]
+        private void DeletePatternPdf() => PatternPdfPath = null;
 
         [RelayCommand]
         private async Task AddProjectAsync()
