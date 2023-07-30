@@ -106,7 +106,7 @@
                                 </Button>
                                 <Button
                                     Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="{x:Static enums:MainWindowContentUserControls.PlannedProjectsUserControl}"
+                                    CommandParameter="{x:Static enums:MainWindowContentUserControls.SamplesUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Próbki obliczeniowe" />
                                 </Button>

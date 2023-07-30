@@ -24,14 +24,15 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
     {
-        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService)
+        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService, IProjectService projectService)
         {
             _movieUrlService = movieUrlService;
             _sampleService = sampleService;
             _userService = userService;
+            _projectService = projectService;
             SelectedSample = Samples.FirstOrDefault();
-            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User));
-            SampleAddingViewModel.NewSampleAdded += new Action(() => Samples = GetSamples(User));
+            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User.MovieUrls));
+            SampleAddingViewModel.NewSampleAdded += new Action(() => Samples = GetSamples(User.Samples));
         }
 
         #region Properties
@@ -39,6 +40,7 @@ namespace KnitterNotebook.ViewModels
         private readonly IMovieUrlService _movieUrlService;
         private readonly ISampleService _sampleService;
         private readonly IUserService _userService;    
+        private readonly IProjectService _projectService;    
         
         public ICommand ShowMovieUrlAddingWindowCommand { get; } = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
         public ICommand ShowSettingsWindowCommand { get; } = new RelayCommand(ShowWindow<SettingsWindow>);
@@ -64,6 +66,12 @@ namespace KnitterNotebook.ViewModels
         private MovieUrl _selectedMovieUrl = new();
 
         [ObservableProperty]
+        private ObservableCollection<Project> _plannedProjects = new();
+
+        [ObservableProperty]
+        private Project _selectedPlannedProject = new();
+
+        [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(Greetings))]
         private UserDto _user = new();
 
@@ -87,9 +95,11 @@ namespace KnitterNotebook.ViewModels
 
         public string SelectedSampleNeedleSize => $"{SelectedSample?.NeedleSize}{SelectedSample?.NeedleSizeUnit}";
 
-        private static ObservableCollection<Sample> GetSamples(UserDto user) => new(user.Samples);
+        private static ObservableCollection<Sample> GetSamples(List<Sample> samples) => new(samples);
 
-        private static ObservableCollection<MovieUrl> GetMovieUrls(UserDto user) => new(user.MovieUrls);
+        private static ObservableCollection<MovieUrl> GetMovieUrls(List<MovieUrl> movieUrls) => new(movieUrls);
+
+        private static ObservableCollection<Project> GetPlannedProjects(List<Project> projects) => new(projects);
 
         #endregion Properties
 
@@ -114,8 +124,9 @@ namespace KnitterNotebook.ViewModels
                 User = await _userService.GetAsync(LoggedUserInformation.Id)
                        ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(LoggedUserInformation.Id));
 
-                MovieUrls = GetMovieUrls(User);
-                Samples = GetSamples(User);
+                MovieUrls = GetMovieUrls(User.MovieUrls);
+                Samples = GetSamples(User.Samples);
+                PlannedProjects = GetPlannedProjects(User.Projects.Where(x => x.ProjectStatusId == 1).ToList());
 
                 if (User.Theme is not null)
                 {
@@ -143,7 +154,7 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedMovieUrl?.Id > 0)
                 {
                     await _movieUrlService.DeleteAsync(SelectedMovieUrl.Id);
-                    MovieUrls = GetMovieUrls(User);
+                    MovieUrls = GetMovieUrls(User.MovieUrls);
                 }
             }
             catch (Exception exception)
@@ -160,7 +171,7 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedSample?.Id > 0)
                 {
                     await _sampleService.DeleteAsync(SelectedSample.Id);
-                    Samples = GetSamples(User);
+                    Samples = GetSamples(User.Samples);
                 }
             }
             catch (Exception exception)
@@ -182,6 +193,41 @@ namespace KnitterNotebook.ViewModels
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Błąd otworzenia filmu");
+            }
+        }
+
+        [RelayCommand]
+        private async Task DeletePlannedProjectAsync()
+        {
+            try
+            {
+                if (SelectedPlannedProject?.Id > 0)
+                {
+                    await _projectService.DeleteAsync(SelectedPlannedProject.Id);
+                    PlannedProjects = GetPlannedProjects(User.Projects.Where(x => x.ProjectStatusId == 1).ToList());
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Błąd skasowania planowanego projektu");
+            }
+        }
+
+        [RelayCommand]
+        private async Task StartPlannedProjectAsync()
+        {
+            try
+            {
+                if (SelectedPlannedProject?.Id > 0)
+                {
+                    SelectedPlannedProject.ProjectStatusId = 2;
+                    await _projectService.UpdateAsync(SelectedPlannedProject);
+                    PlannedProjects = GetPlannedProjects(User.Projects.Where(x => x.ProjectStatusId == 1).ToList());
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Błąd rozpoczęcia planowanego projektu");
             }
         }
 

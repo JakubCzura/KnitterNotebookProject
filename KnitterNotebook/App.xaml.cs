@@ -66,7 +66,10 @@ namespace KnitterNotebook
                     {
                         DataContext = s.GetService<RegistrationViewModel>()
                     });
-                    services.AddSingleton(s => new MainViewModel(s.GetRequiredService<IMovieUrlService>(), s.GetRequiredService<ISampleService>(), s.GetRequiredService<IUserService>()));
+                    services.AddSingleton(s => new MainViewModel(s.GetRequiredService<IMovieUrlService>(), 
+                                                                 s.GetRequiredService<ISampleService>(), 
+                                                                 s.GetRequiredService<IUserService>(), 
+                                                                 s.GetRequiredService<IProjectService>()));
                     services.AddSingleton(s => new MainWindow()
                     {
                         DataContext = s.GetRequiredService<MainViewModel>()

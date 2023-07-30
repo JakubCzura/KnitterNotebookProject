@@ -31,18 +31,19 @@
                     Background="#FFE2AFFB"
                     DockPanel.Dock="Top"
                     IsReadOnly="True"
-                    ItemsSource="{Binding Samples}"
-                    SelectedItem="{Binding SelectedSample}"
+                    ItemsSource="{Binding PlannedProjects}"
+                    SelectedItem="{Binding SelectedPlannedProject}"
                     Style="{StaticResource MaterialDesignDataGrid}">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="*"
-                            Binding="{Binding Path=YarnName}"
+                            Binding="{Binding Path=Name}"
                             Header="Planowany projekt" />
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Command="{Binding DeleteSampleCommandAsync}" Header="Skasuj planowany projekt" />
+                            <MenuItem Command="{Binding StartPlannedProjectCommand}" Header="Rozpocznij projekt" />
+                            <MenuItem Command="{Binding DeletePlannedProjectCommand}" Header="Skasuj projekt" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>
