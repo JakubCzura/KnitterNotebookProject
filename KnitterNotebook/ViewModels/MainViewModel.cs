@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,12 +25,13 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
     {
-        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService, IProjectService projectService)
+        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService, IProjectService projectService, IWindowContentService windowContentService)
         {
             _movieUrlService = movieUrlService;
             _sampleService = sampleService;
             _userService = userService;
             _projectService = projectService;
+            _windowContentService = windowContentService;
             SelectedSample = Samples.FirstOrDefault();
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User.MovieUrls));
             SampleAddingViewModel.NewSampleAdded += new Action(() => Samples = GetSamples(User.Samples));
@@ -41,6 +43,7 @@ namespace KnitterNotebook.ViewModels
         private readonly ISampleService _sampleService;
         private readonly IUserService _userService;    
         private readonly IProjectService _projectService;    
+        private readonly IWindowContentService _windowContentService;    
         
         public ICommand ShowMovieUrlAddingWindowCommand { get; } = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
         public ICommand ShowSettingsWindowCommand { get; } = new RelayCommand(ShowWindow<SettingsWindow>);
@@ -69,6 +72,8 @@ namespace KnitterNotebook.ViewModels
         private ObservableCollection<Project> _plannedProjects = new();
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectNeedles))]
+        [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectYarns))]
         private Project _selectedPlannedProject = new();
 
         [ObservableProperty]
@@ -95,6 +100,9 @@ namespace KnitterNotebook.ViewModels
 
         public string SelectedSampleNeedleSize => $"{SelectedSample?.NeedleSize}{SelectedSample?.NeedleSizeUnit}";
 
+        public string SelectedPlannedProjectNeedles => string.Join("\n", SelectedPlannedProject.Needles.Select(x => $"{x.Size} {x.SizeUnit}"));
+        public string SelectedPlannedProjectYarns => string.Join("\n", SelectedPlannedProject.Yarns.Select(x => x.Name));
+
         private static ObservableCollection<Sample> GetSamples(List<Sample> samples) => new(samples);
 
         private static ObservableCollection<MovieUrl> GetMovieUrls(List<MovieUrl> movieUrls) => new(movieUrls);
@@ -106,15 +114,7 @@ namespace KnitterNotebook.ViewModels
         #region Methods
 
         [RelayCommand]
-        private void ChooseMainWindowContent(MainWindowContentUserControls userControlName)
-           => ChosenMainWindowContent = userControlName switch
-           {
-               MainWindowContentUserControls.PlannedProjectsUserControl => new PlannedProjectsUserControl(),
-               MainWindowContentUserControls.ProjectsInProgressUserControl => new ProjectsInProgressUserControl(),
-               MainWindowContentUserControls.ProjectsUserControl => new ProjectsUserControl(),
-               MainWindowContentUserControls.SamplesUserControl => new SamplesUserControl(),
-               _ => new SamplesUserControl()
-           };
+        private void ChooseMainWindowContent(MainWindowContentUserControls userControlName) => ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(userControlName);
 
         [RelayCommand]
         public async Task OnLoadedWindowAsync()

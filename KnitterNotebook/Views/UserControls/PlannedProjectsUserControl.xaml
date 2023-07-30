@@ -65,18 +65,18 @@
                     <TextBlock
                         Margin="5,0,5,5"
                         FontSize="15"
-                        Text="{Binding SelectedSample.YarnName}"
+                        Text="{Binding SelectedPlannedProject.Name}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="Nazwa włóczki:"
+                        Text="Data rozpoczęcia:"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
                         FontSize="15"
-                        Text="{Binding SelectedSampleMashesXRows}"
+                        Text="{Binding SelectedPlannedProject.StartDate, StringFormat=dddd dd MMMM yyyy, ConverterCulture=PL, TargetNullValue='Jeszcze nie podano'}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,0"
@@ -87,29 +87,29 @@
                     <TextBlock
                         Margin="5,0,5,5"
                         FontSize="15"
-                        Text="{Binding SelectedSampleMashesXRows}"
+                        Text="{Binding SelectedPlannedProject.PatternName}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="Rozmiary drutów:"
+                        Text="Druty:"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
                         FontSize="15"
-                        Text="{Binding SelectedSampleNeedleSize}"
+                        Text="{Binding SelectedPlannedProjectNeedles}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="Zamienniki włóczki:"
+                        Text="Włóczki:"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
                         FontSize="15"
-                        Text="{Binding SelectedSampleNeedleSize}"
+                        Text="{Binding SelectedPlannedProjectYarns}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,0"
@@ -120,7 +120,7 @@
                     <TextBlock
                         Margin="5,0,5,5"
                         FontSize="15"
-                        Text="{Binding SelectedSample.Description}"
+                        Text="{Binding SelectedPlannedProject.Description}"
                         TextWrapping="Wrap" />
                 </StackPanel>
             </ScrollViewer>

@@ -34,7 +34,8 @@ namespace KnitterNotebook.Services
 
             PatternPdf? patternPdf = !string.IsNullOrWhiteSpace(destinationPatternPdfPath) ? new(destinationPatternPdfPath) : null;
 
-            int projectStatusId = planProjectDto.StartDate.HasValue && planProjectDto.StartDate.Value.CompareTo(DateTime.Today) >= 0 ? 2 : 1;
+            //If planned project's start date is today then projectStatus is InProgress, otherwise it is Planned
+            int projectStatusId = planProjectDto.StartDate.HasValue && planProjectDto.StartDate.Value.CompareTo(DateTime.Today) == 0 ? 2 : 1;
 
             Project project = new()
             {

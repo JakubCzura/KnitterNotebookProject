@@ -28,6 +28,8 @@ namespace KnitterNotebook.Services
                           .Include(x => x.Projects)
                           .Include(x => x.Theme)
                           .Include(x => x.Samples).ThenInclude(x => x.Image)
+                          .Include(x => x.Projects).ThenInclude(x => x.Needles)
+                          .Include(x => x.Projects).ThenInclude(x => x.Yarns)
                           .FirstOrDefaultAsync(x => x.Id == id);
 
             return user is null ? null : new UserDto(user.Id, user.Nickname, user.Email, user.Projects, user.Samples, user.MovieUrls, user.Theme);
