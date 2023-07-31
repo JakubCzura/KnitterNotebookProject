@@ -1,9 +1,8 @@
 ﻿using FluentAssertions;
-using KnitterNotebook.Helpers;
+using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models;
-using System.Collections.ObjectModel;
 
-namespace KnitterNotebookTests.Helpers
+namespace KnitterNotebookTests.Helpers.Extensions
 {
     public class SamplesFilterTests
     {
@@ -79,7 +78,7 @@ namespace KnitterNotebookTests.Helpers
         public void FilterByNeedleSize_ForEmptyData_ReturnsEmptyData()
         {
             //Arrange
-            ObservableCollection<Sample> samples = new();
+            IEnumerable<Sample> samples = Enumerable.Empty<Sample>();
 
             //Act
             samples = samples.FilterByNeedleSize(2, "cm");

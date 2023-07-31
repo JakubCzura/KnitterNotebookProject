@@ -4,6 +4,7 @@ using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Helpers;
+using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
@@ -97,11 +98,11 @@ namespace KnitterNotebook.ViewModels
         private ObservableCollection<Sample> _samples = new();
 
         public ObservableCollection<Sample> FilteredSamples => FilterNeedleSize > 0
-            ? Samples.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit)
+            ? new(Samples.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit))
             : Samples;
 
         public ObservableCollection<Project> FilteredPlannedProjects => !string.IsNullOrWhiteSpace(FilterPlannedProjectName)
-           ? PlannedProjects.FilterByName(FilterPlannedProjectName)
+           ? new(PlannedProjects.FilterByName(FilterPlannedProjectName))
            : PlannedProjects;
 
         public string SelectedSampleMashesXRows => SelectedSample is not null ? $"{SelectedSample.LoopsQuantity}x{SelectedSample.RowsQuantity}" : "";
