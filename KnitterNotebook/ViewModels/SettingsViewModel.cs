@@ -3,19 +3,17 @@ using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
-using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Themes;
 using KnitterNotebook.Views.UserControls;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace KnitterNotebook.ViewModels
@@ -26,15 +24,15 @@ namespace KnitterNotebook.ViewModels
             IValidator<ChangeNicknameDto> changeNicknameDtoValidator,
             IValidator<ChangeEmailDto> changeEmailDtoValidator,
             IValidator<ChangePasswordDto> changePasswordDtoValidator,
-            IValidator<ChangeThemeDto> changeThemeDtoValidator)
+            IValidator<ChangeThemeDto> changeThemeDtoValidator,
+            IWindowContentService windowContentService)
         {
             _userService = userService;
             _changeNicknameDtoValidator = changeNicknameDtoValidator;
             _changeEmailDtoValidator = changeEmailDtoValidator;
             _changePasswordDtoValidator = changePasswordDtoValidator;
             _changeThemeDtoValidator = changeThemeDtoValidator;
-            ChooseUserSettingsUserControlCommand = new RelayCommand(() => SettingsWindowContent = new UserSettingsUserControl());
-            ChooseThemeSettingsUserControlCommand = new RelayCommand(() => SettingsWindowContent = new ThemeSettingsUserControl());
+            _windowContentService = windowContentService;
         }
 
         private readonly IUserService _userService;
@@ -47,9 +45,7 @@ namespace KnitterNotebook.ViewModels
 
         private readonly IValidator<ChangeThemeDto> _changeThemeDtoValidator;
 
-        public ICommand ChooseThemeSettingsUserControlCommand { get; }
-
-        public ICommand ChooseUserSettingsUserControlCommand { get; }
+        private readonly IWindowContentService _windowContentService;
 
         [ObservableProperty]
         private UserControl _settingsWindowContent = new UserSettingsUserControl();
@@ -64,7 +60,7 @@ namespace KnitterNotebook.ViewModels
         private string _newTheme = string.Empty;
 
         [ObservableProperty]
-        private IEnumerable<string> _themes = ApplicationThemes.ThemesList();
+        private string[] _themes = Enum.GetNames(typeof(ApplicationTheme));
 
         [RelayCommand]
         private async Task ChangeEmailAsync()
@@ -170,5 +166,8 @@ namespace KnitterNotebook.ViewModels
                 MessageBox.Show(exception.Message);
             }
         }
+
+        [RelayCommand]
+        private void ChooseSettingsWindowContent(SettingsWindowContent userControlName) => SettingsWindowContent = _windowContentService.ChooseSettingsWindowContent(userControlName);
     }
 }

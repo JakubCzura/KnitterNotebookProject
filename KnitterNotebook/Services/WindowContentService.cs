@@ -7,13 +7,20 @@ namespace KnitterNotebook.Services
 {
     public class WindowContentService : IWindowContentService
     {
-        public UserControl ChooseMainWindowContent(MainWindowContentUserControls userControlName) => userControlName switch
+        public UserControl ChooseMainWindowContent(MainWindowContent userControlName) => userControlName switch
         {
-            MainWindowContentUserControls.PlannedProjectsUserControl => new PlannedProjectsUserControl(),
-            MainWindowContentUserControls.ProjectsInProgressUserControl => new ProjectsInProgressUserControl(),
-            MainWindowContentUserControls.ProjectsUserControl => new ProjectsUserControl(),
-            MainWindowContentUserControls.SamplesUserControl => new SamplesUserControl(),
+            MainWindowContent.PlannedProjectsUserControl => new PlannedProjectsUserControl(),
+            MainWindowContent.ProjectsInProgressUserControl => new ProjectsInProgressUserControl(),
+            MainWindowContent.ProjectsUserControl => new ProjectsUserControl(),
+            MainWindowContent.SamplesUserControl => new SamplesUserControl(),
             _ => new SamplesUserControl()
+        };
+
+        public UserControl ChooseSettingsWindowContent(SettingsWindowContent userControlName) => userControlName switch
+        {
+            SettingsWindowContent.UserSettingsUserControl => new UserSettingsUserControl(),
+            SettingsWindowContent.ThemeSettingsUserControl => new ThemeSettingsUserControl(),
+            _ => new UserSettingsUserControl()
         };
     }
 }

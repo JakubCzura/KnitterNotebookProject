@@ -100,8 +100,8 @@ namespace KnitterNotebook.ViewModels
 
         public string SelectedSampleNeedleSize => $"{SelectedSample?.NeedleSize}{SelectedSample?.NeedleSizeUnit}";
 
-        public string SelectedPlannedProjectNeedles => string.Join("\n", SelectedPlannedProject.Needles.Select(x => $"{x.Size} {x.SizeUnit}"));
-        public string SelectedPlannedProjectYarns => string.Join("\n", SelectedPlannedProject.Yarns.Select(x => x.Name));
+        public string SelectedPlannedProjectNeedles => string.Join("\n", SelectedPlannedProject?.Needles.Select(x => $"{x.Size} {x.SizeUnit}") ?? Enumerable.Empty<string>());
+        public string SelectedPlannedProjectYarns => string.Join("\n", SelectedPlannedProject?.Yarns.Select(x => x.Name) ?? Enumerable.Empty<string>());
 
         private static ObservableCollection<Sample> GetSamples(List<Sample> samples) => new(samples);
 
@@ -114,7 +114,7 @@ namespace KnitterNotebook.ViewModels
         #region Methods
 
         [RelayCommand]
-        private void ChooseMainWindowContent(MainWindowContentUserControls userControlName) => ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(userControlName);
+        private void ChooseMainWindowContent(MainWindowContent userControlName) => ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(userControlName);
 
         [RelayCommand]
         public async Task OnLoadedWindowAsync()

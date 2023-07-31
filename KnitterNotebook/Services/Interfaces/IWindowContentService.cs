@@ -5,6 +5,8 @@ namespace KnitterNotebook.Services.Interfaces
 {
     public interface IWindowContentService
     {
-        public UserControl ChooseMainWindowContent(MainWindowContentUserControls userControlName);
+        public UserControl ChooseMainWindowContent(MainWindowContent userControlName);
+
+        public UserControl ChooseSettingsWindowContent(SettingsWindowContent userControlName);
     }
 }

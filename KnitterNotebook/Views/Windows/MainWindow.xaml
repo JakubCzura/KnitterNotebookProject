@@ -88,25 +88,25 @@
                             <StackPanel VerticalAlignment="Top" Orientation="Vertical">
                                 <Button
                                     Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="{x:Static enums:MainWindowContentUserControls.PlannedProjectsUserControl}"
+                                    CommandParameter="{x:Static enums:MainWindowContent.PlannedProjectsUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Projekty w planach" />
                                 </Button>
                                 <Button
                                     Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="{x:Static enums:MainWindowContentUserControls.ProjectsInProgressUserControl}"
+                                    CommandParameter="{x:Static enums:MainWindowContent.ProjectsInProgressUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Projekty w trakcie" />
                                 </Button>
                                 <Button
                                     Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="{x:Static enums:MainWindowContentUserControls.ProjectsUserControl}"
+                                    CommandParameter="{x:Static enums:MainWindowContent.ProjectsUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Ukończone projekty" />
                                 </Button>
                                 <Button
                                     Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="{x:Static enums:MainWindowContentUserControls.SamplesUserControl}"
+                                    CommandParameter="{x:Static enums:MainWindowContent.SamplesUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Próbki obliczeniowe" />
                                 </Button>
