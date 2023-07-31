@@ -15,7 +15,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,10 +40,10 @@ namespace KnitterNotebook.ViewModels
 
         private readonly IMovieUrlService _movieUrlService;
         private readonly ISampleService _sampleService;
-        private readonly IUserService _userService;    
-        private readonly IProjectService _projectService;    
-        private readonly IWindowContentService _windowContentService;    
-        
+        private readonly IUserService _userService;
+        private readonly IProjectService _projectService;
+        private readonly IWindowContentService _windowContentService;
+
         public ICommand ShowMovieUrlAddingWindowCommand { get; } = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
         public ICommand ShowSettingsWindowCommand { get; } = new RelayCommand(ShowWindow<SettingsWindow>);
         public ICommand ShowProjectPlanningWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectPlanningWindow>);
@@ -55,6 +54,9 @@ namespace KnitterNotebook.ViewModels
         public string Greetings => $"Miło Cię widzieć {User.Nickname}!";
 
         [ObservableProperty]
+        private UserControl _chosenMainWindowContent = new SamplesUserControl();
+
+        [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FilteredSamples))]
         private double? _filterNeedleSize;
 
@@ -63,12 +65,17 @@ namespace KnitterNotebook.ViewModels
         private string _filterNeedleSizeUnit = NeedleSizeUnits.Units.cm.ToString();
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FilteredPlannedProjects))]
+        private string? _filterPlannedProjectName;
+
+        [ObservableProperty]
         private ObservableCollection<MovieUrl> _movieUrls = new();
 
         [ObservableProperty]
         private MovieUrl _selectedMovieUrl = new();
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FilteredPlannedProjects))]
         private ObservableCollection<Project> _plannedProjects = new();
 
         [ObservableProperty]
@@ -86,9 +93,6 @@ namespace KnitterNotebook.ViewModels
         private Sample? _selectedSample = null;
 
         [ObservableProperty]
-        private UserControl _chosenMainWindowContent = new SamplesUserControl();
-
-        [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FilteredSamples))]
         private ObservableCollection<Sample> _samples = new();
 
@@ -96,22 +100,26 @@ namespace KnitterNotebook.ViewModels
             ? Samples.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit)
             : Samples;
 
+        public ObservableCollection<Project> FilteredPlannedProjects => !string.IsNullOrWhiteSpace(FilterPlannedProjectName)
+           ? PlannedProjects.FilterByName(FilterPlannedProjectName)
+           : PlannedProjects;
+
         public string SelectedSampleMashesXRows => SelectedSample is not null ? $"{SelectedSample.LoopsQuantity}x{SelectedSample.RowsQuantity}" : "";
 
         public string SelectedSampleNeedleSize => $"{SelectedSample?.NeedleSize}{SelectedSample?.NeedleSizeUnit}";
 
         public string SelectedPlannedProjectNeedles => string.Join("\n", SelectedPlannedProject?.Needles.Select(x => $"{x.Size} {x.SizeUnit}") ?? Enumerable.Empty<string>());
+        
         public string SelectedPlannedProjectYarns => string.Join("\n", SelectedPlannedProject?.Yarns.Select(x => x.Name) ?? Enumerable.Empty<string>());
 
+        #endregion Properties
+
+        #region Methods
         private static ObservableCollection<Sample> GetSamples(List<Sample> samples) => new(samples);
 
         private static ObservableCollection<MovieUrl> GetMovieUrls(List<MovieUrl> movieUrls) => new(movieUrls);
 
         private static ObservableCollection<Project> GetPlannedProjects(List<Project> projects) => new(projects);
-
-        #endregion Properties
-
-        #region Methods
 
         [RelayCommand]
         private void ChooseMainWindowContent(MainWindowContent userControlName) => ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(userControlName);

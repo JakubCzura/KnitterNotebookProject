@@ -21,7 +21,21 @@
             Margin="5,5,5,5"
             Background="#FFE2AFFB"
             CornerRadius="10">
+
             <DockPanel Margin="5,5,5,5">
+                <Grid Margin="0,0,0,5" DockPanel.Dock="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Style="{DynamicResource MaterialDesignBody1TextBlock}"
+                        Text="Filtruj po nazwie projektu" />
+                    <UniformGrid Grid.Row="1" Rows="1">
+                        <TextBox Text="{Binding FilterPlannedProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </UniformGrid>
+                </Grid>
                 <Button
                     Command="{Binding ShowProjectPlanningWindowCommand}"
                     Content="Zaplanuj projekt"
@@ -31,7 +45,7 @@
                     Background="#FFE2AFFB"
                     DockPanel.Dock="Top"
                     IsReadOnly="True"
-                    ItemsSource="{Binding PlannedProjects}"
+                    ItemsSource="{Binding FilteredPlannedProjects}"
                     SelectedItem="{Binding SelectedPlannedProject}"
                     Style="{StaticResource MaterialDesignDataGrid}">
                     <DataGrid.Columns>
