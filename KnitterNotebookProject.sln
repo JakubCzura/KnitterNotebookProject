@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnitterNotebook", "KnitterNotebook\KnitterNotebook.csproj", "{290EE488-1595-4E4A-BC01-43BA7829B802}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnitterNotebookUnitTests", "KnitterNotebookTests\KnitterNotebookUnitTests.csproj", "{36518E3F-FBB2-4966-9AB7-0E05652C592E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnitterNotebookTests", "KnitterNotebookTests\KnitterNotebookTests.csproj", "{36518E3F-FBB2-4966-9AB7-0E05652C592E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
