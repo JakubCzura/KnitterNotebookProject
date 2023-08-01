@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FluentValidation;
+using FluentValidation.Results;
 using KnitterNotebook.Database;
-using KnitterNotebook.Database.Login;
-using KnitterNotebook.Models;
+using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
 using System;
 using System.Threading.Tasks;
@@ -16,14 +18,16 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public partial class LoginViewModel : BaseViewModel
     {
-        public LoginViewModel(DatabaseContext databaseContext)
+        public LoginViewModel(IUserService userService, IValidator<LogInDto> logInDtoValidator)
         {
-            _databaseContext = databaseContext;
+            _userService = userService;
+            _logInDtoValidator = logInDtoValidator;
         }
 
-        #region Properties
+        private readonly IUserService _userService;
+        private readonly IValidator<LogInDto> _logInDtoValidator;
 
-        private readonly DatabaseContext _databaseContext;
+        #region Properties
 
         [ObservableProperty]
         private string _email = string.Empty;
@@ -41,15 +45,23 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                StandardLoggingIn standardLoggingIn = new();
-                LoggingInManager loggingInManager = new(standardLoggingIn, Email, LoginWindow.Instance.UserPasswordPasswordBox.Password, _databaseContext);
-                User user = await loggingInManager.LogIn()!;
-                if (user is null)
+                LogInDto logInDto = new(Email, LoginWindow.Instance.UserPasswordPasswordBox.Password);
+
+                ValidationResult validation = _logInDtoValidator.Validate(logInDto);
+                if (!validation.IsValid)
                 {
                     MessageBox.Show("Nieprawidłowe dane logowania");
                     return;
                 }
-                LoggedUserInformation.Id = user.Id;
+
+                int? userId = await _userService.LogInAsync(logInDto);
+                if (!userId.HasValue)
+                {
+                    MessageBox.Show("Nie odnaleziono użytkownika");
+                    return;
+                }
+
+                LoggedUserInformation.Id = userId.Value;
 
                 ShowWindow<MainWindow>();
                 Closewindow(LoginWindow.Instance);

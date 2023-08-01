@@ -13,11 +13,13 @@ namespace KnitterNotebook.Services
     {
         private readonly DatabaseContext _databaseContext;
         private readonly IThemeService _themeService;
+        private readonly IPasswordService _passwordService;
 
-        public UserService(DatabaseContext databaseContext, IThemeService themeService) : base(databaseContext)
+        public UserService(DatabaseContext databaseContext, IThemeService themeService, IPasswordService passwordService) : base(databaseContext)
         {
             _databaseContext = databaseContext;
             _themeService = themeService;
+            _passwordService = passwordService;
         }
 
         /// <returns>User object if found in database otherwise null</returns>
@@ -35,13 +37,22 @@ namespace KnitterNotebook.Services
             return user is null ? null : new UserDto(user.Id, user.Nickname, user.Email, user.Projects, user.Samples, user.MovieUrls, user.Theme);
         }
 
+        public async Task<int?> LogInAsync(LogInDto logInDto)
+        {
+            User? user = await _databaseContext.Users.FirstOrDefaultAsync(x => x.Email == logInDto.Email);
+
+            return user is not null && _passwordService.VerifyPassword(logInDto.Password, user.Password)
+                    ? user.Id
+                    : null;
+        }
+
         public async Task CreateAsync(RegisterUserDto registerUserDto)
         {
             User user = new()
             {
                 Nickname = registerUserDto.Nickname,
                 Email = registerUserDto.Email,
-                Password = PasswordHasher.HashPassword(registerUserDto.Password),
+                Password = _passwordService.HashPassword(registerUserDto.Password),
             };
             await _databaseContext.Users.AddAsync(user);
             await _databaseContext.SaveChangesAsync();
@@ -55,7 +66,7 @@ namespace KnitterNotebook.Services
             User user = await _databaseContext.Users.FindAsync(changePasswordDto.UserId)
                         ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(changePasswordDto.UserId));
 
-            user.Password = PasswordHasher.HashPassword(changePasswordDto.NewPassword);
+            user.Password = _passwordService.HashPassword(changePasswordDto.NewPassword);
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync(true);
         }
@@ -95,7 +106,7 @@ namespace KnitterNotebook.Services
             User user = await _databaseContext.Users.FirstOrDefaultAsync(x => x.Email == resetPasswordDto.EmailOrNickname || x.Nickname == resetPasswordDto.EmailOrNickname)
                         ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithNicknameOrEmailNotFound(resetPasswordDto.EmailOrNickname));
 
-            user.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
+            user.Password = _passwordService.HashPassword(resetPasswordDto.NewPassword);
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync();
         }

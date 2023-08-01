@@ -79,8 +79,7 @@ namespace KnitterNotebook.ViewModels
         private async Task AddSampleAsync()
         {
             try
-            {
-             
+            {            
                 CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, SourceImagePath);
                 ValidationResult validation = await _createSampleDtoValidator.ValidateAsync(createSampleDto);
                 if (!validation.IsValid)

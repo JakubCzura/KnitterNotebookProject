@@ -6,6 +6,8 @@ namespace KnitterNotebook.Services.Interfaces
 {
     public interface IUserService : ICrudService<User>
     {
+        Task<int?> LogInAsync(LogInDto logInDto);
+
         Task CreateAsync(RegisterUserDto data);
 
         new Task<UserDto?> GetAsync(int id);

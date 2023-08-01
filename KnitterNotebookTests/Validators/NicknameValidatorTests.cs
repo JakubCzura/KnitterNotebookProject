@@ -50,7 +50,7 @@ namespace KnitterNotebookTests.Validators
         }
 
         [Fact]
-        public void Validate_ForNullData_FailValidation()
+        public void Validate_ForNullData_ThrowArgumentNullException()
         {
             string nickname = null!;
 
