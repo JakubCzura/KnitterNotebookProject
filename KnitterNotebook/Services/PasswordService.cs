@@ -10,6 +10,7 @@ namespace KnitterNotebook.Services
         /// <param name="password">Unhashed password</param>
         /// <param name="hash">Hashed password</param>
         /// <returns>True if password matches, otherwise false</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public bool VerifyPassword(string password, string hash) => BCrypt.Net.BCrypt.Verify(password, hash);
 
         /// <summary>
@@ -17,6 +18,7 @@ namespace KnitterNotebook.Services
         /// </summary>
         /// <param name="password">Unhashed password</param>
         /// <returns>Hashed password</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public string HashPassword(string password) => BCrypt.Net.BCrypt.HashPassword(password);
     }
 }
