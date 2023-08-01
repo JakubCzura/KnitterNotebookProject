@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KnitterNotebook.Helpers
+namespace KnitterNotebook.Helpers.Filters
 {
     public class NullableSizeNeedlesFilter
     {

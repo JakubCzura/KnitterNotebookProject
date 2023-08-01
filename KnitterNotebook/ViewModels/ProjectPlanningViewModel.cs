@@ -5,6 +5,7 @@ using FluentValidation.Results;
 using KnitterNotebook.Converters;
 using KnitterNotebook.Database;
 using KnitterNotebook.Helpers;
+using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;

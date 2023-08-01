@@ -4,7 +4,7 @@ using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Helpers;
-using KnitterNotebook.Helpers.Extensions;
+using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
@@ -98,11 +98,11 @@ namespace KnitterNotebook.ViewModels
         private ObservableCollection<Sample> _samples = new();
 
         public ObservableCollection<Sample> FilteredSamples => FilterNeedleSize > 0
-            ? new(Samples.FilterByNeedleSize(Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit))
+            ? new(SamplesFilter.FilterByNeedleSize(Samples, Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit))
             : Samples;
 
         public ObservableCollection<Project> FilteredPlannedProjects => !string.IsNullOrWhiteSpace(FilterPlannedProjectName)
-           ? new(PlannedProjects.FilterByName(FilterPlannedProjectName))
+           ? new(ProjectsFilter.FilterByName(PlannedProjects, FilterPlannedProjectName))
            : PlannedProjects;
 
         public string SelectedSampleMashesXRows => SelectedSample is not null ? $"{SelectedSample.LoopsQuantity}x{SelectedSample.RowsQuantity}" : "";
@@ -110,12 +110,13 @@ namespace KnitterNotebook.ViewModels
         public string SelectedSampleNeedleSize => $"{SelectedSample?.NeedleSize}{SelectedSample?.NeedleSizeUnit}";
 
         public string SelectedPlannedProjectNeedles => string.Join("\n", SelectedPlannedProject?.Needles.Select(x => $"{x.Size} {x.SizeUnit}") ?? Enumerable.Empty<string>());
-        
+
         public string SelectedPlannedProjectYarns => string.Join("\n", SelectedPlannedProject?.Yarns.Select(x => x.Name) ?? Enumerable.Empty<string>());
 
         #endregion Properties
 
         #region Methods
+
         private static ObservableCollection<Sample> GetSamples(List<Sample> samples) => new(samples);
 
         private static ObservableCollection<MovieUrl> GetMovieUrls(List<MovieUrl> movieUrls) => new(movieUrls);

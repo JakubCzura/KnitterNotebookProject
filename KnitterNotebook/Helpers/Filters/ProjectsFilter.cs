@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace KnitterNotebook.Helpers.Extensions
+namespace KnitterNotebook.Helpers.Filters
 {
     public static class ProjectsFilter
     {
@@ -14,7 +14,7 @@ namespace KnitterNotebook.Helpers.Extensions
             Equals
         }
 
-        public static IEnumerable<Project> FilterByName(this IEnumerable<Project> projects, string projectName, NamesComparison namesComparison = NamesComparison.Contains)
+        public static IEnumerable<Project> FilterByName(IEnumerable<Project> projects, string projectName, NamesComparison namesComparison = NamesComparison.Contains)
            => namesComparison switch
              {
                  NamesComparison.Contains => projects.Where(x => x.Name.Contains(projectName, StringComparison.OrdinalIgnoreCase)),

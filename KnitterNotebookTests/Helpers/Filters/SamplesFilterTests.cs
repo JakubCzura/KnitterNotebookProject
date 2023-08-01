@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
-using KnitterNotebook.Helpers.Extensions;
+using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models;
 
-namespace KnitterNotebookTests.Helpers.Extensions
+namespace KnitterNotebookTests.Helpers.Filters
 {
     public class SamplesFilterTests
     {
@@ -55,7 +55,7 @@ namespace KnitterNotebookTests.Helpers.Extensions
         public void FilterByNeedleSize_ForValidData_ReturnsFilteredData(IEnumerable<Sample> samples, double needleSize, string needleSizeUnit, IEnumerable<Sample> expected)
         {
             //Act
-            samples = samples.FilterByNeedleSize(needleSize, needleSizeUnit);
+            samples = SamplesFilter.FilterByNeedleSize(samples, needleSize, needleSizeUnit);
 
             //Assert
             expected.Should().BeEquivalentTo(samples);
@@ -68,7 +68,7 @@ namespace KnitterNotebookTests.Helpers.Extensions
             IEnumerable<Sample> samples = null!;
 
             //Act
-            Action act = () => samples = samples.FilterByNeedleSize(2, "cm");
+            Action act = () => samples = SamplesFilter.FilterByNeedleSize(samples, 2, "cm");
 
             //Assert
             act.Should().Throw<ArgumentNullException>();
@@ -81,7 +81,7 @@ namespace KnitterNotebookTests.Helpers.Extensions
             IEnumerable<Sample> samples = Enumerable.Empty<Sample>();
 
             //Act
-            samples = samples.FilterByNeedleSize(2, "cm");
+            samples = SamplesFilter.FilterByNeedleSize(samples, 2, "cm");
 
             //Assert
             samples.Should().BeEmpty();

@@ -1,7 +1,8 @@
 ﻿using FluentAssertions;
+using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models;
 
-namespace KnitterNotebook.Helpers.Extensions
+namespace KnitterNotebookTests.Helpers.Filters
 {
     public class ProjectsFilterTests
     {
@@ -111,7 +112,7 @@ namespace KnitterNotebook.Helpers.Extensions
         public void FilterByName_ForProjectsWithGivenNamesComparison_ReturnsFilteredData(IEnumerable<Project> projects, string projectName, ProjectsFilter.NamesComparison namesComparison, IEnumerable<Project> expected)
         {
             //Act
-            projects = projects.FilterByName(projectName, namesComparison);
+            projects = ProjectsFilter.FilterByName(projects, projectName, namesComparison);
 
             //Assert
             expected.Should().BeEquivalentTo(projects);
@@ -122,7 +123,7 @@ namespace KnitterNotebook.Helpers.Extensions
         public void FilterByName_ForProjectsWithDefaultNamesComparison_ReturnsFilteredData(IEnumerable<Project> projects, string projectName, IEnumerable<Project> expected)
         {
             //Act
-            projects = projects.FilterByName(projectName);
+            projects = ProjectsFilter.FilterByName(projects, projectName);
 
             //Assert
             expected.Should().BeEquivalentTo(projects);
@@ -135,7 +136,7 @@ namespace KnitterNotebook.Helpers.Extensions
             IEnumerable<Project> projects = null!;
 
             //Act
-            Action act = () => projects = projects.FilterByName("project");
+            Action act = () => projects = ProjectsFilter.FilterByName(projects, "project");
 
             //Assert
             act.Should().Throw<ArgumentNullException>();
@@ -148,7 +149,7 @@ namespace KnitterNotebook.Helpers.Extensions
             IEnumerable<Project> projects = Enumerable.Empty<Project>();
 
             //Act
-            projects = projects.FilterByName("projects");
+            projects = ProjectsFilter.FilterByName(projects, "projects");
 
             //Assert
             projects.Should().BeEmpty();
