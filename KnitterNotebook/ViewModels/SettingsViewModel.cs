@@ -157,8 +157,8 @@ namespace KnitterNotebook.ViewModels
                     return;
                 }
                 await _userService.ChangeThemeAsync(changeThemeDto);
-                string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{NewTheme}Mode.xaml");
-                ThemeChanger.SetTheme(themeFullName);
+                //string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{NewTheme}Mode.xaml");
+                //ThemeChanger.SetTheme(themeFullName);
                 MessageBox.Show($"Zmieniono interfejs aplikacji na {NewTheme}");
             }
             catch (Exception exception)

@@ -15,6 +15,6 @@ namespace KnitterNotebook.ApplicationInformation
              ? null
              : Path.Combine(UserDirectory(nickname), DateTime.Now.Ticks.ToString() + fileNameWithExtension);
 
-        public static string ThemeFullPath(string themePath) => Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{themePath}Mode.xaml");
+        public static string ThemeFullPath(string themeName) => Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{themeName}Mode.xaml");
     }
 }

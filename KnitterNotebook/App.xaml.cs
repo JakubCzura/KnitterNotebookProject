@@ -73,7 +73,8 @@ namespace KnitterNotebook
                                                                  s.GetRequiredService<ISampleService>(), 
                                                                  s.GetRequiredService<IUserService>(), 
                                                                  s.GetRequiredService<IProjectService>(),
-                                                                 s.GetRequiredService<IWindowContentService>()));
+                                                                 s.GetRequiredService<IWindowContentService>(),
+                                                                 s.GetRequiredService<IThemeService>()));
                     services.AddSingleton(s => new MainWindow()
                     {
                         DataContext = s.GetRequiredService<MainViewModel>()

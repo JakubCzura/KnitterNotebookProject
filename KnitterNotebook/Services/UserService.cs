@@ -1,4 +1,5 @@
-﻿using KnitterNotebook.Database;
+﻿using KnitterNotebook.ApplicationInformation;
+using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
@@ -14,7 +15,6 @@ namespace KnitterNotebook.Services
         private readonly DatabaseContext _databaseContext;
         private readonly IThemeService _themeService;
         private readonly IPasswordService _passwordService;
-
         public UserService(DatabaseContext databaseContext, IThemeService themeService, IPasswordService passwordService) : base(databaseContext)
         {
             _databaseContext = databaseContext;
@@ -96,7 +96,13 @@ namespace KnitterNotebook.Services
             User user = await _databaseContext.Users.FindAsync(changeThemeDto.UserId)
                         ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(changeThemeDto.UserId));
 
-            user.Theme = await _themeService.GetByNameAsync(changeThemeDto.ThemeName)!;
+            user.Theme = await _themeService.GetByNameAsync(changeThemeDto.ThemeName);
+
+            string oldThemeFullPath = Paths.ThemeFullPath(user.Theme.Name);
+            string newThemeFullPath = Paths.ThemeFullPath(changeThemeDto.ThemeName);
+
+            _themeService.ReplaceTheme(newThemeFullPath, oldThemeFullPath);
+
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync();
         }

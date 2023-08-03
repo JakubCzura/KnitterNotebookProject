@@ -1,9 +1,6 @@
 ﻿using KnitterNotebook.Models.Dtos;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KnitterNotebook.Converters
 {
@@ -13,7 +10,7 @@ namespace KnitterNotebook.Converters
         {
             yarnsNames = yarnsNames.TrimEnd();
 
-            if(yarnsNames.EndsWith(delimiter))
+            if (yarnsNames.EndsWith(delimiter))
             {
                 yarnsNames = yarnsNames[..^1];
             }

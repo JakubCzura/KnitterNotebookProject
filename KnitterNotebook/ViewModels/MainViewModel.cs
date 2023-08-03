@@ -9,7 +9,6 @@ using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
-using KnitterNotebook.Themes;
 using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
 using System;
@@ -25,7 +24,7 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
     {
-        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService, IProjectService projectService, IWindowContentService windowContentService)
+        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService, IProjectService projectService, IWindowContentService windowContentService, IThemeService themeService)
         {
             _movieUrlService = movieUrlService;
             _sampleService = sampleService;
@@ -33,6 +32,7 @@ namespace KnitterNotebook.ViewModels
             _projectService = projectService;
             _windowContentService = windowContentService;
             SelectedSample = Samples.FirstOrDefault();
+            _themeService = themeService;
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User.MovieUrls));
             SampleAddingViewModel.NewSampleAdded += new Action(() => Samples = GetSamples(User.Samples));
         }
@@ -44,7 +44,7 @@ namespace KnitterNotebook.ViewModels
         private readonly IUserService _userService;
         private readonly IProjectService _projectService;
         private readonly IWindowContentService _windowContentService;
-
+        private readonly IThemeService _themeService;
         public ICommand ShowMovieUrlAddingWindowCommand { get; } = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
         public ICommand ShowSettingsWindowCommand { get; } = new RelayCommand(ShowWindow<SettingsWindow>);
         public ICommand ShowProjectPlanningWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectPlanningWindow>);
@@ -140,8 +140,7 @@ namespace KnitterNotebook.ViewModels
 
                 if (User.Theme is not null)
                 {
-                    string themeFullPath = Paths.ThemeFullPath(User.Theme.Name);
-                    ThemeChanger.SetTheme(themeFullPath);
+                    _themeService.ReplaceTheme(Paths.ThemeFullPath(User.Theme.Name), Paths.ThemeFullPath("Default"));
                 }
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
                 if (User.Samples is not null)
