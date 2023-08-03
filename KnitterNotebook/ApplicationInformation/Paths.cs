@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KnitterNotebook.Models.Enums;
+using System;
 using System.IO;
 
 namespace KnitterNotebook.ApplicationInformation
@@ -15,6 +16,6 @@ namespace KnitterNotebook.ApplicationInformation
              ? null
              : Path.Combine(UserDirectory(nickname), DateTime.Now.Ticks.ToString() + fileNameWithExtension);
 
-        public static string ThemeFullPath(string themeName) => Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{themeName}Mode.xaml");
+        public static string ThemeFullPath(ApplicationTheme themeName) => Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{themeName}Mode.xaml");
     }
 }

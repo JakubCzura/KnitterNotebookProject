@@ -2,8 +2,12 @@
 {
     public class ExceptionsMessages
     {
-        public static string UserWithIdNotFound(int id) => $"User with {id} was not found";
-        public static string UserWithNicknameOrEmailNotFound(string nicknameOrEmail) => $"User with {nicknameOrEmail} was not found";
-        public static string EntityWithIdNotFound(int id) => $"Entity with {id} was not found";
+        public static string UserWithIdNotFound(int id) => $"Użytkownik z id {id} nie został znaleziony";
+
+        public static string UserWithNicknameOrEmailNotFound(string nicknameOrEmail) => $"Użytkownik o nicku lub e-mail {nicknameOrEmail} nie został znaleziony";
+
+        public static string EntityWithIdNotFound(int id) => $"Rekord z id {id} nie został znaleziony";
+
+        public static string ThemeWithNameNotFound(string themeName) => $"Motyw o nazwie {themeName} nie został znaleziony";
     }
 }

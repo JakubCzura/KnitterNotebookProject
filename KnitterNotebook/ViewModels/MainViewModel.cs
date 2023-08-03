@@ -140,7 +140,7 @@ namespace KnitterNotebook.ViewModels
 
                 if (User.Theme is not null)
                 {
-                    _themeService.ReplaceTheme(Paths.ThemeFullPath(User.Theme.Name), Paths.ThemeFullPath("Default"));
+                    _themeService.ReplaceTheme(User.Theme.Name, ApplicationTheme.Default);
                 }
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
                 if (User.Samples is not null)

@@ -1,4 +1,5 @@
 ﻿using KnitterNotebook.Models;
+using KnitterNotebook.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebook.Database
@@ -61,10 +62,10 @@ namespace KnitterNotebook.Database
             {
                 t.HasKey(x => x.Id);
                 t.Property(x => x.Id).IsRequired();
-                t.Property(x => x.Name).IsRequired();
-                t.HasData(new Theme() { Id = 1, Name = "Default" },
-                          new Theme() { Id = 2, Name = "Light" },
-                          new Theme() { Id = 3, Name = "Dark" });
+                t.Property(x => x.Name).IsRequired().HasConversion<string>();
+                t.HasData(new Theme() { Id = 1, Name = ApplicationTheme.Default },
+                          new Theme() { Id = 2, Name = ApplicationTheme.Light },
+                          new Theme() { Id = 3, Name = ApplicationTheme.Dark });
                 t.HasMany(x => x.Users)
                  .WithOne(c => c.Theme)
                  .OnDelete(DeleteBehavior.NoAction);
@@ -101,7 +102,7 @@ namespace KnitterNotebook.Database
                 m.Property(x => x.NeedleSize).IsRequired();
                 m.Property(x => x.NeedleSizeUnit).IsRequired();
                 m.HasOne(x => x.Image)
-                .WithOne(c => c.Sample);
+                 .WithOne(c => c.Sample);
             });
 
             modelBuilder.Entity<Image>(m =>

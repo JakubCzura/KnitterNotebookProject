@@ -6,7 +6,6 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
-using KnitterNotebook.Themes;
 using KnitterNotebook.Views.UserControls;
 using System;
 using System.IO;
@@ -57,7 +56,7 @@ namespace KnitterNotebook.ViewModels
         private string _newNickname = string.Empty;
 
         [ObservableProperty]
-        private string _newTheme = string.Empty;
+        private ApplicationTheme _newTheme = ApplicationTheme.Default;
 
         [ObservableProperty]
         private string[] _themes = Enum.GetNames(typeof(ApplicationTheme));
@@ -157,8 +156,6 @@ namespace KnitterNotebook.ViewModels
                     return;
                 }
                 await _userService.ChangeThemeAsync(changeThemeDto);
-                //string themeFullName = Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{NewTheme}Mode.xaml");
-                //ThemeChanger.SetTheme(themeFullName);
                 MessageBox.Show($"Zmieniono interfejs aplikacji na {NewTheme}");
             }
             catch (Exception exception)

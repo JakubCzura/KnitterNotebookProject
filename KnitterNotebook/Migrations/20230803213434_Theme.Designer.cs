@@ -4,6 +4,7 @@ using KnitterNotebook.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KnitterNotebook.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class KnitterNotebookContextModelSnapshot : ModelSnapshot
+    [Migration("20230803213434_Theme")]
+    partial class Theme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,7 @@ namespace KnitterNotebook.Migrations
                     b.HasIndex("SampleId")
                         .IsUnique();
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.MovieUrl", b =>
@@ -68,7 +71,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MovieUrls", (string)null);
+                    b.ToTable("MovieUrls");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Needle", b =>
@@ -93,7 +96,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Needles", (string)null);
+                    b.ToTable("Needles");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.PatternPdf", b =>
@@ -116,7 +119,7 @@ namespace KnitterNotebook.Migrations
                     b.HasIndex("ProjectId")
                         .IsUnique();
 
-                    b.ToTable("PatternPdfs", (string)null);
+                    b.ToTable("PatternPdfs");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Project", b =>
@@ -157,7 +160,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Projects", (string)null);
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.ProjectImage", b =>
@@ -182,7 +185,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectImage", (string)null);
+                    b.ToTable("ProjectImage");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.ProjectStatus", b =>
@@ -199,7 +202,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProjectStatuses", (string)null);
+                    b.ToTable("ProjectStatuses");
 
                     b.HasData(
                         new
@@ -254,7 +257,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Samples", (string)null);
+                    b.ToTable("Samples");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Theme", b =>
@@ -271,7 +274,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Themes", (string)null);
+                    b.ToTable("Themes");
 
                     b.HasData(
                         new
@@ -320,7 +323,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Yarn", b =>
@@ -342,7 +345,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Yarns", (string)null);
+                    b.ToTable("Yarns");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Image", b =>

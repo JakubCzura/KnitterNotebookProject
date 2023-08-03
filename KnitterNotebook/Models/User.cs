@@ -18,6 +18,6 @@ namespace KnitterNotebook.Models
 
         public virtual List<MovieUrl> MovieUrls { get; set; } = new();
 
-        public virtual Theme? Theme { get; set; } = null;
+        public Theme Theme { get; set; }
     }
 }

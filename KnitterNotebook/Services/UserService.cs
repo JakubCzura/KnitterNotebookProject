@@ -3,6 +3,7 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -53,6 +54,8 @@ namespace KnitterNotebook.Services
                 Nickname = registerUserDto.Nickname,
                 Email = registerUserDto.Email,
                 Password = _passwordService.HashPassword(registerUserDto.Password),
+                Theme = await _themeService.GetByNameAsync(ApplicationTheme.Default)
+                        ?? throw new EntityNotFoundException(ExceptionsMessages.ThemeWithNameNotFound(ApplicationTheme.Default.ToString()))
             };
             await _databaseContext.Users.AddAsync(user);
             await _databaseContext.SaveChangesAsync();
@@ -96,12 +99,10 @@ namespace KnitterNotebook.Services
             User user = await _databaseContext.Users.FindAsync(changeThemeDto.UserId)
                         ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(changeThemeDto.UserId));
 
-            user.Theme = await _themeService.GetByNameAsync(changeThemeDto.ThemeName);
+            user.Theme = await _themeService.GetByNameAsync(changeThemeDto.ThemeName)
+                        ?? throw new EntityNotFoundException(ExceptionsMessages.ThemeWithNameNotFound(changeThemeDto.ThemeName.ToString()));
 
-            string oldThemeFullPath = Paths.ThemeFullPath(user.Theme.Name);
-            string newThemeFullPath = Paths.ThemeFullPath(changeThemeDto.ThemeName);
-
-            _themeService.ReplaceTheme(newThemeFullPath, oldThemeFullPath);
+            _themeService.ReplaceTheme(changeThemeDto.ThemeName, user.Theme.Name);
 
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync();

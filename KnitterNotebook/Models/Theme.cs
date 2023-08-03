@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using KnitterNotebook.Models.Enums;
+using System.Collections.Generic;
 
 namespace KnitterNotebook.Models
 {
@@ -6,8 +7,8 @@ namespace KnitterNotebook.Models
     {
         public int Id { get; set; }
 
-        public string Name { get; set; } = string.Empty;
+        public ApplicationTheme Name { get; set; } = ApplicationTheme.Default;
 
-        public virtual List<User> Users { get; set; } = new();
+        public virtual List<User> Users { get; set; }
     }
 }

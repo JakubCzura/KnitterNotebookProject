@@ -1,12 +1,13 @@
 ﻿using KnitterNotebook.Models;
+using KnitterNotebook.Models.Enums;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services.Interfaces
 {
     public interface IThemeService : ICrudService<Theme>
     {
-        Task<Theme?>? GetByNameAsync(string name);
+        Task<Theme?> GetByNameAsync(ApplicationTheme name);
 
-        void ReplaceTheme(string newResourceDictionaryFullName, string? oldResourceDictionaryFullName);
+        void ReplaceTheme(ApplicationTheme newThemeName, ApplicationTheme? oldThemeName = null);
     }
 }
