@@ -75,10 +75,10 @@ namespace KnitterNotebook.Database
             {
                 t.HasKey(x => x.Id);
                 t.Property(x => x.Id).IsRequired();
-                t.Property(x => x.Status).IsRequired();
-                t.HasData(new ProjectStatus() { Id = 1, Status = "Planned" },
-                          new ProjectStatus() { Id = 2, Status = "InProgress" },
-                          new ProjectStatus() { Id = 3, Status = "Finished" });
+                t.Property(x => x.Status).IsRequired().HasConversion<string>();
+                t.HasData(new ProjectStatus(1, ProjectStatusName.Planned),
+                          new ProjectStatus(2, ProjectStatusName.InProgress),
+                          new ProjectStatus(3, ProjectStatusName.Finished));
                 t.HasMany(x => x.Projects)
                  .WithOne(c => c.ProjectStatus)
                  .OnDelete(DeleteBehavior.NoAction);

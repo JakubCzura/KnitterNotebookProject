@@ -136,7 +136,7 @@ namespace KnitterNotebook.ViewModels
 
                 MovieUrls = GetMovieUrls(User.MovieUrls);
                 Samples = GetSamples(User.Samples);
-                PlannedProjects = GetPlannedProjects(User.Projects.Where(x => x.ProjectStatusId == 1).ToList());
+                PlannedProjects = GetPlannedProjects(User.Projects.Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
 
                 if (User.Theme is not null)
                 {
@@ -213,7 +213,7 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedPlannedProject?.Id > 0)
                 {
                     await _projectService.DeleteAsync(SelectedPlannedProject.Id);
-                    PlannedProjects = GetPlannedProjects(User.Projects.Where(x => x.ProjectStatusId == 1).ToList());
+                    PlannedProjects = GetPlannedProjects(User.Projects.Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
                 }
             }
             catch (Exception exception)
@@ -231,7 +231,7 @@ namespace KnitterNotebook.ViewModels
                 {
                     SelectedPlannedProject.ProjectStatusId = 2;
                     await _projectService.UpdateAsync(SelectedPlannedProject);
-                    PlannedProjects = GetPlannedProjects(User.Projects.Where(x => x.ProjectStatusId == 1).ToList());
+                    PlannedProjects = GetPlannedProjects(User.Projects.Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
                 }
             }
             catch (Exception exception)
