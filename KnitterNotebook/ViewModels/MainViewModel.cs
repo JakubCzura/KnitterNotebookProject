@@ -24,15 +24,16 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
     {
-        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService, IProjectService projectService, IWindowContentService windowContentService, IThemeService themeService)
+        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService, IProjectService projectService, IWindowContentService windowContentService, IThemeService themeService, IWebBrowserService webBrowserService)
         {
             _movieUrlService = movieUrlService;
             _sampleService = sampleService;
             _userService = userService;
             _projectService = projectService;
             _windowContentService = windowContentService;
-            SelectedSample = Samples.FirstOrDefault();
             _themeService = themeService;
+            _webBrowserService = webBrowserService;
+            SelectedSample = Samples.FirstOrDefault();
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User.MovieUrls));
             SampleAddingViewModel.NewSampleAdded += new Action(() => Samples = GetSamples(User.Samples));
         }
@@ -45,6 +46,7 @@ namespace KnitterNotebook.ViewModels
         private readonly IProjectService _projectService;
         private readonly IWindowContentService _windowContentService;
         private readonly IThemeService _themeService;
+        private readonly IWebBrowserService _webBrowserService;
         public ICommand ShowMovieUrlAddingWindowCommand { get; } = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
         public ICommand ShowSettingsWindowCommand { get; } = new RelayCommand(ShowWindow<SettingsWindow>);
         public ICommand ShowProjectPlanningWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectPlanningWindow>);
@@ -196,7 +198,7 @@ namespace KnitterNotebook.ViewModels
             {
                 if (SelectedMovieUrl?.Link is not null)
                 {
-                    UrlOpener.OpenInWebBrowser(SelectedMovieUrl.Link.ToString());
+                    _webBrowserService.Open(SelectedMovieUrl.Link);
                 }
             }
             catch (Exception exception)
