@@ -47,7 +47,7 @@
                     IsReadOnly="True"
                     ItemsSource="{Binding FilteredPlannedProjects}"
                     SelectedItem="{Binding SelectedPlannedProject}"
-                    Style="{StaticResource MaterialDesignDataGrid}">
+                    Style="{DynamicResource MaterialDesignDataGrid}">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="*"

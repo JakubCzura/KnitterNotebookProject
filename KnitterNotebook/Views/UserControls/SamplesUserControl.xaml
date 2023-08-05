@@ -51,7 +51,7 @@
                     IsReadOnly="True"
                     ItemsSource="{Binding FilteredSamples}"
                     SelectedItem="{Binding SelectedSample}"
-                    Style="{StaticResource MaterialDesignDataGrid}">
+                    Style="{DynamicResource MaterialDesignDataGrid}">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="*"

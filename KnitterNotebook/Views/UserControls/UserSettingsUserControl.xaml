@@ -57,7 +57,7 @@
                 VerticalContentAlignment="Center"
                 adorners:Watermark.Text="Powtórz hasło"
                 adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
-                Style="{StaticResource MaterialDesignPasswordBox}" />
+                Style="{DynamicResource MaterialDesignPasswordBox}" />
             <Button
                 MaxWidth="100"
                 HorizontalAlignment="Left"
