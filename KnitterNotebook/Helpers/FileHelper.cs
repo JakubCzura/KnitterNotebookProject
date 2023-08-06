@@ -1,5 +1,6 @@
 ﻿using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Models;
+using KnitterNotebook.Validators;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace KnitterNotebook.Helpers
             if (Directory.Exists(Paths.UserDirectory(nickname)))
             {
                 IEnumerable<string?> userImagesPath = userSamples.Where(x => x.Image is not null).Select(x => x?.Image?.Path);
-                IEnumerable<string?> imagesToDelete = Directory.GetFiles(Paths.UserDirectory(nickname)).Except(userImagesPath);
+                IEnumerable<string?> imagesToDelete = Directory.GetFiles(Paths.UserDirectory(nickname)).Where(FileExtensionValidator.IsImage).Except(userImagesPath);
                 foreach (string? image in imagesToDelete.Where(image => image is not null))
                 {
                     if (File.Exists(image))

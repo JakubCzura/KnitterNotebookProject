@@ -139,7 +139,6 @@ namespace KnitterNotebook.ViewModels
                 MovieUrls = GetMovieUrls(User.MovieUrls);
                 Samples = GetSamples(User.Samples);
                 PlannedProjects = GetPlannedProjects(User.Projects.Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
-
                 if (User.Theme is not null)
                 {
                     _themeService.ReplaceTheme(User.Theme.Name, ApplicationTheme.Default);
