@@ -11,6 +11,7 @@ using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -82,9 +83,10 @@ namespace KnitterNotebook.ViewModels
         private ObservableCollection<Project> _plannedProjects = new();
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectPatternPdfPath))]
         [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectNeedles))]
         [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectYarns))]
-        private Project _selectedPlannedProject = new();
+        private Project? _selectedPlannedProject = null;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(Greetings))]
@@ -106,6 +108,8 @@ namespace KnitterNotebook.ViewModels
         public ObservableCollection<Project> FilteredPlannedProjects => !string.IsNullOrWhiteSpace(FilterPlannedProjectName)
            ? new(ProjectsFilter.FilterByName(PlannedProjects, FilterPlannedProjectName))
            : PlannedProjects;
+
+        public string SelectedPlannedProjectPatternPdfPath => SelectedPlannedProject?.PatternPdf?.Path ?? "about:blank";
 
         public string SelectedSampleMashesXRows => SelectedSample is not null ? $"{SelectedSample.LoopsQuantity}x{SelectedSample.RowsQuantity}" : "";
 
