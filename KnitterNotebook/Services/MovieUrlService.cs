@@ -2,7 +2,11 @@
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services
@@ -27,5 +31,8 @@ namespace KnitterNotebook.Services
             await _databaseContext.AddAsync(movieUrl);
             await _databaseContext.SaveChangesAsync();
         }
+
+        public async Task<List<MovieUrl>> GetUserMovieUrlsAsync(int userId)
+            => await _databaseContext.MovieUrls.Where(x => x.UserId == userId).ToListAsync();
     }
 }

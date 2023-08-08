@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Helpers;
@@ -11,7 +10,6 @@ using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
-using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,8 +33,9 @@ namespace KnitterNotebook.ViewModels
             _themeService = themeService;
             _webBrowserService = webBrowserService;
             SelectedSample = Samples.FirstOrDefault();
-            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(() => MovieUrls = GetMovieUrls(User.MovieUrls));
-            SampleAddingViewModel.NewSampleAdded += new Action(() => Samples = GetSamples(User.Samples));
+            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(async () => MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id)));
+            SampleAddingViewModel.NewSampleAdded += new Action(async () => Samples = GetSamples(await _sampleService.GetUserSamplesAsync(User.Id)));
+            ProjectPlanningViewModel.NewProjectPlanned += new Action(async () => PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList()));
         }
 
         #region Properties
@@ -90,7 +89,7 @@ namespace KnitterNotebook.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(Greetings))]
-        private UserDto _user = new();
+        private UserBasicDto _user = new();
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SelectedSampleMashesXRows))]
@@ -140,17 +139,16 @@ namespace KnitterNotebook.ViewModels
                 User = await _userService.GetAsync(LoggedUserInformation.Id)
                        ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(LoggedUserInformation.Id));
 
-                MovieUrls = GetMovieUrls(User.MovieUrls);
-                Samples = GetSamples(User.Samples);
-                PlannedProjects = GetPlannedProjects(User.Projects.Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
-                if (User.Theme is not null)
-                {
-                    _themeService.ReplaceTheme(User.Theme.Name, ApplicationTheme.Default);
-                }
+                MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id));
+                Samples = GetSamples(await _sampleService.GetUserSamplesAsync(User.Id));
+                PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
+
+                _themeService.ReplaceTheme(User.ThemeName, ApplicationTheme.Default);
+
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
-                if (User.Samples is not null)
+                if (Samples is not null)
                 {
-                    FileHelper.DeleteUnusedUserImages(User.Samples, User.Nickname);
+                    FileHelper.DeleteUnusedUserImages(Samples, User.Nickname);
                 }
             }
             catch (Exception exception)
@@ -168,7 +166,7 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedMovieUrl?.Id > 0)
                 {
                     await _movieUrlService.DeleteAsync(SelectedMovieUrl.Id);
-                    MovieUrls = GetMovieUrls(User.MovieUrls);
+                    MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id));
                 }
             }
             catch (Exception exception)
@@ -185,7 +183,7 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedSample?.Id > 0)
                 {
                     await _sampleService.DeleteAsync(SelectedSample.Id);
-                    Samples = GetSamples(User.Samples);
+                    Samples = GetSamples(await _sampleService.GetUserSamplesAsync(User.Id));
                 }
             }
             catch (Exception exception)
@@ -218,7 +216,7 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedPlannedProject?.Id > 0)
                 {
                     await _projectService.DeleteAsync(SelectedPlannedProject.Id);
-                    PlannedProjects = GetPlannedProjects(User.Projects.Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
+                    PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
                 }
             }
             catch (Exception exception)
@@ -236,7 +234,7 @@ namespace KnitterNotebook.ViewModels
                 {
                     SelectedPlannedProject.ProjectStatusId = 2;
                     await _projectService.UpdateAsync(SelectedPlannedProject);
-                    PlannedProjects = GetPlannedProjects(User.Projects.Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
+                    PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
                 }
             }
             catch (Exception exception)

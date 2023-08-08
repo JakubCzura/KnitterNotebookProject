@@ -10,7 +10,7 @@ namespace KnitterNotebook.Services.Interfaces
 
         Task CreateAsync(RegisterUserDto data);
 
-        new Task<UserDto?> GetAsync(int id);
+        new Task<UserBasicDto?> GetAsync(int id);
 
         Task<string?> GetNicknameAsync(int id);
 

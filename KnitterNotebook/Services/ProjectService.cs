@@ -4,6 +4,7 @@ using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -56,5 +57,12 @@ namespace KnitterNotebook.Services
             await _databaseContext.Projects.AddAsync(project);
             await _databaseContext.SaveChangesAsync();
         }
+
+        public async Task<List<Project>> GetUserProjectsAsync(int userId)
+            => await _databaseContext.Projects.Include(x => x.Needles)
+                                              .Include(x => x.Yarns)
+                                              .Include(x => x.ProjectStatus)
+                                              .Include(x => x.PatternPdf)
+                                              .Where(x => x.UserId == userId).ToListAsync();
     }
 }

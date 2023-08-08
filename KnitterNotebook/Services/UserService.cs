@@ -1,5 +1,4 @@
-﻿using KnitterNotebook.ApplicationInformation;
-using KnitterNotebook.Database;
+﻿using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
@@ -16,6 +15,7 @@ namespace KnitterNotebook.Services
         private readonly DatabaseContext _databaseContext;
         private readonly IThemeService _themeService;
         private readonly IPasswordService _passwordService;
+
         public UserService(DatabaseContext databaseContext, IThemeService themeService, IPasswordService passwordService) : base(databaseContext)
         {
             _databaseContext = databaseContext;
@@ -24,20 +24,13 @@ namespace KnitterNotebook.Services
         }
 
         /// <returns>User object if found in database otherwise null</returns>
-        public new async Task<UserDto?> GetAsync(int id)
+        public new async Task<UserBasicDto?> GetAsync(int id)
         {
             User? user = await _databaseContext.Users
-                          .Include(x => x.MovieUrls)
-                          .Include(x => x.Projects)
                           .Include(x => x.Theme)
-                          .Include(x => x.Samples).ThenInclude(x => x.Image)
-                          .Include(x => x.Projects).ThenInclude(x => x.Needles)
-                          .Include(x => x.Projects).ThenInclude(x => x.Yarns)
-                          .Include(x => x.Projects).ThenInclude(x => x.ProjectStatus)
-                          .Include(x => x.Projects).ThenInclude(x => x.PatternPdf)
                           .FirstOrDefaultAsync(x => x.Id == id);
 
-            return user is null ? null : new UserDto(user.Id, user.Nickname, user.Email, user.Projects, user.Samples, user.MovieUrls, user.Theme);
+            return user is null ? null : new UserBasicDto(user);
         }
 
         public async Task<int?> LogInAsync(LogInDto logInDto)

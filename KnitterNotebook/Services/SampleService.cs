@@ -4,7 +4,10 @@ using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services
@@ -49,5 +52,9 @@ namespace KnitterNotebook.Services
             await _databaseContext.SaveChangesAsync();
             return true;
         }
+
+        public async Task<List<Sample>> GetUserSamplesAsync(int userId) =>
+            await _databaseContext.Samples.Include(x => x.Image)
+                                          .Where(x => x.UserId == userId).ToListAsync();
     }
 }
