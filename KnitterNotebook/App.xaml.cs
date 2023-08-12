@@ -107,6 +107,10 @@ namespace KnitterNotebook
                     {
                         DataContext = x.GetRequiredService<MainViewModel>()
                     });
+                    services.AddTransient(x => new ProjectsInProgressUserControl()
+                    {
+                        DataContext = x.GetRequiredService<MainViewModel>()
+                    });
                     services.AddTransient<SampleAddingViewModel>();
                     services.AddTransient(s => new SampleAddingWindow()
                     {
