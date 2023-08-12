@@ -146,12 +146,12 @@
             Background="#FFE2AFFB"
             BorderThickness="0"
             CornerRadius="10">
-            <wpf:WebView2 Name="PlannedProjectWebView" Source="{Binding TargetNullValue=about:blank, FallbackValue=about:blank, Path=SelectedPlannedProjectPatternPdfPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <wpf:WebView2 Source="{Binding TargetNullValue=about:blank, FallbackValue=about:blank, Path=SelectedPlannedProject.PatternPdf.Path}">
                 <wpf:WebView2.Style>
                     <Style TargetType="wpf:WebView2">
                         <Setter Property="Visibility" Value="Visible" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding SelectedPlannedProjectPatternPdfPath}" Value="about:blank">
+                            <DataTrigger Binding="{Binding TargetNullValue=about:blank, FallbackValue=about:blank, Path=SelectedPlannedProject.PatternPdf.Path}" Value="about:blank">
                                 <Setter Property="Visibility" Value="Hidden" />
                             </DataTrigger>
                         </Style.Triggers>

@@ -82,7 +82,6 @@ namespace KnitterNotebook.ViewModels
         private ObservableCollection<Project> _plannedProjects = new();
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectPatternPdfPath))]
         [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectNeedles))]
         [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectYarns))]
         private Project? _selectedPlannedProject = null;
@@ -107,8 +106,6 @@ namespace KnitterNotebook.ViewModels
         public ObservableCollection<Project> FilteredPlannedProjects => !string.IsNullOrWhiteSpace(FilterPlannedProjectName)
            ? new(ProjectsFilter.FilterByName(PlannedProjects, FilterPlannedProjectName))
            : PlannedProjects;
-
-        public string SelectedPlannedProjectPatternPdfPath => SelectedPlannedProject?.PatternPdf?.Path ?? "about:blank";
 
         public string SelectedSampleMashesXRows => SelectedSample is not null ? $"{SelectedSample.LoopsQuantity}x{SelectedSample.RowsQuantity}" : "";
 
