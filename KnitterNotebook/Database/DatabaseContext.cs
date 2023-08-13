@@ -94,7 +94,7 @@ namespace KnitterNotebook.Database
                 m.Property(x => x.LoopsQuantity).IsRequired();
                 m.Property(x => x.RowsQuantity).IsRequired();
                 m.Property(x => x.NeedleSize).IsRequired();
-                m.Property(x => x.NeedleSizeUnit).IsRequired();
+                m.Property(x => x.NeedleSizeUnit).IsRequired().HasConversion<string>();
                 m.HasOne(x => x.Image)
                  .WithOne(c => c.Sample);
             });

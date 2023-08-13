@@ -1,4 +1,6 @@
-﻿namespace KnitterNotebook.Models.Dtos
+﻿using KnitterNotebook.Models.Enums;
+
+namespace KnitterNotebook.Models.Dtos
 {
-    public record CreateNeedleDto(double Size, string SizeUnit);
+    public record CreateNeedleDto(double Size, NeedleSizeUnit SizeUnit);
 }

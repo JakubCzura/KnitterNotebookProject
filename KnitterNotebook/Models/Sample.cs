@@ -1,4 +1,6 @@
-﻿namespace KnitterNotebook.Models
+﻿using KnitterNotebook.Models.Enums;
+
+namespace KnitterNotebook.Models
 {
     public class Sample
     {
@@ -6,7 +8,7 @@
         {
         }
 
-        public Sample(int id, string yarnName, int loopsQuantity, int rowsQuantity, int needleSize, string needleSizeUnit, string description, User user, Image? image = null)
+        public Sample(int id, string yarnName, int loopsQuantity, int rowsQuantity, int needleSize, NeedleSizeUnit needleSizeUnit, string description, User user, Image? image = null)
         {
             Id = id;
             YarnName = yarnName;
@@ -34,7 +36,7 @@
         public double NeedleSize { get; set; }
 
         //Jednostka rozmiaru druta
-        public string NeedleSizeUnit { get; set; } = string.Empty;
+        public NeedleSizeUnit NeedleSizeUnit { get; set; } = NeedleSizeUnit.mm;
 
         //dodatkowy opis
         public string? Description { get; set; } = null;

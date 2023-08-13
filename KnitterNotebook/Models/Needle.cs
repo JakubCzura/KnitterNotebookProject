@@ -1,4 +1,6 @@
-﻿namespace KnitterNotebook.Models
+﻿using KnitterNotebook.Models.Enums;
+
+namespace KnitterNotebook.Models
 {
     public class Needle
     {
@@ -6,7 +8,7 @@
         {
         }
 
-        public Needle(double size, string sizeUnit)
+        public Needle(double size, NeedleSizeUnit sizeUnit)
         {
             Size = size;
             SizeUnit = sizeUnit;
@@ -16,7 +18,7 @@
 
         public double Size { get; set; }
 
-        public string SizeUnit { get; set; } = string.Empty;
+        public NeedleSizeUnit SizeUnit { get; set; }
 
         public Project Project { get; set; } = new();
     }

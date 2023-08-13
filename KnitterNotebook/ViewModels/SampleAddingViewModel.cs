@@ -47,7 +47,7 @@ namespace KnitterNotebook.ViewModels
         private double _needleSize;
 
         [ObservableProperty]
-        public string _needleSizeUnit = Models.Enums.NeedleSizeUnit.mm.ToString();
+        public NeedleSizeUnit _needleSizeUnit = NeedleSizeUnit.mm;
 
         [ObservableProperty]
         private string _description = string.Empty;

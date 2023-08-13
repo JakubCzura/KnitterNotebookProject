@@ -41,7 +41,7 @@ namespace KnitterNotebook.ViewModels
 
         public bool FilterByNeedleSize(object sampleToFilter, double? needleSize, NeedleSizeUnit needleSizeUnit)
             => !needleSize.HasValue ||
-                sampleToFilter is Sample sample && Math.Abs(sample.NeedleSize - needleSize.Value) <= 0.0001 && sample.NeedleSizeUnit.Equals(needleSizeUnit.ToString(), StringComparison.OrdinalIgnoreCase);
+                sampleToFilter is Sample sample && Math.Abs(sample.NeedleSize - needleSize.Value) <= 0.0001 && sample.NeedleSizeUnit == needleSizeUnit;
 
         #region Properties
 

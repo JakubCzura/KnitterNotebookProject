@@ -27,10 +27,6 @@ namespace KnitterNotebook.Validators
             RuleFor(x => x.NeedleSize)
                 .InclusiveBetween(0.1, 100).WithMessage("Rozmiar drutu musi być z zakresu 0.1-100");
 
-            RuleFor(x => x.NeedleSizeUnit)
-                .Must(value => value == "mm" || value == "cm")
-                .WithMessage("Jednostka miary może być określona tylko jako 'cm' lub 'mm' ");
-
             RuleFor(x => x.Description)
                 .MaximumLength(10000).WithMessage("Opis może mieć maksymalnie 10000 znaków");
 

@@ -21,6 +21,6 @@ namespace KnitterNotebook.Models
             }
         }
 
-        public string SizeUnit { get; set; } = NeedleSizeUnit.mm.ToString();
+        public NeedleSizeUnit SizeUnit { get; set; } = NeedleSizeUnit.mm;
     }
 }

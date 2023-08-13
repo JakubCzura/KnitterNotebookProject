@@ -53,8 +53,8 @@ namespace KnitterNotebook.Services
             return true;
         }
 
-        public async Task<List<Sample>> GetUserSamplesAsync(int userId) =>
-            await _databaseContext.Samples.Include(x => x.Image)
-                                          .Where(x => x.UserId == userId).ToListAsync();
+        public async Task<List<Sample>> GetUserSamplesAsync(int userId) 
+            => await _databaseContext.Samples.Include(x => x.Image)
+                                             .Where(x => x.UserId == userId).ToListAsync();
     }
 }
