@@ -132,7 +132,7 @@
                 MaxHeight="600"
                 Margin="5,5,5,5"
                 VerticalAlignment="Top"
-                Source="{Binding SelectedSample.Image.Path}" />
+                Source="{Binding SelectedSample.ImagePath}" />
         </Border>
     </Grid>
 </UserControl>

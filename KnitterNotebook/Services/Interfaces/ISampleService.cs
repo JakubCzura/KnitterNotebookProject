@@ -9,6 +9,6 @@ namespace KnitterNotebook.Services.Interfaces
     {
         Task<bool> CreateAsync(CreateSampleDto createSampleDto);
 
-        Task<List<Sample>> GetUserSamplesAsync(int userId);
+        Task<List<SampleDto>> GetUserSamplesAsync(int userId);
     }
 }

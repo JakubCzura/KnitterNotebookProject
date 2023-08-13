@@ -116,10 +116,10 @@ namespace KnitterNotebook.ViewModels
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SelectedSampleMashesXRows))]
         [NotifyPropertyChangedFor(nameof(SelectedSampleNeedleSize))]
-        private Sample? _selectedSample = null;
+        private SampleDto? _selectedSample = null;
 
-        private List<Sample> _samples = new();
-        public List<Sample> Samples
+        private List<SampleDto> _samples = new();
+        public List<SampleDto> Samples
         {
             get => _samples;
             set
