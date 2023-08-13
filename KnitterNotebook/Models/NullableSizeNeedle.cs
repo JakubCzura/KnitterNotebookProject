@@ -1,4 +1,6 @@
-﻿namespace KnitterNotebook.Models
+﻿using KnitterNotebook.Models.Enums;
+
+namespace KnitterNotebook.Models
 {
     public class NullableSizeNeedle
     {
@@ -19,6 +21,6 @@
             }
         }
 
-        public string SizeUnit { get; set; } = NeedleSizeUnits.Units.mm.ToString();
+        public string SizeUnit { get; set; } = NeedleSizeUnit.mm.ToString();
     }
 }

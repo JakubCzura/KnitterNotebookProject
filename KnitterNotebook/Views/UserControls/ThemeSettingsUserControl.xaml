@@ -26,7 +26,10 @@
             <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="Zmiana motywu aplikacji" />
             <UniformGrid Rows="1">
                 <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="{Binding Path=NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ComboBox
+                    ItemsSource="{Binding Themes}"
+                    SelectedIndex="0"
+                    SelectedItem="{Binding NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </UniformGrid>
 
             <Button

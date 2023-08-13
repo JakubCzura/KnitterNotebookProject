@@ -8,15 +8,16 @@ using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
-using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels
@@ -32,11 +33,15 @@ namespace KnitterNotebook.ViewModels
             _windowContentService = windowContentService;
             _themeService = themeService;
             _webBrowserService = webBrowserService;
-            SelectedSample = Samples.FirstOrDefault();
+            ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(MainWindowContent.SamplesUserControl);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(async () => MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id)));
-            SampleAddingViewModel.NewSampleAdded += new Action(async () => Samples = GetSamples(await _sampleService.GetUserSamplesAsync(User.Id)));
+            SampleAddingViewModel.NewSampleAdded += new Action(async () => Samples = await _sampleService.GetUserSamplesAsync(User.Id));
             ProjectPlanningViewModel.NewProjectPlanned += new Action(async () => PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList()));
         }
+
+        public bool FilterByNeedleSize(object sampleToFilter, double? needleSize, NeedleSizeUnit needleSizeUnit)
+            => !needleSize.HasValue ||
+                sampleToFilter is Sample sample && Math.Abs(sample.NeedleSize - needleSize.Value) <= 0.0001 && sample.NeedleSizeUnit.Equals(needleSizeUnit.ToString(), StringComparison.OrdinalIgnoreCase);
 
         #region Properties
 
@@ -52,20 +57,38 @@ namespace KnitterNotebook.ViewModels
         public ICommand ShowProjectPlanningWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectPlanningWindow>);
         public ICommand ShowSampleAddingWindowCommand { get; } = new RelayCommand(ShowWindow<SampleAddingWindow>);
 
-        public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
+        public static List<string> NeedleSizeUnitList => Enum.GetNames<NeedleSizeUnit>().ToList();
 
         public string Greetings => $"Miło Cię widzieć {User.Nickname}!";
 
         [ObservableProperty]
-        private UserControl _chosenMainWindowContent = new SamplesUserControl();
+        private UserControl _chosenMainWindowContent;
 
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(FilteredSamples))]
         private double? _filterNeedleSize;
 
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(FilteredSamples))]
-        private string _filterNeedleSizeUnit = NeedleSizeUnits.Units.cm.ToString();
+        public double? FilterNeedleSize
+        {
+            get => _filterNeedleSize;
+            set
+            {
+                _filterNeedleSize = value;
+                OnPropertyChanged(nameof(FilterNeedleSize));
+                SamplesCollectionView.Refresh();
+            }
+        }
+
+        private NeedleSizeUnit _filterNeedleSizeUnit = NeedleSizeUnit.cm;
+
+        public NeedleSizeUnit FilterNeedleSizeUnit
+        {
+            get => _filterNeedleSizeUnit;
+            set
+            {
+                _filterNeedleSizeUnit = value;
+                OnPropertyChanged(nameof(FilterNeedleSizeUnit));
+                SamplesCollectionView.Refresh();
+            }
+        }
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FilteredPlannedProjects))]
@@ -95,13 +118,21 @@ namespace KnitterNotebook.ViewModels
         [NotifyPropertyChangedFor(nameof(SelectedSampleNeedleSize))]
         private Sample? _selectedSample = null;
 
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(FilteredSamples))]
-        private ObservableCollection<Sample> _samples = new();
+        private List<Sample> _samples = new();
+        public List<Sample> Samples
+        {
+            get => _samples;
+            set
+            {
+                _samples = value;
+                OnPropertyChanged(nameof(Samples));
+                SamplesCollectionView = CollectionViewSource.GetDefaultView(Samples);
+                SamplesCollectionView.Filter = new Predicate<object>(x => FilterByNeedleSize(x, FilterNeedleSize, FilterNeedleSizeUnit));
+                OnPropertyChanged(nameof(SamplesCollectionView));
+            }
+        }
 
-        public ObservableCollection<Sample> FilteredSamples => FilterNeedleSize > 0
-            ? new(SamplesFilter.FilterByNeedleSize(Samples, Convert.ToDouble(FilterNeedleSize), FilterNeedleSizeUnit))
-            : Samples;
+        public ICollectionView SamplesCollectionView { get; set; } = CollectionViewSource.GetDefaultView(Enumerable.Empty<Sample>());
 
         public ObservableCollection<Project> FilteredPlannedProjects => !string.IsNullOrWhiteSpace(FilterPlannedProjectName)
            ? new(ProjectsFilter.FilterByName(PlannedProjects, FilterPlannedProjectName))
@@ -119,8 +150,6 @@ namespace KnitterNotebook.ViewModels
 
         #region Methods
 
-        private static ObservableCollection<Sample> GetSamples(List<Sample> samples) => new(samples);
-
         private static ObservableCollection<MovieUrl> GetMovieUrls(List<MovieUrl> movieUrls) => new(movieUrls);
 
         private static ObservableCollection<Project> GetPlannedProjects(List<Project> projects) => new(projects);
@@ -133,11 +162,12 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
+
                 User = await _userService.GetAsync(LoggedUserInformation.Id)
-                       ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(LoggedUserInformation.Id));
+                               ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(LoggedUserInformation.Id));
 
                 MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id));
-                Samples = GetSamples(await _sampleService.GetUserSamplesAsync(User.Id));
+                Samples = await _sampleService.GetUserSamplesAsync(User.Id);
                 PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
 
                 _themeService.ReplaceTheme(User.ThemeName, ApplicationTheme.Default);
@@ -180,7 +210,7 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedSample?.Id > 0)
                 {
                     await _sampleService.DeleteAsync(SelectedSample.Id);
-                    Samples = GetSamples(await _sampleService.GetUserSamplesAsync(User.Id));
+                    Samples = await _sampleService.GetUserSamplesAsync(User.Id);
                 }
             }
             catch (Exception exception)

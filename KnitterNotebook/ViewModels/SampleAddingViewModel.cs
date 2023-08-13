@@ -2,20 +2,17 @@
 using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
-using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
-using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Xunit.Sdk;
 
 namespace KnitterNotebook.ViewModels
 {
@@ -50,12 +47,12 @@ namespace KnitterNotebook.ViewModels
         private double _needleSize;
 
         [ObservableProperty]
-        public string _needleSizeUnit = NeedleSizeUnits.Units.mm.ToString();
+        public string _needleSizeUnit = Models.Enums.NeedleSizeUnit.mm.ToString();
 
         [ObservableProperty]
         private string _description = string.Empty;
 
-        public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
+        public static IEnumerable<string> NeedleSizeUnitList => Enum.GetNames<NeedleSizeUnit>();
 
         [ObservableProperty]
         private string? _sourceImagePath = null;
@@ -79,7 +76,7 @@ namespace KnitterNotebook.ViewModels
         private async Task AddSampleAsync()
         {
             try
-            {            
+            {
                 CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, SourceImagePath);
                 ValidationResult validation = await _createSampleDtoValidator.ValidateAsync(createSampleDto);
                 if (!validation.IsValid)

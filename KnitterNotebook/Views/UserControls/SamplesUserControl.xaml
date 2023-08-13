@@ -37,6 +37,7 @@
                         <ComboBox
                             Margin="5,0,0,0"
                             ItemsSource="{Binding NeedleSizeUnitList}"
+                            SelectedIndex="0"
                             SelectedItem="{Binding FilterNeedleSizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </UniformGrid>
                 </Grid>
@@ -49,7 +50,7 @@
                     Background="#FFE2AFFB"
                     DockPanel.Dock="Top"
                     IsReadOnly="True"
-                    ItemsSource="{Binding FilteredSamples}"
+                    ItemsSource="{Binding SamplesCollectionView}"
                     SelectedItem="{Binding SelectedSample}"
                     Style="{DynamicResource MaterialDesignDataGrid}">
                     <DataGrid.Columns>

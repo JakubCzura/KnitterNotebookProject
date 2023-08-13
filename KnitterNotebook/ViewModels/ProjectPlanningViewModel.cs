@@ -8,6 +8,7 @@ using KnitterNotebook.Helpers;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.Win32;
 using System;
@@ -65,7 +66,7 @@ namespace KnitterNotebook.ViewModels
         [ObservableProperty]
         private NullableSizeNeedle _needle5 = new();
 
-        public static IEnumerable<string> NeedleSizeUnitList => NeedleSizeUnits.UnitsList;
+        public static IEnumerable<string> NeedleSizeUnitList => Enum.GetNames<NeedleSizeUnit>();
 
         public static Action NewProjectPlanned { get; set; } = null!;
 
