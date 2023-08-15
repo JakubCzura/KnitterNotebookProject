@@ -64,7 +64,6 @@ namespace KnitterNotebook.Services
         public async Task<List<Project>> GetUserProjectsAsync(int userId)
             => await _databaseContext.Projects.Include(x => x.Needles)
                                               .Include(x => x.Yarns)
-                                              .Include(x => x.ProjectStatus)
                                               .Include(x => x.PatternPdf)
                                               .Where(x => x.UserId == userId).ToListAsync();
     }

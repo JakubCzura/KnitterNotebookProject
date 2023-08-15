@@ -33,6 +33,7 @@ namespace KnitterNotebook.ViewModels
             _windowContentService = windowContentService;
             _themeService = themeService;
             _webBrowserService = webBrowserService;
+            SamplesCollectionView = CollectionViewSource.GetDefaultView(Samples);
             ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(MainWindowContent.SamplesUserControl);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(async () => MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id)));
             SampleAddingViewModel.NewSampleAdded += new Action(async () => Samples = await _sampleService.GetUserSamplesAsync(User.Id));
@@ -41,7 +42,7 @@ namespace KnitterNotebook.ViewModels
 
         public bool FilterByNeedleSize(object sampleToFilter, double? needleSize, NeedleSizeUnit needleSizeUnit)
             => !needleSize.HasValue ||
-                sampleToFilter is Sample sample && Math.Abs(sample.NeedleSize - needleSize.Value) <= 0.0001 && sample.NeedleSizeUnit == needleSizeUnit;
+                sampleToFilter is SampleDto sample && Math.Abs(sample.NeedleSize - needleSize.Value) <= 0.0001 && sample.NeedleSizeUnit == needleSizeUnit;
 
         #region Properties
 
@@ -64,7 +65,7 @@ namespace KnitterNotebook.ViewModels
         [ObservableProperty]
         private UserControl _chosenMainWindowContent;
 
-        private double? _filterNeedleSize;
+        private double? _filterNeedleSize = null;
 
         public double? FilterNeedleSize
         {
@@ -119,6 +120,7 @@ namespace KnitterNotebook.ViewModels
         private SampleDto? _selectedSample = null;
 
         private List<SampleDto> _samples = new();
+
         public List<SampleDto> Samples
         {
             get => _samples;
@@ -132,7 +134,7 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
-        public ICollectionView SamplesCollectionView { get; set; } = CollectionViewSource.GetDefaultView(Enumerable.Empty<Sample>());
+        public ICollectionView SamplesCollectionView { get; set; }
 
         public ObservableCollection<Project> FilteredPlannedProjects => !string.IsNullOrWhiteSpace(FilterPlannedProjectName)
            ? new(ProjectsFilter.FilterByName(PlannedProjects, FilterPlannedProjectName))
@@ -162,14 +164,12 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-
                 User = await _userService.GetAsync(LoggedUserInformation.Id)
                                ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(LoggedUserInformation.Id));
 
                 MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id));
                 Samples = await _sampleService.GetUserSamplesAsync(User.Id);
                 PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus == ProjectStatusName.Planned).ToList());
-
                 _themeService.ReplaceTheme(User.ThemeName, ApplicationTheme.Default);
 
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
