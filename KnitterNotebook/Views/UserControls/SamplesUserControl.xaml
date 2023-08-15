@@ -1,8 +1,8 @@
 ﻿<UserControl
     x:Class="KnitterNotebook.Views.UserControls.SamplesUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
@@ -131,7 +131,8 @@
                 MaxHeight="600"
                 Margin="5,5,5,5"
                 VerticalAlignment="Top"
-                Source="{Binding SelectedSample.ImagePath}" />
+                Source="{Binding SelectedSample.ImagePath, TargetNullValue={x:Null}}" />
+            <!--  TargetNullValue={x:Null} prevents errors from xaml when ImagePath is null  -->
         </Border>
     </Grid>
 </UserControl>

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KnitterNotebook.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230815084739_Init")]
+    [Migration("20230815202601_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -24,29 +24,6 @@ namespace KnitterNotebook.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("KnitterNotebook.Models.Image", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SampleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SampleId")
-                        .IsUnique();
-
-                    b.ToTable("Images");
-                });
 
             modelBuilder.Entity("KnitterNotebook.Models.MovieUrl", b =>
                 {
@@ -182,7 +159,7 @@ namespace KnitterNotebook.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectImage");
+                    b.ToTable("ProjectImages");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Sample", b =>
@@ -221,6 +198,29 @@ namespace KnitterNotebook.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Samples");
+                });
+
+            modelBuilder.Entity("KnitterNotebook.Models.SampleImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SampleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SampleId")
+                        .IsUnique();
+
+                    b.ToTable("SampleImages");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Theme", b =>
@@ -311,17 +311,6 @@ namespace KnitterNotebook.Migrations
                     b.ToTable("Yarns");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.Image", b =>
-                {
-                    b.HasOne("KnitterNotebook.Models.Sample", "Sample")
-                        .WithOne("Image")
-                        .HasForeignKey("KnitterNotebook.Models.Image", "SampleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sample");
-                });
-
             modelBuilder.Entity("KnitterNotebook.Models.MovieUrl", b =>
                 {
                     b.HasOne("KnitterNotebook.Models.User", "User")
@@ -386,6 +375,17 @@ namespace KnitterNotebook.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("KnitterNotebook.Models.SampleImage", b =>
+                {
+                    b.HasOne("KnitterNotebook.Models.Sample", "Sample")
+                        .WithOne("Image")
+                        .HasForeignKey("KnitterNotebook.Models.SampleImage", "SampleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sample");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.User", b =>

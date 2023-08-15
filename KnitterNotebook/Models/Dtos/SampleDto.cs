@@ -13,8 +13,7 @@ namespace KnitterNotebook.Models.Dtos
             NeedleSize = sample.NeedleSize;
             NeedleSizeUnit = sample.NeedleSizeUnit;
             Description = sample.Description;
-            ImagePath = sample.Image?.Path ?? string.Empty;
-            UserId = sample.UserId;
+            ImagePath = sample.Image?.Path;
         }
 
         public int Id { get; set; }
@@ -31,8 +30,7 @@ namespace KnitterNotebook.Models.Dtos
 
         public string? Description { get; set; }
 
-        public string ImagePath { get; set; }
-
-        public int UserId { get; set; }
+        //If sample doesn't have related image the path is null
+        public string? ImagePath { get; set; }
     }
 }

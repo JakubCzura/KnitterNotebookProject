@@ -26,12 +26,10 @@ namespace KnitterNotebook.Services
 
         public async Task<bool> CreateAsync(CreateSampleDto createSampleDto)
         {
-            string? nickname = await _userService.GetNicknameAsync(LoggedUserInformation.Id);
+            string? nickname = await _userService.GetNicknameAsync(createSampleDto.UserId);
             string? destinationImagePath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(createSampleDto.SourceImagePath));
 
-            Image? image = !string.IsNullOrWhiteSpace(destinationImagePath)
-                            ? new(destinationImagePath)
-                            : null;
+            SampleImage? image = !string.IsNullOrWhiteSpace(destinationImagePath) ? new(destinationImagePath) : null;
 
             Sample sample = new()
             {
@@ -42,7 +40,7 @@ namespace KnitterNotebook.Services
                 NeedleSizeUnit = createSampleDto.NeedleSizeUnit,
                 Description = createSampleDto.Description,
                 UserId = createSampleDto.UserId,
-                Image = image,
+                Image = image
             };
 
             if (!string.IsNullOrWhiteSpace(createSampleDto.SourceImagePath) && !string.IsNullOrWhiteSpace(destinationImagePath))
@@ -53,7 +51,7 @@ namespace KnitterNotebook.Services
             return true;
         }
 
-        public async Task<List<SampleDto>> GetUserSamplesAsync(int userId) 
+        public async Task<List<SampleDto>> GetUserSamplesAsync(int userId)
             => await _databaseContext.Samples.Include(x => x.Image)
                                              .Where(x => x.UserId == userId)
                                              .Select(x => new SampleDto(x)).ToListAsync();

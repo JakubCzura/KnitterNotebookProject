@@ -1,8 +1,8 @@
 ﻿namespace KnitterNotebook.Models
 {
-    public class Image
+    public class SampleImage
     {
-        public Image(string path)
+        public SampleImage(string path)
         {
             Path = path;
         }

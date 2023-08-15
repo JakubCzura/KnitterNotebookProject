@@ -8,7 +8,7 @@ namespace KnitterNotebook.Models
         {
         }
 
-        public Sample(int id, string yarnName, int loopsQuantity, int rowsQuantity, int needleSize, NeedleSizeUnit needleSizeUnit, string description, User user, Image? image = null)
+        public Sample(int id, string yarnName, int loopsQuantity, int rowsQuantity, int needleSize, NeedleSizeUnit needleSizeUnit, string description, User user, SampleImage? image = null)
         {
             Id = id;
             YarnName = yarnName;
@@ -36,12 +36,12 @@ namespace KnitterNotebook.Models
         public double NeedleSize { get; set; }
 
         //Jednostka rozmiaru druta
-        public NeedleSizeUnit NeedleSizeUnit { get; set; } = NeedleSizeUnit.mm;
+        public NeedleSizeUnit NeedleSizeUnit { get; set; }
 
         //dodatkowy opis
         public string? Description { get; set; } = null;
 
-        public virtual Image? Image { get; set; } = null;
+        public virtual SampleImage? Image { get; set; } = null;
 
         public virtual User User { get; set; }
 

@@ -16,13 +16,26 @@ namespace KnitterNotebook.Database
         public DbSet<Theme> Themes { get; set; }
         public DbSet<MovieUrl> MovieUrls { get; set; }
         public DbSet<Sample> Samples { get; set; }
-        public DbSet<Image> Images { get; set; }
+        public DbSet<SampleImage> SampleImages { get; set; }
+        public DbSet<ProjectImage> ProjectImages { get; set; }
         public DbSet<PatternPdf> PatternPdfs { get; set; }
         public DbSet<Needle> Needles { get; set; }
         public DbSet<Yarn> Yarns { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Theme>(t =>
+            {
+                t.HasKey(x => x.Id);
+                t.Property(x => x.Name).IsRequired().HasConversion<string>();
+                t.HasData(new Theme() { Id = 1, Name = ApplicationTheme.Default },
+                          new Theme() { Id = 2, Name = ApplicationTheme.Light },
+                          new Theme() { Id = 3, Name = ApplicationTheme.Dark });
+                t.HasMany(x => x.Users)
+                 .WithOne(c => c.Theme)
+                 .OnDelete(DeleteBehavior.NoAction);
+            });
+
             modelBuilder.Entity<User>(u =>
             {
                 u.HasKey(x => x.Id);
@@ -55,18 +68,6 @@ namespace KnitterNotebook.Database
                  .WithOne(c => c.Project);
             });
 
-            modelBuilder.Entity<Theme>(t =>
-            {
-                t.HasKey(x => x.Id);
-                t.Property(x => x.Name).IsRequired().HasConversion<string>();
-                t.HasData(new Theme() { Id = 1, Name = ApplicationTheme.Default },
-                          new Theme() { Id = 2, Name = ApplicationTheme.Light },
-                          new Theme() { Id = 3, Name = ApplicationTheme.Dark });
-                t.HasMany(x => x.Users)
-                 .WithOne(c => c.Theme)
-                 .OnDelete(DeleteBehavior.NoAction);
-            });
-
             modelBuilder.Entity<MovieUrl>(m =>
             {
                 m.HasKey(x => x.Id);
@@ -86,7 +87,13 @@ namespace KnitterNotebook.Database
                  .WithOne(c => c.Sample);
             });
 
-            modelBuilder.Entity<Image>(m =>
+            modelBuilder.Entity<SampleImage>(m =>
+            {
+                m.HasKey(x => x.Id);
+                m.Property(x => x.Path).IsRequired();
+            });
+
+            modelBuilder.Entity<ProjectImage>(m =>
             {
                 m.HasKey(x => x.Id);
                 m.Property(x => x.Path).IsRequired();
@@ -105,7 +112,9 @@ namespace KnitterNotebook.Database
             modelBuilder.Entity<Yarn>(m =>
             {
                 m.HasKey(x => x.Id);
-            });
+            }); 
+            
+           
         }
     }
 }

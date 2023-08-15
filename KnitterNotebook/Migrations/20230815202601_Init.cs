@@ -160,7 +160,7 @@ namespace KnitterNotebook.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectImage",
+                name: "ProjectImages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -171,9 +171,9 @@ namespace KnitterNotebook.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectImage", x => x.Id);
+                    table.PrimaryKey("PK_ProjectImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProjectImage_Projects_ProjectId",
+                        name: "FK_ProjectImages_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
@@ -201,7 +201,7 @@ namespace KnitterNotebook.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Images",
+                name: "SampleImages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -211,9 +211,9 @@ namespace KnitterNotebook.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.PrimaryKey("PK_SampleImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Images_Samples_SampleId",
+                        name: "FK_SampleImages_Samples_SampleId",
                         column: x => x.SampleId,
                         principalTable: "Samples",
                         principalColumn: "Id",
@@ -229,12 +229,6 @@ namespace KnitterNotebook.Migrations
                     { 2, "Light" },
                     { 3, "Dark" }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Images_SampleId",
-                table: "Images",
-                column: "SampleId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_MovieUrls_UserId",
@@ -253,14 +247,20 @@ namespace KnitterNotebook.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectImage_ProjectId",
-                table: "ProjectImage",
+                name: "IX_ProjectImages_ProjectId",
+                table: "ProjectImages",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_UserId",
                 table: "Projects",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SampleImages_SampleId",
+                table: "SampleImages",
+                column: "SampleId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Samples_UserId",
@@ -282,9 +282,6 @@ namespace KnitterNotebook.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Images");
-
-            migrationBuilder.DropTable(
                 name: "MovieUrls");
 
             migrationBuilder.DropTable(
@@ -294,7 +291,10 @@ namespace KnitterNotebook.Migrations
                 name: "PatternPdfs");
 
             migrationBuilder.DropTable(
-                name: "ProjectImage");
+                name: "ProjectImages");
+
+            migrationBuilder.DropTable(
+                name: "SampleImages");
 
             migrationBuilder.DropTable(
                 name: "Yarns");
