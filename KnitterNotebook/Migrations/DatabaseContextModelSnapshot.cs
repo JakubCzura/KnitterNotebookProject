@@ -22,7 +22,7 @@ namespace KnitterNotebook.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("KnitterNotebook.Models.MovieUrl", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.MovieUrl", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,7 +48,7 @@ namespace KnitterNotebook.Migrations
                     b.ToTable("MovieUrls");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.Needle", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.Needle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,7 +72,7 @@ namespace KnitterNotebook.Migrations
                     b.ToTable("Needles");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.PatternPdf", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.PatternPdf", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,7 +95,7 @@ namespace KnitterNotebook.Migrations
                     b.ToTable("PatternPdfs");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.Project", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.Project", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -134,7 +134,7 @@ namespace KnitterNotebook.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.ProjectImage", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.ProjectImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -159,7 +159,7 @@ namespace KnitterNotebook.Migrations
                     b.ToTable("ProjectImages");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.Sample", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.Sample", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -197,7 +197,7 @@ namespace KnitterNotebook.Migrations
                     b.ToTable("Samples");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.SampleImage", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.SampleImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -220,7 +220,7 @@ namespace KnitterNotebook.Migrations
                     b.ToTable("SampleImages");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.Theme", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.Theme", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -254,7 +254,7 @@ namespace KnitterNotebook.Migrations
                         });
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.User", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -286,7 +286,7 @@ namespace KnitterNotebook.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.Yarn", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.Yarn", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -295,6 +295,10 @@ namespace KnitterNotebook.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -308,9 +312,9 @@ namespace KnitterNotebook.Migrations
                     b.ToTable("Yarns");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.MovieUrl", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.MovieUrl", b =>
                 {
-                    b.HasOne("KnitterNotebook.Models.User", "User")
+                    b.HasOne("KnitterNotebook.Models.Entities.User", "User")
                         .WithMany("MovieUrls")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -319,9 +323,9 @@ namespace KnitterNotebook.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.Needle", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.Needle", b =>
                 {
-                    b.HasOne("KnitterNotebook.Models.Project", "Project")
+                    b.HasOne("KnitterNotebook.Models.Entities.Project", "Project")
                         .WithMany("Needles")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -330,20 +334,20 @@ namespace KnitterNotebook.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.PatternPdf", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.PatternPdf", b =>
                 {
-                    b.HasOne("KnitterNotebook.Models.Project", "Project")
+                    b.HasOne("KnitterNotebook.Models.Entities.Project", "Project")
                         .WithOne("PatternPdf")
-                        .HasForeignKey("KnitterNotebook.Models.PatternPdf", "ProjectId")
+                        .HasForeignKey("KnitterNotebook.Models.Entities.PatternPdf", "ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.Project", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.Project", b =>
                 {
-                    b.HasOne("KnitterNotebook.Models.User", "User")
+                    b.HasOne("KnitterNotebook.Models.Entities.User", "User")
                         .WithMany("Projects")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -352,9 +356,9 @@ namespace KnitterNotebook.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.ProjectImage", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.ProjectImage", b =>
                 {
-                    b.HasOne("KnitterNotebook.Models.Project", "Project")
+                    b.HasOne("KnitterNotebook.Models.Entities.Project", "Project")
                         .WithMany("ProjectImages")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -363,9 +367,9 @@ namespace KnitterNotebook.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.Sample", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.Sample", b =>
                 {
-                    b.HasOne("KnitterNotebook.Models.User", "User")
+                    b.HasOne("KnitterNotebook.Models.Entities.User", "User")
                         .WithMany("Samples")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -374,20 +378,20 @@ namespace KnitterNotebook.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.SampleImage", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.SampleImage", b =>
                 {
-                    b.HasOne("KnitterNotebook.Models.Sample", "Sample")
+                    b.HasOne("KnitterNotebook.Models.Entities.Sample", "Sample")
                         .WithOne("Image")
-                        .HasForeignKey("KnitterNotebook.Models.SampleImage", "SampleId")
+                        .HasForeignKey("KnitterNotebook.Models.Entities.SampleImage", "SampleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Sample");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.User", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.User", b =>
                 {
-                    b.HasOne("KnitterNotebook.Models.Theme", "Theme")
+                    b.HasOne("KnitterNotebook.Models.Entities.Theme", "Theme")
                         .WithMany("Users")
                         .HasForeignKey("ThemeId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -396,9 +400,9 @@ namespace KnitterNotebook.Migrations
                     b.Navigation("Theme");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.Yarn", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.Yarn", b =>
                 {
-                    b.HasOne("KnitterNotebook.Models.Project", "Project")
+                    b.HasOne("KnitterNotebook.Models.Entities.Project", "Project")
                         .WithMany("Yarns")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -407,7 +411,7 @@ namespace KnitterNotebook.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.Project", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.Project", b =>
                 {
                     b.Navigation("Needles");
 
@@ -418,17 +422,17 @@ namespace KnitterNotebook.Migrations
                     b.Navigation("Yarns");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.Sample", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.Sample", b =>
                 {
                     b.Navigation("Image");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.Theme", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.Theme", b =>
                 {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("KnitterNotebook.Models.User", b =>
+            modelBuilder.Entity("KnitterNotebook.Models.Entities.User", b =>
                 {
                     b.Navigation("MovieUrls");
 

@@ -1,4 +1,4 @@
-﻿using KnitterNotebook.Models;
+﻿using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using System.Threading.Tasks;
 

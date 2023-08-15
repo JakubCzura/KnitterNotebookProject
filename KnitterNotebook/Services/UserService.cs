@@ -1,7 +1,7 @@
 ﻿using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
-using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -24,13 +24,13 @@ namespace KnitterNotebook.Services
         }
 
         /// <returns>User object if found in database otherwise null</returns>
-        public new async Task<UserBasicDto?> GetAsync(int id)
+        public new async Task<UserDto?> GetAsync(int id)
         {
             User? user = await _databaseContext.Users
                           .Include(x => x.Theme)
                           .FirstOrDefaultAsync(x => x.Id == id);
 
-            return user is null ? null : new UserBasicDto(user);
+            return user is null ? null : new UserDto(user);
         }
 
         public async Task<int?> LogInAsync(LogInDto logInDto)

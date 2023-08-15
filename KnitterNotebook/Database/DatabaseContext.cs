@@ -1,4 +1,4 @@
-﻿using KnitterNotebook.Models;
+﻿using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +26,6 @@ namespace KnitterNotebook.Database
         {
             modelBuilder.Entity<Theme>(t =>
             {
-                t.HasKey(x => x.Id);
                 t.Property(x => x.Name).IsRequired().HasConversion<string>();
                 t.HasData(new Theme() { Id = 1, Name = ApplicationTheme.Default },
                           new Theme() { Id = 2, Name = ApplicationTheme.Light },
@@ -38,7 +37,6 @@ namespace KnitterNotebook.Database
 
             modelBuilder.Entity<User>(u =>
             {
-                u.HasKey(x => x.Id);
                 u.Property(x => x.Password).IsRequired();
                 u.Property(x => x.Email).IsRequired().HasMaxLength(100);
                 u.Property(x => x.Nickname).IsRequired().HasMaxLength(50);
@@ -55,7 +53,6 @@ namespace KnitterNotebook.Database
 
             modelBuilder.Entity<Project>(p =>
             {
-                p.HasKey(x => x.Id);
                 p.Property(x => x.Name).IsRequired().HasMaxLength(100);
 
                 p.HasMany(x => x.Yarns)
@@ -70,14 +67,12 @@ namespace KnitterNotebook.Database
 
             modelBuilder.Entity<MovieUrl>(m =>
             {
-                m.HasKey(x => x.Id);
                 m.Property(x => x.Title).IsRequired();
                 m.Property(x => x.Link).IsRequired();
             });
 
             modelBuilder.Entity<Sample>(m =>
             {
-                m.HasKey(x => x.Id);
                 m.Property(x => x.YarnName).IsRequired();
                 m.Property(x => x.LoopsQuantity).IsRequired();
                 m.Property(x => x.RowsQuantity).IsRequired();
@@ -89,32 +84,25 @@ namespace KnitterNotebook.Database
 
             modelBuilder.Entity<SampleImage>(m =>
             {
-                m.HasKey(x => x.Id);
                 m.Property(x => x.Path).IsRequired();
             });
 
             modelBuilder.Entity<ProjectImage>(m =>
             {
-                m.HasKey(x => x.Id);
                 m.Property(x => x.Path).IsRequired();
             });
 
             modelBuilder.Entity<PatternPdf>(m =>
             {
-                m.HasKey(x => x.Id);
             });
 
             modelBuilder.Entity<Needle>(m =>
             {
-                m.HasKey(x => x.Id);
             });
 
             modelBuilder.Entity<Yarn>(m =>
             {
-                m.HasKey(x => x.Id);
-            }); 
-            
-           
+            });
         }
     }
 }

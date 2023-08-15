@@ -2,12 +2,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace KnitterNotebook.Models
+namespace KnitterNotebook.Models.Entities
 {
-    public class Project
+    public class Project : BaseDbEntity
     {
-        public int Id { get; set; }
-
         public string Name { get; set; } = string.Empty;
 
         public DateTime? StartDate { get; set; } = null;

@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace KnitterNotebook.Models
+namespace KnitterNotebook.Models.Entities
 {
-    public class User
+    public class User : BaseDbEntity
     {
-        public int Id { get; set; }
-
         public string Nickname { get; set; } = string.Empty;
 
         public string Email { get; set; } = string.Empty;

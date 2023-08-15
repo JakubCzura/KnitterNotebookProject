@@ -1,8 +1,8 @@
 ﻿using KnitterNotebook.Models.Enums;
 
-namespace KnitterNotebook.Models
+namespace KnitterNotebook.Models.Entities
 {
-    public class Needle
+    public class Needle : BaseDbEntity
     {
         public Needle()
         {
@@ -13,8 +13,6 @@ namespace KnitterNotebook.Models
             Size = size;
             SizeUnit = sizeUnit;
         }
-
-        public int Id { get; set; }
 
         public double Size { get; set; }
 

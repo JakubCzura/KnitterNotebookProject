@@ -1,27 +1,12 @@
 ﻿using KnitterNotebook.Models.Enums;
 
-namespace KnitterNotebook.Models
+namespace KnitterNotebook.Models.Entities
 {
-    public class Sample
+    public class Sample : BaseDbEntity
     {
         public Sample()
         {
         }
-
-        public Sample(int id, string yarnName, int loopsQuantity, int rowsQuantity, int needleSize, NeedleSizeUnit needleSizeUnit, string description, User user, SampleImage? image = null)
-        {
-            Id = id;
-            YarnName = yarnName;
-            LoopsQuantity = loopsQuantity;
-            RowsQuantity = rowsQuantity;
-            NeedleSize = needleSize;
-            NeedleSizeUnit = needleSizeUnit;
-            Description = description;
-            User = user;
-            Image = image;
-        }
-
-        public int Id { get; set; }
 
         //Nazwa włóczki
         public string YarnName { get; set; } = string.Empty;

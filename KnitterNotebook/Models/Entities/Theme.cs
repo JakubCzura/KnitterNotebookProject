@@ -1,12 +1,10 @@
 ﻿using KnitterNotebook.Models.Enums;
 using System.Collections.Generic;
 
-namespace KnitterNotebook.Models
+namespace KnitterNotebook.Models.Entities
 {
-    public class Theme
+    public class Theme : BaseDbEntity
     {
-        public int Id { get; set; }
-
         public ApplicationTheme Name { get; set; } = ApplicationTheme.Default;
 
         public virtual List<User> Users { get; set; }

@@ -1,15 +1,11 @@
-﻿namespace KnitterNotebook.Models
+﻿namespace KnitterNotebook.Models.Entities
 {
-    public class SampleImage
+    public class SampleImage : BaseImage
     {
         public SampleImage(string path)
         {
             Path = path;
         }
-
-        public int Id { get; set; }
-
-        public string Path { get; set; } = string.Empty;
 
         public virtual Sample Sample { get; set; } = new();
 

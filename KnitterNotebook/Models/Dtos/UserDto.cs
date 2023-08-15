@@ -1,14 +1,15 @@
-﻿using KnitterNotebook.Models.Enums;
+﻿using KnitterNotebook.Models.Entities;
+using KnitterNotebook.Models.Enums;
 
 namespace KnitterNotebook.Models.Dtos
 {
-    public class UserBasicDto
+    public class UserDto
     {
-        public UserBasicDto()
+        public UserDto()
         {
         }
 
-        public UserBasicDto(User user)
+        public UserDto(User user)
         {
             Id = user.Id;
             Nickname = user.Nickname;

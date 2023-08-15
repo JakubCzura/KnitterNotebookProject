@@ -1,4 +1,5 @@
-﻿using KnitterNotebook.Models.Enums;
+﻿using KnitterNotebook.Models.Entities;
+using KnitterNotebook.Models.Enums;
 
 namespace KnitterNotebook.Models.Dtos
 {

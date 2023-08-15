@@ -1,4 +1,5 @@
 ﻿using KnitterNotebook.Models;
+using KnitterNotebook.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

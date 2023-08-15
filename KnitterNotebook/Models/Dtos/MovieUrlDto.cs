@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KnitterNotebook.Models.Entities;
+using System;
 
 namespace KnitterNotebook.Models.Dtos
 {

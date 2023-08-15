@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models;
-using System.Collections.ObjectModel;
 
 namespace KnitterNotebookTests.Helpers.Filters
 {

@@ -1,5 +1,5 @@
-﻿using KnitterNotebook.Models;
-using KnitterNotebook.Models.Dtos;
+﻿using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Entities;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services.Interfaces
@@ -10,7 +10,7 @@ namespace KnitterNotebook.Services.Interfaces
 
         Task CreateAsync(RegisterUserDto data);
 
-        new Task<UserBasicDto?> GetAsync(int id);
+        new Task<UserDto?> GetAsync(int id);
 
         Task<string?> GetNicknameAsync(int id);
 

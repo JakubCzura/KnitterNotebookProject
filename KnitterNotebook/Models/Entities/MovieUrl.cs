@@ -1,15 +1,9 @@
 ﻿using System;
 
-namespace KnitterNotebook.Models
+namespace KnitterNotebook.Models.Entities
 {
-    public class MovieUrl
+    public class MovieUrl : BaseDbEntity
     {
-        public MovieUrl()
-        {
-        }
-
-        public int Id { get; set; }
-
         public string Title { get; set; } = string.Empty;
 
         public Uri Link { get; set; }

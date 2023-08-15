@@ -4,8 +4,8 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Helpers.Filters;
-using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
@@ -112,7 +112,7 @@ namespace KnitterNotebook.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(Greetings))]
-        private UserBasicDto _user = new();
+        private UserDto _user = new();
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SelectedSampleMashesXRows))]

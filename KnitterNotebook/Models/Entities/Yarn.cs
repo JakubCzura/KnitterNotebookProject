@@ -1,17 +1,11 @@
-﻿namespace KnitterNotebook.Models
+﻿namespace KnitterNotebook.Models.Entities
 {
-    public class Yarn
+    public class Yarn : BaseImage
     {
-        public Yarn()
-        {
-        }
-
         public Yarn(string name)
         {
             Name = name;
         }
-
-        public int Id { get; set; }
 
         public string Name { get; set; } = string.Empty;
 

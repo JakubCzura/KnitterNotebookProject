@@ -1,13 +1,11 @@
-﻿namespace KnitterNotebook.Models
+﻿namespace KnitterNotebook.Models.Entities
 {
-    public class PatternPdf
+    public class PatternPdf : BaseDbEntity
     {
         public PatternPdf(string path)
         {
             Path = path;
         }
-
-        public int Id { get; set; }
 
         public string Path { get; set; } = string.Empty;
 
