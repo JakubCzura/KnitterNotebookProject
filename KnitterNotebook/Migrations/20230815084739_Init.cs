@@ -14,19 +14,6 @@ namespace KnitterNotebook.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ProjectStatuses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProjectStatuses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Themes",
                 columns: table => new
                 {
@@ -92,17 +79,12 @@ namespace KnitterNotebook.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PatternName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProjectStatusId = table.Column<int>(type: "int", nullable: false),
+                    ProjectStatus = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Projects", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Projects_ProjectStatuses_ProjectStatusId",
-                        column: x => x.ProjectStatusId,
-                        principalTable: "ProjectStatuses",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Projects_Users_UserId",
                         column: x => x.UserId,
@@ -239,16 +221,6 @@ namespace KnitterNotebook.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ProjectStatuses",
-                columns: new[] { "Id", "Status" },
-                values: new object[,]
-                {
-                    { 1, "Planned" },
-                    { 2, "InProgress" },
-                    { 3, "Finished" }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Themes",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
@@ -284,11 +256,6 @@ namespace KnitterNotebook.Migrations
                 name: "IX_ProjectImage_ProjectId",
                 table: "ProjectImage",
                 column: "ProjectId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Projects_ProjectStatusId",
-                table: "Projects",
-                column: "ProjectStatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_UserId",
@@ -337,9 +304,6 @@ namespace KnitterNotebook.Migrations
 
             migrationBuilder.DropTable(
                 name: "Projects");
-
-            migrationBuilder.DropTable(
-                name: "ProjectStatuses");
 
             migrationBuilder.DropTable(
                 name: "Users");

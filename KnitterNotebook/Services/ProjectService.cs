@@ -3,6 +3,7 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -36,7 +37,9 @@ namespace KnitterNotebook.Services
             PatternPdf? patternPdf = !string.IsNullOrWhiteSpace(destinationPatternPdfPath) ? new(destinationPatternPdfPath) : null;
 
             //If planned project's start date is today then projectStatus is InProgress, otherwise it is Planned
-            int projectStatusId = planProjectDto.StartDate.HasValue && planProjectDto.StartDate.Value.CompareTo(DateTime.Today) == 0 ? 2 : 1;
+            ProjectStatusName projectStatus = planProjectDto.StartDate.HasValue && planProjectDto.StartDate.Value.CompareTo(DateTime.Today) == 0 
+                                                ? ProjectStatusName.InProgress
+                                                : ProjectStatusName.Planned;
 
             Project project = new()
             {
@@ -46,7 +49,7 @@ namespace KnitterNotebook.Services
                 Needles = needles,
                 Yarns = yarns,
                 Description = planProjectDto.Description,
-                ProjectStatusId = projectStatusId,
+                ProjectStatus = projectStatus,
                 PatternPdf = patternPdf,
                 UserId = planProjectDto.UserId
             };

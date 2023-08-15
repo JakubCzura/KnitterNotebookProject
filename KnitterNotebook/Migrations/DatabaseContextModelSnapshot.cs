@@ -141,7 +141,7 @@ namespace KnitterNotebook.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProjectStatusId")
+                    b.Property<int>("ProjectStatus")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("StartDate")
@@ -151,8 +151,6 @@ namespace KnitterNotebook.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjectStatusId");
 
                     b.HasIndex("UserId");
 
@@ -182,40 +180,6 @@ namespace KnitterNotebook.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectImage");
-                });
-
-            modelBuilder.Entity("KnitterNotebook.Models.ProjectStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProjectStatuses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Status = "Planned"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Status = "InProgress"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Status = "Finished"
-                        });
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Sample", b =>
@@ -390,19 +354,11 @@ namespace KnitterNotebook.Migrations
 
             modelBuilder.Entity("KnitterNotebook.Models.Project", b =>
                 {
-                    b.HasOne("KnitterNotebook.Models.ProjectStatus", "ProjectStatus")
-                        .WithMany("Projects")
-                        .HasForeignKey("ProjectStatusId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("KnitterNotebook.Models.User", "User")
                         .WithMany("Projects")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("ProjectStatus");
 
                     b.Navigation("User");
                 });
@@ -460,11 +416,6 @@ namespace KnitterNotebook.Migrations
                     b.Navigation("ProjectImages");
 
                     b.Navigation("Yarns");
-                });
-
-            modelBuilder.Entity("KnitterNotebook.Models.ProjectStatus", b =>
-                {
-                    b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("KnitterNotebook.Models.Sample", b =>

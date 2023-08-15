@@ -17,7 +17,6 @@ namespace KnitterNotebook.Database
         public DbSet<MovieUrl> MovieUrls { get; set; }
         public DbSet<Sample> Samples { get; set; }
         public DbSet<Image> Images { get; set; }
-        public DbSet<ProjectStatus> ProjectStatuses { get; set; }
         public DbSet<PatternPdf> PatternPdfs { get; set; }
         public DbSet<Needle> Needles { get; set; }
         public DbSet<Yarn> Yarns { get; set; }
@@ -65,18 +64,6 @@ namespace KnitterNotebook.Database
                           new Theme() { Id = 3, Name = ApplicationTheme.Dark });
                 t.HasMany(x => x.Users)
                  .WithOne(c => c.Theme)
-                 .OnDelete(DeleteBehavior.NoAction);
-            });
-
-            modelBuilder.Entity<ProjectStatus>(t =>
-            {
-                t.HasKey(x => x.Id);
-                t.Property(x => x.Status).IsRequired().HasConversion<string>();
-                t.HasData(new ProjectStatus(1, ProjectStatusName.Planned),
-                          new ProjectStatus(2, ProjectStatusName.InProgress),
-                          new ProjectStatus(3, ProjectStatusName.Finished));
-                t.HasMany(x => x.Projects)
-                 .WithOne(c => c.ProjectStatus)
                  .OnDelete(DeleteBehavior.NoAction);
             });
 

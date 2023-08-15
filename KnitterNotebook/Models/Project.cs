@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KnitterNotebook.Models.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace KnitterNotebook.Models
@@ -22,9 +23,7 @@ namespace KnitterNotebook.Models
         //Tzw. "inne"
         public string? Description { get; set; } = null;
 
-        public ProjectStatus ProjectStatus { get; set; }
-
-        public int ProjectStatusId { get; set; }
+        public ProjectStatusName ProjectStatus { get; set; }
 
         public virtual PatternPdf? PatternPdf { get; set; } = null;
 

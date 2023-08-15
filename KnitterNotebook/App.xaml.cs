@@ -56,7 +56,6 @@ namespace KnitterNotebook
                     services.AddScoped<ISampleService, SampleService>();
                     services.AddScoped<IImageService, ImageService>();
                     services.AddScoped<IProjectService, ProjectService>();
-                    services.AddScoped<IProjectStatusService, ProjectStatusService>();
                     services.AddScoped<IPasswordService, PasswordService>();
                     services.AddScoped<IWindowContentService, WindowContentService>();
                     services.AddScoped<IWebBrowserService, WebBrowserService>();

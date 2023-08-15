@@ -36,7 +36,7 @@ namespace KnitterNotebook.ViewModels
             ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(MainWindowContent.SamplesUserControl);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(async () => MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id)));
             SampleAddingViewModel.NewSampleAdded += new Action(async () => Samples = await _sampleService.GetUserSamplesAsync(User.Id));
-            ProjectPlanningViewModel.NewProjectPlanned += new Action(async () => PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList()));
+            ProjectPlanningViewModel.NewProjectPlanned += new Action(async () => PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus == ProjectStatusName.Planned).ToList()));
         }
 
         public bool FilterByNeedleSize(object sampleToFilter, double? needleSize, NeedleSizeUnit needleSizeUnit)
@@ -168,7 +168,7 @@ namespace KnitterNotebook.ViewModels
 
                 MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id));
                 Samples = await _sampleService.GetUserSamplesAsync(User.Id);
-                PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
+                PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus == ProjectStatusName.Planned).ToList());
 
                 _themeService.ReplaceTheme(User.ThemeName, ApplicationTheme.Default);
 
@@ -243,7 +243,7 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedPlannedProject?.Id > 0)
                 {
                     await _projectService.DeleteAsync(SelectedPlannedProject.Id);
-                    PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
+                    PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus == ProjectStatusName.Planned).ToList());
                 }
             }
             catch (Exception exception)
@@ -259,9 +259,9 @@ namespace KnitterNotebook.ViewModels
             {
                 if (SelectedPlannedProject?.Id > 0)
                 {
-                    SelectedPlannedProject.ProjectStatusId = 2;
+                    SelectedPlannedProject.ProjectStatus = ProjectStatusName.InProgress;
                     await _projectService.UpdateAsync(SelectedPlannedProject);
-                    PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus.Status == ProjectStatusName.Planned).ToList());
+                    PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus == ProjectStatusName.Planned).ToList());
                 }
             }
             catch (Exception exception)
