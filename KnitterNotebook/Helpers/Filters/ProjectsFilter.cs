@@ -1,7 +1,5 @@
-﻿using KnitterNotebook.Models.Entities;
+﻿using KnitterNotebook.Models.Dtos;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace KnitterNotebook.Helpers.Filters
 {
@@ -13,12 +11,12 @@ namespace KnitterNotebook.Helpers.Filters
             Equals
         }
 
-        public static IEnumerable<Project> FilterByName(IEnumerable<Project> projects, string projectName, NamesComparison namesComparison = NamesComparison.Contains)
-           => namesComparison switch
-           {
-               NamesComparison.Contains => projects.Where(x => x.Name.Contains(projectName, StringComparison.OrdinalIgnoreCase)),
-               NamesComparison.Equals => projects.Where(x => x.Name.Equals(projectName, StringComparison.OrdinalIgnoreCase)),
-               _ => projects.Where(x => x.Name.Contains(projectName, StringComparison.OrdinalIgnoreCase))
-           };
+        public static bool FilterByName<T>(object plannedProjectToFilter, string projectName, NamesComparison namesComparison = NamesComparison.Contains) where T : BasicProjectDto
+             => namesComparison switch
+             {
+                 NamesComparison.Contains => plannedProjectToFilter is T project && project.Name.Contains(projectName, StringComparison.OrdinalIgnoreCase),
+                 NamesComparison.Equals => plannedProjectToFilter is T project && project.Name.Equals(projectName, StringComparison.OrdinalIgnoreCase),
+                 _ => false
+             };
     }
 }

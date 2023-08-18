@@ -1,11 +1,10 @@
 ﻿using KnitterNotebook.Models.Entities;
-using KnitterNotebook.Models.Enums;
 
 namespace KnitterNotebook.Models.Dtos
 {
-    public class SampleDto
+    public class SampleDto : BasicSampleDto
     {
-        public SampleDto(Sample sample)
+        public SampleDto(Sample sample) : base(sample)
         {
             Id = sample.Id;
             YarnName = sample.YarnName;
@@ -16,18 +15,6 @@ namespace KnitterNotebook.Models.Dtos
             Description = sample.Description;
             ImagePath = sample.Image?.Path;
         }
-
-        public int Id { get; set; }
-
-        public string YarnName { get; set; }
-
-        public int LoopsQuantity { get; set; }
-
-        public int RowsQuantity { get; set; }
-
-        public double NeedleSize { get; set; }
-
-        public NeedleSizeUnit NeedleSizeUnit { get; set; }
 
         public string? Description { get; set; }
 

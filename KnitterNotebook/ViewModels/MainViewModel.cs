@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Helpers;
+using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
@@ -18,7 +19,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using static KnitterNotebook.Helpers.Filters.ProjectsFilter;
 
 namespace KnitterNotebook.ViewModels
 {
@@ -41,17 +41,9 @@ namespace KnitterNotebook.ViewModels
             ProjectPlanningViewModel.NewProjectPlanned += new Action(async () => PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id));
         }
 
-        public bool FilterByNeedleSize(object sampleToFilter, double? needleSize, NeedleSizeUnit needleSizeUnit)
-            => !needleSize.HasValue ||
-                sampleToFilter is SampleDto sample && Math.Abs(sample.NeedleSize - needleSize.Value) <= 0.0001 && sample.NeedleSizeUnit == needleSizeUnit;
+       
 
-        public bool FilterByName(object plannedProjectToFilter, string projectName, NamesComparison namesComparison = NamesComparison.Contains)
-            => namesComparison switch
-            {
-                NamesComparison.Contains => plannedProjectToFilter is BasicProjectDto project && project.Name.Contains(projectName, StringComparison.OrdinalIgnoreCase),
-                NamesComparison.Equals => plannedProjectToFilter is BasicProjectDto project && project.Name.Equals(projectName, StringComparison.OrdinalIgnoreCase),
-                _ => false
-            };
+        
 
         #region Properties
 
@@ -129,7 +121,7 @@ namespace KnitterNotebook.ViewModels
                 _plannedProjects = value;
                 OnPropertyChanged(nameof(PlannedProjects));
                 PlannedProjectsCollectionView = CollectionViewSource.GetDefaultView(PlannedProjects);
-                PlannedProjectsCollectionView.Filter = new Predicate<object>(x => FilterByName(x, FilterPlannedProjectName));
+                PlannedProjectsCollectionView.Filter = new Predicate<object>(x => ProjectsFilter.FilterByName<PlannedProjectDto>(x, FilterPlannedProjectName));
                 OnPropertyChanged(nameof(PlannedProjectsCollectionView));
             }
         }
@@ -158,7 +150,7 @@ namespace KnitterNotebook.ViewModels
                 _samples = value;
                 OnPropertyChanged(nameof(Samples));
                 SamplesCollectionView = CollectionViewSource.GetDefaultView(Samples);
-                SamplesCollectionView.Filter = new Predicate<object>(x => FilterByNeedleSize(x, FilterNeedleSize, FilterNeedleSizeUnit));
+                SamplesCollectionView.Filter = new Predicate<object>(x => SamplesFilter.FilterByNeedleSize<SampleDto>(x, FilterNeedleSize, FilterNeedleSizeUnit));
                 OnPropertyChanged(nameof(SamplesCollectionView));
             }
         }

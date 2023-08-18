@@ -1,13 +1,13 @@
-﻿using KnitterNotebook.Models;
+﻿using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace KnitterNotebook.Helpers.Filters
 {
     public static class SamplesFilter
     {
-        //public static IEnumerable<Sample> FilterByNeedleSize(IEnumerable<Sample> samples, double needleSize, string needleSizeUnit)
-        //    => samples.Where(x => Math.Abs(x.NeedleSize - needleSize) <= 0.0001 && x.NeedleSizeUnit.Equals(needleSizeUnit, StringComparison.OrdinalIgnoreCase));
+        public static bool FilterByNeedleSize<T>(object sampleToFilter, double? needleSize, NeedleSizeUnit needleSizeUnit) where T : BasicSampleDto
+             => !needleSize.HasValue ||
+                 sampleToFilter is T sample && Math.Abs(sample.NeedleSize - needleSize.Value) <= 0.0001 && sample.NeedleSizeUnit == needleSizeUnit;
     }
 }
