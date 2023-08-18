@@ -2,24 +2,32 @@
 using KnitterNotebook.Models.Enums;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace KnitterNotebook.Models.Dtos
 {
-    public class PlannedProjectDto
+    public class PlannedProjectDto : BasicProjectDto
     {
-        public string Name { get; set; } = string.Empty;
+        public PlannedProjectDto(Project project) : base(project)
+        {
+            Id = project.Id;
+            Name = project.Name;
+            StartDate = project.StartDate;
+            Needles = project.Needles.Select(x => new NeedleDto(x)).ToList();
+            Yarns = project.Yarns.Select(x => new YarnDto(x)).ToList();
+            Description = project.Description;
+            ProjectStatus = project.ProjectStatus;
+            PatternPdfPath = project.PatternPdf?.Path;
+        }
 
-        public DateTime? StartDate { get; set; } = null;
+        public DateTime? StartDate { get; set; }
 
-        public virtual List<Needle> Needles { get; set; } = new();
+        public List<NeedleDto> Needles { get; set; } 
 
-        public virtual List<Yarn> Yarns { get; set; } = new();
+        public List<YarnDto> Yarns { get; set; }
 
-        //Tzw. "inne"
-        public string? Description { get; set; } = null;
+        public string? Description { get; set; }
 
-        public ProjectStatusName ProjectStatus { get; set; }
-
-        public string PatternPdfPath { get; set; } = null;
+        public string? PatternPdfPath { get; set; }
     }
 }

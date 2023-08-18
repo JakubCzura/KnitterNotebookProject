@@ -1,7 +1,7 @@
 ﻿using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
+using KnitterNotebook.Exceptions;
 using KnitterNotebook.Helpers;
-using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
@@ -38,7 +38,7 @@ namespace KnitterNotebook.Services
             PatternPdf? patternPdf = !string.IsNullOrWhiteSpace(destinationPatternPdfPath) ? new(destinationPatternPdfPath) : null;
 
             //If planned project's start date is today then projectStatus is InProgress, otherwise it is Planned
-            ProjectStatusName projectStatus = planProjectDto.StartDate.HasValue && planProjectDto.StartDate.Value.CompareTo(DateTime.Today) == 0 
+            ProjectStatusName projectStatus = planProjectDto.StartDate.HasValue && planProjectDto.StartDate.Value.CompareTo(DateTime.Today) == 0
                                                 ? ProjectStatusName.InProgress
                                                 : ProjectStatusName.Planned;
 
@@ -66,6 +66,22 @@ namespace KnitterNotebook.Services
                                               .Include(x => x.Yarns)
                                               .Include(x => x.PatternPdf)
                                               .Where(x => x.UserId == userId).ToListAsync();
-       
+
+        public async Task<List<PlannedProjectDto>> GetUserPlannedProjectsAsync(int userId)
+           => await _databaseContext.Projects.Include(x => x.Needles)
+                                             .Include(x => x.Yarns)
+                                             .Include(x => x.PatternPdf)
+                                             .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.Planned)
+                                             .Select(x => new PlannedProjectDto(x)).ToListAsync();
+
+        public async Task ChangeProjectStatus(int userId, int projectId, ProjectStatusName projectStatusName)
+        {
+            Project project = await _databaseContext.Projects.FirstOrDefaultAsync(x => x.UserId == userId && x.Id == projectId)
+                                    ?? throw new EntityNotFoundException("Id projektu jest nieodpowiednie lub nie odnaleziono użytkownika");
+
+            project.ProjectStatus = projectStatusName;
+            _databaseContext.Update(project);
+            await _databaseContext.SaveChangesAsync();
+        }
     }
 }

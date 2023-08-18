@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Helpers;
-using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
@@ -19,6 +18,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using static KnitterNotebook.Helpers.Filters.ProjectsFilter;
 
 namespace KnitterNotebook.ViewModels
 {
@@ -34,15 +34,24 @@ namespace KnitterNotebook.ViewModels
             _themeService = themeService;
             _webBrowserService = webBrowserService;
             SamplesCollectionView = CollectionViewSource.GetDefaultView(Samples);
+            PlannedProjectsCollectionView = CollectionViewSource.GetDefaultView(PlannedProjects);
             ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(MainWindowContent.SamplesUserControl);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(async () => MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id)));
             SampleAddingViewModel.NewSampleAdded += new Action(async () => Samples = await _sampleService.GetUserSamplesAsync(User.Id));
-            ProjectPlanningViewModel.NewProjectPlanned += new Action(async () => PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus == ProjectStatusName.Planned).ToList()));
+            ProjectPlanningViewModel.NewProjectPlanned += new Action(async () => PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id));
         }
 
         public bool FilterByNeedleSize(object sampleToFilter, double? needleSize, NeedleSizeUnit needleSizeUnit)
             => !needleSize.HasValue ||
                 sampleToFilter is SampleDto sample && Math.Abs(sample.NeedleSize - needleSize.Value) <= 0.0001 && sample.NeedleSizeUnit == needleSizeUnit;
+
+        public bool FilterByName(object plannedProjectToFilter, string projectName, NamesComparison namesComparison = NamesComparison.Contains)
+            => namesComparison switch
+            {
+                NamesComparison.Contains => plannedProjectToFilter is BasicProjectDto project && project.Name.Contains(projectName, StringComparison.OrdinalIgnoreCase),
+                NamesComparison.Equals => plannedProjectToFilter is BasicProjectDto project && project.Name.Equals(projectName, StringComparison.OrdinalIgnoreCase),
+                _ => false
+            };
 
         #region Properties
 
@@ -91,9 +100,18 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(FilteredPlannedProjects))]
-        private string? _filterPlannedProjectName;
+        private string _filterPlannedProjectName = string.Empty;
+
+        public string FilterPlannedProjectName
+        {
+            get => _filterPlannedProjectName;
+            set
+            {
+                _filterPlannedProjectName = value;
+                OnPropertyChanged(nameof(FilterPlannedProjectName));
+                PlannedProjectsCollectionView.Refresh();
+            }
+        }
 
         [ObservableProperty]
         private ObservableCollection<MovieUrl> _movieUrls = new();
@@ -101,14 +119,25 @@ namespace KnitterNotebook.ViewModels
         [ObservableProperty]
         private MovieUrl _selectedMovieUrl = new();
 
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(FilteredPlannedProjects))]
-        private ObservableCollection<Project> _plannedProjects = new();
+        private List<PlannedProjectDto> _plannedProjects = new();
+
+        public List<PlannedProjectDto> PlannedProjects
+        {
+            get => _plannedProjects;
+            set
+            {
+                _plannedProjects = value;
+                OnPropertyChanged(nameof(PlannedProjects));
+                PlannedProjectsCollectionView = CollectionViewSource.GetDefaultView(PlannedProjects);
+                PlannedProjectsCollectionView.Filter = new Predicate<object>(x => FilterByName(x, FilterPlannedProjectName));
+                OnPropertyChanged(nameof(PlannedProjectsCollectionView));
+            }
+        }
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectNeedles))]
         [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectYarns))]
-        private Project? _selectedPlannedProject = null;
+        private PlannedProjectDto? _selectedPlannedProject = null;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(Greetings))]
@@ -135,10 +164,7 @@ namespace KnitterNotebook.ViewModels
         }
 
         public ICollectionView SamplesCollectionView { get; set; }
-
-        public ObservableCollection<Project> FilteredPlannedProjects => !string.IsNullOrWhiteSpace(FilterPlannedProjectName)
-           ? new(ProjectsFilter.FilterByName(PlannedProjects, FilterPlannedProjectName))
-           : PlannedProjects;
+        public ICollectionView PlannedProjectsCollectionView { get; set; }
 
         public string SelectedSampleMashesXRows => SelectedSample is not null ? $"{SelectedSample.LoopsQuantity}x{SelectedSample.RowsQuantity}" : "";
 
@@ -154,8 +180,6 @@ namespace KnitterNotebook.ViewModels
 
         private static ObservableCollection<MovieUrl> GetMovieUrls(List<MovieUrl> movieUrls) => new(movieUrls);
 
-        private static ObservableCollection<Project> GetPlannedProjects(List<Project> projects) => new(projects);
-
         [RelayCommand]
         private void ChooseMainWindowContent(MainWindowContent userControlName) => ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(userControlName);
 
@@ -169,7 +193,7 @@ namespace KnitterNotebook.ViewModels
 
                 MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id));
                 Samples = await _sampleService.GetUserSamplesAsync(User.Id);
-                PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus == ProjectStatusName.Planned).ToList());
+                PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id);
                 _themeService.ReplaceTheme(User.ThemeName, ApplicationTheme.Default);
 
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
@@ -243,7 +267,7 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedPlannedProject?.Id > 0)
                 {
                     await _projectService.DeleteAsync(SelectedPlannedProject.Id);
-                    PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus == ProjectStatusName.Planned).ToList());
+                    PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id);
                 }
             }
             catch (Exception exception)
@@ -260,8 +284,8 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedPlannedProject?.Id > 0)
                 {
                     SelectedPlannedProject.ProjectStatus = ProjectStatusName.InProgress;
-                    await _projectService.UpdateAsync(SelectedPlannedProject);
-                    PlannedProjects = GetPlannedProjects((await _projectService.GetUserProjectsAsync(User.Id)).Where(x => x.ProjectStatus == ProjectStatusName.Planned).ToList());
+                    await _projectService.ChangeProjectStatus(LoggedUserInformation.Id, SelectedPlannedProject.Id, ProjectStatusName.InProgress);
+                    PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id);
                 }
             }
             catch (Exception exception)

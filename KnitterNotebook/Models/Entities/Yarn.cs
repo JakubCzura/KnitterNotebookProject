@@ -1,6 +1,6 @@
 ﻿namespace KnitterNotebook.Models.Entities
 {
-    public class Yarn : BaseImage
+    public class Yarn : BaseDbEntity
     {
         public Yarn(string name)
         {

@@ -1,5 +1,6 @@
 ﻿using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
+using KnitterNotebook.Models.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,5 +11,9 @@ namespace KnitterNotebook.Services.Interfaces
         Task PlanProjectAsync(PlanProjectDto planProjectDto);
 
         Task<List<Project>> GetUserProjectsAsync(int userId);
+
+        Task<List<PlannedProjectDto>> GetUserPlannedProjectsAsync(int userId);
+
+        Task ChangeProjectStatus(int userId, int projectId, ProjectStatusName projectStatusName);
     }
 }

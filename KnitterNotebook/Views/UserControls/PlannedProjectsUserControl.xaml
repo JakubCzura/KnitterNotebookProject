@@ -46,7 +46,7 @@
                     Background="#FFE2AFFB"
                     DockPanel.Dock="Top"
                     IsReadOnly="True"
-                    ItemsSource="{Binding FilteredPlannedProjects}"
+                    ItemsSource="{Binding PlannedProjectsCollectionView}"
                     SelectedItem="{Binding SelectedPlannedProject}"
                     Style="{DynamicResource MaterialDesignDataGrid}">
                     <DataGrid.Columns>
@@ -135,12 +135,12 @@
             Background="#FFE2AFFB"
             BorderThickness="0"
             CornerRadius="10">
-            <wpf:WebView2 Source="{Binding TargetNullValue=about:blank, FallbackValue=about:blank, Path=SelectedPlannedProject.PatternPdf.Path}">
+            <wpf:WebView2 Source="{Binding TargetNullValue=about:blank, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=about:blank, Path=SelectedPlannedProject.PatternPdfPath}">
                 <wpf:WebView2.Style>
                     <Style TargetType="wpf:WebView2">
                         <Setter Property="Visibility" Value="Visible" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding TargetNullValue=about:blank, FallbackValue=about:blank, Path=SelectedPlannedProject.PatternPdf.Path}" Value="about:blank">
+                            <DataTrigger Binding="{Binding TargetNullValue=about:blank, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=about:blank, Path=SelectedPlannedProject.PatternPdfPath}" Value="about:blank">
                                 <Setter Property="Visibility" Value="Hidden" />
                             </DataTrigger>
                         </Style.Triggers>
