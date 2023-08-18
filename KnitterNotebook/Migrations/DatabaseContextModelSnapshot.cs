@@ -114,10 +114,6 @@ namespace KnitterNotebook.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("PatternName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ProjectStatus")
                         .HasColumnType("int");
 

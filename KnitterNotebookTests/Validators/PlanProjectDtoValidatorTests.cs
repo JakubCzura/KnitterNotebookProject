@@ -36,19 +36,19 @@ namespace KnitterNotebookTests.Validators
 
         public static IEnumerable<object[]> InvalidData()
         {
-            yield return new object[] { new PlanProjectDto(null!, DateTime.Today.AddDays(-1), null!, null!, null!, null, null, 0) };
-            yield return new object[] { new PlanProjectDto(string.Empty, DateTime.Today.AddDays(-2), string.Empty, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, null, 0) };
-            yield return new object[] { new PlanProjectDto(string.Empty, DateTime.Today.AddDays(-3), string.Empty, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), "Description", @"c:\users\user\files\file.txt", 4) };
-            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, string.Empty, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), "Description", @"c:\users\user\files\file.pdf", 2) };
-            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, string.Empty, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, @"c:\users\user\files\file.pdf", 2) };
-            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, string.Empty, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, null, 2) };
-            yield return new object[] { new PlanProjectDto(new string('K', 101), DateTime.Today, string.Empty, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, null, 2) };
-            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, new string('K', 101), Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, null, 2) };
-            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, "Pattern name", Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), new string('K', 301), null, 2) };
-            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, string.Empty, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), "Description", null, 4) };
-            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, string.Empty, Enumerable.Empty<CreateNeedleDto>(), new List<CreateYarnDto>() { new CreateYarnDto("Cotton yarn") }, "Description", null, 1) };
-            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, "Pattern", new List<CreateNeedleDto>() { new CreateNeedleDto(1, NeedleSizeUnit.cm), new CreateNeedleDto(2, NeedleSizeUnit.mm) }, Enumerable.Empty<CreateYarnDto>(), "Description", null, 2) };
-            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, "Pattern", new List<CreateNeedleDto>() { new CreateNeedleDto(1, NeedleSizeUnit.cm), new CreateNeedleDto(2, NeedleSizeUnit.mm) }, new List<CreateYarnDto>() { new CreateYarnDto("Cotton yarn") }, "Description", null, 4) };
+            yield return new object[] { new PlanProjectDto(null!, DateTime.Today.AddDays(-1), null!, null!, null, null, 0) };
+            yield return new object[] { new PlanProjectDto(string.Empty, DateTime.Today.AddDays(-2), Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, null, 0) };
+            yield return new object[] { new PlanProjectDto(string.Empty, DateTime.Today.AddDays(-3), Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), "Description", @"c:\users\user\files\file.txt", 4) };
+            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), "Description", @"c:\users\user\files\file.pdf", 2) };
+            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, @"c:\users\user\files\file.pdf", 2) };
+            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, null, 2) };
+            yield return new object[] { new PlanProjectDto(new string('K', 101), DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, null, 2) };
+            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, null, 2) };
+            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), new string('K', 301), null, 2) };
+            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), "Description", null, 4) };
+            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), new List<CreateYarnDto>() { new CreateYarnDto("Cotton yarn") }, "Description", null, 1) };
+            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, new List<CreateNeedleDto>() { new CreateNeedleDto(1, NeedleSizeUnit.cm), new CreateNeedleDto(2, NeedleSizeUnit.mm) }, Enumerable.Empty<CreateYarnDto>(), "Description", null, 2) };
+            yield return new object[] { new PlanProjectDto("Name", DateTime.Today, new List<CreateNeedleDto>() { new CreateNeedleDto(1, NeedleSizeUnit.cm), new CreateNeedleDto(2, NeedleSizeUnit.mm) }, new List<CreateYarnDto>() { new CreateYarnDto("Cotton yarn") }, "Description", null, 4) };
         }
 
         public static IEnumerable<object[]> ValidData()
@@ -56,7 +56,6 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new PlanProjectDto(
                                         "My project",
                                         DateTime.Today,
-                                        "Good pattern",
                                         new List<CreateNeedleDto>(){ new CreateNeedleDto(1, NeedleSizeUnit.cm), new CreateNeedleDto (2, NeedleSizeUnit.mm)},
                                         new List<CreateYarnDto>(){ new CreateYarnDto("Cotton yarn") },
                                         null,
@@ -65,7 +64,6 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new PlanProjectDto(
                                         "Sample project",
                                         DateTime.Today.AddDays(2),
-                                        "sample pattern",
                                         new List<CreateNeedleDto>(){ new CreateNeedleDto(4, NeedleSizeUnit.cm) },
                                         new List<CreateYarnDto>(){ new CreateYarnDto("Woolen yarn") },
                                         "Description of my project",

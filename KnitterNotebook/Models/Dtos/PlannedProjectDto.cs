@@ -1,16 +1,15 @@
-﻿using KnitterNotebook.Models.Enums;
-using System;
+﻿using KnitterNotebook.Models.Entities;
+using KnitterNotebook.Models.Enums;
 using System.Collections.Generic;
+using System;
 
-namespace KnitterNotebook.Models.Entities
+namespace KnitterNotebook.Models.Dtos
 {
-    public class Project : BaseDbEntity
+    public class PlannedProjectDto
     {
         public string Name { get; set; } = string.Empty;
 
         public DateTime? StartDate { get; set; } = null;
-
-        public DateTime? EndDate { get; set; } = null;
 
         public virtual List<Needle> Needles { get; set; } = new();
 
@@ -21,12 +20,6 @@ namespace KnitterNotebook.Models.Entities
 
         public ProjectStatusName ProjectStatus { get; set; }
 
-        public virtual PatternPdf? PatternPdf { get; set; } = null;
-
-        public virtual List<ProjectImage> ProjectImages { get; set; } = new();
-
-        public virtual User User { get; set; }
-
-        public int UserId { get; set; }
+        public string PatternPdfPath { get; set; } = null;
     }
 }

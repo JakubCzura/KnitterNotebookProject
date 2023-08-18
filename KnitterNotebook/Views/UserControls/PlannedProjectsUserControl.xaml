@@ -97,17 +97,6 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="Nazwa wzoru:"
-                        TextWrapping="Wrap" />
-                    <TextBlock
-                        Margin="5,0,5,5"
-                        FontSize="15"
-                        Text="{Binding SelectedPlannedProject.PatternName}"
-                        TextWrapping="Wrap" />
-                    <TextBlock
-                        Margin="5,0,5,0"
-                        FontSize="20"
-                        FontWeight="Medium"
                         Text="Druty:"
                         TextWrapping="Wrap" />
                     <TextBlock

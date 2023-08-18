@@ -23,10 +23,6 @@ namespace KnitterNotebook.Validators
                 .Must(x => x is null || x.HasValue && x.Value.Date.CompareTo(DateTime.Today) >= 0)
                 .WithMessage("Data rozpoczęcia projektu nie może być przed dzisiejszym dniem");
 
-            RuleFor(dto => dto.PatternName)
-                .NotEmpty().WithMessage("Nazwa wzoru nie może być pusta")
-                .Length(1, 100).WithMessage("Długość nazwy wzoru musi mieć 1-100 znaków");
-
             RuleFor(dto => dto.Needles)
                 .Must(x => x is not null && x.Any()).WithMessage("Zbiór drutów nie może być pusty")
                 .ForEach(needle =>

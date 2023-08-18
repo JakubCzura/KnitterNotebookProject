@@ -160,7 +160,7 @@ namespace KnitterNotebook.ViewModels
         private void ChooseMainWindowContent(MainWindowContent userControlName) => ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(userControlName);
 
         [RelayCommand]
-        public async Task OnLoadedWindowAsync()
+        private async Task OnLoadedWindowAsync()
         {
             try
             {

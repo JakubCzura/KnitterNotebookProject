@@ -7,7 +7,6 @@ namespace KnitterNotebook.Models.Dtos
     (
         string Name,
         DateTime? StartDate,
-        string PatternName,
         IEnumerable<CreateNeedleDto> Needles,
         IEnumerable<CreateYarnDto> Yarns,
         string? Description,

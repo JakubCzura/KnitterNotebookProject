@@ -46,7 +46,6 @@ namespace KnitterNotebook.Services
             {
                 Name = planProjectDto.Name,
                 StartDate = planProjectDto.StartDate,
-                PatternName = planProjectDto.PatternName,
                 Needles = needles,
                 Yarns = yarns,
                 Description = planProjectDto.Description,
@@ -67,5 +66,6 @@ namespace KnitterNotebook.Services
                                               .Include(x => x.Yarns)
                                               .Include(x => x.PatternPdf)
                                               .Where(x => x.UserId == userId).ToListAsync();
+       
     }
 }

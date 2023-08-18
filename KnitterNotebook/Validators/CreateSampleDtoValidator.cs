@@ -2,7 +2,6 @@
 using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
 
 namespace KnitterNotebook.Validators
 {
