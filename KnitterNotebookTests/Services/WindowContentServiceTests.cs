@@ -12,6 +12,7 @@ namespace KnitterNotebookTests.Services
         [InlineData(MainWindowContent.PlannedProjectsUserControl, typeof(PlannedProjectsUserControl))]
         [InlineData(MainWindowContent.ProjectsInProgressUserControl, typeof(ProjectsInProgressUserControl))]
         [InlineData(MainWindowContent.ProjectsUserControl, typeof(ProjectsUserControl))]
+        [InlineData(MainWindowContent.SamplesUserControl, typeof(SamplesUserControl))]
         [InlineData((MainWindowContent)999, typeof(SamplesUserControl))] // Unknown value
         public void ChooseMainWindowContent_ForChosenContent_ReturnsCorrectUserControl(MainWindowContent windowContent, Type expected)
         {

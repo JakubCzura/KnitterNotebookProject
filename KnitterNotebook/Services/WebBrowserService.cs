@@ -10,6 +10,7 @@ namespace KnitterNotebook.Services
         /// Opens the URL in the default web browser
         /// </summary>
         /// <param name="link">URL to open</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public void Open(Uri link)
         {
             if(link is null)

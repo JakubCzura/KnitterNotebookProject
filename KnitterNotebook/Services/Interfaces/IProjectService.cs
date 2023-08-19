@@ -14,6 +14,10 @@ namespace KnitterNotebook.Services.Interfaces
 
         Task<List<PlannedProjectDto>> GetUserPlannedProjectsAsync(int userId);
 
+        Task<List<ProjectInProgressDto>> GetUserProjectsInProgressAsync(int userId);
+
+        Task<List<FinishedProjectDto>> GetUserFinishedProjectsAsync(int userId);
+
         Task ChangeProjectStatus(int userId, int projectId, ProjectStatusName projectStatusName);
     }
 }

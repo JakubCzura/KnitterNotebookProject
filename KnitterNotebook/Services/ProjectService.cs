@@ -74,6 +74,20 @@ namespace KnitterNotebook.Services
                                              .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.Planned)
                                              .Select(x => new PlannedProjectDto(x)).ToListAsync();
 
+        public async Task<List<ProjectInProgressDto>> GetUserProjectsInProgressAsync(int userId)
+          => await _databaseContext.Projects.Include(x => x.Needles)
+                                            .Include(x => x.Yarns)
+                                            .Include(x => x.PatternPdf)
+                                            .Include(x => x.ProjectImages)
+                                            .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.InProgress)
+                                            .Select(x => new ProjectInProgressDto(x)).ToListAsync();
+
+        public async Task<List<FinishedProjectDto>> GetUserFinishedProjectsAsync(int userId)
+          => await _databaseContext.Projects.Include(x => x.PatternPdf)
+                                            .Include(x => x.ProjectImages)
+                                            .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.Finished)
+                                            .Select(x => new FinishedProjectDto(x)).ToListAsync();
+
         public async Task ChangeProjectStatus(int userId, int projectId, ProjectStatusName projectStatusName)
         {
             Project project = await _databaseContext.Projects.FirstOrDefaultAsync(x => x.UserId == userId && x.Id == projectId)
