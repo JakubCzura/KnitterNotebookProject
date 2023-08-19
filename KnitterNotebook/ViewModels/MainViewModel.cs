@@ -6,7 +6,6 @@ using KnitterNotebook.Helpers;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
-using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
@@ -63,6 +62,10 @@ namespace KnitterNotebook.ViewModels
 
         [ObservableProperty]
         private UserControl _chosenMainWindowContent;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(Greetings))]
+        private UserDto _user = new();
 
         private double? _filterNeedleSize = null;
 
@@ -137,7 +140,7 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
-        private List<ProjectInProgressDto> _projectsInProgress= new();
+        private List<ProjectInProgressDto> _projectsInProgress = new();
 
         public List<ProjectInProgressDto> ProjectsInProgress
         {
@@ -155,16 +158,17 @@ namespace KnitterNotebook.ViewModels
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectNeedles))]
         [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectYarns))]
-        private PlannedProjectDto? _selectedPlannedProject = null;
+        private PlannedProjectDto? _selectedPlannedProject;
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(Greetings))]
-        private UserDto _user = new();
+        [NotifyPropertyChangedFor(nameof(SelectedProjectInProgressNeedles))]
+        [NotifyPropertyChangedFor(nameof(SelectedProjectsInProgressYarns))]
+        private ProjectInProgressDto? _selectedProjectInProgress;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SelectedSampleMashesXRows))]
         [NotifyPropertyChangedFor(nameof(SelectedSampleNeedleSize))]
-        private SampleDto? _selectedSample = null;
+        private SampleDto? _selectedSample;
 
         private List<SampleDto> _samples = new();
 
@@ -192,6 +196,10 @@ namespace KnitterNotebook.ViewModels
         public string SelectedPlannedProjectNeedles => string.Join("\n", SelectedPlannedProject?.Needles.Select(x => $"{x.Size} {x.SizeUnit}") ?? Enumerable.Empty<string>());
 
         public string SelectedPlannedProjectYarns => string.Join("\n", SelectedPlannedProject?.Yarns.Select(x => x.Name) ?? Enumerable.Empty<string>());
+
+        public string SelectedProjectInProgressNeedles => string.Join("\n", SelectedProjectInProgress?.Needles.Select(x => $"{x.Size} {x.SizeUnit}") ?? Enumerable.Empty<string>());
+
+        public string SelectedProjectsInProgressYarns => string.Join("\n", SelectedProjectInProgress?.Yarns.Select(x => x.Name) ?? Enumerable.Empty<string>());
 
         #endregion Properties
 
@@ -301,7 +309,6 @@ namespace KnitterNotebook.ViewModels
             {
                 if (SelectedPlannedProject?.Id > 0)
                 {
-                    SelectedPlannedProject.ProjectStatus = ProjectStatusName.InProgress;
                     await _projectService.ChangeProjectStatus(LoggedUserInformation.Id, SelectedPlannedProject.Id, ProjectStatusName.InProgress);
                     PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id);
                 }
