@@ -55,6 +55,8 @@ namespace KnitterNotebook.ViewModels
         public ICommand ShowSettingsWindowCommand { get; } = new RelayCommand(ShowWindow<SettingsWindow>);
         public ICommand ShowProjectPlanningWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectPlanningWindow>);
         public ICommand ShowSampleAddingWindowCommand { get; } = new RelayCommand(ShowWindow<SampleAddingWindow>);
+        public ICommand ShowProjectImageAddingWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectImageAddingWindow>);
+        public ICommand ShowPatternPdfWindowCommand { get; } = new RelayCommand(ShowWindow<PdfBrowserWindow>);
 
         public static List<string> NeedleSizeUnitList => Enum.GetNames<NeedleSizeUnit>().ToList();
 
@@ -162,8 +164,11 @@ namespace KnitterNotebook.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SelectedProjectInProgressNeedles))]
-        [NotifyPropertyChangedFor(nameof(SelectedProjectsInProgressYarns))]
+        [NotifyPropertyChangedFor(nameof(SelectedProjectInProgressYarns))]
         private ProjectInProgressDto? _selectedProjectInProgress;
+
+        [ObservableProperty]
+        private ProjectImageDto? _selectedProjectInProgressImage;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SelectedSampleMashesXRows))]
@@ -199,7 +204,7 @@ namespace KnitterNotebook.ViewModels
 
         public string SelectedProjectInProgressNeedles => string.Join("\n", SelectedProjectInProgress?.Needles.Select(x => $"{x.Size} {x.SizeUnit}") ?? Enumerable.Empty<string>());
 
-        public string SelectedProjectsInProgressYarns => string.Join("\n", SelectedProjectInProgress?.Yarns.Select(x => x.Name) ?? Enumerable.Empty<string>());
+        public string SelectedProjectInProgressYarns => string.Join("\n", SelectedProjectInProgress?.Yarns.Select(x => x.Name) ?? Enumerable.Empty<string>());
 
         #endregion Properties
 

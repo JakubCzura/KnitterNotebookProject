@@ -4,10 +4,185 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock FontSize="60">Projects In Progress User Control</TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.6*" />
+            <ColumnDefinition Width="0.6*" />
+            <ColumnDefinition Width="0.4*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border
+            Grid.Column="0"
+            Margin="5,5,5,5"
+            Background="#FFE2AFFB"
+            CornerRadius="10">
+
+            <DockPanel Margin="5,5,5,5">
+                <Grid Margin="0,0,0,5" DockPanel.Dock="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Style="{DynamicResource MaterialDesignBody1TextBlock}"
+                        Text="Filtruj po nazwie projektu" />
+                    <UniformGrid Grid.Row="1" Rows="1">
+                        <TextBox Text="{Binding FilterProjectInProgressName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </UniformGrid>
+                </Grid>
+                <Button
+                    Command="{Binding ShowPatternPdfWindowCommand}"
+                    Content="Pokaż PDF ze wzorem"
+                    DockPanel.Dock="Bottom" />
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    Background="#FFE2AFFB"
+                    DockPanel.Dock="Top"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding ProjectsInProgressCollectionView}"
+                    SelectedItem="{Binding SelectedProjectInProgress}"
+                    Style="{DynamicResource MaterialDesignDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Path=Name}"
+                            Header="Planowany projekt" />
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding FinishProjectInProgressCommand}" Header="Zakończ projekt" />
+                            <MenuItem Command="{Binding DeleteProjectInProgressCommand}" Header="Skasuj projekt" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+        <Border
+            Grid.Column="1"
+            Margin="5,5,5,5"
+            Background="#FFE2AFFB"
+            CornerRadius="10">
+            <ScrollViewer>
+                <StackPanel Margin="5,5,5,5">
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Projekt w trakcie:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedProjectInProgress.Name}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Data rozpoczęcia:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedProjectInProgress.StartDate, StringFormat=dddd dd MMMM yyyy, ConverterCulture=PL, TargetNullValue='Jeszcze nie podano'}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Druty:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedProjectInProgressNeedles}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Włóczki:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedProjectInProgressYarns}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Inne:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedProjectInProgress.Description}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        <Border
+            Grid.Column="2"
+            Margin="5,5,5,5"
+            Background="#FFE2AFFB"
+            CornerRadius="10">
+
+            <DockPanel Margin="5,5,5,5">
+                <Grid Margin="0,0,0,5" DockPanel.Dock="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                   
+                </Grid>
+                <Button
+                    Command="{Binding ShowProjectImageAddingWindowCommand}"
+                    Content="Dodaj zdjęcie"
+                    DockPanel.Dock="Bottom" />
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    Background="#FFE2AFFB"
+                    DockPanel.Dock="Top"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding SelectedProjectInProgress.ProjectImages}"
+                    SelectedItem="{Binding SelectedProjectInProgressImage}"
+                    Style="{DynamicResource MaterialDesignDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Path=DateTime}"
+                            Header="Zdjęcia postępów" />
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding StartPlannedProjectCommand}" Header="Zakończ projekt" />
+                            <MenuItem Command="{Binding DeletePlannedProjectCommand}" Header="Skasuj projekt" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+        <Border
+            Grid.Column="3"
+            Margin="5,5,5,5"
+            Background="#FFE2AFFB"
+            BorderThickness="0"
+            CornerRadius="10">
+            <Image
+                MaxWidth="600"
+                MaxHeight="600"
+                Margin="5,5,5,5"
+                VerticalAlignment="Top"
+                Source="{Binding SelectedProjectInProgressImage.Path, TargetNullValue={x:Null}}" />
+            <!--  TargetNullValue={x:Null} prevents errors from xaml when Path is null  -->
+        </Border>
     </Grid>
 </UserControl>
