@@ -4,6 +4,21 @@ namespace KnitterNotebook.Models.Entities
 {
     public class User : BaseDbEntity
     {
+        public User()
+        { }
+
+        public User(int id, string nickname, string email, string password, List<Project> projects, List<Sample> samples, List<MovieUrl> movieUrls, Theme theme)
+        {
+            Id = id;
+            Nickname = nickname;
+            Email = email;
+            Password = password;
+            Projects = projects;
+            Samples = samples;
+            MovieUrls = movieUrls;
+            Theme = theme;
+        }
+
         public string Nickname { get; set; } = string.Empty;
 
         public string Email { get; set; } = string.Empty;

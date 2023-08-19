@@ -1,91 +1,33 @@
 ﻿using FluentAssertions;
 using KnitterNotebook.Helpers.Filters;
-using KnitterNotebook.Models;
+using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 
 namespace KnitterNotebookTests.Helpers.Filters
 {
     public class SamplesFilterTests
     {
-        //public static IEnumerable<object[]> ValidData()
-        //{
-        //    yield return new object[]
-        //    {
-        //        new List<Sample>
-        //        {
-        //            new Sample(1, "YarnName1", 10, 10, 2, NeedleSizeUnit.mm, "Description", new User()),
-        //            new Sample(2, "YarnName2", 10, 10, 1, NeedleSizeUnit.mm, "Description", new User()),
-        //            new Sample(3, "YarnName3", 10, 10, 2, NeedleSizeUnit.mm, "Description", new User()),
-        //            new Sample(4, "YarnName4", 10, 10, 2, NeedleSizeUnit.cm, "Description", new User()),
-        //            new Sample(5, "YarnName5", 10, 10, 3, NeedleSizeUnit.cm, "Description", new User()),
-        //            new Sample(6, "YarnName6", 10, 10, 2, NeedleSizeUnit.mm, "Description", new User())
-        //        },
-        //        2,
-        //        "mm",
-        //        new List<Sample>
-        //        {
-        //            new Sample(1, "YarnName1", 10, 10, 2, "mm", "Description", new User()),
-        //            new Sample(3, "YarnName3", 10, 10, 2, "mm", "Description", new User()),
-        //            new Sample(6, "YarnName6", 10, 10, 2, "mm", "Description", new User())
-        //        }
-        //    };
-        //    yield return new object[]
-        //    {
-        //        new List<Sample>
-        //        {
-        //            new Sample(1, "YarnName1", 10, 10, 3, "cm", "Description", new User()),
-        //            new Sample(2, "YarnName2", 10, 10, 1, "mm", "Description", new User()),
-        //            new Sample(3, "YarnName3", 10, 10, 3, "cm", "Description", new User()),
-        //            new Sample(4, "YarnName4", 10, 10, 3, "mm", "Description", new User()),
-        //            new Sample(5, "YarnName5", 10, 10, 5, "cm", "Description", new User()),
-        //            new Sample(6, "YarnName6", 10, 10, 3, "cm", "Description", new User())
-        //        },
-        //        3,
-        //        "cm",
-        //        new List<Sample>
-        //        {
-        //            new Sample(1, "YarnName1", 10, 10, 3, "cm", "Description", new User()),
-        //            new Sample(3, "YarnName3", 10, 10, 3, "cm", "Description", new User()),
-        //            new Sample(6, "YarnName6", 10, 10, 3, "cm", "Description", new User())
-        //        }
-        //    };
-        //}
+        [Theory]
+        [InlineData(6, NeedleSizeUnit.mm, null, NeedleSizeUnit.mm, true)]
+        [InlineData(6, NeedleSizeUnit.mm, null, NeedleSizeUnit.cm, true)]
+        [InlineData(6, NeedleSizeUnit.cm, null, NeedleSizeUnit.cm, true)]
+        [InlineData(6, NeedleSizeUnit.cm, null, NeedleSizeUnit.mm, true)]
+        [InlineData(2.4, NeedleSizeUnit.mm, 2.4, NeedleSizeUnit.mm, true)]
+        [InlineData(2.5, NeedleSizeUnit.cm, 2.5, NeedleSizeUnit.cm, true)]
+        [InlineData(2.5, NeedleSizeUnit.cm, 3.5, NeedleSizeUnit.cm, false)]
+        [InlineData(2.5, NeedleSizeUnit.cm, 3.5, NeedleSizeUnit.mm, false)]
+        [InlineData(2.5, NeedleSizeUnit.mm, 3.5, NeedleSizeUnit.cm, false)]
+        public void FilterByNeedleSize_ForGivenSample_ReturnsBoolean(double entityNeedleSize, NeedleSizeUnit entityNeedleSizeUnit, double? needleSize, NeedleSizeUnit needleSizeUnit, bool expected)
+        {
+            //Arrange
+            BasicSampleDto sample = new(new Sample() { NeedleSize = entityNeedleSize, NeedleSizeUnit = entityNeedleSizeUnit });
 
-        //[Theory]
-        //[MemberData(nameof(ValidData))]
-        //public void FilterByNeedleSize_ForValidData_ReturnsFilteredData(IEnumerable<Sample> samples, double needleSize, string needleSizeUnit, IEnumerable<Sample> expected)
-        //{
-        //    //Act
-        //    samples = SamplesFilter.FilterByNeedleSize(samples, needleSize, needleSizeUnit);
+            //Act
+            bool result = SamplesFilter.FilterByNeedleSize<BasicSampleDto>(sample, needleSize, needleSizeUnit);
 
-        //    //Assert
-        //    expected.Should().BeEquivalentTo(samples);
-        //}
-
-        //[Fact]
-        //public void FilterByNeedleSize_ForNullData_ThrowsArgumentNullException()
-        //{
-        //    //Arrange
-        //    IEnumerable<Sample> samples = null!;
-
-        //    //Act
-        //    Action act = () => samples = SamplesFilter.FilterByNeedleSize(samples, 2, "cm");
-
-        //    //Assert
-        //    act.Should().Throw<ArgumentNullException>();
-        //}
-
-        //[Fact]
-        //public void FilterByNeedleSize_ForEmptyData_ReturnsEmptyData()
-        //{
-        //    //Arrange
-        //    IEnumerable<Sample> samples = Enumerable.Empty<Sample>();
-
-        //    //Act
-        //    samples = SamplesFilter.FilterByNeedleSize(samples, 2, "cm");
-
-        //    //Assert
-        //    samples.Should().BeEmpty();
-        //}
+            //Assert
+            expected.Should().Be(result);
+        }
     }
 }
