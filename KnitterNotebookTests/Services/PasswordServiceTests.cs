@@ -51,7 +51,7 @@ namespace KnitterNotebookTests.Services
             string password = null!;
 
             //Act
-            Action action = () => passwordService.HashPassword(password); 
+            Action action = () => passwordService.HashPassword(password);
 
             //Assert
             action.Should().Throw<ArgumentNullException>();

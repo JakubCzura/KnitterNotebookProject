@@ -1,9 +1,7 @@
 ﻿using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
-using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

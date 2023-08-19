@@ -1,5 +1,4 @@
 ﻿using KnitterNotebook.ApplicationInformation;
-using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Validators;
 using System.Collections.Generic;

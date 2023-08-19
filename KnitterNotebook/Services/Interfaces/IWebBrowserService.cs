@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace KnitterNotebook.Services.Interfaces
 {
     public interface IWebBrowserService

@@ -13,7 +13,7 @@ namespace KnitterNotebook.Services
         /// <exception cref="ArgumentNullException"></exception>
         public void Open(Uri link)
         {
-            if(link is null)
+            if (link is null)
             {
                 throw new ArgumentNullException(nameof(link));
             }

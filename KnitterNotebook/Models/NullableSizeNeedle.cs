@@ -5,6 +5,7 @@ namespace KnitterNotebook.Models
     public class NullableSizeNeedle
     {
         private double? _size;
+
         public double? Size
         {
             get => _size;
