@@ -68,13 +68,15 @@ namespace KnitterNotebook
                     {
                         DataContext = s.GetService<RegistrationViewModel>()
                     });
+                    services.AddSingleton(s => new SharedResourceViewModel());
                     services.AddSingleton(s => new MainViewModel(s.GetRequiredService<IMovieUrlService>(),
                                                                  s.GetRequiredService<ISampleService>(),
                                                                  s.GetRequiredService<IUserService>(),
                                                                  s.GetRequiredService<IProjectService>(),
                                                                  s.GetRequiredService<IWindowContentService>(),
                                                                  s.GetRequiredService<IThemeService>(),
-                                                                 s.GetRequiredService<IWebBrowserService>()));
+                                                                 s.GetRequiredService<IWebBrowserService>(),
+                                                                 s.GetRequiredService<SharedResourceViewModel>()));
                     services.AddSingleton(s => new MainWindow()
                     {
                         DataContext = s.GetRequiredService<MainViewModel>()
@@ -123,6 +125,11 @@ namespace KnitterNotebook
                     services.AddTransient(s => new ProjectPlanningWindow()
                     {
                         DataContext = s.GetRequiredService<ProjectPlanningViewModel>()
+                    });
+                    services.AddTransient<PdfBrowserViewModel>();
+                    services.AddTransient(s => new PdfBrowserWindow()
+                    {
+                        DataContext = s.GetRequiredService<PdfBrowserViewModel>()
                     });
                 })
                 .Build();

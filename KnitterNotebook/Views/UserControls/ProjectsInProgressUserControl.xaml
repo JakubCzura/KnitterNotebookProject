@@ -39,6 +39,7 @@
                 </Grid>
                 <Button
                     Command="{Binding ShowPatternPdfWindowCommand}"
+                    CommandParameter="{Binding SelectedProjectInProgress.PatternPdfPath}"
                     Content="Pokaż PDF ze wzorem"
                     DockPanel.Dock="Bottom" />
                 <DataGrid

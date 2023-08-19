@@ -24,7 +24,7 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
     {
-        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService, IProjectService projectService, IWindowContentService windowContentService, IThemeService themeService, IWebBrowserService webBrowserService)
+        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService, IProjectService projectService, IWindowContentService windowContentService, IThemeService themeService, IWebBrowserService webBrowserService, SharedResourceViewModel sharedResourceViewModel)
         {
             _movieUrlService = movieUrlService;
             _sampleService = sampleService;
@@ -33,13 +33,14 @@ namespace KnitterNotebook.ViewModels
             _windowContentService = windowContentService;
             _themeService = themeService;
             _webBrowserService = webBrowserService;
+            _sharedResourceViewModel = sharedResourceViewModel;
             SamplesCollectionView = CollectionViewSource.GetDefaultView(Samples);
             PlannedProjectsCollectionView = CollectionViewSource.GetDefaultView(PlannedProjects);
             ProjectsInProgressCollectionView = CollectionViewSource.GetDefaultView(ProjectsInProgress);
             ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(MainWindowContent.SamplesUserControl);
-            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(async () => MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection());
-            SampleAddingViewModel.NewSampleAdded += new Action(async () => Samples = await _sampleService.GetUserSamplesAsync(User.Id));
-            ProjectPlanningViewModel.NewProjectPlanned += new Action(async () => PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id));
+            MovieUrlAddingViewModel.NewMovieUrlAdded += async () => MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection();
+            SampleAddingViewModel.NewSampleAdded += async () => Samples = await _sampleService.GetUserSamplesAsync(User.Id);
+            ProjectPlanningViewModel.NewProjectPlanned += async () => PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id);
         }
 
         #region Properties
@@ -51,12 +52,25 @@ namespace KnitterNotebook.ViewModels
         private readonly IWindowContentService _windowContentService;
         private readonly IThemeService _themeService;
         private readonly IWebBrowserService _webBrowserService;
+        private readonly SharedResourceViewModel _sharedResourceViewModel;
+
         public ICommand ShowMovieUrlAddingWindowCommand { get; } = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
         public ICommand ShowSettingsWindowCommand { get; } = new RelayCommand(ShowWindow<SettingsWindow>);
         public ICommand ShowProjectPlanningWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectPlanningWindow>);
         public ICommand ShowSampleAddingWindowCommand { get; } = new RelayCommand(ShowWindow<SampleAddingWindow>);
         public ICommand ShowProjectImageAddingWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectImageAddingWindow>);
-        public ICommand ShowPatternPdfWindowCommand { get; } = new RelayCommand(ShowWindow<PdfBrowserWindow>);
+
+        [RelayCommand]
+        private void ShowPatternPdfWindow(string patternPdfPath)
+        {
+            //It is unnecessary to open window if path is null, but shared path should always be up to date even if the path is null
+            if (!string.IsNullOrWhiteSpace(patternPdfPath))
+            {
+                ShowWindow<PdfBrowserWindow>();
+            }
+            _sharedResourceViewModel.PatternPdfPath = patternPdfPath;
+            _sharedResourceViewModel.OnPatternPdfPathChanged();
+        }
 
         public static List<string> NeedleSizeUnitList => Enum.GetNames<NeedleSizeUnit>().ToList();
 
