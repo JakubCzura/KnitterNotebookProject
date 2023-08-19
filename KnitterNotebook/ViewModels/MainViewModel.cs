@@ -36,6 +36,7 @@ namespace KnitterNotebook.ViewModels
             _webBrowserService = webBrowserService;
             SamplesCollectionView = CollectionViewSource.GetDefaultView(Samples);
             PlannedProjectsCollectionView = CollectionViewSource.GetDefaultView(PlannedProjects);
+            ProjectsInProgressCollectionView = CollectionViewSource.GetDefaultView(ProjectsInProgress);
             ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(MainWindowContent.SamplesUserControl);
             MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(async () => MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection());
             SampleAddingViewModel.NewSampleAdded += new Action(async () => Samples = await _sampleService.GetUserSamplesAsync(User.Id));
@@ -102,6 +103,19 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
+        private string _filterProjectInProgressName = string.Empty;
+
+        public string FilterProjectInProgressName
+        {
+            get => _filterProjectInProgressName;
+            set
+            {
+                _filterProjectInProgressName = value;
+                OnPropertyChanged(nameof(FilterProjectInProgressName));
+                ProjectsInProgressCollectionView.Refresh();
+            }
+        }
+
         [ObservableProperty]
         private ObservableCollection<MovieUrlDto> _movieUrls = new();
 
@@ -120,6 +134,21 @@ namespace KnitterNotebook.ViewModels
                 PlannedProjectsCollectionView = CollectionViewSource.GetDefaultView(PlannedProjects);
                 PlannedProjectsCollectionView.Filter = new Predicate<object>(x => ProjectsFilter.FilterByName<PlannedProjectDto>(x, FilterPlannedProjectName));
                 OnPropertyChanged(nameof(PlannedProjectsCollectionView));
+            }
+        }
+
+        private List<ProjectInProgressDto> _projectsInProgress= new();
+
+        public List<ProjectInProgressDto> ProjectsInProgress
+        {
+            get => _projectsInProgress;
+            set
+            {
+                _projectsInProgress = value;
+                OnPropertyChanged(nameof(ProjectsInProgress));
+                ProjectsInProgressCollectionView = CollectionViewSource.GetDefaultView(ProjectsInProgress);
+                ProjectsInProgressCollectionView.Filter = new Predicate<object>(x => ProjectsFilter.FilterByName<ProjectInProgressDto>(x, FilterProjectInProgressName));
+                OnPropertyChanged(nameof(ProjectsInProgressCollectionView));
             }
         }
 
@@ -154,6 +183,7 @@ namespace KnitterNotebook.ViewModels
 
         public ICollectionView SamplesCollectionView { get; set; }
         public ICollectionView PlannedProjectsCollectionView { get; set; }
+        public ICollectionView ProjectsInProgressCollectionView { get; set; }
 
         public string SelectedSampleMashesXRows => SelectedSample is not null ? $"{SelectedSample.LoopsQuantity}x{SelectedSample.RowsQuantity}" : "";
 
@@ -181,6 +211,7 @@ namespace KnitterNotebook.ViewModels
                 MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection();
                 Samples = await _sampleService.GetUserSamplesAsync(User.Id);
                 PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id);
+                ProjectsInProgress = await _projectService.GetUserProjectsInProgressAsync(User.Id);
                 _themeService.ReplaceTheme(User.ThemeName, ApplicationTheme.Default);
 
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
