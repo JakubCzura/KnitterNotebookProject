@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Helpers;
+using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
@@ -36,14 +37,10 @@ namespace KnitterNotebook.ViewModels
             SamplesCollectionView = CollectionViewSource.GetDefaultView(Samples);
             PlannedProjectsCollectionView = CollectionViewSource.GetDefaultView(PlannedProjects);
             ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(MainWindowContent.SamplesUserControl);
-            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(async () => MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id)));
+            MovieUrlAddingViewModel.NewMovieUrlAdded += new Action(async () => MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection());
             SampleAddingViewModel.NewSampleAdded += new Action(async () => Samples = await _sampleService.GetUserSamplesAsync(User.Id));
             ProjectPlanningViewModel.NewProjectPlanned += new Action(async () => PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id));
         }
-
-       
-
-        
 
         #region Properties
 
@@ -106,10 +103,10 @@ namespace KnitterNotebook.ViewModels
         }
 
         [ObservableProperty]
-        private ObservableCollection<MovieUrl> _movieUrls = new();
+        private ObservableCollection<MovieUrlDto> _movieUrls = new();
 
         [ObservableProperty]
-        private MovieUrl _selectedMovieUrl = new();
+        private MovieUrlDto? _selectedMovieUrl = null;
 
         private List<PlannedProjectDto> _plannedProjects = new();
 
@@ -170,8 +167,6 @@ namespace KnitterNotebook.ViewModels
 
         #region Methods
 
-        private static ObservableCollection<MovieUrl> GetMovieUrls(List<MovieUrl> movieUrls) => new(movieUrls);
-
         [RelayCommand]
         private void ChooseMainWindowContent(MainWindowContent userControlName) => ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(userControlName);
 
@@ -183,7 +178,7 @@ namespace KnitterNotebook.ViewModels
                 User = await _userService.GetAsync(LoggedUserInformation.Id)
                                ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(LoggedUserInformation.Id));
 
-                MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id));
+                MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection();
                 Samples = await _sampleService.GetUserSamplesAsync(User.Id);
                 PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id);
                 _themeService.ReplaceTheme(User.ThemeName, ApplicationTheme.Default);
@@ -209,7 +204,7 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedMovieUrl?.Id > 0)
                 {
                     await _movieUrlService.DeleteAsync(SelectedMovieUrl.Id);
-                    MovieUrls = GetMovieUrls(await _movieUrlService.GetUserMovieUrlsAsync(User.Id));
+                    MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection();
                 }
             }
             catch (Exception exception)

@@ -4,7 +4,6 @@ using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.Converters;
 using KnitterNotebook.Database;
-using KnitterNotebook.Helpers;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
@@ -21,15 +20,13 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class ProjectPlanningViewModel : ObservableObject
     {
-        public ProjectPlanningViewModel(IProjectService projectService, IUserService userService, IValidator<PlanProjectDto> planProjectDtoValidator)
+        public ProjectPlanningViewModel(IProjectService projectService, IValidator<PlanProjectDto> planProjectDtoValidator)
         {
             _projectService = projectService;
-            _userService = userService;
             _planProjectDtoValidator = planProjectDtoValidator;
         }
 
         private readonly IProjectService _projectService;
-        private readonly IUserService _userService;
         private readonly IValidator<PlanProjectDto> _planProjectDtoValidator;
 
         [ObservableProperty]

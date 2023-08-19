@@ -11,6 +11,6 @@ namespace KnitterNotebook.Services.Interfaces
     {
         Task CreateAsync(CreateMovieUrlDto data);
 
-        Task<List<MovieUrl>> GetUserMovieUrlsAsync(int userId);
+        Task<List<MovieUrlDto>> GetUserMovieUrlsAsync(int userId);
     }
 }
