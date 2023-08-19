@@ -64,12 +64,11 @@ namespace KnitterNotebook.ViewModels
         private void ShowPatternPdfWindow(string patternPdfPath)
         {
             //It is unnecessary to open window if path is null, but shared path should always be up to date even if the path is null
+            _sharedResourceViewModel.PatternPdfPath = patternPdfPath;
             if (!string.IsNullOrWhiteSpace(patternPdfPath))
             {
                 ShowWindow<PdfBrowserWindow>();
             }
-            _sharedResourceViewModel.PatternPdfPath = patternPdfPath;
-            _sharedResourceViewModel.OnPatternPdfPathChanged();
         }
 
         public static List<string> NeedleSizeUnitList => Enum.GetNames<NeedleSizeUnit>().ToList();

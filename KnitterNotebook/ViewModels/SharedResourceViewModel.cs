@@ -1,16 +1,10 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace KnitterNotebook.ViewModels
 {
-    public class SharedResourceViewModel
+    public partial class SharedResourceViewModel : BaseViewModel
     {
-        public string? PatternPdfPath { get; set; }
-
-        public Action PatternPdfPathChanged { get; set; } = null!;
-
-        public void OnPatternPdfPathChanged()
-        {
-            PatternPdfPathChanged?.Invoke();
-        }
+        [ObservableProperty]
+        private string? _patternPdfPath;
     }
 }

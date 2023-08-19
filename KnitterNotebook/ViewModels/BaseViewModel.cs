@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
-using System.ComponentModel;
 using System.Windows;
 
 namespace KnitterNotebook.ViewModels
@@ -8,7 +7,7 @@ namespace KnitterNotebook.ViewModels
     /// <summary>
     /// Base class for all view models
     /// </summary>
-    public abstract class BaseViewModel : ObservableObject, INotifyPropertyChanged
+    public abstract class BaseViewModel : ObservableObject
     {
         #region Methods
 
