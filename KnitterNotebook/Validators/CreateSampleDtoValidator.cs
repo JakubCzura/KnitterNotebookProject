@@ -31,7 +31,7 @@ namespace KnitterNotebook.Validators
 
             RuleFor(x => x.SourceImagePath)
                 .Must(x => x is null || FileExtensionValidator.IsImage(x))
-                .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png, .gif, .bmp lub usuń odnośnik do zdjęcia");
+                .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png lub usuń odnośnik do zdjęcia");
 
             RuleFor(x => x.UserId)
              .MustAsync(async (value, cancellationToken) => await _databaseContext.Users.AnyAsync(x => x.Id == value, cancellationToken))

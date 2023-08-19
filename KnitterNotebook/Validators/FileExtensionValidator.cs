@@ -7,7 +7,7 @@ namespace KnitterNotebook.Validators
     public class FileExtensionValidator
     {
         private static readonly string validPdfExtensions = ".pdf";
-        private static readonly string[] validImageExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
+        private static readonly string[] validImageExtensions = { ".jpg", ".jpeg", ".png" };
 
         public static bool IsPdf(string? filePath) => IsExtensionValid(filePath, validPdfExtensions);
 

@@ -1,15 +1,17 @@
 ﻿<Window
     x:Class="KnitterNotebook.Views.Windows.PdfBrowserWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
-    d:DataContext="{d:DesignInstance Type=viewModels:PdfBrowserViewModel}"
     Title="PdfBrowserWindow"
-    Width="800"
-    Height="450"
+    Width="1000"
+    Height="700"
+    d:DataContext="{d:DesignInstance Type=viewModels:PdfBrowserViewModel}"
+    Style="{DynamicResource WindowStyle}"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <wpf:WebView2 Source="{Binding TargetNullValue=about:blank, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=about:blank, Path=PdfPath}">
         <wpf:WebView2.Style>

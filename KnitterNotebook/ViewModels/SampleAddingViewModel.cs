@@ -66,7 +66,7 @@ namespace KnitterNotebook.ViewModels
         {
             OpenFileDialog dialog = new()
             {
-                Filter = "Image Files (*.jpg; *.jpeg; *.png; *.gif; *.bmp)|*.jpg; *.jpeg; *.png; *.gif; *.bmp"
+                Filter = "Image Files (*.jpg; *.jpeg; *.png)|*.jpg; *.jpeg; *.png"
             };
             dialog.ShowDialog();
             SourceImagePath = dialog.FileName;

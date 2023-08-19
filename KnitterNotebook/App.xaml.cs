@@ -131,6 +131,11 @@ namespace KnitterNotebook
                     {
                         DataContext = s.GetRequiredService<PdfBrowserViewModel>()
                     });
+                    services.AddTransient<ProjectImageAddingViewModel>();
+                    services.AddTransient(s => new ProjectImageAddingWindow()
+                    {
+                        DataContext = s.GetRequiredService<ProjectImageAddingViewModel>()
+                    });
                 })
                 .Build();
         }
