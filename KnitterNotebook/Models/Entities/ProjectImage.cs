@@ -6,6 +6,8 @@ namespace KnitterNotebook.Models.Entities
     {
         public DateTime DateTime { get; set; } = DateTime.Today;
 
-        public Project Project { get; set; } = new();
+        public Project Project { get; set; }
+
+        public int ProjectId { get; set; }
     }
 }

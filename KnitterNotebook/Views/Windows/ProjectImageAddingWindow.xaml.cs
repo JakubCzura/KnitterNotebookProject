@@ -7,9 +7,12 @@ namespace KnitterNotebook.Views.Windows
     /// </summary>
     public partial class ProjectImageAddingWindow : Window
     {
+        public static ProjectImageAddingWindow Instance { get; private set; } = null!;
+
         public ProjectImageAddingWindow()
         {
             InitializeComponent();
+            Instance = this;
         }
     }
 }

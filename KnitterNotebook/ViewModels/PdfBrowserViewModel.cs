@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace KnitterNotebook.ViewModels
+﻿namespace KnitterNotebook.ViewModels
 {
     /// <summary>
     /// Class to share data and communicate between viewmodels
@@ -12,7 +10,6 @@ namespace KnitterNotebook.ViewModels
             PdfPath = sharedResourceViewModel.PatternPdfPath;
         }
 
-        [ObservableProperty]
-        private string? _pdfPath;
+        public string? PdfPath { get; }
     }
 }

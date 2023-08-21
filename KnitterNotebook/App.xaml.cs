@@ -58,6 +58,7 @@ namespace KnitterNotebook
                     services.AddScoped<IPasswordService, PasswordService>();
                     services.AddScoped<IWindowContentService, WindowContentService>();
                     services.AddScoped<IWebBrowserService, WebBrowserService>();
+                    services.AddScoped<IProjectImageService, ProjectImageService>();
                     services.AddTransient<LoginViewModel>();
                     services.AddTransient(s => new LoginWindow()
                     {
@@ -76,6 +77,7 @@ namespace KnitterNotebook
                                                                  s.GetRequiredService<IWindowContentService>(),
                                                                  s.GetRequiredService<IThemeService>(),
                                                                  s.GetRequiredService<IWebBrowserService>(),
+                                                                 s.GetRequiredService<IProjectImageService>(),
                                                                  s.GetRequiredService<SharedResourceViewModel>()));
                     services.AddSingleton(s => new MainWindow()
                     {

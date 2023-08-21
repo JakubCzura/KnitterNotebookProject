@@ -81,6 +81,17 @@ namespace KnitterNotebook.Services
                                             .Include(x => x.ProjectImages)
                                             .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.InProgress)
                                             .Select(x => new ProjectInProgressDto(x)).ToListAsync();
+        
+        public async Task<ProjectInProgressDto?> GetProjectInProgressAsync(int id)
+        {
+            Project? project = await _databaseContext.Projects.Include(x => x.Needles)
+                                           .Include(x => x.Yarns)
+                                           .Include(x => x.PatternPdf)
+                                           .Include(x => x.ProjectImages)
+                                           .FirstOrDefaultAsync(x => x.Id == id && x.ProjectStatus == ProjectStatusName.InProgress);
+
+            return project is not null ? new ProjectInProgressDto(project) : null;
+        }
 
         public async Task<List<FinishedProjectDto>> GetUserFinishedProjectsAsync(int userId)
           => await _databaseContext.Projects.Include(x => x.PatternPdf)

@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,7 +25,7 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
     {
-        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService, IProjectService projectService, IWindowContentService windowContentService, IThemeService themeService, IWebBrowserService webBrowserService, SharedResourceViewModel sharedResourceViewModel)
+        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService, IProjectService projectService, IWindowContentService windowContentService, IThemeService themeService, IWebBrowserService webBrowserService, IProjectImageService projectImageService, SharedResourceViewModel sharedResourceViewModel)
         {
             _movieUrlService = movieUrlService;
             _sampleService = sampleService;
@@ -34,13 +35,15 @@ namespace KnitterNotebook.ViewModels
             _themeService = themeService;
             _webBrowserService = webBrowserService;
             _sharedResourceViewModel = sharedResourceViewModel;
+            _projectImageService = projectImageService;
             SamplesCollectionView = CollectionViewSource.GetDefaultView(Samples);
             PlannedProjectsCollectionView = CollectionViewSource.GetDefaultView(PlannedProjects);
             ProjectsInProgressCollectionView = CollectionViewSource.GetDefaultView(ProjectsInProgress);
             ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(MainWindowContent.SamplesUserControl);
             MovieUrlAddingViewModel.NewMovieUrlAdded += async () => MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection();
-            SampleAddingViewModel.NewSampleAdded += async () => Samples = await _sampleService.GetUserSamplesAsync(User.Id);
-            ProjectPlanningViewModel.NewProjectPlanned += async () => PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id);
+            SampleAddingViewModel.NewSampleAdded += async () => Samples = (await _sampleService.GetUserSamplesAsync(User.Id)).ToObservableCollection();
+            ProjectPlanningViewModel.NewProjectPlanned += async () => PlannedProjects = (await _projectService.GetUserPlannedProjectsAsync(User.Id)).ToObservableCollection();
+            _sharedResourceViewModel.ProjectInProgressImageAdded += async (int projectId) => await HandleProjectInProgressImageAdded(projectId);
         }
 
         #region Properties
@@ -52,6 +55,7 @@ namespace KnitterNotebook.ViewModels
         private readonly IWindowContentService _windowContentService;
         private readonly IThemeService _themeService;
         private readonly IWebBrowserService _webBrowserService;
+        private readonly IProjectImageService _projectImageService;
         private readonly SharedResourceViewModel _sharedResourceViewModel;
 
         public ICommand ShowMovieUrlAddingWindowCommand { get; } = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
@@ -140,9 +144,9 @@ namespace KnitterNotebook.ViewModels
         [ObservableProperty]
         private MovieUrlDto? _selectedMovieUrl = null;
 
-        private List<PlannedProjectDto> _plannedProjects = new();
+        private ObservableCollection<PlannedProjectDto> _plannedProjects = new();
 
-        public List<PlannedProjectDto> PlannedProjects
+        public ObservableCollection<PlannedProjectDto> PlannedProjects
         {
             get => _plannedProjects;
             set
@@ -155,9 +159,9 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
-        private List<ProjectInProgressDto> _projectsInProgress = new();
+        private ObservableCollection<ProjectInProgressDto> _projectsInProgress = new();
 
-        public List<ProjectInProgressDto> ProjectsInProgress
+        public ObservableCollection<ProjectInProgressDto> ProjectsInProgress
         {
             get => _projectsInProgress;
             set
@@ -175,10 +179,20 @@ namespace KnitterNotebook.ViewModels
         [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectYarns))]
         private PlannedProjectDto? _selectedPlannedProject;
 
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(SelectedProjectInProgressNeedles))]
-        [NotifyPropertyChangedFor(nameof(SelectedProjectInProgressYarns))]
         private ProjectInProgressDto? _selectedProjectInProgress;
+
+        public ProjectInProgressDto? SelectedProjectInProgress
+        {
+            get => _selectedProjectInProgress;
+            set
+            {
+                _selectedProjectInProgress = value;
+                _sharedResourceViewModel.SelectedProjectInProgressId = _selectedProjectInProgress?.Id;
+                OnPropertyChanged(nameof(SelectedProjectInProgress));
+                OnPropertyChanged(nameof(SelectedProjectInProgressNeedles));
+                OnPropertyChanged(nameof(SelectedProjectInProgressYarns));
+            }
+        }
 
         [ObservableProperty]
         private ProjectImageDto? _selectedProjectInProgressImage;
@@ -188,9 +202,9 @@ namespace KnitterNotebook.ViewModels
         [NotifyPropertyChangedFor(nameof(SelectedSampleNeedleSize))]
         private SampleDto? _selectedSample;
 
-        private List<SampleDto> _samples = new();
+        private ObservableCollection<SampleDto> _samples = new();
 
-        public List<SampleDto> Samples
+        public ObservableCollection<SampleDto> Samples
         {
             get => _samples;
             set
@@ -235,9 +249,9 @@ namespace KnitterNotebook.ViewModels
                                ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(LoggedUserInformation.Id));
 
                 MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection();
-                Samples = await _sampleService.GetUserSamplesAsync(User.Id);
-                PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id);
-                ProjectsInProgress = await _projectService.GetUserProjectsInProgressAsync(User.Id);
+                Samples = (await _sampleService.GetUserSamplesAsync(User.Id)).ToObservableCollection();
+                PlannedProjects = (await _projectService.GetUserPlannedProjectsAsync(User.Id)).ToObservableCollection();
+                ProjectsInProgress = (await _projectService.GetUserProjectsInProgressAsync(User.Id)).ToObservableCollection();
                 _themeService.ReplaceTheme(User.ThemeName, ApplicationTheme.Default);
 
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
@@ -261,7 +275,7 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedMovieUrl?.Id > 0)
                 {
                     await _movieUrlService.DeleteAsync(SelectedMovieUrl.Id);
-                    MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection();
+                    MovieUrls.Remove(SelectedMovieUrl);
                 }
             }
             catch (Exception exception)
@@ -278,7 +292,7 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedSample?.Id > 0)
                 {
                     await _sampleService.DeleteAsync(SelectedSample.Id);
-                    Samples = await _sampleService.GetUserSamplesAsync(User.Id);
+                    Samples.Remove(SelectedSample);
                 }
             }
             catch (Exception exception)
@@ -311,7 +325,7 @@ namespace KnitterNotebook.ViewModels
                 if (SelectedPlannedProject?.Id > 0)
                 {
                     await _projectService.DeleteAsync(SelectedPlannedProject.Id);
-                    PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id);
+                    PlannedProjects = (await _projectService.GetUserPlannedProjectsAsync(User.Id)).ToObservableCollection();
                 }
             }
             catch (Exception exception)
@@ -327,8 +341,16 @@ namespace KnitterNotebook.ViewModels
             {
                 if (SelectedPlannedProject?.Id > 0)
                 {
+                    int projectId = SelectedPlannedProject.Id;
+
                     await _projectService.ChangeProjectStatus(LoggedUserInformation.Id, SelectedPlannedProject.Id, ProjectStatusName.InProgress);
-                    PlannedProjects = await _projectService.GetUserPlannedProjectsAsync(User.Id);
+                    PlannedProjects.Remove(SelectedPlannedProject);
+
+                    ProjectInProgressDto? project = await _projectService.GetProjectInProgressAsync(projectId);
+                    if (project is not null)
+                    {
+                        ProjectsInProgress.Add(project);
+                    }
                 }
             }
             catch (Exception exception)
@@ -339,6 +361,16 @@ namespace KnitterNotebook.ViewModels
 
         [RelayCommand]
         private void LogOut() => _userService.LogOut();
+
+        private async Task HandleProjectInProgressImageAdded(int projectId)
+        {
+            ProjectInProgressDto? project = ProjectsInProgress.FirstOrDefault(x => x.Id == projectId);
+            if (project is not null)
+            {
+                project.ProjectImages = await _projectImageService.GetProjectImagesAsync(projectId);
+            }
+            OnPropertyChanged(nameof(SelectedProjectInProgress));
+        }
 
         #endregion Methods
     }
