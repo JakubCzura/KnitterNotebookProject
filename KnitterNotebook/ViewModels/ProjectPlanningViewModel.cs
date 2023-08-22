@@ -71,7 +71,7 @@ namespace KnitterNotebook.ViewModels
         {
             OpenFileDialog dialog = new()
             {
-                Filter = "Image Files (*.pdf)|*.pdf"
+                Filter = FileDialogFilter.PdfFilter
             };
             dialog.ShowDialog();
             PatternPdfPath = dialog.FileName;

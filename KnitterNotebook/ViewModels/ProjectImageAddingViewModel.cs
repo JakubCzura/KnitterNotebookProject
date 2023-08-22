@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
@@ -27,7 +28,7 @@ namespace KnitterNotebook.ViewModels
         {
             OpenFileDialog dialog = new()
             {
-                Filter = "Image Files (*.jpg; *.jpeg; *.png)|*.jpg; *.jpeg; *.png"
+                Filter = FileDialogFilter.ImageFilter
             };
             dialog.ShowDialog();
             SourceImagePath = dialog.FileName;
