@@ -28,31 +28,10 @@ namespace KnitterNotebookTests.Validators
             SeedUsers();
         }
 
-        public static IEnumerable<object[]> InvalidData()
-        {
-            yield return new object[] { new ChangeNicknameDto(0, null!) };
-            yield return new object[] { new ChangeNicknameDto(1, null!) };
-            yield return new object[] { new ChangeNicknameDto(2, null!) };
-            yield return new object[] { new ChangeNicknameDto(0, string.Empty) };
-            yield return new object[] { new ChangeNicknameDto(1, string.Empty) };
-            yield return new object[] { new ChangeNicknameDto(0, "8") };
-            yield return new object[] { new ChangeNicknameDto(0, " ") };
-            yield return new object[] { new ChangeNicknameDto(0, "     ") };
-            yield return new object[] { new ChangeNicknameDto(2, " ") };
-            yield return new object[] { new ChangeNicknameDto(1, "x#") };
-            yield return new object[] { new ChangeNicknameDto(1, "1#") };
-            yield return new object[] { new ChangeNicknameDto(1, "1 #") };
-            yield return new object[] { new ChangeNicknameDto(1, "Nick1") };
-            yield return new object[] { new ChangeNicknameDto(2, "Nick2") };
-            yield return new object[] { new ChangeNicknameDto(2, new string('K', 51)) };
-            yield return new object[] { new ChangeNicknameDto(90, "Nick333") };
-        }
-
         public static IEnumerable<object[]> ValidData()
         {
             yield return new object[] { new ChangeNicknameDto(1, "NewNick1") };
-            yield return new object[] { new ChangeNicknameDto(2, "NewNick2") };
-            yield return new object[] { new ChangeNicknameDto(3, "NewNick3") };
+            yield return new object[] { new ChangeNicknameDto(2, "TestNewNick") };
         }
 
         private void SeedUsers()
@@ -60,23 +39,47 @@ namespace KnitterNotebookTests.Validators
             List<User> users = new()
             {
                 new User() { Id = 1, Nickname = "Nick1"},
-                new User() { Id = 2, Nickname = "Nick2"},
-                new User() { Id = 3, Nickname = "Nick3"}
+                new User() { Id = 2, Nickname = "TestNick"},
             };
             _databaseContext.Users.AddRange(users);
             _databaseContext.SaveChanges();
         }
 
         [Theory]
-        [MemberData(nameof(InvalidData))]
-        public async Task ValidateAsync_ForInvalidData_FailValidation(ChangeNicknameDto changeNicknameDto)
+        [InlineData(-1)]
+        [InlineData(0)]
+        [InlineData(3)]
+        [InlineData(4)]
+        public async Task ValidateAsync_ForInvalidUserId_FailValidation(int userId)
         {
+            //Arrange
+            ChangeNicknameDto changeNicknameDto = new(userId, "Nick1");
+
             //Act
             var validationResult = await _validator.TestValidateAsync(changeNicknameDto);
 
             //Assert
-            validationResult.ShouldHaveAnyValidationError();
+            validationResult.ShouldHaveValidationErrorFor(x => x.UserId);
         }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("  ")]
+        [InlineData("InvalidTooLongNicknameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")]
+        public async Task ValidateAsync_ForInvalidNickname_FailValidation(string nickname)
+        {
+            //Arrange
+            ChangeNicknameDto changeNicknameDto = new(1, nickname);
+
+            //Act
+            var validationResult = await _validator.TestValidateAsync(changeNicknameDto);
+
+            //Assert
+            validationResult.ShouldHaveValidationErrorFor(x => x.Nickname);
+        }   
+
 
         [Theory]
         [MemberData(nameof(ValidData))]

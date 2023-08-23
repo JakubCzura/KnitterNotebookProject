@@ -19,6 +19,7 @@ namespace KnitterNotebook.Validators
                 .WithMessage("Nie znaleziono użytkownika");
 
             RuleFor(x => x.Email)
+                .NotNull().WithMessage("Wartość nie może być pusta")
                 .MustAsync(async (email, cancellationToken) => !await _userService.IsEmailTaken(email))
                 .WithMessage("E-mail jest już używany")
                 .EmailAddress().WithMessage("Niepoprawny format e-mail");

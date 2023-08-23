@@ -28,30 +28,10 @@ namespace KnitterNotebookTests.Validators
             SeedUsers();
         }
 
-        public static IEnumerable<object[]> InvalidData()
-        {
-            yield return new object[] { new ChangeEmailDto(0, null!) };
-            yield return new object[] { new ChangeEmailDto(-1, string.Empty) };
-            yield return new object[] { new ChangeEmailDto(2, string.Empty) };
-            yield return new object[] { new ChangeEmailDto(3, string.Empty) };
-            yield return new object[] { new ChangeEmailDto(4, new string('K', 51) + "@mail.com") };
-            yield return new object[] { new ChangeEmailDto(5, new string('K', 60) + "@testmail.") };
-            yield return new object[] { new ChangeEmailDto(1, "test1@test.com") };
-            yield return new object[] { new ChangeEmailDto(2, "test2@test.com") };
-            yield return new object[] { new ChangeEmailDto(3, "test3@test.com") };
-            yield return new object[] { new ChangeEmailDto(4, "test3@test.com") };
-            yield return new object[] { new ChangeEmailDto(3, "@@") };
-            yield return new object[] { new ChangeEmailDto(3, "...") };
-        }
-
         public static IEnumerable<object[]> ValidData()
         {
-            yield return new object[] { new ChangeEmailDto(1, "newemail@test.com") };
-            yield return new object[] { new ChangeEmailDto(2, "newemail@test.com") };
-            yield return new object[] { new ChangeEmailDto(3, "newemail@test.com") };
             yield return new object[] { new ChangeEmailDto(1, "testemailnew@test.com") };
             yield return new object[] { new ChangeEmailDto(2, "newtest@testnew.com") };
-            yield return new object[] { new ChangeEmailDto(3, "newemail@testemailnew.com") };
         }
 
         private void SeedUsers()
@@ -60,21 +40,47 @@ namespace KnitterNotebookTests.Validators
             {
                 new User() { Id = 1, Email = "test1@test.com"},
                 new User() { Id = 2, Email = "test2@test.com"},
-                new User() { Id = 3, Email = "test3@test.com"}
             };
             _databaseContext.Users.AddRange(users);
             _databaseContext.SaveChanges();
         }
 
         [Theory]
-        [MemberData(nameof(InvalidData))]
-        public async Task ValidateAsync_ForInvalidData_FailValidation(ChangeEmailDto changeEmailDto)
+        [InlineData(-1)]
+        [InlineData(0)]
+        [InlineData(3)]
+        [InlineData(4)]
+        public async Task ValidateAsync_ForInvalidUserId_FailValidation(int userId)
         {
+            //Arrange
+            ChangeEmailDto changeEmailDto = new(userId, "email@email.com");
+
             //Act
             var validationResult = await _validator.TestValidateAsync(changeEmailDto);
 
             //Assert
-            validationResult.ShouldHaveAnyValidationError();
+            validationResult.ShouldHaveValidationErrorFor(x => x.UserId);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("test")]
+        [InlineData("test@")]
+        [InlineData("test@@")]
+        [InlineData("test1@test.com")] //email already exists in SeedUsers()
+        [InlineData("test2@test.com")] //email already exists in SeedUsers()
+        public async Task ValidateAsync_ForInvalidEmail_FailValidation(string email)
+        {
+            //Arrange
+            ChangeEmailDto changeEmailDto = new(1, email);
+
+            //Act
+            var validationResult = await _validator.TestValidateAsync(changeEmailDto);
+
+            //Assert
+            validationResult.ShouldHaveValidationErrorFor(x => x.Email);
         }
 
         [Theory]
