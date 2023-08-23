@@ -1,28 +1,27 @@
 ﻿using FluentValidation;
-using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
-using Microsoft.EntityFrameworkCore;
+using KnitterNotebook.Services.Interfaces;
 
 namespace KnitterNotebook.Validators
 {
     public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
     {
-        private readonly DatabaseContext _databaseContext;
+        private readonly IUserService _userService;
 
-        public RegisterUserDtoValidator(DatabaseContext databaseContext)
+        public RegisterUserDtoValidator(IUserService userService)
         {
-            _databaseContext = databaseContext;
+            _userService = userService;
 
             RuleFor(x => x.Nickname)
                 .NotEmpty().WithMessage("Nazwa użytkownika nie może być pusta")
                 .SetValidator(new NicknameValidator())
-                .MustAsync(async (value, cancellationToken) => await _databaseContext.Users.AllAsync(x => x.Nickname != value, cancellationToken))
+                .MustAsync(async (nickname, cancellationToken) => !await _userService.IsNicknameTaken(nickname))
                 .WithMessage("Nick jest już używany");
 
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("E-mail nie może być pusty")
                 .EmailAddress().WithMessage("Niepoprawny format e-mail")
-                .MustAsync(async (value, cancellationToken) => await _databaseContext.Users.AllAsync(x => x.Email != value, cancellationToken))
+                .MustAsync(async (email, cancellationToken) => !await _userService.IsEmailTaken(email))
                 .WithMessage("E-mail jest już używany");
 
             RuleFor(x => x.Password)

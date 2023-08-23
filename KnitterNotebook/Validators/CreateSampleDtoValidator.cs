@@ -1,17 +1,16 @@
 ﻿using FluentValidation;
-using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
-using Microsoft.EntityFrameworkCore;
+using KnitterNotebook.Services.Interfaces;
 
 namespace KnitterNotebook.Validators
 {
     public class CreateSampleDtoValidator : AbstractValidator<CreateSampleDto>
     {
-        private readonly DatabaseContext _databaseContext;
+        private readonly IUserService _userService;
 
-        public CreateSampleDtoValidator(DatabaseContext databaseContext)
+        public CreateSampleDtoValidator(IUserService userService)
         {
-            _databaseContext = databaseContext;
+            _userService = userService;
 
             RuleFor(x => x.YarnName)
                 .NotEmpty().WithMessage("Nazwa włóczki nie może być pusta")
@@ -34,8 +33,8 @@ namespace KnitterNotebook.Validators
                 .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png lub usuń odnośnik do zdjęcia");
 
             RuleFor(x => x.UserId)
-             .MustAsync(async (value, cancellationToken) => await _databaseContext.Users.AnyAsync(x => x.Id == value, cancellationToken))
-             .WithMessage("Nie odnaleziono użytkownika");
+                .MustAsync(async (id, cancellationToken) => await _userService.UserExists(id))
+                .WithMessage("Nie odnaleziono użytkownika");
         }
     }
 }

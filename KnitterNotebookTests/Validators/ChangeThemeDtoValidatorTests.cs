@@ -4,9 +4,12 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
+using KnitterNotebook.Services;
+using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebookTests.HelpersForTesting;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace KnitterNotebookTests.Validators
 {
@@ -14,13 +17,18 @@ namespace KnitterNotebookTests.Validators
     {
         private readonly IValidator<ChangeThemeDto> _validator;
         private readonly DatabaseContext _databaseContext;
+        private readonly UserService _userService;
+        private readonly ThemeService _themeService;
+        private readonly Mock<IPasswordService> _passwordServiceMock = new();
 
         public ChangeThemeDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
             builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
             _databaseContext = new DatabaseContext(builder.Options);
-            _validator = new ChangeThemeDtoValidator(_databaseContext);
+            _themeService = new(_databaseContext);
+            _userService = new(_databaseContext, _themeService, _passwordServiceMock.Object);
+            _validator = new ChangeThemeDtoValidator(_userService, _themeService);
             SeedThemes();
         }
 

@@ -1,17 +1,18 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebook.Validators
 {
     public class CreateMovieUrlDtoValidator : AbstractValidator<CreateMovieUrlDto>
     {
-        private readonly DatabaseContext _databaseContext;
+        private readonly IUserService _userService;
 
-        public CreateMovieUrlDtoValidator(DatabaseContext databaseContext)
+        public CreateMovieUrlDtoValidator(IUserService userService)
         {
-            _databaseContext = databaseContext;
+            _userService = userService;
 
             RuleFor(x => x.Title)
                 .NotEmpty().WithMessage("Tytuł nie może być pusty");
@@ -20,7 +21,7 @@ namespace KnitterNotebook.Validators
                 .NotEmpty().WithMessage("Link do filmu nie może być pusty");
 
             RuleFor(dto => dto.UserId)
-                .MustAsync(async (id, cancellationToken) => await _databaseContext.Users.AnyAsync(x => x.Id == id, cancellationToken))
+                .MustAsync(async (id, cancellationToken) => await _userService.UserExists(id))
                 .WithMessage("Nie znaleziono użytkownika");
         }
     }

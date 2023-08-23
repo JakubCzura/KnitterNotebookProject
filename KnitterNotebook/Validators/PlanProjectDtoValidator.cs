@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -9,18 +10,19 @@ namespace KnitterNotebook.Validators
 {
     public class PlanProjectDtoValidator : AbstractValidator<PlanProjectDto>
     {
-        private readonly DatabaseContext _databaseContext;
+        private readonly IUserService _userService;
 
-        public PlanProjectDtoValidator(DatabaseContext databaseContext)
+        public PlanProjectDtoValidator(IUserService userService)
         {
-            _databaseContext = databaseContext;
+            _userService = userService;
 
             RuleFor(dto => dto.Name)
                 .NotEmpty().WithMessage("Nazwa projektu nie może być pusta")
                 .Length(1, 100).WithMessage("Długość nazwy projektu musi mieć 1-100 znaków");
 
+            //StartDate can be null, but if it's not null it must be greater or equal today
             RuleFor(dto => dto.StartDate)
-                .Must(x => x is null || x.HasValue && x.Value.Date.CompareTo(DateTime.Today) >= 0)
+                .Must(x => !x.HasValue || x.Value.Date.CompareTo(DateTime.Today) >= 0)
                 .WithMessage("Data rozpoczęcia projektu nie może być przed dzisiejszym dniem");
 
             RuleFor(dto => dto.Needles)
@@ -45,7 +47,7 @@ namespace KnitterNotebook.Validators
                 .WithMessage("Wybierz plik z poprawnym rozszerzeniem .pdf lub usuń odnośnik do wzoru");
 
             RuleFor(dto => dto.UserId)
-                .MustAsync(async (id, cancellationToken) => await _databaseContext.Users.AnyAsync(x => x.Id == id, cancellationToken))
+                .MustAsync(async (id, cancellationToken) => await _userService.UserExists(id))
                 .WithMessage("Nie znaleziono użytkownika");
         }
     }

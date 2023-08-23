@@ -4,7 +4,7 @@
     {
         public static string UserWithIdNotFound(int id) => $"Użytkownik z id {id} nie został znaleziony";
 
-        public static string UserWithNicknameOrEmailNotFound(string nicknameOrEmail) => $"Użytkownik o nicku lub e-mail {nicknameOrEmail} nie został znaleziony";
+        public static string UserWithEmailNotFound(string email) => $"Użytkownik z podanym e-mail {email} nie został znaleziony";
 
         public static string EntityWithIdNotFound(int id) => $"Rekord z id {id} nie został znaleziony";
 

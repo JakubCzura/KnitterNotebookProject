@@ -1,24 +1,25 @@
 ﻿using FluentValidation;
-using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
-using Microsoft.EntityFrameworkCore;
+using KnitterNotebook.Services.Interfaces;
 
 namespace KnitterNotebook.Validators
 {
     public class ChangeThemeDtoValidator : AbstractValidator<ChangeThemeDto>
     {
-        private readonly DatabaseContext _databaseContext;
+        private readonly IUserService _userService;
+        private readonly IThemeService _themeService;
 
-        public ChangeThemeDtoValidator(DatabaseContext databaseContext)
+        public ChangeThemeDtoValidator(IUserService userService, IThemeService themeService)
         {
-            _databaseContext = databaseContext;
+            _userService = userService;
+            _themeService = themeService;
 
             RuleFor(dto => dto.UserId)
-               .MustAsync(async (id, cancellationToken) => await _databaseContext.Users.AnyAsync(x => x.Id == id, cancellationToken))
+               .MustAsync(async (id, cancellationToken) => await _userService.UserExists(id))
                .WithMessage("Nie znaleziono użytkownika");
 
             RuleFor(dto => dto.ThemeName)
-              .MustAsync(async (value, cancellationToken) => await _databaseContext.Themes.AnyAsync(x => x.Name == value, cancellationToken))
+              .MustAsync(async (themeName, cancellationToken) => await _themeService.ThemeExists(themeName))
               .WithMessage("Nie znaleziono podanego motywu w bazie danych");
         }
     }

@@ -3,9 +3,12 @@ using FluentValidation.TestHelper;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
+using KnitterNotebook.Services;
+using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebookTests.HelpersForTesting;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace KnitterNotebookTests.Validators
 {
@@ -13,13 +16,16 @@ namespace KnitterNotebookTests.Validators
     {
         private readonly IValidator<CreateMovieUrlDto> _validator;
         private readonly DatabaseContext _databaseContext;
-
+        private readonly UserService _userService;
+        private readonly Mock<IThemeService> _themeServiceMock = new();
+        private readonly Mock<IPasswordService> _passwordServiceMock = new();
         public CreateMovieUrlDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
             builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
             _databaseContext = new DatabaseContext(builder.Options);
-            _validator = new CreateMovieUrlDtoValidator(_databaseContext);
+            _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object);
+            _validator = new CreateMovieUrlDtoValidator(_userService);
             SeedUsers();
         }
 

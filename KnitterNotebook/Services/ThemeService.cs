@@ -20,6 +20,8 @@ namespace KnitterNotebook.Services
             _databaseContext = databaseContext;
         }
 
+        public async Task<bool> ThemeExists(ApplicationTheme name) => await _databaseContext.Themes.AnyAsync(x => x.Name == name);
+
         /// <returns>Theme object if theme with given name was found otherwise null</returns>
         public async Task<Theme?> GetByNameAsync(ApplicationTheme name) => await _databaseContext.Themes.FirstOrDefaultAsync(x => x.Name == name);
 

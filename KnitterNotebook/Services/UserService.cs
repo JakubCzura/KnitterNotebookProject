@@ -23,6 +23,12 @@ namespace KnitterNotebook.Services
             _passwordService = passwordService;
         }
 
+        public async Task<bool> IsNicknameTaken(string nickname) => await _databaseContext.Users.AnyAsync(x => x.Nickname == nickname);
+
+        public async Task<bool> IsEmailTaken(string email) => await _databaseContext.Users.AnyAsync(x => x.Email == email);
+
+        public async Task<bool> UserExists(int id) => await _databaseContext.Users.AnyAsync(x => x.Id == id);
+
         /// <returns>User object if found in database otherwise null</returns>
         public new async Task<UserDto?> GetAsync(int id)
         {
@@ -105,8 +111,8 @@ namespace KnitterNotebook.Services
 
         public async Task ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
         {
-            User user = await _databaseContext.Users.FirstOrDefaultAsync(x => x.Email == resetPasswordDto.EmailOrNickname || x.Nickname == resetPasswordDto.EmailOrNickname)
-                        ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithNicknameOrEmailNotFound(resetPasswordDto.EmailOrNickname));
+            User user = await _databaseContext.Users.FirstOrDefaultAsync(x => x.Email == resetPasswordDto.Email)
+                        ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithEmailNotFound(resetPasswordDto.Email));
 
             user.Password = _passwordService.HashPassword(resetPasswordDto.NewPassword);
             _databaseContext.Users.Update(user);

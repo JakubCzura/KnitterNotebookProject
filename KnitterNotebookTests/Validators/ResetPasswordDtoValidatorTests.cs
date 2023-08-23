@@ -2,9 +2,12 @@
 using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
+using KnitterNotebook.Services;
+using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebookTests.HelpersForTesting;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace KnitterNotebookTests.Validators
 {
@@ -12,13 +15,16 @@ namespace KnitterNotebookTests.Validators
     {
         private readonly ResetPasswordDtoValidator _validator;
         private readonly DatabaseContext _databaseContext;
-
+        private readonly UserService _userService;
+        private readonly Mock<IThemeService> _ThemeServiceMock = new();
+        private readonly Mock<IPasswordService> _passwordServiceMock = new();
         public ResetPasswordDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
             builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
             _databaseContext = new DatabaseContext(builder.Options);
-            _validator = new ResetPasswordDtoValidator(_databaseContext);
+            _userService = new(_databaseContext, _ThemeServiceMock.Object, _passwordServiceMock.Object);
+            _validator = new ResetPasswordDtoValidator(_userService);
             SeedUsers();
         }
 
@@ -41,8 +47,6 @@ namespace KnitterNotebookTests.Validators
         {
             yield return new object[] { new ResetPasswordDto("nick1@mail.com", "PasswordNew123", "PasswordNew123") };
             yield return new object[] { new ResetPasswordDto("nick2@mail.com", "PasswordNew123", "PasswordNew123") };
-            yield return new object[] { new ResetPasswordDto("Nick1", "PasswordNew123", "PasswordNew123") };
-            yield return new object[] { new ResetPasswordDto("Nick2", "PasswordNew123", "PasswordNew123") };
         }
 
         private void SeedUsers()

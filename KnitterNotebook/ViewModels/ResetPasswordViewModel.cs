@@ -25,14 +25,14 @@ namespace KnitterNotebook.ViewModels
         private readonly IUserService _userService;
 
         [ObservableProperty]
-        private string _emailOrNickname = string.Empty;
+        private string _email = string.Empty;
 
         [RelayCommand]
         public async Task ResetPasswordAsync()
         {
             try
             {
-                ResetPasswordDto resetPasswordDto = new(EmailOrNickname,
+                ResetPasswordDto resetPasswordDto = new(Email,
                                                         ResetPasswordWindow.Instance.NewPasswordPasswordBox.Password,
                                                         ResetPasswordWindow.Instance.RepeatedNewPasswordPasswordBox.Password);
                 ValidationResult validation = await _resetPasswordDtoValidator.ValidateAsync(resetPasswordDto);
@@ -52,7 +52,7 @@ namespace KnitterNotebook.ViewModels
             }
             finally
             {
-                EmailOrNickname = string.Empty;
+                Email = string.Empty;
                 ResetPasswordWindow.Instance.NewPasswordPasswordBox.Password = string.Empty;
                 ResetPasswordWindow.Instance.RepeatedNewPasswordPasswordBox.Password = string.Empty;
             }

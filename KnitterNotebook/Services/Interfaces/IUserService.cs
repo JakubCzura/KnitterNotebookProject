@@ -6,6 +6,12 @@ namespace KnitterNotebook.Services.Interfaces
 {
     public interface IUserService : ICrudService<User>
     {
+        Task<bool> IsNicknameTaken(string nickname);
+
+        Task<bool> IsEmailTaken(string email);
+
+        Task<bool> UserExists(int id);
+
         Task<int?> LogInAsync(LogInDto logInDto);
 
         Task CreateAsync(RegisterUserDto data);

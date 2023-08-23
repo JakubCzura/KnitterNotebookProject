@@ -1,24 +1,25 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebook.Validators
 {
     public class ChangeEmailDtoValidator : AbstractValidator<ChangeEmailDto>
     {
-        private readonly DatabaseContext _databaseContext;
+        private readonly IUserService _userService;
 
-        public ChangeEmailDtoValidator(DatabaseContext databaseContext)
+        public ChangeEmailDtoValidator(IUserService userService)
         {
-            _databaseContext = databaseContext;
+            _userService = userService;
 
             RuleFor(dto => dto.UserId)
-                .MustAsync(async (id, cancellationToken) => await _databaseContext.Users.AnyAsync(x => x.Id == id, cancellationToken))
+                .MustAsync(async (id, cancellationToken) => await _userService.UserExists(id))
                 .WithMessage("Nie znaleziono użytkownika");
 
             RuleFor(x => x.Email)
-                .MustAsync(async (value, cancellationToken) => await _databaseContext.Users.AllAsync(x => x.Email != value, cancellationToken))
+                .MustAsync(async (email, cancellationToken) => !await _userService.IsEmailTaken(email))
                 .WithMessage("E-mail jest już używany")
                 .EmailAddress().WithMessage("Niepoprawny format e-mail");
         }
