@@ -5,43 +5,14 @@ namespace KnitterNotebookTests.Validators
 {
     public class FileExtensionValidatorTests
     {
-        public static IEnumerable<object[]> ImageValidData()
-        {
-            yield return new object[] { @"C:\Users\computer\Downloads\Image1.jpg" };
-            yield return new object[] { @"C:\Users\computer\Downloads\Image1.jPg" };
-            yield return new object[] { @"C:\Users\computer\Downloads\Image1.jPG" };
-            yield return new object[] { @"C:\Users\computer\Downloads\Image1.JpG" };
-            yield return new object[] { @"C:\Users\computer\Downloads\Image1.JPg" };
-            yield return new object[] { @"C:\computer\Files\Image2.jpeg" };
-            yield return new object[] { @"C:\computer\Files\Image3.png" };
-        }
-
-        public static IEnumerable<object[]> PdfValidData()
-        {
-            yield return new object[] { @"C:\Users\computer\Downloads\File.pdf" };
-            yield return new object[] { @"C:\Users\computer\Downloads\File.pDf" };
-            yield return new object[] { @"C:\Users\computer\Downloads\File.pDF" };
-            yield return new object[] { @"C:\Users\computer\Downloads\File.PdF" };
-            yield return new object[] { @"C:\Users\computer\Downloads\File.Pdf" };
-            yield return new object[] { @"C:\computer\Files\File1.pdf" };
-        }
-
-        public static IEnumerable<object[]> InvalidData()
-        {
-            yield return new object[] { @"C:\Computer\Files\Image1.mp3" };
-            yield return new object[] { @"C:\Computer\Files\Image2.mp4" };
-            yield return new object[] { @"C:\Computer\Files\Image3." };
-            yield return new object[] { @"C:\Computer\Files\Image4" };
-            yield return new object[] { @"C:\Computer\Files\Image4. jpg" };
-            yield return new object[] { @"C:\Computer\Files\Image4. pdf" };
-            yield return new object[] { @"C:\Computer\Files." };
-            yield return new object[] { string.Empty };
-            yield return new object[] { null! };
-        }
-
         [Theory]
-        [MemberData(nameof(ImageValidData))]
-        public void IsImage_ForValidData_PassValidation(string filePath)
+        [InlineData(@"C:\Users\computer\Downloads\Image1.jpg")]
+        [InlineData(@"C:\Users\Image1.jPG")]
+        [InlineData(@"C:\Users\computer\Downloads\Image1.JpG")]
+        [InlineData(@"C:\Users\computer\Downloads\Image1.JPg")]
+        [InlineData(@"C:\computer\Image2.jpeg")]
+        [InlineData(@"C:\computer\Files\Image2.png")]
+        public void IsImage_ForValidFilePath_PassValidation(string filePath)
         {
             //Act
             bool result = FileExtensionValidator.IsImage(filePath);
@@ -51,8 +22,17 @@ namespace KnitterNotebookTests.Validators
         }
 
         [Theory]
-        [MemberData(nameof(InvalidData))]
-        public void IsImage_ForInvalidData_FailValidation(string filePath)
+        [InlineData(null!)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(@"C:\Computer\Files\Image1.mp3\")]
+        [InlineData(@"C:\Computer\Files2\Imag2.mp4")]
+        [InlineData(@"C:\Files2\Image3.")]
+        [InlineData(@"C:\Computer\Files2\Image4")]
+        [InlineData(@"C:\Computer\Image4. jpg")]
+        [InlineData(@"C:\Files2\Image4. pdf")]
+        [InlineData(@"C:\Computer\Files.")]
+        public void IsImage_ForInvalidFilePath_FailValidation(string filePath)
         {
             //Act
             bool result = FileExtensionValidator.IsImage(filePath);
@@ -62,7 +42,11 @@ namespace KnitterNotebookTests.Validators
         }
 
         [Theory]
-        [MemberData(nameof(PdfValidData))]
+        [InlineData(@"C:\Users\computer\Downloads\PdfFile.pdf")]
+        [InlineData(@"C:\Users\computer\Downloads\FileName.pDF")]
+        [InlineData(@"C:\Users\PdfFile.PdF")]
+        [InlineData(@"C:\Users\Downloads\File2.Pdf")]
+        [InlineData(@"C:\Users\computer\Downloads\File1.pdf")]
         public void IsPdf_ForValidData_PassValidation(string filePath)
         {
             //Act
@@ -73,7 +57,16 @@ namespace KnitterNotebookTests.Validators
         }
 
         [Theory]
-        [MemberData(nameof(InvalidData))]
+        [InlineData(null!)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(@"C:\Desktop\MyDirectory\Image1.mp3\")]
+        [InlineData(@"C:\MyDirectory\Imag2.mp4")]
+        [InlineData(@"C:\Desktop\MyDirectory\Image3.")]
+        [InlineData(@"C:\Desktop\Image4")]
+        [InlineData(@"C:\Desktop\FiMyDirectoryles2\Image4. jpg")]
+        [InlineData(@"C:\MyDirectory\Image4. pdf")]
+        [InlineData(@"C:\Desktop\MyDirectory.")]
         public void IsPdf_ForInvalidData_FailValidation(string filePath)
         {
             //Act

@@ -18,6 +18,7 @@ namespace KnitterNotebookTests.Validators
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _themeServiceMock = new();
         private readonly Mock<IPasswordService> _paswordServiceMock = new();
+
         public ChangeEmailDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
@@ -56,7 +57,7 @@ namespace KnitterNotebookTests.Validators
             ChangeEmailDto changeEmailDto = new(userId, "email@email.com");
 
             //Act
-            var validationResult = await _validator.TestValidateAsync(changeEmailDto);
+            TestValidationResult<ChangeEmailDto> validationResult = await _validator.TestValidateAsync(changeEmailDto);
 
             //Assert
             validationResult.ShouldHaveValidationErrorFor(x => x.UserId);
@@ -77,7 +78,7 @@ namespace KnitterNotebookTests.Validators
             ChangeEmailDto changeEmailDto = new(1, email);
 
             //Act
-            var validationResult = await _validator.TestValidateAsync(changeEmailDto);
+            TestValidationResult<ChangeEmailDto> validationResult = await _validator.TestValidateAsync(changeEmailDto);
 
             //Assert
             validationResult.ShouldHaveValidationErrorFor(x => x.Email);
@@ -88,7 +89,7 @@ namespace KnitterNotebookTests.Validators
         public async Task ValidateAsync_ForValidData_PassValidation(ChangeEmailDto changeEmailDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(changeEmailDto);
+            TestValidationResult<ChangeEmailDto> validationResult = await _validator.TestValidateAsync(changeEmailDto);
 
             //Assert
             validationResult.ShouldNotHaveAnyValidationErrors();

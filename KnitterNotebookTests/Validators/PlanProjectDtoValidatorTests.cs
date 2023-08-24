@@ -19,6 +19,7 @@ namespace KnitterNotebookTests.Validators
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _themeServiceMock = new();
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
+
         public PlanProjectDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
@@ -82,7 +83,7 @@ namespace KnitterNotebookTests.Validators
         public async Task Validate_ForInvalidData_FailValidation(PlanProjectDto planProjectDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(planProjectDto);
+            TestValidationResult<PlanProjectDto> validationResult = await _validator.TestValidateAsync(planProjectDto);
 
             //Assert
             validationResult.ShouldHaveAnyValidationError();
@@ -93,7 +94,7 @@ namespace KnitterNotebookTests.Validators
         public async Task Validate_ForValidData_PassValidation(PlanProjectDto planProjectDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(planProjectDto);
+            TestValidationResult<PlanProjectDto> validationResult = await _validator.TestValidateAsync(planProjectDto);
 
             //Assert
             validationResult.ShouldNotHaveAnyValidationErrors();

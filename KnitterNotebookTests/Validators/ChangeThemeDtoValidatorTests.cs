@@ -64,7 +64,7 @@ namespace KnitterNotebookTests.Validators
         public async Task Validate_ForInvalidData_FailValidation(ChangeThemeDto changeThemeDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(changeThemeDto);
+            TestValidationResult<ChangeThemeDto> validationResult = await _validator.TestValidateAsync(changeThemeDto);
 
             //Assert
             validationResult.ShouldHaveAnyValidationError();
@@ -75,7 +75,7 @@ namespace KnitterNotebookTests.Validators
         public async Task Validate_ForValidData_PassValidation(ChangeThemeDto changeThemeDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(changeThemeDto);
+            TestValidationResult<ChangeThemeDto> validationResult = await _validator.TestValidateAsync(changeThemeDto);
 
             //Assert
             validationResult.ShouldNotHaveAnyValidationErrors();

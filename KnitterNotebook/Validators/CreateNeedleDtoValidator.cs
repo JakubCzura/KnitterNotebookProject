@@ -9,6 +9,9 @@ namespace KnitterNotebook.Validators
         {
             RuleFor(x => x.Size)
                 .InclusiveBetween(0.1, 100).WithMessage("Rozmiar drutu musi być z zakresu 0.1-100");
+
+            RuleFor(x => x.SizeUnit)
+                .IsInEnum().WithMessage("Proszę podać prawidłową jednostkę długości");
         }
     }
 }

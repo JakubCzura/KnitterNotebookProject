@@ -19,6 +19,7 @@ namespace KnitterNotebookTests.Validators
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _themeServiceMock = new();
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
+
         public CreateSampleDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
@@ -70,7 +71,7 @@ namespace KnitterNotebookTests.Validators
         public async Task Validate_ForInvalidData_FailValidation(CreateSampleDto createSampleDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(createSampleDto);
+            TestValidationResult<CreateSampleDto> validationResult = await _validator.TestValidateAsync(createSampleDto);
 
             //Assert
             validationResult.ShouldHaveAnyValidationError();
@@ -81,7 +82,7 @@ namespace KnitterNotebookTests.Validators
         public async Task Validate_ForValidData_PassValidation(CreateSampleDto createSampleDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(createSampleDto);
+            TestValidationResult<CreateSampleDto> validationResult = await _validator.TestValidateAsync(createSampleDto);
 
             //Assert
             validationResult.ShouldNotHaveAnyValidationErrors();

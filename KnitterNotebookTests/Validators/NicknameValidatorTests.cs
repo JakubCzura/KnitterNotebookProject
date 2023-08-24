@@ -13,7 +13,7 @@ namespace KnitterNotebookTests.Validators
             _validator = new NicknameValidator();
         }
 
-        public static IEnumerable<object[]> InvalidData()
+        public static IEnumerable<object[]> InvalidNicknames()
         {
             yield return new object[] { string.Empty };
             yield return new object[] { "" };
@@ -29,28 +29,19 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new string('K', 51) };
         }
 
-        public static IEnumerable<object[]> ValidData()
-        {
-            yield return new object[] { "Nickname" };
-            yield return new object[] { "Nickname1" };
-            yield return new object[] { "1Nickname1" };
-            yield return new object[] { "11231Nickname" };
-            yield return new object[] { "12221" };
-        }
-
         [Theory]
-        [MemberData(nameof(InvalidData))]
-        public void Validate_ForInvalidData_FailValidation(string nickanem)
+        [MemberData(nameof(InvalidNicknames))]
+        public void Validate_ForInvalidNickname_FailValidation(string nickname)
         {
             //Act
-            var validationResult = _validator.TestValidate(nickanem);
+            TestValidationResult<string> validationResult = _validator.TestValidate(nickname);
 
             //Assert
             validationResult.ShouldHaveAnyValidationError();
         }
 
         [Fact]
-        public void Validate_ForNullData_ThrowArgumentNullException()
+        public void Validate_ForNullNickname_ThrowArgumentNullException()
         {
             string nickname = null!;
 
@@ -62,11 +53,15 @@ namespace KnitterNotebookTests.Validators
         }
 
         [Theory]
-        [MemberData(nameof(ValidData))]
-        public void Validate_ForValidData_PassValidation(string nickname)
+        [InlineData("Name")]
+        [InlineData("Nickname1")]
+        [InlineData("1Name1")]
+        [InlineData("13212MyName")]
+        [InlineData("122141")]
+        public void Validate_ForValidNickname_PassValidation(string nickname)
         {
             //Act
-            var validationResult = _validator.TestValidate(nickname);
+            TestValidationResult<string> validationResult = _validator.TestValidate(nickname);
 
             //Assert
             validationResult.ShouldNotHaveAnyValidationErrors();

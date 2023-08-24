@@ -37,7 +37,7 @@ namespace KnitterNotebookTests.Helpers.Filters
         public void GetNeedlesWithPositiveSizeValue_ForValidData_ReturnsFilteredData(NullableSizeNeedle[] needles, NullableSizeNeedle[] expected)
         {
             //Act
-            var result = NullableSizeNeedlesFilter.GetNeedlesWithPositiveSizeValue(needles);
+            IEnumerable<NullableSizeNeedle> result = NullableSizeNeedlesFilter.GetNeedlesWithPositiveSizeValue(needles);
 
             //Assert
             result.Should().BeEquivalentTo(expected);

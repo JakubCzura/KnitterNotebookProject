@@ -16,8 +16,9 @@ namespace KnitterNotebookTests.Validators
         private readonly ChangeNicknameDtoValidator _validator;
         private readonly DatabaseContext _databaseContext;
         private readonly UserService _userService;
-        private readonly Mock<IThemeService> _themeServiceMock= new();
+        private readonly Mock<IThemeService> _themeServiceMock = new();
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
+
         public ChangeNicknameDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
@@ -56,7 +57,7 @@ namespace KnitterNotebookTests.Validators
             ChangeNicknameDto changeNicknameDto = new(userId, "Nick1");
 
             //Act
-            var validationResult = await _validator.TestValidateAsync(changeNicknameDto);
+            TestValidationResult<ChangeNicknameDto> validationResult = await _validator.TestValidateAsync(changeNicknameDto);
 
             //Assert
             validationResult.ShouldHaveValidationErrorFor(x => x.UserId);
@@ -74,19 +75,18 @@ namespace KnitterNotebookTests.Validators
             ChangeNicknameDto changeNicknameDto = new(1, nickname);
 
             //Act
-            var validationResult = await _validator.TestValidateAsync(changeNicknameDto);
+            TestValidationResult<ChangeNicknameDto> validationResult = await _validator.TestValidateAsync(changeNicknameDto);
 
             //Assert
             validationResult.ShouldHaveValidationErrorFor(x => x.Nickname);
-        }   
-
+        }
 
         [Theory]
         [MemberData(nameof(ValidData))]
         public async Task ValidateAsync_ForValidData_PassValidation(ChangeNicknameDto changeNicknameDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(changeNicknameDto);
+            TestValidationResult<ChangeNicknameDto> validationResult = await _validator.TestValidateAsync(changeNicknameDto);
 
             //Assert
             validationResult.ShouldNotHaveAnyValidationErrors();

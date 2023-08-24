@@ -18,6 +18,7 @@ namespace KnitterNotebookTests.Validators
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _themeServiceMock = new();
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
+
         public RegisterUserDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
@@ -26,34 +27,6 @@ namespace KnitterNotebookTests.Validators
             _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object);
             _validator = new RegisterUserDtoValidator(_userService);
             SeedUsers();
-        }
-
-        public static IEnumerable<object[]> InvalidData()
-        {
-            yield return new object[] { new RegisterUserDto(null!, "valid@email.com", "ValidPassword123@#") };
-            yield return new object[] { new RegisterUserDto("", "valid@email.com", "ValidPassword123@#") };
-            yield return new object[] { new RegisterUserDto(new string('K', 51), "valid@email.com", "ValidPassword123@#") };
-            yield return new object[] { new RegisterUserDto(new string('K', 51), "valid@email.com", "ValidPassword123@#") };
-            yield return new object[] { new RegisterUserDto("Nick1", "valid@email.com", "ValidPassword123@#") };
-            yield return new object[] { new RegisterUserDto("Nick2", "valid@email.com", "ValidPassword123@#") };
-            yield return new object[] { new RegisterUserDto("Valid Nick", "", "ValidPassword123@#") };
-            yield return new object[] { new RegisterUserDto("Valid Nick", null!, "ValidPassword123@#") };
-            yield return new object[] { new RegisterUserDto("Valid Nick", "nick1@mail.com", "ValidPassword123@#") };
-            yield return new object[] { new RegisterUserDto("Valid Nick", "nick2@mail.com", "ValidPassword123@#") };
-            yield return new object[] { new RegisterUserDto("Valid Nick", new string('K', 51) + "@mail.com", "ValidPassword123@#") };
-            yield return new object[] { new RegisterUserDto("Valid Nick", "mail.com", "ValidPassword123@#") };
-            yield return new object[] { new RegisterUserDto("Valid Nick", "validemail@mail.com", "") };
-            yield return new object[] { new RegisterUserDto("Valid Nick", "validemail@mail.com", null!) };
-            yield return new object[] { new RegisterUserDto("Valid Nick", "validemail@mail.com", new string('K', 5)) };
-            yield return new object[] { new RegisterUserDto("Valid Nick", "validemail@mail.com", "kkdsgkkK") };
-            yield return new object[] { new RegisterUserDto("Valid Nick", "validemail@mail.com", "KKDAS75645") };
-            yield return new object[] { new RegisterUserDto("Valid Nick", "validemail@mail.com", "6542345") };
-        }
-
-        public static IEnumerable<object[]> ValidData()
-        {
-            yield return new object[] { new RegisterUserDto("ValidNickname", "uservalidemail@mail.com", "Pass123@word") };
-            yield return new object[] { new RegisterUserDto("Nickname", "emailuser@mail.com", "Strong321@xSd") };
         }
 
         private void SeedUsers()
@@ -67,15 +40,10 @@ namespace KnitterNotebookTests.Validators
             _databaseContext.SaveChanges();
         }
 
-        [Theory]
-        [MemberData(nameof(InvalidData))]
-        public async Task ValidateAsync_ForInvalidData_FailValidation(RegisterUserDto registerUserDto)
+        public static IEnumerable<object[]> ValidData()
         {
-            //Act
-            var validationResult = await _validator.TestValidateAsync(registerUserDto);
-
-            //Assert
-            validationResult.ShouldHaveAnyValidationError();
+            yield return new object[] { new RegisterUserDto("ValidNickname", "uservalidemail@mail.com", "Pass123@word") };
+            yield return new object[] { new RegisterUserDto("Nickname", "emailuser@mail.com", "Strong321@xSd") };
         }
 
         [Theory]
@@ -83,10 +51,62 @@ namespace KnitterNotebookTests.Validators
         public async Task ValidateAsync_ForValidData_PassValidation(RegisterUserDto registerUserDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(registerUserDto);
+            TestValidationResult<RegisterUserDto> validationResult = await _validator.TestValidateAsync(registerUserDto);
 
             //Assert
             validationResult.ShouldNotHaveAnyValidationErrors();
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("^")]
+        [InlineData("Nick1")] //Nickname already exists in SeedUsers()
+        [InlineData("Nick2")] //Nickname already exists in SeedUsers()
+        public async Task ValidateAsync_ForInvalidNickname_FailValidation(string nickname)
+        {
+            //Arrange
+            RegisterUserDto registerUserDto = new(nickname, "validemail@email.com", "ValidPassword123^");
+
+            //Act
+            TestValidationResult<RegisterUserDto> validationResult = await _validator.TestValidateAsync(registerUserDto);
+
+            //Assert
+            validationResult.ShouldHaveValidationErrorFor(x => x.Nickname);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("test")]
+        [InlineData("nick1@mail.com")] //Email already exists in SeedUsers()
+        [InlineData("nick2@mail.com")] //Email already exists in SeedUsers()
+        public async Task ValidateAsync_ForInvalidEmail_FailValidation(string email)
+        {
+            //Arrange
+            RegisterUserDto registerUserDto = new("Valid nickname", email, "ValidPassword123^");
+
+            //Act
+            TestValidationResult<RegisterUserDto> validationResult = await _validator.TestValidateAsync(registerUserDto);
+
+            //Assert
+            validationResult.ShouldHaveValidationErrorFor(x => x.Email);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("password6")]
+        public async Task ValidateAsync_ForInvalidPassword_FailValidation(string password)
+        {
+            //Arrange
+            RegisterUserDto registerUserDto = new("Valid nickname", "validemail@email.com", password);
+
+            //Act
+            TestValidationResult<RegisterUserDto> validationResult = await _validator.TestValidateAsync(registerUserDto);
+
+            //Assert
+            validationResult.ShouldHaveValidationErrorFor(x => x.Password);
         }
     }
 }

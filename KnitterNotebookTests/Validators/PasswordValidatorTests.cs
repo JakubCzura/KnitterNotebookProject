@@ -13,6 +13,20 @@ namespace KnitterNotebookTests.Validators
             _validator = new PasswordValidator();
         }
 
+        [Theory]
+        [InlineData("ValidPassword1")]
+        [InlineData("ValidPassword1@")]
+        [InlineData("PasswordAccepted123@")]
+        [InlineData("P123123@k")]
+        public void Validate_ForValidPassword_PassValidation(string password)
+        {
+            //Act
+            TestValidationResult<string> validationResult = _validator.TestValidate(password);
+
+            //Assert
+            validationResult.ShouldNotHaveAnyValidationErrors();
+        }
+
         public static IEnumerable<object[]> InvalidData()
         {
             yield return new object[] { string.Empty };
@@ -32,20 +46,12 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { new string('K', 51) };
         }
 
-        public static IEnumerable<object[]> ValidData()
-        {
-            yield return new object[] { "ValidPassword1" };
-            yield return new object[] { "ValidPassword1@" };
-            yield return new object[] { "PasswordAccepted123@" };
-            yield return new object[] { "P123123@k" };
-        }
-
         [Theory]
         [MemberData(nameof(InvalidData))]
-        public void Validate_ForInvalidData_FailValidation(string password)
+        public void Validate_ForInvalidPassword_FailValidation(string password)
         {
             //Act
-            var validationResult = _validator.TestValidate(password);
+            TestValidationResult<string> validationResult = _validator.TestValidate(password);
 
             //Assert
             validationResult.ShouldHaveAnyValidationError();
@@ -54,6 +60,7 @@ namespace KnitterNotebookTests.Validators
         [Fact]
         public void Validate_ForNullData_FailValidation()
         {
+            //Arrange
             string password = null!;
 
             //Act
@@ -61,17 +68,6 @@ namespace KnitterNotebookTests.Validators
 
             //Assert
             action.Should().Throw<ArgumentNullException>();
-        }
-
-        [Theory]
-        [MemberData(nameof(ValidData))]
-        public void Validate_ForValidData_PassValidation(string password)
-        {
-            //Act
-            var validationResult = _validator.TestValidate(password);
-
-            //Assert
-            validationResult.ShouldNotHaveAnyValidationErrors();
         }
     }
 }

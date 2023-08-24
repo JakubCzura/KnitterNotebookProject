@@ -8,6 +8,7 @@ namespace KnitterNotebook.Validators
         public PasswordValidator()
         {
             RuleFor(password => password)
+                .NotNull().WithMessage("Wartość nie może być pusta")
                 .Length(6, 50).WithMessage("Hasło musi mieć 6-50 znaków")
                 .Must(y => y.Any(char.IsDigit)).WithMessage("Hasło musi zawierać conajmniej jedną cyfrę")
                 .Must(y => y.Any(char.IsAsciiLetterLower)).WithMessage("Hasło musi zawierać conajmniej jedną małą literę")

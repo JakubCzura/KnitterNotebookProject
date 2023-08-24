@@ -1,8 +1,6 @@
 ﻿using FluentValidation;
-using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -43,7 +41,7 @@ namespace KnitterNotebook.Validators
                 .MaximumLength(300).WithMessage("Długość opisu nie może być większa niż 300 znaków");
 
             RuleFor(x => x.SourcePatternPdfPath)
-                .Must(x => x is null || PdfExtensionValidator.IsPdf(x))
+                .Must(x => x is null || FileExtensionValidator.IsPdf(x))
                 .WithMessage("Wybierz plik z poprawnym rozszerzeniem .pdf lub usuń odnośnik do wzoru");
 
             RuleFor(dto => dto.UserId)

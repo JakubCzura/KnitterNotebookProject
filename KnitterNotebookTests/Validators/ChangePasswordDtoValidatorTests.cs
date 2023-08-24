@@ -88,7 +88,7 @@ namespace KnitterNotebookTests.Validators
         public async Task ValidateAsync_ForInvalidData_FailValidation(ChangePasswordDto changePasswordDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(changePasswordDto);
+            TestValidationResult<ChangePasswordDto> validationResult = await _validator.TestValidateAsync(changePasswordDto);
 
             //Assert
             validationResult.ShouldHaveAnyValidationError();
@@ -99,7 +99,7 @@ namespace KnitterNotebookTests.Validators
         public async Task ValidateAsync_ForValidData_PassValidation(ChangePasswordDto changePasswordDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(changePasswordDto);
+            TestValidationResult<ChangePasswordDto> validationResult = await _validator.TestValidateAsync(changePasswordDto);
 
             //Assert
             validationResult.ShouldNotHaveAnyValidationErrors();

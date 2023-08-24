@@ -3,7 +3,7 @@ using KnitterNotebook.Models.Dtos;
 
 namespace KnitterNotebook.Validators
 {
-    internal class CreateYarnDtoValidator : AbstractValidator<CreateYarnDto>
+    public class CreateYarnDtoValidator : AbstractValidator<CreateYarnDto>
     {
         public CreateYarnDtoValidator()
         {

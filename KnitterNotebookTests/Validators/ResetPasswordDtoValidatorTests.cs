@@ -18,6 +18,7 @@ namespace KnitterNotebookTests.Validators
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _ThemeServiceMock = new();
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
+
         public ResetPasswordDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
@@ -65,7 +66,7 @@ namespace KnitterNotebookTests.Validators
         public async Task ValidateAsync_ForInvalidData_FailValidation(ResetPasswordDto resetPasswordDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(resetPasswordDto);
+            TestValidationResult<ResetPasswordDto> validationResult = await _validator.TestValidateAsync(resetPasswordDto);
 
             //Assert
             validationResult.ShouldHaveAnyValidationError();
@@ -76,7 +77,7 @@ namespace KnitterNotebookTests.Validators
         public async Task ValidateAsync_ForValidData_PassValidation(ResetPasswordDto resetPasswordDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(resetPasswordDto);
+            TestValidationResult<ResetPasswordDto> validationResult = await _validator.TestValidateAsync(resetPasswordDto);
 
             //Assert
             validationResult.ShouldNotHaveAnyValidationErrors();

@@ -19,6 +19,7 @@ namespace KnitterNotebookTests.Validators
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _themeServiceMock = new();
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
+
         public CreateMovieUrlDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
@@ -62,7 +63,7 @@ namespace KnitterNotebookTests.Validators
         public async Task ValidateAsync_ForInvalidData_FailValidation(CreateMovieUrlDto createMovieUrlDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(createMovieUrlDto);
+            TestValidationResult<CreateMovieUrlDto> validationResult = await _validator.TestValidateAsync(createMovieUrlDto);
 
             //Assert
             validationResult.ShouldHaveAnyValidationError();
@@ -73,7 +74,7 @@ namespace KnitterNotebookTests.Validators
         public async Task ValidateAsync_ForValidData_PassValidation(CreateMovieUrlDto createMovieUrlDto)
         {
             //Act
-            var validationResult = await _validator.TestValidateAsync(createMovieUrlDto);
+            TestValidationResult<CreateMovieUrlDto> validationResult = await _validator.TestValidateAsync(createMovieUrlDto);
 
             //Assert
             validationResult.ShouldNotHaveAnyValidationErrors();
