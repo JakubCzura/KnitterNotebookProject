@@ -7,7 +7,7 @@ namespace KnitterNotebook.Services.Interfaces
 {
     public interface IThemeService : ICrudService<Theme>
     {
-        Task<bool> ThemeExists(ApplicationTheme name);
+        Task<bool> ThemeExistsAsync(ApplicationTheme name);
 
         Task<Theme?> GetByNameAsync(ApplicationTheme name);
 

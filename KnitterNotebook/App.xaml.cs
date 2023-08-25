@@ -50,6 +50,7 @@ namespace KnitterNotebook
                     services.AddScoped<IValidator<ResetPasswordDto>, ResetPasswordDtoValidator>();
                     services.AddScoped<IValidator<PlanProjectDto>, PlanProjectDtoValidator>();
                     services.AddScoped<IValidator<LogInDto>, LogInDtoValidator>();
+                    services.AddScoped<IValidator<CreateProjectImageDto>, CreateProjectImageDtoValidator>();
                     services.AddScoped<IMovieUrlService, MovieUrlService>();
                     services.AddScoped<IUserService, UserService>();
                     services.AddScoped<IThemeService, ThemeService>();

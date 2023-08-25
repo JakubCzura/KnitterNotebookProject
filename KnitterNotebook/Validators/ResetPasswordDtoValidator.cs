@@ -18,7 +18,7 @@ namespace KnitterNotebook.Validators
               .Equal(x => x.RepeatedNewPassword).WithMessage("Nowe hasło ma dwie różne wartości");
 
             RuleFor(x => x.Email)
-              .MustAsync(async (email, cancellationToken) => await _userService.IsEmailTaken(email))
+              .MustAsync(async (email, cancellationToken) => await _userService.IsEmailTakenAsync(email))
               .WithMessage("E-mail nie pasuje do żadnego użytkownika");
         }
     }

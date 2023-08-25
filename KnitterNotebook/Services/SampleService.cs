@@ -15,14 +15,13 @@ namespace KnitterNotebook.Services
     public class SampleService : CrudService<Sample>, ISampleService
     {
         private readonly DatabaseContext _databaseContext;
+        private readonly IUserService _userService;
 
         public SampleService(DatabaseContext databaseContext, IUserService userService) : base(databaseContext)
         {
             _databaseContext = databaseContext;
             _userService = userService;
         }
-
-        private readonly IUserService _userService;
 
         public async Task<bool> CreateAsync(CreateSampleDto createSampleDto)
         {

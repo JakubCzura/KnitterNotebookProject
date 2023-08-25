@@ -180,7 +180,7 @@
                 MaxWidth="600"
                 MaxHeight="600"
                 Margin="5,5,5,5"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 Source="{Binding SelectedProjectInProgressImage.Path, TargetNullValue={x:Null}}" />
             <!--  TargetNullValue={x:Null} prevents errors from xaml when Path is null  -->
         </Border>

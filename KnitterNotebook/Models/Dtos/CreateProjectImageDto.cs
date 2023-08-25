@@ -1,4 +1,4 @@
 ﻿namespace KnitterNotebook.Models.Dtos
 {
-    public record CreateProjectImageDto(int ProjectId, string ImagePath);
+    public record CreateProjectImageDto(int ProjectId, string ImagePath, int UserId);
 }

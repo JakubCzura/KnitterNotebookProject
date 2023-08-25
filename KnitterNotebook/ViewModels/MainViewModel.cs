@@ -255,10 +255,10 @@ namespace KnitterNotebook.ViewModels
                 _themeService.ReplaceTheme(User.ThemeName, ApplicationTheme.Default);
 
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
-                if (Samples is not null)
-                {
-                    FileHelper.DeleteUnusedUserImages(Samples, User.Nickname);
-                }
+                //if (Samples is not null)
+                //{
+                //    FileHelper.DeleteUnusedUserImages(Samples, User.Nickname);
+                //}
             }
             catch (Exception exception)
             {

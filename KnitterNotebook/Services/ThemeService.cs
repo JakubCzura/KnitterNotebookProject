@@ -20,7 +20,7 @@ namespace KnitterNotebook.Services
             _databaseContext = databaseContext;
         }
 
-        public async Task<bool> ThemeExists(ApplicationTheme name) => await _databaseContext.Themes.AnyAsync(x => x.Name == name);
+        public async Task<bool> ThemeExistsAsync(ApplicationTheme name) => await _databaseContext.Themes.AnyAsync(x => x.Name == name);
 
         /// <returns>Theme object if theme with given name was found otherwise null</returns>
         public async Task<Theme?> GetByNameAsync(ApplicationTheme name) => await _databaseContext.Themes.FirstOrDefaultAsync(x => x.Name == name);
@@ -28,8 +28,8 @@ namespace KnitterNotebook.Services
         /// <summary>
         /// Adds new theme's resource dictionary to merged dictionaries and deletes old theme's resource dictionary if oldResourceDictionaryFullPath is not null
         /// </summary>
-        /// <param name="newResourceDictionaryFullPath">Full path with extension of new theme's resource dictionary</param>
-        /// <param name="oldResourceDictionaryFullPath">Full path with extension of old theme's resource dictionary or null if there is no need to delete to delete the dictionary</param>
+        /// <param name="newThemeName">Full path with extension of new theme's resource dictionary</param>
+        /// <param name="oldThemeName">Full path with extension of old theme's resource dictionary or null if there is no need to delete to delete the dictionary</param>
         public void ReplaceTheme(ApplicationTheme newThemeName, ApplicationTheme? oldThemeName = null)
         {
             string newThemeFullPath = Paths.ThemeFullPath(newThemeName);

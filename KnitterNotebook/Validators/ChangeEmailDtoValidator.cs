@@ -13,12 +13,12 @@ namespace KnitterNotebook.Validators
             _userService = userService;
 
             RuleFor(dto => dto.UserId)
-                .MustAsync(async (id, cancellationToken) => await _userService.UserExists(id))
+                .MustAsync(async (id, cancellationToken) => await _userService.UserExistsAsync(id))
                 .WithMessage("Nie znaleziono użytkownika");
 
             RuleFor(x => x.Email)
                 .NotNull().WithMessage("Wartość nie może być pusta")
-                .MustAsync(async (email, cancellationToken) => !await _userService.IsEmailTaken(email))
+                .MustAsync(async (email, cancellationToken) => !await _userService.IsEmailTakenAsync(email))
                 .WithMessage("E-mail jest już używany")
                 .EmailAddress().WithMessage("Niepoprawny format e-mail");
         }

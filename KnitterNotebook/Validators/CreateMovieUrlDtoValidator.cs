@@ -19,7 +19,7 @@ namespace KnitterNotebook.Validators
                 .NotEmpty().WithMessage("Link do filmu nie może być pusty");
 
             RuleFor(dto => dto.UserId)
-                .MustAsync(async (id, cancellationToken) => await _userService.UserExists(id))
+                .MustAsync(async (id, cancellationToken) => await _userService.UserExistsAsync(id))
                 .WithMessage("Nie znaleziono użytkownika");
         }
     }

@@ -45,7 +45,7 @@ namespace KnitterNotebook.Validators
                 .WithMessage("Wybierz plik z poprawnym rozszerzeniem .pdf lub usuń odnośnik do wzoru");
 
             RuleFor(dto => dto.UserId)
-                .MustAsync(async (id, cancellationToken) => await _userService.UserExists(id))
+                .MustAsync(async (id, cancellationToken) => await _userService.UserExistsAsync(id))
                 .WithMessage("Nie znaleziono użytkownika");
         }
     }

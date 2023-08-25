@@ -8,6 +8,8 @@ namespace KnitterNotebook.Services.Interfaces
 {
     public interface IProjectService : ICrudService<Project>
     {
+        Task<bool> ProjectExistsAsync(int id);
+
         Task PlanProjectAsync(PlanProjectDto planProjectDto);
 
         Task<List<Project>> GetUserProjectsAsync(int userId);

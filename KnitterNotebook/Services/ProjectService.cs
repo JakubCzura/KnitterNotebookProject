@@ -18,6 +18,7 @@ namespace KnitterNotebook.Services
     public class ProjectService : CrudService<Project>, IProjectService
     {
         private readonly DatabaseContext _databaseContext;
+        private readonly IUserService _userService;
 
         public ProjectService(DatabaseContext databaseContext, IUserService userService) : base(databaseContext)
         {
@@ -25,11 +26,11 @@ namespace KnitterNotebook.Services
             _userService = userService;
         }
 
-        private readonly IUserService _userService;
+        public async Task<bool> ProjectExistsAsync(int id) => await _databaseContext.Projects.AnyAsync(x => x.Id == id);
 
         public async Task PlanProjectAsync(PlanProjectDto planProjectDto)
         {
-            string? nickname = await _userService.GetNicknameAsync(LoggedUserInformation.Id);
+            string? nickname = await _userService.GetNicknameAsync(planProjectDto.UserId);
             string? destinationPatternPdfPath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(planProjectDto.SourcePatternPdfPath));
 
             List<Needle> needles = planProjectDto.Needles.Select(x => new Needle(x.Size, x.SizeUnit)).ToList();

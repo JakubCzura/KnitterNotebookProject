@@ -33,7 +33,7 @@ namespace KnitterNotebook.Validators
                 .WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png lub usuń odnośnik do zdjęcia");
 
             RuleFor(x => x.UserId)
-                .MustAsync(async (id, cancellationToken) => await _userService.UserExists(id))
+                .MustAsync(async (id, cancellationToken) => await _userService.UserExistsAsync(id))
                 .WithMessage("Nie odnaleziono użytkownika");
         }
     }

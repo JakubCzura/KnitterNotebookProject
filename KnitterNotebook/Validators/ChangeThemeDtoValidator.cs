@@ -15,11 +15,11 @@ namespace KnitterNotebook.Validators
             _themeService = themeService;
 
             RuleFor(dto => dto.UserId)
-               .MustAsync(async (id, cancellationToken) => await _userService.UserExists(id))
+               .MustAsync(async (id, cancellationToken) => await _userService.UserExistsAsync(id))
                .WithMessage("Nie znaleziono użytkownika");
 
             RuleFor(dto => dto.ThemeName)
-              .MustAsync(async (themeName, cancellationToken) => await _themeService.ThemeExists(themeName))
+              .MustAsync(async (themeName, cancellationToken) => await _themeService.ThemeExistsAsync(themeName))
               .WithMessage("Nie znaleziono podanego motywu w bazie danych");
         }
     }

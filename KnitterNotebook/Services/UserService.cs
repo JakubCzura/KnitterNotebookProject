@@ -23,11 +23,11 @@ namespace KnitterNotebook.Services
             _passwordService = passwordService;
         }
 
-        public async Task<bool> IsNicknameTaken(string nickname) => await _databaseContext.Users.AnyAsync(x => x.Nickname == nickname);
+        public async Task<bool> IsNicknameTakenAsync(string nickname) => await _databaseContext.Users.AnyAsync(x => x.Nickname == nickname);
 
-        public async Task<bool> IsEmailTaken(string email) => await _databaseContext.Users.AnyAsync(x => x.Email == email);
+        public async Task<bool> IsEmailTakenAsync(string email) => await _databaseContext.Users.AnyAsync(x => x.Email == email);
 
-        public async Task<bool> UserExists(int id) => await _databaseContext.Users.AnyAsync(x => x.Id == id);
+        public async Task<bool> UserExistsAsync(int id) => await _databaseContext.Users.AnyAsync(x => x.Id == id);
 
         /// <returns>User object if found in database otherwise null</returns>
         public new async Task<UserDto?> GetAsync(int id)
