@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
-using KnitterNotebook.Helpers;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
@@ -14,7 +13,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -138,6 +136,19 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
+        private string _filterFinishedProjectName = string.Empty;
+
+        public string FilterFinishedProjectName
+        {
+            get => _filterFinishedProjectName;
+            set
+            {
+                _filterFinishedProjectName = value;
+                OnPropertyChanged(nameof(FilterFinishedProjectName));
+                FinishedProjectsCollectionView.Refresh();
+            }
+        }
+
         [ObservableProperty]
         private ObservableCollection<MovieUrlDto> _movieUrls = new();
 
@@ -171,6 +182,21 @@ namespace KnitterNotebook.ViewModels
                 ProjectsInProgressCollectionView = CollectionViewSource.GetDefaultView(ProjectsInProgress);
                 ProjectsInProgressCollectionView.Filter = new Predicate<object>(x => ProjectsFilter.FilterByName<ProjectInProgressDto>(x, FilterProjectInProgressName));
                 OnPropertyChanged(nameof(ProjectsInProgressCollectionView));
+            }
+        }
+
+        private ObservableCollection<FinishedProjectDto> _finishedProjects = new();
+
+        public ObservableCollection<FinishedProjectDto> FinishedProjects
+        {
+            get => _finishedProjects;
+            set
+            {
+                _finishedProjects = value;
+                OnPropertyChanged(nameof(FinishedProjects));
+                FinishedProjectsCollectionView = CollectionViewSource.GetDefaultView(FinishedProjects);
+                FinishedProjectsCollectionView.Filter = new Predicate<object>(x => ProjectsFilter.FilterByName<FinishedProjectDto>(x, FilterFinishedProjectName));
+                OnPropertyChanged(nameof(FinishedProjectsCollectionView));
             }
         }
 
@@ -220,6 +246,7 @@ namespace KnitterNotebook.ViewModels
         public ICollectionView SamplesCollectionView { get; set; }
         public ICollectionView PlannedProjectsCollectionView { get; set; }
         public ICollectionView ProjectsInProgressCollectionView { get; set; }
+        public ICollectionView FinishedProjectsCollectionView { get; set; }
 
         public string SelectedSampleMashesXRows => SelectedSample is not null ? $"{SelectedSample.LoopsQuantity}x{SelectedSample.RowsQuantity}" : "";
 
@@ -272,7 +299,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                if (SelectedMovieUrl?.Id > 0)
+                if (SelectedMovieUrl is not null)
                 {
                     await _movieUrlService.DeleteAsync(SelectedMovieUrl.Id);
                     MovieUrls.Remove(SelectedMovieUrl);
@@ -289,7 +316,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                if (SelectedSample?.Id > 0)
+                if (SelectedSample is not null)
                 {
                     await _sampleService.DeleteAsync(SelectedSample.Id);
                     Samples.Remove(SelectedSample);
@@ -322,7 +349,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                if (SelectedPlannedProject?.Id > 0)
+                if (SelectedPlannedProject is not null)
                 {
                     await _projectService.DeleteAsync(SelectedPlannedProject.Id);
                     PlannedProjects = (await _projectService.GetUserPlannedProjectsAsync(User.Id)).ToObservableCollection();
@@ -335,11 +362,53 @@ namespace KnitterNotebook.ViewModels
         }
 
         [RelayCommand]
+        private async Task DeleteProjectInProgressAsync()
+        {
+            try
+            {
+                if (SelectedProjectInProgress is not null)
+                {
+                    await _projectService.DeleteAsync(SelectedProjectInProgress.Id);
+                    ProjectsInProgress = (await _projectService.GetUserProjectsInProgressAsync(User.Id)).ToObservableCollection();
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Błąd skasowania projektu w trakcie");
+            }
+        }
+
+        [RelayCommand]
+        private async Task MoveProjectInProgressToPlannedProjectsAsync()
+        {
+            try
+            {
+                if (SelectedProjectInProgress is not null)
+                {
+                    int projectId = SelectedProjectInProgress.Id;
+
+                    await _projectService.ChangeProjectStatus(LoggedUserInformation.Id, SelectedProjectInProgress.Id, ProjectStatusName.Planned);
+                    ProjectsInProgress.Remove(SelectedProjectInProgress);
+
+                    PlannedProjectDto? project = await _projectService.GetPlannedProjectAsync(projectId);
+                    if (project is not null)
+                    {
+                        PlannedProjects.Add(project);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Błąd przeniesienia projektu do planowanych projektów");
+            }
+        }
+
+        [RelayCommand]
         private async Task StartPlannedProjectAsync()
         {
             try
             {
-                if (SelectedPlannedProject?.Id > 0)
+                if (SelectedPlannedProject is not null)
                 {
                     int projectId = SelectedPlannedProject.Id;
 
@@ -361,6 +430,52 @@ namespace KnitterNotebook.ViewModels
 
         [RelayCommand]
         private void LogOut() => _userService.LogOut();
+
+        [RelayCommand]
+        private async Task DeleteSelectedProjectInProgressImageAsync()
+        {
+            try
+            {
+                if (SelectedProjectInProgressImage is not null)
+                {
+                    await _projectImageService.DeleteAsync(SelectedProjectInProgressImage.Id);
+                    if (SelectedProjectInProgress is not null)
+                    {
+                        int projectId = SelectedProjectInProgress.Id;
+
+                        SelectedProjectInProgress.ProjectImages = await _projectImageService.GetProjectImagesAsync(SelectedProjectInProgress.Id);
+                        OnPropertyChanged(nameof(SelectedProjectInProgress));
+
+                        FinishedProjectDto? project = await _projectService.GetFinishedProjectAsync(projectId);
+                        if (project is not null)
+                        {
+                            FinishedProjects.Add(project);
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Błąd skasowania zdjęcia projektu w trakcie");
+            }
+        }
+
+        [RelayCommand]
+        private async Task FinishProjectInProgressAsync()
+        {
+            try
+            {
+                if (SelectedProjectInProgress is not null)
+                {
+                    await _projectService.ChangeProjectStatus(LoggedUserInformation.Id, SelectedProjectInProgress.Id, ProjectStatusName.Finished);
+                    ProjectsInProgress.Remove(SelectedProjectInProgress);
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Błąd zakończenia projektu w trakcie");
+            }
+        }
 
         private async Task HandleProjectInProgressImageAdded(int projectId)
         {

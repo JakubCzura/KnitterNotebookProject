@@ -58,6 +58,7 @@
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
+                            <MenuItem Command="{Binding MoveProjectInProgressToPlannedProjectsCommand}" Header="Przenieś do planowanych projektów" />
                             <MenuItem Command="{Binding FinishProjectInProgressCommand}" Header="Zakończ projekt" />
                             <MenuItem Command="{Binding DeleteProjectInProgressCommand}" Header="Skasuj projekt" />
                         </ContextMenu>
@@ -163,8 +164,7 @@
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Command="{Binding StartPlannedProjectCommand}" Header="Zakończ projekt" />
-                            <MenuItem Command="{Binding DeletePlannedProjectCommand}" Header="Skasuj projekt" />
+                            <MenuItem Command="{Binding DeleteSelectedProjectInProgressImageCommand}" Header="Skasuj zdjęcie" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>
