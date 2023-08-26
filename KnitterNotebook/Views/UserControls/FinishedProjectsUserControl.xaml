@@ -10,6 +10,185 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock>Finished Projects</TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.6*" />
+            <ColumnDefinition Width="0.6*" />
+            <ColumnDefinition Width="0.4*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border
+            Grid.Column="0"
+            Margin="5,5,5,5"
+            Background="#FFE2AFFB"
+            CornerRadius="10">
+
+            <DockPanel Margin="5,5,5,5">
+                <Grid Margin="0,0,0,5" DockPanel.Dock="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Style="{DynamicResource MaterialDesignBody1TextBlock}"
+                        Text="Filtruj po nazwie projektu" />
+                    <UniformGrid Grid.Row="1" Rows="1">
+                        <TextBox Text="{Binding FilterFinishedProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </UniformGrid>
+                </Grid>
+                <Button
+                    Command="{Binding ShowPatternPdfWindowCommand}"
+                    CommandParameter="{Binding SelectedFinishedProject.PatternPdfPath}"
+                    Content="Pokaż PDF ze wzorem"
+                    DockPanel.Dock="Bottom" />
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    Background="#FFE2AFFB"
+                    DockPanel.Dock="Top"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding FinishedProjectsCollectionView}"
+                    SelectedItem="{Binding SelectedFinishedProject}"
+                    Style="{DynamicResource MaterialDesignDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Path=Name}"
+                            Header="Planowany projekt" />
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding MoveProjectInProgressToPlannedProjectsCommand}" Header="Przenieś do projektów w trakcie" />
+                            <MenuItem Command="{Binding DeleteProjectInProgressCommand}" Header="Skasuj projekt" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+        <Border
+            Grid.Column="1"
+            Margin="5,5,5,5"
+            Background="#FFE2AFFB"
+            CornerRadius="10">
+            <ScrollViewer>
+                <StackPanel Margin="5,5,5,5">
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Ukończony projekt:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedFinishedProject.Name}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Data rozpoczęcia:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedFinishedProject.StartDate, StringFormat=dddd dd MMMM yyyy, ConverterCulture=PL, TargetNullValue='Jeszcze nie podano'}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Data zakończenia:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedFinishedProject.EndDate, StringFormat=dddd dd MMMM yyyy, ConverterCulture=PL, TargetNullValue='Jeszcze nie podano'}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Druty:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedFinishedProjectNeedles}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Włóczki:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedFinishedProjectYarns}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,0"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Text="Inne:"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="5,0,5,5"
+                        FontSize="15"
+                        Text="{Binding SelectedFinishedProject.Description}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        <Border
+            Grid.Column="2"
+            Margin="5,5,5,5"
+            Background="#FFE2AFFB"
+            CornerRadius="10">
+
+            <DockPanel Margin="5,5,5,5">
+                <Grid Margin="0,0,0,5" DockPanel.Dock="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                </Grid>
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    Background="#FFE2AFFB"
+                    DockPanel.Dock="Top"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding SelectedFinishedProject.ProjectImages}"
+                    SelectedItem="{Binding SelectedFinishedProjectImage}"
+                    Style="{DynamicResource MaterialDesignDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Path=DateTime}"
+                            Header="Zdjęcia postępów" />
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding DeleteFinishedProjectImageCommand}" Header="Skasuj zdjęcie" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+        <Border
+            Grid.Column="3"
+            Margin="5,5,5,5"
+            Background="#FFE2AFFB"
+            BorderThickness="0"
+            CornerRadius="10">
+            <Image
+                MaxWidth="600"
+                MaxHeight="600"
+                Margin="5,5,5,5"
+                VerticalAlignment="Center"
+                Source="{Binding SelectedFinishedProjectImage.Path, TargetNullValue={x:Null}}" />
+            <!--  TargetNullValue={x:Null} prevents errors from xaml when Path is null  -->
+        </Border>
     </Grid>
 </UserControl>

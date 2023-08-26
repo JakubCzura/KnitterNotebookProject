@@ -37,6 +37,7 @@ namespace KnitterNotebook.ViewModels
             SamplesCollectionView = CollectionViewSource.GetDefaultView(Samples);
             PlannedProjectsCollectionView = CollectionViewSource.GetDefaultView(PlannedProjects);
             ProjectsInProgressCollectionView = CollectionViewSource.GetDefaultView(ProjectsInProgress);
+            FinishedProjectsCollectionView = CollectionViewSource.GetDefaultView(FinishedProjects);
             ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(MainWindowContent.SamplesUserControl);
             MovieUrlAddingViewModel.NewMovieUrlAdded += async () => MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection();
             SampleAddingViewModel.NewSampleAdded += async () => Samples = (await _sampleService.GetUserSamplesAsync(User.Id)).ToObservableCollection();
@@ -205,10 +206,6 @@ namespace KnitterNotebook.ViewModels
         [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectYarns))]
         private PlannedProjectDto? _selectedPlannedProject;
 
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(SelectedFinishedProjectNeedles))]
-        [NotifyPropertyChangedFor(nameof(SelectedFinishedProjectYarns))]
-        private FinishedProjectDto? _selectedFinishedProject;
 
         private ProjectInProgressDto? _selectedProjectInProgress;
 
@@ -225,8 +222,25 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
+        private FinishedProjectDto? _selectedFinishedProject;
+
+        public FinishedProjectDto? SelectedFinishedProject
+        {
+            get => _selectedFinishedProject;
+            set
+            {
+                _selectedFinishedProject = value;
+                OnPropertyChanged(nameof(SelectedFinishedProject));
+                OnPropertyChanged(nameof(SelectedFinishedProjectNeedles));
+                OnPropertyChanged(nameof(SelectedFinishedProjectYarns));
+            }
+        }
+
         [ObservableProperty]
         private ProjectImageDto? _selectedProjectInProgressImage;
+
+        [ObservableProperty]
+        private ProjectImageDto? _selectedFinishedProjectImage;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SelectedSampleMashesXRows))]
@@ -288,6 +302,7 @@ namespace KnitterNotebook.ViewModels
                 Samples = (await _sampleService.GetUserSamplesAsync(User.Id)).ToObservableCollection();
                 PlannedProjects = (await _projectService.GetUserPlannedProjectsAsync(User.Id)).ToObservableCollection();
                 ProjectsInProgress = (await _projectService.GetUserProjectsInProgressAsync(User.Id)).ToObservableCollection();
+                FinishedProjects = (await _projectService.GetUserFinishedProjectsAsync(User.Id)).ToObservableCollection();
                 _themeService.ReplaceTheme(User.ThemeName, ApplicationTheme.Default);
 
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
