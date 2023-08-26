@@ -2,6 +2,7 @@
 using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Helpers;
+using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
@@ -128,7 +129,8 @@ namespace KnitterNotebook.Services
             Project project = await _databaseContext.Projects.FirstOrDefaultAsync(x => x.UserId == userId && x.Id == projectId)
                                     ?? throw new EntityNotFoundException("Id projektu jest nieodpowiednie lub nie odnaleziono użytkownika");
 
-            project.ProjectStatus = projectStatusName;
+            project.AdjustProjectWhenChangingStatus(projectStatusName);
+
             _databaseContext.Update(project);
             await _databaseContext.SaveChangesAsync();
         }
