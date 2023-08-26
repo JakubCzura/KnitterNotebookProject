@@ -106,7 +106,9 @@ namespace KnitterNotebook.Services
 
         public async Task<FinishedProjectDto?> GetFinishedProjectAsync(int id)
         {
-            Project? project = await _databaseContext.Projects.Include(x => x.PatternPdf)
+            Project? project = await _databaseContext.Projects.Include(x => x.Needles)
+                                           .Include(x => x.Yarns)
+                                           .Include(x => x.PatternPdf)
                                            .Include(x => x.ProjectImages)
                                            .FirstOrDefaultAsync(x => x.Id == id && x.ProjectStatus == ProjectStatusName.Finished);
 
@@ -114,7 +116,9 @@ namespace KnitterNotebook.Services
         }
 
         public async Task<List<FinishedProjectDto>> GetUserFinishedProjectsAsync(int userId)
-          => await _databaseContext.Projects.Include(x => x.PatternPdf)
+          => await _databaseContext.Projects.Include(x => x.Needles)
+                                            .Include(x => x.Yarns)
+                                            .Include(x => x.PatternPdf)
                                             .Include(x => x.ProjectImages)
                                             .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.Finished)
                                             .Select(x => new FinishedProjectDto(x)).ToListAsync();

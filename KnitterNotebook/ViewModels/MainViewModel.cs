@@ -205,6 +205,11 @@ namespace KnitterNotebook.ViewModels
         [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectYarns))]
         private PlannedProjectDto? _selectedPlannedProject;
 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(SelectedFinishedProjectNeedles))]
+        [NotifyPropertyChangedFor(nameof(SelectedFinishedProjectYarns))]
+        private FinishedProjectDto? _selectedFinishedProject;
+
         private ProjectInProgressDto? _selectedProjectInProgress;
 
         public ProjectInProgressDto? SelectedProjectInProgress
@@ -259,6 +264,10 @@ namespace KnitterNotebook.ViewModels
         public string SelectedProjectInProgressNeedles => string.Join("\n", SelectedProjectInProgress?.Needles.Select(x => $"{x.Size} {x.SizeUnit}") ?? Enumerable.Empty<string>());
 
         public string SelectedProjectInProgressYarns => string.Join("\n", SelectedProjectInProgress?.Yarns.Select(x => x.Name) ?? Enumerable.Empty<string>());
+        
+        public string SelectedFinishedProjectNeedles => string.Join("\n", SelectedFinishedProject?.Needles.Select(x => $"{x.Size} {x.SizeUnit}") ?? Enumerable.Empty<string>());
+        
+        public string SelectedFinishedProjectYarns => string.Join("\n", SelectedFinishedProject?.Yarns.Select(x => x.Name) ?? Enumerable.Empty<string>());
 
         #endregion Properties
 
