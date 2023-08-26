@@ -11,7 +11,7 @@ namespace KnitterNotebook.Services
         {
             MainWindowContent.PlannedProjectsUserControl => new PlannedProjectsUserControl(),
             MainWindowContent.ProjectsInProgressUserControl => new ProjectsInProgressUserControl(),
-            MainWindowContent.ProjectsUserControl => new ProjectsUserControl(),
+            MainWindowContent.ProjectsUserControl => new FinishedProjectsUserControl(),
             MainWindowContent.SamplesUserControl => new SamplesUserControl(),
             _ => new SamplesUserControl()
         };
