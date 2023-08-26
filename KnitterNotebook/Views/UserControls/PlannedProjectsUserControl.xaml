@@ -86,7 +86,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="Data rozpoczęcia:"
+                        Text="Planowana data rozpoczęcia:"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
