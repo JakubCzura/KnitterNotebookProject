@@ -5,10 +5,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+    xmlns:xamlConverters="clr-namespace:KnitterNotebook.Converters.XAMLConverters"
     d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <xamlConverters:SampleDtoLoopsRowsToStringConverter x:Key="SampleDtoLoopsRowsToStringConverter" />
+        <xamlConverters:SampleDtoNeedleToStringConverter x:Key="SampleDtoNeedleToStringConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*" />
@@ -93,7 +98,7 @@
                     <TextBlock
                         Margin="5,0,5,5"
                         FontSize="15"
-                        Text="{Binding SelectedSampleMashesXRows}"
+                        Text="{Binding SelectedSample, Converter={StaticResource SampleDtoLoopsRowsToStringConverter}}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,0"
@@ -104,7 +109,7 @@
                     <TextBlock
                         Margin="5,0,5,5"
                         FontSize="15"
-                        Text="{Binding SelectedSampleNeedleSize}"
+                        Text="{Binding SelectedSample, Converter={StaticResource SampleDtoNeedleToStringConverter}}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,0"

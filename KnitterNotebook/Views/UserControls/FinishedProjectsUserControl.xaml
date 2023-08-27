@@ -5,10 +5,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+    xmlns:xamlConverters="clr-namespace:KnitterNotebook.Converters.XAMLConverters"
     d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <xamlConverters:NeedleDtosToStringConverter x:Key="NeedleDtosToStringConverter"/>
+        <xamlConverters:YarnDtosToStringConverter x:Key="YarnDtosToStringConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.6*" />
@@ -58,8 +63,8 @@
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Command="{Binding MoveProjectInProgressToPlannedProjectsCommand}" Header="Przenieś do projektów w trakcie" />
-                            <MenuItem Command="{Binding DeleteProjectInProgressCommand}" Header="Skasuj projekt" />
+                            <MenuItem Command="{Binding MoveFinishedProjectToProjectsInProgressCommand}" Header="Przenieś do projektów w trakcie" />
+                            <MenuItem Command="{Binding DeleteFinishedProjectCommand}" Header="Skasuj projekt" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>
@@ -114,7 +119,7 @@
                     <TextBlock
                         Margin="5,0,5,5"
                         FontSize="15"
-                        Text="{Binding SelectedFinishedProjectNeedles}"
+                        Text="{Binding SelectedFinishedProject.Needles, Converter={StaticResource NeedleDtosToStringConverter}}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,0"
@@ -125,7 +130,7 @@
                     <TextBlock
                         Margin="5,0,5,5"
                         FontSize="15"
-                        Text="{Binding SelectedFinishedProjectYarns}"
+                        Text="{Binding SelectedFinishedProject.Yarns, Converter={StaticResource YarnDtosToStringConverter}}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,0"

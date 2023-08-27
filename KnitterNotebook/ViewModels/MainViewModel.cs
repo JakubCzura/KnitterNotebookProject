@@ -202,10 +202,7 @@ namespace KnitterNotebook.ViewModels
         }
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectNeedles))]
-        [NotifyPropertyChangedFor(nameof(SelectedPlannedProjectYarns))]
         private PlannedProjectDto? _selectedPlannedProject;
-
 
         private ProjectInProgressDto? _selectedProjectInProgress;
 
@@ -217,24 +214,11 @@ namespace KnitterNotebook.ViewModels
                 _selectedProjectInProgress = value;
                 _sharedResourceViewModel.SelectedProjectInProgressId = _selectedProjectInProgress?.Id;
                 OnPropertyChanged(nameof(SelectedProjectInProgress));
-                OnPropertyChanged(nameof(SelectedProjectInProgressNeedles));
-                OnPropertyChanged(nameof(SelectedProjectInProgressYarns));
             }
         }
 
+        [ObservableProperty]
         private FinishedProjectDto? _selectedFinishedProject;
-
-        public FinishedProjectDto? SelectedFinishedProject
-        {
-            get => _selectedFinishedProject;
-            set
-            {
-                _selectedFinishedProject = value;
-                OnPropertyChanged(nameof(SelectedFinishedProject));
-                OnPropertyChanged(nameof(SelectedFinishedProjectNeedles));
-                OnPropertyChanged(nameof(SelectedFinishedProjectYarns));
-            }
-        }
 
         [ObservableProperty]
         private ProjectImageDto? _selectedProjectInProgressImage;
@@ -243,8 +227,6 @@ namespace KnitterNotebook.ViewModels
         private ProjectImageDto? _selectedFinishedProjectImage;
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(SelectedSampleMashesXRows))]
-        [NotifyPropertyChangedFor(nameof(SelectedSampleNeedleSize))]
         private SampleDto? _selectedSample;
 
         private ObservableCollection<SampleDto> _samples = new();
@@ -266,22 +248,6 @@ namespace KnitterNotebook.ViewModels
         public ICollectionView PlannedProjectsCollectionView { get; set; }
         public ICollectionView ProjectsInProgressCollectionView { get; set; }
         public ICollectionView FinishedProjectsCollectionView { get; set; }
-
-        public string SelectedSampleMashesXRows => SelectedSample is not null ? $"{SelectedSample.LoopsQuantity}x{SelectedSample.RowsQuantity}" : "";
-
-        public string SelectedSampleNeedleSize => $"{SelectedSample?.NeedleSize}{SelectedSample?.NeedleSizeUnit}";
-
-        public string SelectedPlannedProjectNeedles => string.Join("\n", SelectedPlannedProject?.Needles.Select(x => $"{x.Size} {x.SizeUnit}") ?? Enumerable.Empty<string>());
-
-        public string SelectedPlannedProjectYarns => string.Join("\n", SelectedPlannedProject?.Yarns.Select(x => x.Name) ?? Enumerable.Empty<string>());
-
-        public string SelectedProjectInProgressNeedles => string.Join("\n", SelectedProjectInProgress?.Needles.Select(x => $"{x.Size} {x.SizeUnit}") ?? Enumerable.Empty<string>());
-
-        public string SelectedProjectInProgressYarns => string.Join("\n", SelectedProjectInProgress?.Yarns.Select(x => x.Name) ?? Enumerable.Empty<string>());
-        
-        public string SelectedFinishedProjectNeedles => string.Join("\n", SelectedFinishedProject?.Needles.Select(x => $"{x.Size} {x.SizeUnit}") ?? Enumerable.Empty<string>());
-        
-        public string SelectedFinishedProjectYarns => string.Join("\n", SelectedFinishedProject?.Yarns.Select(x => x.Name) ?? Enumerable.Empty<string>());
 
         #endregion Properties
 
