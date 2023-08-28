@@ -17,6 +17,7 @@ namespace KnitterNotebook.Services
     {
         private readonly DatabaseContext _databaseContext;
         private readonly IUserService _userService;
+
         public ProjectImageService(DatabaseContext databaseContext, IUserService userService) : base(databaseContext)
         {
             _databaseContext = databaseContext;

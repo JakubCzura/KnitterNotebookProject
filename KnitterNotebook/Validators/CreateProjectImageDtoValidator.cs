@@ -10,7 +10,7 @@ namespace KnitterNotebook.Validators
 
         public CreateProjectImageDtoValidator(IProjectService projectService)
         {
-            _projectService = projectService; 
+            _projectService = projectService;
 
             RuleFor(x => x.ImagePath)
                .Must(FileExtensionValidator.IsImage).WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png lub usuń odnośnik do zdjęcia");

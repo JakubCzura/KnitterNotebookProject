@@ -8,7 +8,6 @@ using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebookTests.HelpersForTesting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using Moq;
 
 namespace KnitterNotebookTests.Validators

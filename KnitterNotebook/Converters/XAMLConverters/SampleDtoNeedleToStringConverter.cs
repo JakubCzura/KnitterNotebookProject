@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Data;
 
 namespace KnitterNotebook.Converters.XAMLConverters
-{ 
+{
     /// <summary>
     /// Converts <see cref="SampleDto"/>'s NeedleSize and NeedleSizeUnit to a string. Works in Mode=OneWay only.
     /// </summary>

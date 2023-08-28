@@ -151,7 +151,7 @@ namespace KnitterNotebookTests.Validators
         {
             yield return new object[] { null! };
             yield return new object[] { new List<CreateYarnDto>() };
-        }   
+        }
 
         [Theory]
         [MemberData(nameof(InvalidYarnsData))]
@@ -180,11 +180,11 @@ namespace KnitterNotebookTests.Validators
             validationResult.ShouldHaveValidationErrorFor(x => x.Description);
         }
 
-        [Fact]   
+        [Fact]
         public async Task ValidateAsync_ForInvalidSourcePatternPdfPath_FailValidation()
         {
             //Arrange
-            PlanProjectDto planProjectDto = new("Name", DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, @"c:\users\user\files\file.jpeg", 2);  
+            PlanProjectDto planProjectDto = new("Name", DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, @"c:\users\user\files\file.jpeg", 2);
 
             //Act
             TestValidationResult<PlanProjectDto> validationResult = await _validator.TestValidateAsync(planProjectDto);
@@ -204,7 +204,7 @@ namespace KnitterNotebookTests.Validators
             TestValidationResult<PlanProjectDto> validationResult = await _validator.TestValidateAsync(planProjectDto);
 
             //Assert
-            validationResult.ShouldHaveValidationErrorFor(x => x.UserId);  
+            validationResult.ShouldHaveValidationErrorFor(x => x.UserId);
         }
     }
 }

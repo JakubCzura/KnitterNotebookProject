@@ -2,17 +2,16 @@
 using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
+using KnitterNotebook.Database;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
-using KnitterNotebook.Validators;
 using KnitterNotebook.Views.Windows;
 using Microsoft.Win32;
-using System.Linq;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using KnitterNotebook.Database;
 
 namespace KnitterNotebook.ViewModels
 {

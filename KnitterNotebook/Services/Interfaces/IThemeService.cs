@@ -1,5 +1,4 @@
-﻿using KnitterNotebook.Database;
-using KnitterNotebook.Models.Entities;
+﻿using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using System.Threading.Tasks;
 
