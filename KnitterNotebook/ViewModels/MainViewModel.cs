@@ -435,12 +435,6 @@ namespace KnitterNotebook.ViewModels
 
                         SelectedProjectInProgress.ProjectImages = await _projectImageService.GetProjectImagesAsync(SelectedProjectInProgress.Id);
                         OnPropertyChanged(nameof(SelectedProjectInProgress));
-
-                        FinishedProjectDto? project = await _projectService.GetFinishedProjectAsync(projectId);
-                        if (project is not null)
-                        {
-                            FinishedProjects.Add(project);
-                        }
                     }
                 }
             }
@@ -457,13 +451,86 @@ namespace KnitterNotebook.ViewModels
             {
                 if (SelectedProjectInProgress is not null)
                 {
+                    int projectId = SelectedProjectInProgress.Id;
+
                     await _projectService.ChangeProjectStatus(LoggedUserInformation.Id, SelectedProjectInProgress.Id, ProjectStatusName.Finished);
                     ProjectsInProgress.Remove(SelectedProjectInProgress);
+
+                    FinishedProjectDto? project = await _projectService.GetFinishedProjectAsync(projectId);
+                    if (project is not null)
+                    {
+                        FinishedProjects.Add(project);
+                    }
                 }
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Błąd zakończenia projektu w trakcie");
+            }
+        }
+
+        [RelayCommand]
+        private async Task MoveFinishedProjectToProjectsInProgressAsync()
+        {
+            try
+            {
+                if (SelectedFinishedProject is not null)
+                {
+                    int projectId = SelectedFinishedProject.Id;
+
+                    await _projectService.ChangeProjectStatus(LoggedUserInformation.Id, SelectedFinishedProject.Id, ProjectStatusName.InProgress);
+                    FinishedProjects.Remove(SelectedFinishedProject);
+
+                    ProjectInProgressDto? project = await _projectService.GetProjectInProgressAsync(projectId);
+                    if (project is not null)
+                    {
+                        ProjectsInProgress.Add(project);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Błąd przeniesienia projektu do projektów w trakcie");
+            }
+        }
+
+        [RelayCommand]
+        private async Task DeleteFinishedProjectImageAsync()
+        {
+            try
+            {
+                if (SelectedFinishedProjectImage is not null)
+                {
+                    await _projectImageService.DeleteAsync(SelectedFinishedProjectImage.Id);
+                    if (SelectedFinishedProject is not null)
+                    {
+                        int projectId = SelectedFinishedProject.Id;
+
+                        SelectedFinishedProject.ProjectImages = await _projectImageService.GetProjectImagesAsync(SelectedFinishedProject.Id);
+                        OnPropertyChanged(nameof(SelectedFinishedProject));
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Błąd skasowania zdjęcia ukończonego projektu");
+            }
+        }
+
+        [RelayCommand]
+        private async Task DeleteFinishedProjectAsync()
+        {
+            try
+            {
+                if (SelectedFinishedProject is not null)
+                {
+                    await _projectService.DeleteAsync(SelectedFinishedProject.Id);
+                    FinishedProjects = (await _projectService.GetUserFinishedProjectsAsync(User.Id)).ToObservableCollection();
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Błąd skasowania ukończonego projektu");
             }
         }
 

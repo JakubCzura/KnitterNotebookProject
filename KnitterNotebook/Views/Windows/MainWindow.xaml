@@ -137,7 +137,7 @@
                         AutoGenerateColumns="False"
                         IsReadOnly="True"
                         ItemsSource="{Binding MovieUrls}"
-                        SelectedItem="{Binding SelectedMovieUrl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        SelectedItem="{Binding SelectedMovieUrl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="#FFE2AFFB">
                         <DataGrid.InputBindings>
                             <MouseBinding Command="{Binding OpenMovieUrlInWebBrowserCommand}" Gesture="LeftDoubleClick" />
                         </DataGrid.InputBindings>
