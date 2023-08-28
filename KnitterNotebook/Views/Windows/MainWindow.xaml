@@ -27,7 +27,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="150" />
+            <RowDefinition Height="160" />
         </Grid.RowDefinitions>
         <Menu
             Grid.Row="0"
