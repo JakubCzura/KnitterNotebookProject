@@ -27,7 +27,7 @@ namespace KnitterNotebook.Database
             modelBuilder.Entity<User>(u =>
             {
                 u.Property(x => x.Password).IsRequired();
-                u.Property(x => x.Email).IsRequired().HasMaxLength(100);
+                u.Property(x => x.Email).IsRequired();
                 u.Property(x => x.Nickname).IsRequired().HasMaxLength(50);
 
                 u.HasMany(x => x.Projects)
@@ -45,9 +45,7 @@ namespace KnitterNotebook.Database
                 t.HasMany(x => x.Users)
                  .WithOne(c => c.Theme)
                  .OnDelete(DeleteBehavior.NoAction);
-
                 t.Property(x => x.Name).IsRequired().HasConversion<string>();
-
                 t.HasData(new Theme() { Id = 1, Name = ApplicationTheme.Default },
                       new Theme() { Id = 2, Name = ApplicationTheme.Light },
                       new Theme() { Id = 3, Name = ApplicationTheme.Dark });
@@ -56,6 +54,7 @@ namespace KnitterNotebook.Database
             modelBuilder.Entity<Project>(p =>
             {
                 p.Property(x => x.Name).IsRequired().HasMaxLength(100);
+                p.Property(x => x.Description).IsRequired().HasMaxLength(300);
 
                 p.HasMany(x => x.Yarns)
                  .WithOne(c => c.Project);
@@ -76,10 +75,11 @@ namespace KnitterNotebook.Database
 
             modelBuilder.Entity<Sample>(m =>
             {
-                m.Property(x => x.YarnName).IsRequired().HasMaxLength(100);
-                m.Property(x => x.LoopsQuantity).IsRequired();
-                m.Property(x => x.RowsQuantity).IsRequired();
-                m.Property(x => x.NeedleSize).IsRequired();
+                m.Property(x => x.YarnName).IsRequired().HasMaxLength(200);
+                m.Property(x => x.LoopsQuantity).IsRequired().HasMaxLength(100000);
+                m.Property(x => x.RowsQuantity).IsRequired().HasMaxLength(100000);
+                m.Property(x => x.NeedleSize).IsRequired().HasMaxLength(100);
+                m.Property(x => x.Description).HasMaxLength(1000);
                 m.Property(x => x.NeedleSizeUnit).IsRequired().HasConversion<string>();
                 m.HasOne(x => x.Image)
                  .WithOne(c => c.Sample);
@@ -92,6 +92,7 @@ namespace KnitterNotebook.Database
 
             modelBuilder.Entity<ProjectImage>(m =>
             {
+                m.Property(x => x.DateTime).IsRequired();
                 m.Property(x => x.Path).IsRequired();
             });
 

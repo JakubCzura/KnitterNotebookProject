@@ -24,9 +24,12 @@ namespace KnitterNotebook.Validators
 
             RuleFor(x => x.NeedleSize)
                 .InclusiveBetween(0.1, 100).WithMessage("Rozmiar drutu musi być z zakresu 0.1-100");
+            
+            RuleFor(x => x.NeedleSizeUnit)
+               .IsInEnum().WithMessage("Proszę podać prawidłową jednostkę długości");
 
             RuleFor(x => x.Description)
-                .MaximumLength(10000).WithMessage("Opis może mieć maksymalnie 10000 znaków");
+                .MaximumLength(1000).WithMessage("Opis może mieć maksymalnie 1000 znaków");
 
             RuleFor(x => x.SourceImagePath)
                 .Must(x => x is null || FileExtensionValidator.IsImage(x))

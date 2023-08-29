@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KnitterNotebook.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230829192730_Init")]
-    partial class Init
+    [Migration("20230829194842_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,7 +113,9 @@ namespace KnitterNotebook.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
@@ -173,12 +175,15 @@ namespace KnitterNotebook.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<int>("LoopsQuantity")
+                        .HasMaxLength(100000)
                         .HasColumnType("int");
 
                     b.Property<double>("NeedleSize")
+                        .HasMaxLength(100)
                         .HasColumnType("float");
 
                     b.Property<string>("NeedleSizeUnit")
@@ -186,6 +191,7 @@ namespace KnitterNotebook.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RowsQuantity")
+                        .HasMaxLength(100000)
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -193,8 +199,8 @@ namespace KnitterNotebook.Migrations
 
                     b.Property<string>("YarnName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
@@ -270,8 +276,7 @@ namespace KnitterNotebook.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nickname")
                         .IsRequired()
