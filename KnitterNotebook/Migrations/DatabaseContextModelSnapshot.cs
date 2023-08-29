@@ -65,7 +65,7 @@ namespace KnitterNotebook.Migrations
                         .HasColumnType("int");
 
                     b.Property<double>("Size")
-                        .HasMaxLength(1)
+                        .HasMaxLength(100)
                         .HasColumnType("float");
 
                     b.Property<int>("SizeUnit")
@@ -190,7 +190,8 @@ namespace KnitterNotebook.Migrations
 
                     b.Property<string>("YarnName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 

@@ -99,7 +99,7 @@ namespace KnitterNotebook.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    YarnName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    YarnName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     LoopsQuantity = table.Column<int>(type: "int", nullable: false),
                     RowsQuantity = table.Column<int>(type: "int", nullable: false),
                     NeedleSize = table.Column<double>(type: "float", nullable: false),
@@ -124,7 +124,7 @@ namespace KnitterNotebook.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Size = table.Column<double>(type: "float", maxLength: 1, nullable: false),
+                    Size = table.Column<double>(type: "float", maxLength: 100, nullable: false),
                     SizeUnit = table.Column<int>(type: "int", nullable: false),
                     ProjectId = table.Column<int>(type: "int", nullable: false)
                 },

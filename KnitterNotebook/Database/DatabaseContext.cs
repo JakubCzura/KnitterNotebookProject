@@ -8,7 +8,7 @@ namespace KnitterNotebook.Database
     {
         public DatabaseContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureCreated();
+            Database.Migrate();
         }
 
         public DbSet<Project> Projects { get; set; }
@@ -76,7 +76,7 @@ namespace KnitterNotebook.Database
 
             modelBuilder.Entity<Sample>(m =>
             {
-                m.Property(x => x.YarnName).IsRequired();
+                m.Property(x => x.YarnName).IsRequired().HasMaxLength(100);
                 m.Property(x => x.LoopsQuantity).IsRequired();
                 m.Property(x => x.RowsQuantity).IsRequired();
                 m.Property(x => x.NeedleSize).IsRequired();
@@ -102,7 +102,7 @@ namespace KnitterNotebook.Database
 
             modelBuilder.Entity<Needle>(m =>
             {
-                m.Property(x => x.Size).IsRequired().HasMaxLength(1);
+                m.Property(x => x.Size).IsRequired().HasMaxLength(100);
                 m.Property(x => x.SizeUnit).IsRequired();
             });
 
