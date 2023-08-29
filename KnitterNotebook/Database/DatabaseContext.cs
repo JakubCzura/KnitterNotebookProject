@@ -69,6 +69,7 @@ namespace KnitterNotebook.Database
             {
                 m.Property(x => x.Title).IsRequired();
                 m.Property(x => x.Link).IsRequired();
+                m.Property(x => x.Description).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Sample>(m =>

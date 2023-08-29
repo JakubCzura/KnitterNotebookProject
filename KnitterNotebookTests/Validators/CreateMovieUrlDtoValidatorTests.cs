@@ -43,19 +43,19 @@ namespace KnitterNotebookTests.Validators
 
         public static IEnumerable<object[]> InvalidData()
         {
-            yield return new object[] { new CreateMovieUrlDto(null!, "https://youtube.pl", 1) };
-            yield return new object[] { new CreateMovieUrlDto("Movie", null!, 1) };
-            yield return new object[] { new CreateMovieUrlDto("Funny movie", "https://urltestmovie/96.pl", -1) };
-            yield return new object[] { new CreateMovieUrlDto(string.Empty, "https://testurltestmovie/96.pl", 2) };
-            yield return new object[] { new CreateMovieUrlDto("Scary movie", string.Empty, 2) };
-            yield return new object[] { new CreateMovieUrlDto("Scary movie", string.Empty, 0) };
-            yield return new object[] { new CreateMovieUrlDto("Scary movie", string.Empty, 3) };
+            yield return new object[] { new CreateMovieUrlDto(null!, "https://youtube.pl", null, 1) };
+            yield return new object[] { new CreateMovieUrlDto("Movie", null!, string.Empty, 1) };
+            yield return new object[] { new CreateMovieUrlDto("Funny movie", "https://urltestmovie/96.pl", null, -1) };
+            yield return new object[] { new CreateMovieUrlDto(string.Empty, "https://testurltestmovie/96.pl", null, 2) };
+            yield return new object[] { new CreateMovieUrlDto("Scary movie", string.Empty, null, 2) };
+            yield return new object[] { new CreateMovieUrlDto("Scary movie", string.Empty, null, 0) };
+            yield return new object[] { new CreateMovieUrlDto("Scary movie", string.Empty, new string('K', 101), 3) };
         }
 
         public static IEnumerable<object[]> ValidData()
         {
-            yield return new object[] { new CreateMovieUrlDto("Title", "https://youtube.pl", 1) };
-            yield return new object[] { new CreateMovieUrlDto("Movie", "https://movieurl/21.pl", 2) };
+            yield return new object[] { new CreateMovieUrlDto("Title", "https://youtube.pl", "Description", 1) };
+            yield return new object[] { new CreateMovieUrlDto("Movie", "https://movieurl/21.pl", null, 2) };
         }
 
         [Theory]

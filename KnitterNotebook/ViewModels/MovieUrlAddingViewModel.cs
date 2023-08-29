@@ -42,6 +42,9 @@ namespace KnitterNotebook.ViewModels
         [ObservableProperty]
         private string _title = string.Empty;
 
+        [ObservableProperty]
+        private string? _description;
+
         #endregion Properties
 
         #region Methods
@@ -51,7 +54,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                CreateMovieUrlDto createMovieUrl = new(Title, Link, LoggedUserInformation.Id);
+                CreateMovieUrlDto createMovieUrl = new(Title, Link, Description, LoggedUserInformation.Id);
                 ValidationResult validation = await _createMovieUrlValidator.ValidateAsync(createMovieUrl);
                 if (!validation.IsValid)
                 {

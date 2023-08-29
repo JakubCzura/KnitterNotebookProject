@@ -25,6 +25,7 @@ namespace KnitterNotebook.Services
             {
                 Title = createMovieUrl.Title,
                 Link = new Uri(createMovieUrl.Link),
+                Description = createMovieUrl.Description,
                 UserId = createMovieUrl.UserId,
             };
             await _databaseContext.AddAsync(movieUrl);

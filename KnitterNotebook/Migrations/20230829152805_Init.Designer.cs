@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KnitterNotebook.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230818192338_Init")]
+    [Migration("20230829152805_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -32,6 +32,10 @@ namespace KnitterNotebook.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Link")
                         .IsRequired()

@@ -9,7 +9,7 @@
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     Title="KnitterNotebook"
     Width="500"
-    Height="550"
+    Height="650"
     d:DataContext="{d:DesignInstance Type=viewModels:MovieUrlAddingViewModel}"
     Style="{DynamicResource WindowStyle}"
     WindowStartupLocation="CenterScreen"
@@ -54,6 +54,18 @@
                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
                             Text="{Binding Link, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                    </DockPanel>
+                    <Label Content="Opis filmu" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                    <DockPanel Margin="0,0,0,10">
+                        <materialDesign:PackIcon
+                            Margin="5,0,5,0"
+                            VerticalAlignment="Center"
+                            Kind="Link" />
+                        <TextBox
+                            adorners:Watermark.Text="Opis"
+                            adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
+                            Style="{DynamicResource InputLoginDataTextBoxStyle}"
+                            Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </DockPanel>
                     <Button
                         Margin="0,10,0,0"
