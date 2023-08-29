@@ -1,7 +1,6 @@
 ﻿using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace KnitterNotebook.Database
 {
@@ -38,7 +37,7 @@ namespace KnitterNotebook.Database
                  .WithOne(c => c.User);
 
                 u.HasMany(x => x.Samples)
-                 .WithOne(c => c.User);               
+                 .WithOne(c => c.User);
             });
 
             modelBuilder.Entity<Theme>(t =>
@@ -51,7 +50,7 @@ namespace KnitterNotebook.Database
 
                 t.HasData(new Theme() { Id = 1, Name = ApplicationTheme.Default },
                       new Theme() { Id = 2, Name = ApplicationTheme.Light },
-                      new Theme() { Id = 3, Name = ApplicationTheme.Dark }); 
+                      new Theme() { Id = 3, Name = ApplicationTheme.Dark });
             });
 
             modelBuilder.Entity<Project>(p =>
@@ -98,17 +97,19 @@ namespace KnitterNotebook.Database
 
             modelBuilder.Entity<PatternPdf>(m =>
             {
+                m.Property(x => x.Path).IsRequired();
             });
 
             modelBuilder.Entity<Needle>(m =>
             {
+                m.Property(x => x.Size).IsRequired().HasMaxLength(1);
+                m.Property(x => x.SizeUnit).IsRequired();
             });
 
             modelBuilder.Entity<Yarn>(m =>
             {
+                m.Property(x => x.Name).IsRequired().HasMaxLength(100);
             });
-
-         
         }
     }
 }

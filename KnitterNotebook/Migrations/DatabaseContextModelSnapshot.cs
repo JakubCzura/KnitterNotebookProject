@@ -65,6 +65,7 @@ namespace KnitterNotebook.Migrations
                         .HasColumnType("int");
 
                     b.Property<double>("Size")
+                        .HasMaxLength(1)
                         .HasColumnType("float");
 
                     b.Property<int>("SizeUnit")
@@ -297,7 +298,8 @@ namespace KnitterNotebook.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");

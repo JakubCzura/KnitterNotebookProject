@@ -38,7 +38,7 @@ namespace KnitterNotebookTests.Validators
             {
                 new Theme() { Name = ApplicationTheme.Default, Users = new List<User>() { new User() { Id = 1 } } },
                 new Theme() { Name = ApplicationTheme.Light, Users = new List<User>() { new User() { Id = 2 } }  },
-                new Theme() { Name = ApplicationTheme.Default, Users = new List<User>() { new User() { Id = 3 } } }
+                new Theme() { Name = ApplicationTheme.Dark, Users = new List<User>() { new User() { Id = 3 } } }
             };
             _databaseContext.Themes.AddRange(themes);
             _databaseContext.SaveChanges();

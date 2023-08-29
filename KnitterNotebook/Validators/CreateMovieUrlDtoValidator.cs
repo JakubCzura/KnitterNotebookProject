@@ -13,7 +13,8 @@ namespace KnitterNotebook.Validators
             _userService = userService;
 
             RuleFor(x => x.Title)
-                .NotEmpty().WithMessage("Tytuł nie może być pusty");
+                .NotEmpty().WithMessage("Tytuł nie może być pusty")
+                .MaximumLength(100).WithMessage("Tytył nie może mieć więcej niż 100 znaków");
 
             RuleFor(x => x.Link)
                 .NotEmpty().WithMessage("Link do filmu nie może być pusty");

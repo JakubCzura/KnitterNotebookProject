@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KnitterNotebook.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230829183641_Init")]
+    [Migration("20230829190137_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -68,6 +68,7 @@ namespace KnitterNotebook.Migrations
                         .HasColumnType("int");
 
                     b.Property<double>("Size")
+                        .HasMaxLength(1)
                         .HasColumnType("float");
 
                     b.Property<int>("SizeUnit")
@@ -300,7 +301,8 @@ namespace KnitterNotebook.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
