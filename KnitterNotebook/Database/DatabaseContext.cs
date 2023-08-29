@@ -1,6 +1,7 @@
 ﻿using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace KnitterNotebook.Database
 {
@@ -24,17 +25,6 @@ namespace KnitterNotebook.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Theme>(t =>
-            {
-                t.Property(x => x.Name).IsRequired().HasConversion<string>();
-                t.HasData(new Theme() { Id = 1, Name = ApplicationTheme.Default },
-                          new Theme() { Id = 2, Name = ApplicationTheme.Light },
-                          new Theme() { Id = 3, Name = ApplicationTheme.Dark });
-                t.HasMany(x => x.Users)
-                 .WithOne(c => c.Theme)
-                 .OnDelete(DeleteBehavior.NoAction);
-            });
-
             modelBuilder.Entity<User>(u =>
             {
                 u.Property(x => x.Password).IsRequired();
@@ -48,7 +38,20 @@ namespace KnitterNotebook.Database
                  .WithOne(c => c.User);
 
                 u.HasMany(x => x.Samples)
-                 .WithOne(c => c.User);
+                 .WithOne(c => c.User);               
+            });
+
+            modelBuilder.Entity<Theme>(t =>
+            {
+                t.HasMany(x => x.Users)
+                 .WithOne(c => c.Theme)
+                 .OnDelete(DeleteBehavior.NoAction);
+
+                t.Property(x => x.Name).IsRequired().HasConversion<string>();
+
+                t.HasData(new Theme() { Id = 1, Name = ApplicationTheme.Default },
+                      new Theme() { Id = 2, Name = ApplicationTheme.Light },
+                      new Theme() { Id = 3, Name = ApplicationTheme.Dark }); 
             });
 
             modelBuilder.Entity<Project>(p =>
@@ -67,7 +70,7 @@ namespace KnitterNotebook.Database
 
             modelBuilder.Entity<MovieUrl>(m =>
             {
-                m.Property(x => x.Title).IsRequired();
+                m.Property(x => x.Title).IsRequired().HasMaxLength(100);
                 m.Property(x => x.Link).IsRequired();
                 m.Property(x => x.Description).HasMaxLength(100);
             });
@@ -104,6 +107,8 @@ namespace KnitterNotebook.Database
             modelBuilder.Entity<Yarn>(m =>
             {
             });
+
+         
         }
     }
 }

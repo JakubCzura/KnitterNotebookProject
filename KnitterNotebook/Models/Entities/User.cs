@@ -32,5 +32,7 @@ namespace KnitterNotebook.Models.Entities
         public virtual List<MovieUrl> MovieUrls { get; set; } = new();
 
         public Theme Theme { get; set; }
+
+        public int ThemeId { get; set; }
     }
 }

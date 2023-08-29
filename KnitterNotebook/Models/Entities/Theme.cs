@@ -5,7 +5,7 @@ namespace KnitterNotebook.Models.Entities
 {
     public class Theme : BaseDbEntity
     {
-        public ApplicationTheme Name { get; set; } = ApplicationTheme.Default;
+        public ApplicationTheme Name { get; set; }
 
         public virtual List<User> Users { get; set; }
     }

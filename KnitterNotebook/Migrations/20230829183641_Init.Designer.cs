@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KnitterNotebook.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230829152805_Init")]
+    [Migration("20230829183641_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -43,7 +43,8 @@ namespace KnitterNotebook.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
