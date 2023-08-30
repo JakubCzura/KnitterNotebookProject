@@ -1,29 +1,33 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
+using FluentValidation.Results;
 using KnitterNotebook.Database;
+using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.UserControls;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using ValidationResult = FluentValidation.Results.ValidationResult;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace KnitterNotebook.ViewModels
 {
     public partial class SettingsViewModel : BaseViewModel
     {
-        public SettingsViewModel(IUserService userService,
+        public SettingsViewModel(ILogger<SettingsViewModel> logger,
+            IUserService userService,
             IValidator<ChangeNicknameDto> changeNicknameDtoValidator,
             IValidator<ChangeEmailDto> changeEmailDtoValidator,
             IValidator<ChangePasswordDto> changePasswordDtoValidator,
             IValidator<ChangeThemeDto> changeThemeDtoValidator,
             IWindowContentService windowContentService)
         {
+            _logger = logger;
             _userService = userService;
             _changeNicknameDtoValidator = changeNicknameDtoValidator;
             _changeEmailDtoValidator = changeEmailDtoValidator;
@@ -32,16 +36,12 @@ namespace KnitterNotebook.ViewModels
             _windowContentService = windowContentService;
         }
 
+        private readonly ILogger<SettingsViewModel> _logger;
         private readonly IUserService _userService;
-
         private readonly IValidator<ChangeNicknameDto> _changeNicknameDtoValidator;
-
         private readonly IValidator<ChangeEmailDto> _changeEmailDtoValidator;
-
         private readonly IValidator<ChangePasswordDto> _changePasswordDtoValidator;
-
         private readonly IValidator<ChangeThemeDto> _changeThemeDtoValidator;
-
         private readonly IWindowContentService _windowContentService;
 
         [ObservableProperty]
@@ -68,7 +68,7 @@ namespace KnitterNotebook.ViewModels
                 ValidationResult validation = await _changeEmailDtoValidator.ValidateAsync(changeEmailDto);
                 if (!validation.IsValid)
                 {
-                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    string errorMessage = validation.Errors.GetMessagesAsString();
                     MessageBox.Show(errorMessage, "Błąd zmiany email");
                     return;
                 }
@@ -77,6 +77,7 @@ namespace KnitterNotebook.ViewModels
             }
             catch (Exception exception)
             {
+                _logger.LogError(exception, "Error while changing e-mail");
                 MessageBox.Show(exception.Message);
             }
             finally
@@ -94,7 +95,7 @@ namespace KnitterNotebook.ViewModels
                 ValidationResult validation = await _changeNicknameDtoValidator.ValidateAsync(changeNicknameDto);
                 if (!validation.IsValid)
                 {
-                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    string errorMessage = validation.Errors.GetMessagesAsString();
                     MessageBox.Show(errorMessage, "Błąd zmiany nazwy użytkownika");
                     return;
                 }
@@ -103,6 +104,7 @@ namespace KnitterNotebook.ViewModels
             }
             catch (Exception exception)
             {
+                _logger.LogError(exception, "Error while changing nickname");
                 MessageBox.Show(exception.Message);
             }
             finally
@@ -122,7 +124,7 @@ namespace KnitterNotebook.ViewModels
                 ValidationResult validation = await _changePasswordDtoValidator.ValidateAsync(changePasswordDto);
                 if (!validation.IsValid)
                 {
-                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    string errorMessage = validation.Errors.GetMessagesAsString();
                     MessageBox.Show(errorMessage, "Błąd zmiany hasła");
                     return;
                 }
@@ -131,6 +133,7 @@ namespace KnitterNotebook.ViewModels
             }
             catch (Exception exception)
             {
+                _logger.LogError(exception, "Error while changing password");
                 MessageBox.Show(exception.Message);
             }
             finally
@@ -149,7 +152,7 @@ namespace KnitterNotebook.ViewModels
                 ValidationResult validation = await _changeThemeDtoValidator.ValidateAsync(changeThemeDto);
                 if (!validation.IsValid)
                 {
-                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    string errorMessage = validation.Errors.GetMessagesAsString();
                     MessageBox.Show(errorMessage, "Błąd zmiany motywu");
                     return;
                 }
@@ -158,6 +161,7 @@ namespace KnitterNotebook.ViewModels
             }
             catch (Exception exception)
             {
+                _logger.LogError(exception, "Error while changing theme");
                 MessageBox.Show(exception.Message);
             }
         }

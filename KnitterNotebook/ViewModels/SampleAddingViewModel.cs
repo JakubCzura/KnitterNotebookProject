@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.Database;
+using KnitterNotebook.Helpers.Extensions;
+using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
@@ -65,7 +67,7 @@ namespace KnitterNotebook.ViewModels
         {
             OpenFileDialog dialog = new()
             {
-                Filter = "Image Files (*.jpg; *.jpeg; *.png)|*.jpg; *.jpeg; *.png"
+                Filter = FileDialogFilter.ImageFilter
             };
             dialog.ShowDialog();
             SourceImagePath = dialog.FileName;
@@ -80,7 +82,7 @@ namespace KnitterNotebook.ViewModels
                 ValidationResult validation = await _createSampleDtoValidator.ValidateAsync(createSampleDto);
                 if (!validation.IsValid)
                 {
-                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    string errorMessage = validation.Errors.GetMessagesAsString();
                     MessageBox.Show(errorMessage, "Błąd podczas dodawania próbki obliczeniowej");
                     return;
                 }

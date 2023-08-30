@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.Database;
+using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -62,7 +63,7 @@ namespace KnitterNotebook.ViewModels
                 ValidationResult validation = await _createMovieUrlValidator.ValidateAsync(createMovieUrl);
                 if (!validation.IsValid)
                 {
-                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    string errorMessage = validation.Errors.GetMessagesAsString();
                     MessageBox.Show(errorMessage, "Błąd podczas rejestracji");
                     return;
                 }

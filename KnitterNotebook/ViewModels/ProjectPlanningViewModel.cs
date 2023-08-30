@@ -4,6 +4,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.Converters;
 using KnitterNotebook.Database;
+using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
@@ -99,7 +100,7 @@ namespace KnitterNotebook.ViewModels
                 ValidationResult validation = await _planProjectDtoValidator.ValidateAsync(planProjectDto);
                 if (!validation.IsValid)
                 {
-                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    string errorMessage = validation.Errors.GetMessagesAsString();
                     MessageBox.Show(errorMessage, "Błąd podczas planowania projektu");
                     return;
                 }

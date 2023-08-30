@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
+using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
@@ -40,7 +41,7 @@ namespace KnitterNotebook.ViewModels
                 ValidationResult validation = await _resetPasswordDtoValidator.ValidateAsync(resetPasswordDto);
                 if (!validation.IsValid)
                 {
-                    string errorMessage = string.Join(Environment.NewLine, validation.Errors.Select(x => x.ErrorMessage));
+                    string errorMessage = validation.Errors.GetMessagesAsString();
                     MessageBox.Show(errorMessage, "Błąd zmiany hasła");
                     return;
                 }
