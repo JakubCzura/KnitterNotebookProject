@@ -1,5 +1,6 @@
 ﻿using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
+using KnitterNotebook.Exceptions.Messages;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;

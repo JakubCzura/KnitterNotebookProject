@@ -1,5 +1,6 @@
 ﻿using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
+using KnitterNotebook.Exceptions.Messages;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
@@ -29,7 +30,7 @@ namespace KnitterNotebook.Services
             string? nickname = await _userService.GetNicknameAsync(addProjectImageDto.UserId);
             string? destinationImagePath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(addProjectImageDto.ImagePath));
 
-            if (string.IsNullOrWhiteSpace(destinationImagePath)) throw new ArgumentNullException(nameof(destinationImagePath), "Nie udało się zapisać zdjęcia.");
+            if (string.IsNullOrWhiteSpace(destinationImagePath)) throw new ArgumentNullException(nameof(destinationImagePath), ExceptionsMessages.NullFileWhenSave);
 
             ProjectImage projectImage = new()
             {

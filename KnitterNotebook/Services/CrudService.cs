@@ -1,5 +1,6 @@
 ﻿using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
+using KnitterNotebook.Exceptions.Messages;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

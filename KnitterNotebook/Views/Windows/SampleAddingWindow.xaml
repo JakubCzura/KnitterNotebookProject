@@ -102,6 +102,7 @@
                                     <ComboBox
                                         Grid.Column="1"
                                         HorizontalAlignment="Right"
+                                        SelectedIndex="0"
                                         ItemsSource="{Binding NeedleSizeUnitList}"
                                         SelectedItem="{Binding NeedleSizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </Grid>
