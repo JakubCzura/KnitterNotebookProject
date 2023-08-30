@@ -6,6 +6,7 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -18,18 +19,16 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class SampleAddingViewModel : BaseViewModel
     {
-        public SampleAddingViewModel(ISampleService sampleService, IUserService userService, IValidator<CreateSampleDto> createSampleDtoValidator)
+        public SampleAddingViewModel(ILogger<SampleAddingViewModel> logger, ISampleService sampleService, IValidator<CreateSampleDto> createSampleDtoValidator)
         {
+            _logger = logger;
             _sampleService = sampleService;
-            _userService = userService;
             _createSampleDtoValidator = createSampleDtoValidator;
             DeletePhotoCommand = new RelayCommand(() => SourceImagePath = null);
         }
 
+        private readonly ILogger<SampleAddingViewModel> _logger;
         private readonly ISampleService _sampleService;
-
-        private readonly IUserService _userService;
-
         private readonly IValidator<CreateSampleDto> _createSampleDtoValidator;
 
         public ICommand DeletePhotoCommand { get; }
@@ -91,6 +90,7 @@ namespace KnitterNotebook.ViewModels
             }
             catch (Exception exception)
             {
+                _logger.LogError(exception, "Error while adding new sample");
                 MessageBox.Show(exception.Message);
             }
         }

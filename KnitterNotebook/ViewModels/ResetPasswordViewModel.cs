@@ -5,6 +5,7 @@ using FluentValidation.Results;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,15 +15,16 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class ResetPasswordViewModel : BaseViewModel
     {
-        public ResetPasswordViewModel(IUserService userService, IValidator<ResetPasswordDto> resetPasswordDtoValidator)
+        public ResetPasswordViewModel(ILogger<ResetPasswordViewModel> logger, IUserService userService, IValidator<ResetPasswordDto> resetPasswordDtoValidator)
         {
+            _logger = logger;
             _userService = userService;
             _resetPasswordDtoValidator = resetPasswordDtoValidator;
         }
 
-        private readonly IValidator<ResetPasswordDto> _resetPasswordDtoValidator;
-
+        private readonly ILogger<ResetPasswordViewModel> _logger;
         private readonly IUserService _userService;
+        private readonly IValidator<ResetPasswordDto> _resetPasswordDtoValidator;
 
         [ObservableProperty]
         private string _email = string.Empty;
@@ -48,6 +50,7 @@ namespace KnitterNotebook.ViewModels
             }
             catch (Exception exception)
             {
+                _logger.LogError(exception, "Error while resetting password");
                 MessageBox.Show(exception.Message);
             }
             finally

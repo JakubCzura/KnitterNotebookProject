@@ -9,6 +9,7 @@ using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -20,12 +21,14 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class ProjectPlanningViewModel : ObservableObject
     {
-        public ProjectPlanningViewModel(IProjectService projectService, IValidator<PlanProjectDto> planProjectDtoValidator)
+        public ProjectPlanningViewModel(ILogger<ProjectPlanningViewModel> logger, IProjectService projectService, IValidator<PlanProjectDto> planProjectDtoValidator)
         {
+            _logger = logger;
             _projectService = projectService;
             _planProjectDtoValidator = planProjectDtoValidator;
         }
 
+        private readonly ILogger<ProjectPlanningViewModel> _logger;
         private readonly IProjectService _projectService;
         private readonly IValidator<PlanProjectDto> _planProjectDtoValidator;
 
@@ -106,6 +109,7 @@ namespace KnitterNotebook.ViewModels
             }
             catch (Exception exception)
             {
+                _logger.LogError(exception, "Error while planning new project");
                 MessageBox.Show(exception.Message);
             }
         }

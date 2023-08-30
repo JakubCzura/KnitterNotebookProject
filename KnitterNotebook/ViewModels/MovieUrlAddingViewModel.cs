@@ -5,6 +5,7 @@ using FluentValidation.Results;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,8 +18,9 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public partial class MovieUrlAddingViewModel : BaseViewModel
     {
-        public MovieUrlAddingViewModel(IMovieUrlService movieUrlService, IValidator<CreateMovieUrlDto> createMovieUrlValidator)
+        public MovieUrlAddingViewModel(ILogger<MovieUrlAddingViewModel> logger, IMovieUrlService movieUrlService, IValidator<CreateMovieUrlDto> createMovieUrlValidator)
         {
+            _logger = logger;
             _movieUrlService = movieUrlService;
             _createMovieUrlValidator = createMovieUrlValidator;
         }
@@ -29,10 +31,12 @@ namespace KnitterNotebook.ViewModels
 
         public static void OnNewMovieUrlAdded() => NewMovieUrlAdded?.Invoke();
 
+
         #endregion Delegates
 
         #region Properties
 
+        private readonly ILogger<MovieUrlAddingViewModel> _logger;
         private readonly IMovieUrlService _movieUrlService;
         private readonly IValidator<CreateMovieUrlDto> _createMovieUrlValidator;
 
@@ -68,6 +72,7 @@ namespace KnitterNotebook.ViewModels
             }
             catch (Exception exception)
             {
+                _logger.LogError(exception, "Error while adding new movie's url");
                 MessageBox.Show(exception.Message);
             }
         }
