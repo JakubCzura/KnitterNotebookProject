@@ -5,6 +5,7 @@ using FluentValidation.Results;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,14 +15,16 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class RegistrationViewModel : BaseViewModel
     {
-        public RegistrationViewModel(IUserService userService, IValidator<RegisterUserDto> registerUserDtoValidator)
+        public RegistrationViewModel(ILogger<RegistrationViewModel> logger, IUserService userService, IValidator<RegisterUserDto> registerUserDtoValidator)
         {
+            _logger = logger;
             _userService = userService;
             _registerUserDtoValidator = registerUserDtoValidator;
         }
 
         #region Properties
 
+        private readonly ILogger<RegistrationViewModel> _logger;
         private readonly IUserService _userService;
         private readonly IValidator<RegisterUserDto> _registerUserDtoValidator;
 
@@ -54,6 +57,7 @@ namespace KnitterNotebook.ViewModels
             }
             catch (Exception exception)
             {
+                _logger.LogError(exception, "Error while registering user");
                 MessageBox.Show(exception.Message);
             }
         }

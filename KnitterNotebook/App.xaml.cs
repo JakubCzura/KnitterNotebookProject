@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.IO;
+using Serilog;
 using System.Windows;
 
 namespace KnitterNotebook
@@ -22,21 +22,24 @@ namespace KnitterNotebook
     public partial class App : Application
     {
         public static IHost? AppHost { get; private set; }
-        private IConfiguration Configuration { get; set; }
 
         public App()
         {
             AppHost = Host.CreateDefaultBuilder()
+                .ConfigureAppConfiguration((hostContext, configurationBuilder) =>
+                {
+                    configurationBuilder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                })
+                .UseSerilog((hostContext, loggerConfiguration) =>
+                {
+                    loggerConfiguration.ReadFrom.Configuration(hostContext.Configuration);
+                })
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddDbContext<DatabaseContext>(options =>
                     {
-                        IConfigurationBuilder builder = new ConfigurationBuilder()
-                           .SetBasePath(Directory.GetCurrentDirectory())
-                           .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-                        Configuration = builder.Build();
-                        options.UseSqlServer(Configuration.GetConnectionString("KnitterNotebookConnectionString"));
-                    }, ServiceLifetime.Scoped);
+                        options.UseSqlServer(hostContext.Configuration.GetConnectionString("KnitterNotebookConnectionString"));
+                    });
 
                     services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
                     services.AddScoped<IValidator<ChangeNicknameDto>, ChangeNicknameDtoValidator>();

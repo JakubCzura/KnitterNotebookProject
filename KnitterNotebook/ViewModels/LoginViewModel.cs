@@ -6,6 +6,7 @@ using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,15 +19,16 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public partial class LoginViewModel : BaseViewModel
     {
-        public LoginViewModel(IUserService userService, IValidator<LogInDto> logInDtoValidator)
+        public LoginViewModel(ILogger<LoginViewModel> logger, IUserService userService, IValidator<LogInDto> logInDtoValidator)
         {
+            _logger = logger;
             _userService = userService;
             _logInDtoValidator = logInDtoValidator;
         }
 
+        private readonly ILogger<LoginViewModel> _logger;
         private readonly IUserService _userService;
         private readonly IValidator<LogInDto> _logInDtoValidator;
-
         #region Properties
 
         [ObservableProperty]
@@ -68,6 +70,7 @@ namespace KnitterNotebook.ViewModels
             }
             catch (Exception exception)
             {
+                _logger.LogError(exception, "Error while logging in");
                 MessageBox.Show(exception.Message);
             }
         }
