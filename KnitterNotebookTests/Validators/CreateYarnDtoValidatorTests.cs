@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using FluentValidation.TestHelper;
+﻿using FluentValidation.TestHelper;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Validators;
 
@@ -7,7 +6,7 @@ namespace KnitterNotebookTests.Validators
 {
     public class CreateYarnDtoValidatorTests
     {
-        private readonly CreateYarnDtoVlidator _validator;
+        private readonly CreateYarnDtoValidator _validator;
 
         public CreateYarnDtoValidatorTests()
         {

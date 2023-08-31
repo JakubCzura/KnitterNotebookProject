@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace KnitterNotebook.Models.Entities
 {
@@ -30,6 +31,10 @@ namespace KnitterNotebook.Models.Entities
         public virtual List<Sample> Samples { get; set; } = new();
 
         public virtual List<MovieUrl> MovieUrls { get; set; } = new();
+
+        public string? PasswordResetToken { get; set; }
+
+        public DateTime? PasswordResetTokenExpiresDate { get; set; }
 
         public Theme Theme { get; set; }
 
