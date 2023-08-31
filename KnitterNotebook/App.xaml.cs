@@ -63,6 +63,7 @@ namespace KnitterNotebook
                     services.AddScoped<IWindowContentService, WindowContentService>();
                     services.AddScoped<IWebBrowserService, WebBrowserService>();
                     services.AddScoped<IProjectImageService, ProjectImageService>();
+                    services.AddScoped<IEmailService, EmailService>();
                     services.AddTransient<LoginViewModel>();
                     services.AddTransient(s => new LoginWindow()
                     {
