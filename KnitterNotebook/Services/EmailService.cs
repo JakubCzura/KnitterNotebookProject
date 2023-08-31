@@ -2,6 +2,7 @@
 using KnitterNotebook.Services.Interfaces;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.Extensions.Configuration;
 using MimeKit;
 using MimeKit.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,23 @@ namespace KnitterNotebook.Services
 {
     public class EmailService : IEmailService
     {
+        public EmailService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        private readonly IConfiguration _configuration;
+
         public async Task SendEmailAsync(SendEmailDto sendEmailDto)
         {
-            string emailAddress = "";
-            string password = "";
+            var emailAddress = _configuration.GetValue<string>("EmailSending:Email");
+            var password = _configuration.GetValue<string>("EmailSending:Password");
+            var senderName = _configuration.GetValue<string>("EmailSending:SenderName");
 
-            MimeMessage email = new();
-            email.From.Add(new MailboxAddress("KnitterNotebbok", emailAddress));
+            MimeMessage email = new()
+            {
+                Sender = new MailboxAddress(senderName, emailAddress)
+            };
             email.To.Add(MailboxAddress.Parse(sendEmailDto.To));
             email.Subject = sendEmailDto.Subject;
             email.Body = new TextPart(TextFormat.Html) { Text = sendEmailDto.Body };

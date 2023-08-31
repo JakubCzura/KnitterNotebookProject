@@ -6,6 +6,7 @@ using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
@@ -16,17 +17,20 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class ResetPasswordViewModel : BaseViewModel
     {
-        public ResetPasswordViewModel(ILogger<ResetPasswordViewModel> logger, IUserService userService, IValidator<ResetPasswordDto> resetPasswordDtoValidator)
+        public ResetPasswordViewModel(ILogger<ResetPasswordViewModel> logger, IConfiguration configuration, IUserService userService, IValidator<ResetPasswordDto> resetPasswordDtoValidator, IEmailService emailService)
         {
             _logger = logger;
+            _configuration = configuration;
             _userService = userService;
             _resetPasswordDtoValidator = resetPasswordDtoValidator;
+            _emailService = emailService;
         }
 
         private readonly ILogger<ResetPasswordViewModel> _logger;
+        private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
         private readonly IValidator<ResetPasswordDto> _resetPasswordDtoValidator;
-
+        private readonly IEmailService _emailService;
         [ObservableProperty]
         private string _email = string.Empty;
 
