@@ -30,8 +30,17 @@ namespace KnitterNotebook.ViewModels
         [ObservableProperty]
         private string _email = string.Empty;
 
+        [ObservableProperty]
+        private string _token = string.Empty;
+
         [RelayCommand]
-        public async Task ResetPasswordAsync()
+        private async Task SendPasswordResetTokenEmailAsync()
+        {
+            throw new NotImplementedException("SendPasswordResetTokenEmailAsync - reset password view model");
+        }
+
+        [RelayCommand]
+        private async Task ResetPasswordAsync()
         {
             try
             {
@@ -47,7 +56,7 @@ namespace KnitterNotebook.ViewModels
                 }
                 await _userService.ResetPasswordAsync(resetPasswordDto);
                 MessageBox.Show($"Ustawiono nowe hasło");
-                Closewindow(ResetPasswordWindow.Instance);
+                Closewindow<ResetPasswordWindow>();
             }
             catch (Exception exception)
             {

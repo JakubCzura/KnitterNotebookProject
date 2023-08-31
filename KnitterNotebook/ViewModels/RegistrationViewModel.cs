@@ -53,7 +53,7 @@ namespace KnitterNotebook.ViewModels
                     return;
                 }
                 await _userService.CreateAsync(registerUserDto);
-                Closewindow(RegistrationWindow.Instance);
+                Closewindow<RegistrationWindow>();
                 MessageBox.Show("Rejestracja przebiegła pomyślnie");
             }
             catch (Exception exception)

@@ -63,7 +63,7 @@ namespace KnitterNotebook.ViewModels
                     }
                     await _projectImageService.CreateAsync(addProjectImageDto);
                     _sharedResourceViewModel.OnProjectInProgressImageAdded();
-                    Closewindow(ProjectImageAddingWindow.Instance);
+                    Closewindow<ProjectImageAddingWindow>();
                 }
             }
             catch (Exception exception)
