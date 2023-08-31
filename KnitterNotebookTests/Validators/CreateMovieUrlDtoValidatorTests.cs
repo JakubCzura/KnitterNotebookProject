@@ -14,7 +14,7 @@ namespace KnitterNotebookTests.Validators
 {
     public class CreateMovieUrlDtoValidatorTests
     {
-        private readonly IValidator<CreateMovieUrlDto> _validator;
+        private readonly CreateMovieUrlDtoValidator _validator;
         private readonly DatabaseContext _databaseContext;
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _themeServiceMock = new();

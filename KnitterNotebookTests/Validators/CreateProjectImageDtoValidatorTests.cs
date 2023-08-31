@@ -14,18 +14,20 @@ namespace KnitterNotebookTests.Validators
 {
     public class CreateProjectImageDtoValidatorTests
     {
-        private readonly AbstractValidator<CreateProjectImageDto> _validator;
+        private readonly CreateProjectImageDtoValidator _validator;
         private readonly ProjectService _projectService;
-        private readonly Mock<IUserService> _userServiceMock = new();
+        private readonly UserService _userService;
         private readonly DatabaseContext _databaseContext;
-
+        private readonly Mock<IThemeService> _themeServiceMock = new();
+        private readonly Mock<IPasswordService> _passwordServiceMock = new();
         public CreateProjectImageDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
             builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
             _databaseContext = new DatabaseContext(builder.Options);
-            _projectService = new(_databaseContext, _userServiceMock.Object);
-            _validator = new CreateProjectImageDtoValidator(_projectService);
+            _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object);
+            _projectService = new(_databaseContext, _userService);
+            _validator = new CreateProjectImageDtoValidator(_projectService, _userService);
             SeedProjects();
         }
 
@@ -33,8 +35,8 @@ namespace KnitterNotebookTests.Validators
         {
             List<Project> projects = new()
             {
-                new Project() { Id = 1, Name = "Project1", UserId = 1 },
-                new Project() { Id = 2, Name = "Project2", UserId = 2 },
+                new Project() { Id = 1, Name = "Project1", User = new() { Id = 1 } },
+                new Project() { Id = 2, Name = "Project2", User = new() { Id = 2 } },
             };
             _databaseContext.Projects.AddRange(projects);
             _databaseContext.SaveChanges();

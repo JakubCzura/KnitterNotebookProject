@@ -8,7 +8,7 @@ namespace KnitterNotebookTests.Validators
 {
     public class CreateNeedleDtoValidatorTests
     {
-        private readonly IValidator<CreateNeedleDto> _validator;
+        private readonly CreateNeedleDtoValidator _validator;
 
         public CreateNeedleDtoValidatorTests()
         {

@@ -8,7 +8,10 @@ namespace KnitterNotebook.Database
     {
         public DatabaseContext(DbContextOptions options) : base(options)
         {
-            Database.Migrate();
+            if (Database.IsRelational())
+            {
+                Database.Migrate();
+            }
         }
 
         public DbSet<Project> Projects { get; set; }
@@ -54,7 +57,7 @@ namespace KnitterNotebook.Database
             modelBuilder.Entity<Project>(p =>
             {
                 p.Property(x => x.Name).IsRequired().HasMaxLength(100);
-                p.Property(x => x.Description).IsRequired().HasMaxLength(300);
+                p.Property(x => x.Description).HasMaxLength(300);
 
                 p.HasMany(x => x.Yarns)
                  .WithOne(c => c.Project);

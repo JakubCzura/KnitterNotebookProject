@@ -11,67 +11,27 @@ namespace KnitterNotebookTests.Helpers.Extensions
         {
             yield return new object[]
             {
-                new Project()
-                {
-                    ProjectStatus = ProjectStatusName.Planned,
-                    StartDate = null,
-                    EndDate = null,
-                },
+                new Project() { ProjectStatus = ProjectStatusName.Planned, StartDate = null, EndDate = null },
                 ProjectStatusName.InProgress,
-                new Project()
-                {
-                    ProjectStatus = ProjectStatusName.InProgress,
-                    StartDate = DateTime.Today,
-                    EndDate = null,
-                },
+                new Project() { ProjectStatus = ProjectStatusName.InProgress, StartDate = DateTime.Today, EndDate = null },
             };
             yield return new object[]
             {
-                new Project()
-                {
-                    ProjectStatus = ProjectStatusName.InProgress,
-                    StartDate = DateTime.Today,
-                    EndDate = null,
-                },
+                new Project() { ProjectStatus = ProjectStatusName.InProgress, StartDate = DateTime.Today, EndDate = null },
                 ProjectStatusName.Planned,
-                new Project()
-                {
-                    ProjectStatus = ProjectStatusName.Planned,
-                    StartDate = null,
-                    EndDate = null,
-                },
+                new Project() { ProjectStatus = ProjectStatusName.Planned, StartDate = null, EndDate = null },
             };
             yield return new object[]
             {
-                new Project()
-                {
-                    ProjectStatus = ProjectStatusName.InProgress,
-                    StartDate = DateTime.Today,
-                    EndDate = null,
-                },
+                new Project() { ProjectStatus = ProjectStatusName.InProgress, StartDate = DateTime.Today, EndDate = null },
                 ProjectStatusName.Finished,
-                new Project()
-                {
-                    ProjectStatus = ProjectStatusName.Finished,
-                    StartDate = DateTime.Today,
-                    EndDate = DateTime.Today,
-                },
+                new Project() { ProjectStatus = ProjectStatusName.Finished, StartDate = DateTime.Today, EndDate = DateTime.Today },
             };
             yield return new object[]
             {
-                new Project()
-                {
-                    ProjectStatus = ProjectStatusName.Finished,
-                    StartDate = DateTime.Today,
-                    EndDate = DateTime.Today,
-                },
+                new Project() { ProjectStatus = ProjectStatusName.Finished, StartDate = DateTime.Today, EndDate = DateTime.Today },
                 ProjectStatusName.InProgress,
-                new Project()
-                {
-                    ProjectStatus = ProjectStatusName.InProgress,
-                    StartDate = DateTime.Today,
-                    EndDate = null,
-                },
+                new Project() { ProjectStatus = ProjectStatusName.InProgress, StartDate = DateTime.Today, EndDate = null },
             };
         }
 

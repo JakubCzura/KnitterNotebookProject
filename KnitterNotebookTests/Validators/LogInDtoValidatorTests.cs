@@ -7,7 +7,7 @@ namespace KnitterNotebookTests.Validators
 {
     public class LogInDtoValidatorTests
     {
-        private readonly IValidator<LogInDto> _validator;
+        private readonly LogInDtoValidator _validator;
 
         public LogInDtoValidatorTests()
         {

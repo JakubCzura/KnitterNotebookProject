@@ -5,27 +5,22 @@ namespace KnitterNotebook.Helpers.Extensions
 {
     public class EnumerableExtensionTests
     {
-        [Fact]
-        public void ToObservableCollection_ForValidData_ReturnsObservableCollection()
+        public static IEnumerable<object[]> ToObservableCollection_ValidData()
         {
-            //Arrange
-            List<int> enumerable1 = new() { 1, 2, 3 };
-            List<string> enumerable2 = new() { "string1", "string2", "string3" };
-            List<char> enumerable3 = new() { 'k', 'j', 'r' };
+            yield return new object[] { new List<int> { 1, 2, 3 }, new ObservableCollection<int> { 1, 2, 3 } };
+            yield return new object[] { new List<string> { "string1", "string2", "string3" }, new ObservableCollection<string> { "string1", "string2", "string3" } };
+            yield return new object[] { new List<char> { 'k', 'j', 'r' }, new ObservableCollection<char> { 'k', 'j', 'r' } };
+        }
 
-            ObservableCollection<int> expected1 = new() { 1, 2, 3 };
-            ObservableCollection<string> expected2 = new() { "string1", "string2", "string3" };
-            ObservableCollection<char> expected3 = new() { 'k', 'j', 'r' };
-
+        [Theory]
+        [MemberData(nameof(ToObservableCollection_ValidData))]
+        public void ToObservableCollection_ForValidData_ReturnsObservableCollection<T>(IEnumerable<T> enumerable, ObservableCollection<T> expected)
+        {
             //Act
-            ObservableCollection<int> result1 = enumerable1.ToObservableCollection();
-            ObservableCollection<string> result2 = enumerable2.ToObservableCollection();
-            ObservableCollection<char> result3 = enumerable3.ToObservableCollection();
+            ObservableCollection<T> result = enumerable.ToObservableCollection();
 
             //Assert
-            result1.Should().BeEquivalentTo(expected1);
-            result2.Should().BeEquivalentTo(expected2);
-            result3.Should().BeEquivalentTo(expected3);
+            result.Should().BeEquivalentTo(expected);
         }
 
         [Fact]

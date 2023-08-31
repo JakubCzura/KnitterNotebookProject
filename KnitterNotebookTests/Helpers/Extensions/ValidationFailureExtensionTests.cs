@@ -6,6 +6,23 @@ namespace KnitterNotebookTests.Helpers.Extensions
 {
     public class ValidationFailureExtensionTests
     {
+        public static IEnumerable<object[]> ValidData()
+        {
+            yield return new object[] { new List<ValidationFailure> { new ValidationFailure("propertyName", "message") }, "message" };
+            yield return new object[] { new List<ValidationFailure> { new ValidationFailure("propertyName", "message1"), new ValidationFailure("propertyName", "message2") }, $"message1{Environment.NewLine}message2" };
+        }
+
+        [Theory]
+        [MemberData(nameof(ValidData))]
+        public void GetMessagesAsString_ForValidData_ReturnsString(IEnumerable<ValidationFailure> validationFailures, string expected)
+        {
+            //Act
+            string result = validationFailures.GetMessagesAsString();
+
+            //Assert
+            result.Should().Be(expected);
+        }
+
         [Fact]
         public void GetMessagesAsString_ForEmptyData_ReturnsEmptyString()
         {

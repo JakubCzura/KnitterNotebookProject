@@ -15,7 +15,7 @@ namespace KnitterNotebookTests.Validators
 {
     public class ChangeThemeDtoValidatorTests
     {
-        private readonly IValidator<ChangeThemeDto> _validator;
+        private readonly ChangeThemeDtoValidator _validator;
         private readonly DatabaseContext _databaseContext;
         private readonly UserService _userService;
         private readonly ThemeService _themeService;
