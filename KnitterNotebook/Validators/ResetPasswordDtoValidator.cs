@@ -20,6 +20,10 @@ namespace KnitterNotebook.Validators
             RuleFor(x => x.Email)
               .MustAsync(async (email, cancellationToken) => await _userService.IsEmailTakenAsync(email))
               .WithMessage("E-mail nie pasuje do żadnego użytkownika");
+
+            RuleFor(x => x.Token)
+              .MustAsync(async (token, cancellationToken) => await _userService.ArePasswordResetTokenAndExpirationDateValidAsync(token))
+              .WithMessage("Token jest nieprawidłowy lub wygasł jego czas użycia");
         }
     }
 }

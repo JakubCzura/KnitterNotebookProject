@@ -33,6 +33,8 @@ namespace KnitterNotebook.Services.Interfaces
 
         Task<(string, DateTime)> UpdatePasswordResetTokenStatusAsync(string userEmail);
 
+        Task<bool> ArePasswordResetTokenAndExpirationDateValidAsync(string token);
+
         void LogOut();
     }
 }

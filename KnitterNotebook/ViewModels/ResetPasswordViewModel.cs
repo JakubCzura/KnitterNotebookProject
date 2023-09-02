@@ -77,7 +77,7 @@ namespace KnitterNotebook.ViewModels
                 }
                 await _userService.ResetPasswordAsync(resetPasswordDto);
                 MessageBox.Show($"Ustawiono nowe hasło");
-                Closewindow<ResetPasswordWindow>();
+                Closewindow(ResetPasswordWindow.Instance);
             }
             catch (Exception exception)
             {
@@ -88,8 +88,11 @@ namespace KnitterNotebook.ViewModels
             {
                 Email = string.Empty;
                 Token = string.Empty;
-                ResetPasswordWindow.Instance.NewPasswordPasswordBox.Password = string.Empty;
-                ResetPasswordWindow.Instance.RepeatedNewPasswordPasswordBox.Password = string.Empty;
+                if (ResetPasswordWindow.Instance is not null)
+                {
+                    ResetPasswordWindow.Instance.NewPasswordPasswordBox.Password = string.Empty; ;
+                    ResetPasswordWindow.Instance.RepeatedNewPasswordPasswordBox.Password = string.Empty;
+                }
             }
         }
     }

@@ -10,7 +10,6 @@ using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.UserControls;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using UserControl = System.Windows.Controls.UserControl;
@@ -138,8 +137,11 @@ namespace KnitterNotebook.ViewModels
             }
             finally
             {
-                UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password = string.Empty;
-                UserSettingsUserControl.Instance.RepeatedNewPasswordPasswordBox.Password = string.Empty;
+                if (UserSettingsUserControl.Instance is not null)
+                {
+                    UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password = string.Empty;
+                    UserSettingsUserControl.Instance.RepeatedNewPasswordPasswordBox.Password = string.Empty;
+                }
             }
         }
 

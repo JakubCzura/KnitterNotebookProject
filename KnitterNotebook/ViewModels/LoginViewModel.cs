@@ -29,6 +29,7 @@ namespace KnitterNotebook.ViewModels
         private readonly ILogger<LoginViewModel> _logger;
         private readonly IUserService _userService;
         private readonly IValidator<LogInDto> _logInDtoValidator;
+
         #region Properties
 
         [ObservableProperty]
@@ -66,12 +67,20 @@ namespace KnitterNotebook.ViewModels
                 LoggedUserInformation.Id = userId.Value;
 
                 ShowWindow<MainWindow>();
-                Closewindow<LoginWindow>();
+                Closewindow(LoginWindow.Instance);
             }
             catch (Exception exception)
             {
                 _logger.LogError(exception, "Error while logging in");
                 MessageBox.Show(exception.Message);
+            }
+            finally
+            {
+                Email = string.Empty;
+                if (LoginWindow.Instance != null)
+                {
+                    LoginWindow.Instance.UserPasswordPasswordBox.Password = string.Empty;
+                }
             }
         }
 

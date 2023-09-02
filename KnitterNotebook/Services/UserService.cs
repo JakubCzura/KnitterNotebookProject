@@ -19,6 +19,7 @@ namespace KnitterNotebook.Services
         private readonly IPasswordService _passwordService;
         private readonly ITokenService _tokenService;
         private readonly IConfiguration _configuration;
+
         public UserService(DatabaseContext databaseContext, IThemeService themeService, IPasswordService passwordService, ITokenService tokenService, IConfiguration configuration) : base(databaseContext)
         {
             _databaseContext = databaseContext;
@@ -31,6 +32,17 @@ namespace KnitterNotebook.Services
         public async Task<bool> IsNicknameTakenAsync(string nickname) => await _databaseContext.Users.AnyAsync(x => x.Nickname == nickname);
 
         public async Task<bool> IsEmailTakenAsync(string email) => await _databaseContext.Users.AnyAsync(x => x.Email == email);
+
+        public async Task<bool> ArePasswordResetTokenAndExpirationDateValidAsync(string token)
+        {
+            User? user = await _databaseContext.Users.FirstOrDefaultAsync(x => x.PasswordResetToken == token);
+
+            return user is not null
+                   && user.PasswordResetToken is not null
+                   && user.PasswordResetToken == token
+                   && user.PasswordResetTokenExpiresDate.HasValue
+                   && user.PasswordResetTokenExpiresDate.Value.ToUniversalTime() >= DateTime.UtcNow;
+        }
 
         public async Task<bool> UserExistsAsync(int id) => await _databaseContext.Users.AnyAsync(x => x.Id == id);
 
@@ -131,10 +143,10 @@ namespace KnitterNotebook.Services
 
             user.PasswordResetToken = _tokenService.CreateResetPasswordToken();
             user.PasswordResetTokenExpiresDate = _tokenService.CreateResetPasswordTokenExpirationDate(_configuration.GetValue("Tokens:ResetPasswordTokenExpirationDays", 1));
-            
+
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync();
-            
+
             return (user.PasswordResetToken, user.PasswordResetTokenExpiresDate.Value);
         }
 
