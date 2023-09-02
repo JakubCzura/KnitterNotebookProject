@@ -6,6 +6,7 @@ using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
 
@@ -16,12 +17,15 @@ namespace KnitterNotebook.Services
         private readonly DatabaseContext _databaseContext;
         private readonly IThemeService _themeService;
         private readonly IPasswordService _passwordService;
-
-        public UserService(DatabaseContext databaseContext, IThemeService themeService, IPasswordService passwordService) : base(databaseContext)
+        private readonly ITokenService _tokenService;
+        private readonly IConfiguration _configuration;
+        public UserService(DatabaseContext databaseContext, IThemeService themeService, IPasswordService passwordService, ITokenService tokenService, IConfiguration configuration) : base(databaseContext)
         {
             _databaseContext = databaseContext;
             _themeService = themeService;
             _passwordService = passwordService;
+            _tokenService = tokenService;
+            _configuration = configuration;
         }
 
         public async Task<bool> IsNicknameTakenAsync(string nickname) => await _databaseContext.Users.AnyAsync(x => x.Nickname == nickname);
@@ -118,6 +122,20 @@ namespace KnitterNotebook.Services
             user.Password = _passwordService.HashPassword(resetPasswordDto.NewPassword);
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync();
+        }
+
+        public async Task<(string, DateTime)> UpdatePasswordResetTokenStatusAsync(string userEmail)
+        {
+            User user = await _databaseContext.Users.FirstOrDefaultAsync(x => x.Email == userEmail)
+                        ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithEmailNotFound(userEmail));
+
+            user.PasswordResetToken = _tokenService.CreateResetPasswordToken();
+            user.PasswordResetTokenExpiresDate = _tokenService.CreateResetPasswordTokenExpirationDate(_configuration.GetValue("Tokens:ResetPasswordTokenExpirationDays", 1));
+            
+            _databaseContext.Users.Update(user);
+            await _databaseContext.SaveChangesAsync();
+            
+            return (user.PasswordResetToken, user.PasswordResetTokenExpiresDate.Value);
         }
 
         public void LogOut() => Environment.Exit(0);

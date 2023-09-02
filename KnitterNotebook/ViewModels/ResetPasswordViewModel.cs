@@ -9,7 +9,6 @@ using KnitterNotebook.Views.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -31,6 +30,7 @@ namespace KnitterNotebook.ViewModels
         private readonly IUserService _userService;
         private readonly IValidator<ResetPasswordDto> _resetPasswordDtoValidator;
         private readonly IEmailService _emailService;
+
         [ObservableProperty]
         private string _email = string.Empty;
 
@@ -40,7 +40,23 @@ namespace KnitterNotebook.ViewModels
         [RelayCommand]
         private async Task SendPasswordResetTokenEmailAsync()
         {
-            throw new NotImplementedException("SendPasswordResetTokenEmailAsync - reset password view model");
+            bool emailExists = await _userService.IsEmailTakenAsync(Email);
+            if (!emailExists)
+            {
+                MessageBox.Show("Nie odnaleziono adresu e-mail", "Błąd wysłania tokenu");
+                return;
+            }
+
+            (string, DateTime) tokenWithExpirationDate = await _userService.UpdatePasswordResetTokenStatusAsync(Email);
+
+            SendEmailDto sendEmailDto = new()
+            {
+                Subject = "Password reset",
+                To = Email,
+                Body = $"Your password reset token is: {tokenWithExpirationDate.Item1}. The token will expire {tokenWithExpirationDate.Item2:u}"
+            };
+
+            await _emailService.SendEmailAsync(sendEmailDto);
         }
 
         [RelayCommand]
@@ -49,6 +65,7 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 ResetPasswordDto resetPasswordDto = new(Email,
+                                                        Token,
                                                         ResetPasswordWindow.Instance.NewPasswordPasswordBox.Password,
                                                         ResetPasswordWindow.Instance.RepeatedNewPasswordPasswordBox.Password);
                 ValidationResult validation = await _resetPasswordDtoValidator.ValidateAsync(resetPasswordDto);
@@ -70,6 +87,7 @@ namespace KnitterNotebook.ViewModels
             finally
             {
                 Email = string.Empty;
+                Token = string.Empty;
                 ResetPasswordWindow.Instance.NewPasswordPasswordBox.Password = string.Empty;
                 ResetPasswordWindow.Instance.RepeatedNewPasswordPasswordBox.Password = string.Empty;
             }

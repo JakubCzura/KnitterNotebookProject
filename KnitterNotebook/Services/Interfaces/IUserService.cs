@@ -1,5 +1,6 @@
 ﻿using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services.Interfaces
@@ -29,6 +30,8 @@ namespace KnitterNotebook.Services.Interfaces
         Task ChangeThemeAsync(ChangeThemeDto changeThemeDto);
 
         Task ResetPasswordAsync(ResetPasswordDto resetPasswordDto);
+
+        Task<(string, DateTime)> UpdatePasswordResetTokenStatusAsync(string userEmail);
 
         void LogOut();
     }
