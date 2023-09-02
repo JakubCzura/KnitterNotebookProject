@@ -7,6 +7,7 @@ using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebookTests.HelpersForTesting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Moq;
 
 namespace KnitterNotebookTests.Validators
@@ -18,58 +19,47 @@ namespace KnitterNotebookTests.Validators
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _ThemeServiceMock = new();
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
-
+        private readonly Mock<ITokenService> _tokenServiceMock = new();
+        private readonly Mock<IConfiguration> _iconfigurationMock = new();
         public ResetPasswordDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
             builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
             _databaseContext = new DatabaseContext(builder.Options);
-            _userService = new(_databaseContext, _ThemeServiceMock.Object, _passwordServiceMock.Object);
+            _userService = new(_databaseContext, _ThemeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object);
             _validator = new ResetPasswordDtoValidator(_userService);
             SeedUsers();
         }
 
-        public static IEnumerable<object[]> InvalidData()
-        {
-            yield return new object[] { new ResetPasswordDto("test@test.com", "PasswordNew123", "PasswordNew123") };
-            yield return new object[] { new ResetPasswordDto("Nick333", "PasswordNew123", "PasswordNew123") };
-            yield return new object[] { new ResetPasswordDto("nick1@mail.com", "KPasswordNew123", "PasswordNew123") };
-            yield return new object[] { new ResetPasswordDto("Nick1@mail.com", "KPass4wordNew123", "PasswordNew123") };
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "KP3assw5ordNew123", "PasswordNew123") };
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "KPa3ssw56ordNew123", "PasswordNew123") };
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "", "") };
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", null!, "") };
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "", null!) };
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "ValidPassword1", null!) };
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "", "ValidPassword1") };
-        }
-
         public static IEnumerable<object[]> ValidData()
         {
-            yield return new object[] { new ResetPasswordDto("nick1@mail.com", "PasswordNew123", "PasswordNew123") };
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "PasswordNew123", "PasswordNew123") };
+            yield return new object[] { new ResetPasswordDto("nick1@mail.com", "123xpklo2", "PasswordNew123", "PasswordNew123") };
+            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "4213x3123", "PasswordNew123", "PasswordNew123") };
         }
 
         private void SeedUsers()
         {
             List<User> users = new()
             {
-                new User() { Id = 1, Email = "nick1@mail.com", Nickname = "Nick1"},
-                new User() { Id = 2, Email = "nick2@mail.com", Nickname = "Nick2"},
+                new User() 
+                { 
+                    Id = 1, 
+                    Email = "nick1@mail.com", 
+                    Nickname = "Nick1", 
+                    PasswordResetToken = "123xpklo2", 
+                    PasswordResetTokenExpiresDate = DateTime.UtcNow.AddDays(1)
+                },
+                new User()
+                {
+                    Id = 2, 
+                    Email = "nick2@mail.com",
+                    Nickname = "Nick2", 
+                    PasswordResetToken = "4213x3123", 
+                    PasswordResetTokenExpiresDate = DateTime.UtcNow.AddHours(2)
+                }
             };
             _databaseContext.Users.AddRange(users);
             _databaseContext.SaveChanges();
-        }
-
-        [Theory]
-        [MemberData(nameof(InvalidData))]
-        public async Task ValidateAsync_ForInvalidData_FailValidation(ResetPasswordDto resetPasswordDto)
-        {
-            //Act
-            TestValidationResult<ResetPasswordDto> validationResult = await _validator.TestValidateAsync(resetPasswordDto);
-
-            //Assert
-            validationResult.ShouldHaveAnyValidationError();
         }
 
         [Theory]
@@ -81,6 +71,80 @@ namespace KnitterNotebookTests.Validators
 
             //Assert
             validationResult.ShouldNotHaveAnyValidationErrors();
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(" 123 ")]
+        [InlineData(" 123 @")]
+        [InlineData("email@email.com")]
+        public async Task ValidateAsync_ForInvalidEmail_FailValidation(string email)
+        {
+            //Arrange
+            ResetPasswordDto resetPasswordDto = new(email, "123xpklo2", "PasswordNew123", "PasswordNew123");
+
+            //Act
+            TestValidationResult<ResetPasswordDto> validationResult = await _validator.TestValidateAsync(resetPasswordDto);
+
+            //Assert
+            validationResult.ShouldHaveValidationErrorFor(x => x.Email);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(" invalid")]
+        [InlineData("231233213213123213121213")]
+        public async Task ValidateAsync_ForInvalidPasswordResetToken_FailValidation(string token)
+        {
+            //Arrange
+            ResetPasswordDto resetPasswordDto = new("email@email.com", token, "PasswordNew123", "PasswordNew123");
+
+            //Act
+            TestValidationResult<ResetPasswordDto> validationResult = await _validator.TestValidateAsync(resetPasswordDto);
+
+            //Assert
+            validationResult.ShouldHaveValidationErrorFor(x => x.Token);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("123")]
+        [InlineData("123456789")]
+        [InlineData("KJ")]
+        public async Task ValidateAsync_ForInvalidNewPassword_FailValidation(string password)
+        {
+            //Arrange
+            ResetPasswordDto resetPasswordDto = new("email@email.com", "123xpklo2", password, "PasswordNew123");
+
+            //Act
+            TestValidationResult<ResetPasswordDto> validationResult = await _validator.TestValidateAsync(resetPasswordDto);
+
+            //Assert
+            validationResult.ShouldHaveValidationErrorFor(x => x.NewPassword);
+        }
+
+        [Theory]
+        [InlineData("validPassword123", null)]
+        [InlineData("validPassword123", "")]
+        [InlineData("validPassword123", " ")]
+        [InlineData("validPassword123", "other password")]
+        [InlineData("validPassword123", "againOtherPassword123")]
+        public async Task ValidateAsync_ForNewPasswordNotEqualRepeatedNewPassword_FailValidation(string newPassword, string newRepeatedPassword)
+        {
+            //Arrange
+            ResetPasswordDto resetPasswordDto = new("email@email.com", "123xpklo2", newPassword, newRepeatedPassword);
+
+            //Act
+            TestValidationResult<ResetPasswordDto> validationResult = await _validator.TestValidateAsync(resetPasswordDto);
+
+            //Assert
+            validationResult.ShouldHaveValidationErrorFor(x => x.NewPassword);
         }
     }
 }

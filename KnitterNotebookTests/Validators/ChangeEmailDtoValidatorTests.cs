@@ -7,6 +7,7 @@ using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebookTests.HelpersForTesting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Moq;
 
 namespace KnitterNotebookTests.Validators
@@ -18,13 +19,14 @@ namespace KnitterNotebookTests.Validators
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _themeServiceMock = new();
         private readonly Mock<IPasswordService> _paswordServiceMock = new();
-
+        private readonly Mock<ITokenService> _tokenServiceMock = new();
+        private readonly Mock<IConfiguration> _iconfigurationMock = new();
         public ChangeEmailDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
             builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
             _databaseContext = new DatabaseContext(builder.Options);
-            _userService = new(_databaseContext, _themeServiceMock.Object, _paswordServiceMock.Object);
+            _userService = new(_databaseContext, _themeServiceMock.Object, _paswordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object);
             _validator = new ChangeEmailDtoValidator(_userService);
             SeedUsers();
         }

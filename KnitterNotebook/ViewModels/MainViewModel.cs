@@ -271,7 +271,6 @@ namespace KnitterNotebook.ViewModels
                 ProjectsInProgress = (await _projectService.GetUserProjectsInProgressAsync(User.Id)).ToObservableCollection();
                 FinishedProjects = (await _projectService.GetUserFinishedProjectsAsync(User.Id)).ToObservableCollection();
                 _themeService.ReplaceTheme(User.ThemeName, ApplicationTheme.Default);
-                MessageBox.Show(RegistrationWindow.Instance.UserPasswordPasswordBox.Password);
                 //Deleting files which paths have been already deleted from database and they are not related to logged in user
                 //if (Samples is not null)
                 //{
