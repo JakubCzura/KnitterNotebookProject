@@ -51,8 +51,8 @@ namespace KnitterNotebook.ViewModels
 
             SendEmailDto sendEmailDto = new()
             {
-                Subject = "Password reset",
                 To = Email,
+                Subject = "Password reset",
                 Body = $"Your password reset token is: {tokenWithExpirationDate.Item1}. The token will expire {tokenWithExpirationDate.Item2:u}"
             };
 
