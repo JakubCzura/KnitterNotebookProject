@@ -40,8 +40,8 @@ namespace KnitterNotebook.Services
             return user is not null
                    && user.PasswordResetToken is not null
                    && user.PasswordResetToken == token
-                   && user.PasswordResetTokenExpiresDate.HasValue
-                   && user.PasswordResetTokenExpiresDate.Value.ToUniversalTime() >= DateTime.UtcNow;
+                   && user.PasswordResetTokenExpirationDate.HasValue
+                   && user.PasswordResetTokenExpirationDate.Value.ToUniversalTime() >= DateTime.UtcNow;
         }
 
         public async Task<bool> UserExistsAsync(int id) => await _databaseContext.Users.AnyAsync(x => x.Id == id);
@@ -142,12 +142,12 @@ namespace KnitterNotebook.Services
                         ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithEmailNotFound(userEmail));
 
             user.PasswordResetToken = _tokenService.CreateResetPasswordToken();
-            user.PasswordResetTokenExpiresDate = _tokenService.CreateResetPasswordTokenExpirationDate(_configuration.GetValue("Tokens:ResetPasswordTokenExpirationDays", 1));
+            user.PasswordResetTokenExpirationDate = _tokenService.CreateResetPasswordTokenExpirationDate(_configuration.GetValue("Tokens:ResetPasswordTokenExpirationDays", 1));
 
             _databaseContext.Users.Update(user);
             await _databaseContext.SaveChangesAsync();
 
-            return (user.PasswordResetToken, user.PasswordResetTokenExpiresDate.Value);
+            return (user.PasswordResetToken, user.PasswordResetTokenExpirationDate.Value);
         }
 
         public void LogOut() => Environment.Exit(0);

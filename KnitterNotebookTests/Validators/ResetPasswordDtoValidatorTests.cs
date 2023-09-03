@@ -48,7 +48,7 @@ namespace KnitterNotebookTests.Validators
                     Email = "nick1@mail.com",
                     Nickname = "Nick1",
                     PasswordResetToken = "123xpklo2",
-                    PasswordResetTokenExpiresDate = DateTime.UtcNow.AddDays(1)
+                    PasswordResetTokenExpirationDate = DateTime.UtcNow.AddDays(1)
                 },
                 new User()
                 {
@@ -56,7 +56,7 @@ namespace KnitterNotebookTests.Validators
                     Email = "nick2@mail.com",
                     Nickname = "Nick2",
                     PasswordResetToken = "4213x3123",
-                    PasswordResetTokenExpiresDate = DateTime.UtcNow.AddHours(2)
+                    PasswordResetTokenExpirationDate = DateTime.UtcNow.AddHours(2)
                 }
             };
             _databaseContext.Users.AddRange(users);

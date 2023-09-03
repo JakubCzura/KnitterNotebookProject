@@ -9,10 +9,14 @@ namespace KnitterNotebook.ViewModels
         /// </summary>
         public int UserId { get; set; }
 
-        public string? PatternPdfPath { get; set; }
+        public Action<int> UserUpdatedInDatabase { get; set; } = null!;
+
+        public void OnUserUpdatedInDatabase() => UserUpdatedInDatabase?.Invoke(UserId);
 
         //Nullable as selected project in progress can be null
         public int? SelectedProjectInProgressId { get; set; }
+
+        public Action<int> ProjectInProgressImageAdded { get; set; } = null!;
 
         public void OnProjectInProgressImageAdded()
         {
@@ -22,6 +26,6 @@ namespace KnitterNotebook.ViewModels
             }
         }
 
-        public Action<int> ProjectInProgressImageAdded { get; set; } = null!;
+        public string? PatternPdfPath { get; set; }
     }
 }

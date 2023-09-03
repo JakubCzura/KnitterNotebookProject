@@ -9,7 +9,8 @@ namespace KnitterNotebook.Validators
         {
             RuleFor(nickname => nickname)
                 .Length(1, 50).WithMessage("Nazwa użytkownika musi mieć 1-50 znaków")
-                .Must(value => value.All(x => char.IsLetterOrDigit(x))).WithMessage("Nickname może zawierać tylko litery i cyfry");
+                .NotEmpty().WithMessage("Nazwa użytkownika nie może być pusta")
+                .Must(value => value.All(x => char.IsLetterOrDigit(x) || x == ' ')).WithMessage("Nickname może zawierać tylko litery, spacje i cyfry");
         }
     }
 }

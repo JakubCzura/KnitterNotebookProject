@@ -58,6 +58,8 @@ namespace KnitterNotebookTests.Validators
         [InlineData("1Name1")]
         [InlineData("13212MyName")]
         [InlineData("122141")]
+        [InlineData("My nickname")]
+        [InlineData("My humorous nickname")]
         public void Validate_ForValidNickname_PassValidation(string nickname)
         {
             //Act

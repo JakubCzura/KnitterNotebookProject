@@ -76,7 +76,8 @@ namespace KnitterNotebook
                         DataContext = s.GetService<RegistrationViewModel>()
                     });
                     services.AddSingleton(s => new SharedResourceViewModel());
-                    services.AddSingleton(s => new MainViewModel(s.GetRequiredService<IMovieUrlService>(),
+                    services.AddSingleton(s => new MainViewModel(s.GetRequiredService<Microsoft.Extensions.Logging.ILogger<MainViewModel>>(),
+                                                                 s.GetRequiredService<IMovieUrlService>(),
                                                                  s.GetRequiredService<ISampleService>(),
                                                                  s.GetRequiredService<IUserService>(),
                                                                  s.GetRequiredService<IProjectService>(),

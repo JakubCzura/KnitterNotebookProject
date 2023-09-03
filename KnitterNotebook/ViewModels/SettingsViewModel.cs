@@ -74,6 +74,7 @@ namespace KnitterNotebook.ViewModels
                     return;
                 }
                 await _userService.ChangeEmailAsync(changeEmailDto);
+                _sharedResourceViewModel.OnUserUpdatedInDatabase();
                 MessageBox.Show($"Zmieniono email na: {changeEmailDto.Email}");
             }
             catch (Exception exception)
@@ -101,6 +102,7 @@ namespace KnitterNotebook.ViewModels
                     return;
                 }
                 await _userService.ChangeNicknameAsync(changeNicknameDto);
+                _sharedResourceViewModel.OnUserUpdatedInDatabase();
                 MessageBox.Show($"Zmieniono nazwę użytkownika");
             }
             catch (Exception exception)
@@ -166,6 +168,7 @@ namespace KnitterNotebook.ViewModels
             catch (Exception exception)
             {
                 _logger.LogError(exception, "Error while changing theme");
+                _sharedResourceViewModel.OnUserUpdatedInDatabase();
                 MessageBox.Show(exception.Message);
             }
         }

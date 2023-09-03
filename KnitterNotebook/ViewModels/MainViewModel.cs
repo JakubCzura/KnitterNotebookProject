@@ -8,6 +8,7 @@ using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,8 +24,18 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class MainViewModel : BaseViewModel
     {
-        public MainViewModel(IMovieUrlService movieUrlService, ISampleService sampleService, IUserService userService, IProjectService projectService, IWindowContentService windowContentService, IThemeService themeService, IWebBrowserService webBrowserService, IProjectImageService projectImageService, SharedResourceViewModel sharedResourceViewModel)
+        public MainViewModel(ILogger<MainViewModel> logger,
+            IMovieUrlService movieUrlService,
+            ISampleService sampleService,
+            IUserService userService,
+            IProjectService projectService,
+            IWindowContentService windowContentService,
+            IThemeService themeService,
+            IWebBrowserService webBrowserService,
+            IProjectImageService projectImageService,
+            SharedResourceViewModel sharedResourceViewModel)
         {
+            _logger = logger;
             _movieUrlService = movieUrlService;
             _sampleService = sampleService;
             _userService = userService;
@@ -43,10 +54,12 @@ namespace KnitterNotebook.ViewModels
             SampleAddingViewModel.NewSampleAdded += async () => Samples = (await _sampleService.GetUserSamplesAsync(User.Id)).ToObservableCollection();
             ProjectPlanningViewModel.NewProjectPlanned += async () => PlannedProjects = (await _projectService.GetUserPlannedProjectsAsync(User.Id)).ToObservableCollection();
             _sharedResourceViewModel.ProjectInProgressImageAdded += async (int projectId) => await HandleProjectInProgressImageAdded(projectId);
+            _sharedResourceViewModel.UserUpdatedInDatabase += async (int userId) => await HandleUserUpdatedInDatabase(userId);
         }
 
         #region Properties
 
+        private readonly ILogger<MainViewModel> _logger;
         private readonly IMovieUrlService _movieUrlService;
         private readonly ISampleService _sampleService;
         private readonly IUserService _userService;
@@ -262,7 +275,7 @@ namespace KnitterNotebook.ViewModels
             try
             {
                 User = await _userService.GetAsync(_sharedResourceViewModel.UserId)
-                               ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(_sharedResourceViewModel.UserId));
+                    ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(_sharedResourceViewModel.UserId));
 
                 MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection();
                 Samples = (await _sampleService.GetUserSamplesAsync(User.Id)).ToObservableCollection();
@@ -278,6 +291,7 @@ namespace KnitterNotebook.ViewModels
             }
             catch (Exception exception)
             {
+                _logger.LogError(exception, "Error while loading main window viewmodel");
                 MessageBox.Show(exception.Message + "\nThe application will shut down", "Unexpected database error");
                 Environment.Exit(0);
             }
@@ -535,12 +549,31 @@ namespace KnitterNotebook.ViewModels
 
         private async Task HandleProjectInProgressImageAdded(int projectId)
         {
-            ProjectInProgressDto? project = ProjectsInProgress.FirstOrDefault(x => x.Id == projectId);
-            if (project is not null)
+            try
             {
-                project.ProjectImages = await _projectImageService.GetProjectImagesAsync(projectId);
+                ProjectInProgressDto? project = ProjectsInProgress.FirstOrDefault(x => x.Id == projectId);
+                if (project is not null)
+                {
+                    project.ProjectImages = await _projectImageService.GetProjectImagesAsync(projectId);
+                }
+                OnPropertyChanged(nameof(SelectedProjectInProgress));
             }
-            OnPropertyChanged(nameof(SelectedProjectInProgress));
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "Error while fetching project in progress data");
+            }
+        }
+
+        private async Task HandleUserUpdatedInDatabase(int userId)
+        {
+            try
+            {
+                User = await _userService.GetAsync(userId) ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(userId));
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "Error while fetching user's data");
+            }
         }
 
         #endregion Methods

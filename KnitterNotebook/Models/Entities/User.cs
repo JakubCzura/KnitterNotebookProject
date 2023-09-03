@@ -34,7 +34,7 @@ namespace KnitterNotebook.Models.Entities
 
         public string? PasswordResetToken { get; set; }
 
-        public DateTime? PasswordResetTokenExpiresDate { get; set; }
+        public DateTime? PasswordResetTokenExpirationDate { get; set; }
 
         public Theme Theme { get; set; }
 
