@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Exceptions.Messages;
 using KnitterNotebook.Helpers.Extensions;
@@ -262,8 +261,8 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                User = await _userService.GetAsync(LoggedUserInformation.Id)
-                               ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(LoggedUserInformation.Id));
+                User = await _userService.GetAsync(_sharedResourceViewModel.UserId)
+                               ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(_sharedResourceViewModel.UserId));
 
                 MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection();
                 Samples = (await _sampleService.GetUserSamplesAsync(User.Id)).ToObservableCollection();
@@ -377,7 +376,7 @@ namespace KnitterNotebook.ViewModels
                 {
                     int projectId = SelectedProjectInProgress.Id;
 
-                    await _projectService.ChangeProjectStatus(LoggedUserInformation.Id, SelectedProjectInProgress.Id, ProjectStatusName.Planned);
+                    await _projectService.ChangeProjectStatus(User.Id, SelectedProjectInProgress.Id, ProjectStatusName.Planned);
                     ProjectsInProgress.Remove(SelectedProjectInProgress);
 
                     PlannedProjectDto? project = await _projectService.GetPlannedProjectAsync(projectId);
@@ -402,7 +401,7 @@ namespace KnitterNotebook.ViewModels
                 {
                     int projectId = SelectedPlannedProject.Id;
 
-                    await _projectService.ChangeProjectStatus(LoggedUserInformation.Id, SelectedPlannedProject.Id, ProjectStatusName.InProgress);
+                    await _projectService.ChangeProjectStatus(User.Id, SelectedPlannedProject.Id, ProjectStatusName.InProgress);
                     PlannedProjects.Remove(SelectedPlannedProject);
 
                     ProjectInProgressDto? project = await _projectService.GetProjectInProgressAsync(projectId);
@@ -453,7 +452,7 @@ namespace KnitterNotebook.ViewModels
                 {
                     int projectId = SelectedProjectInProgress.Id;
 
-                    await _projectService.ChangeProjectStatus(LoggedUserInformation.Id, SelectedProjectInProgress.Id, ProjectStatusName.Finished);
+                    await _projectService.ChangeProjectStatus(User.Id, SelectedProjectInProgress.Id, ProjectStatusName.Finished);
                     ProjectsInProgress.Remove(SelectedProjectInProgress);
 
                     FinishedProjectDto? project = await _projectService.GetFinishedProjectAsync(projectId);
@@ -478,7 +477,7 @@ namespace KnitterNotebook.ViewModels
                 {
                     int projectId = SelectedFinishedProject.Id;
 
-                    await _projectService.ChangeProjectStatus(LoggedUserInformation.Id, SelectedFinishedProject.Id, ProjectStatusName.InProgress);
+                    await _projectService.ChangeProjectStatus(User.Id, SelectedFinishedProject.Id, ProjectStatusName.InProgress);
                     FinishedProjects.Remove(SelectedFinishedProject);
 
                     ProjectInProgressDto? project = await _projectService.GetProjectInProgressAsync(projectId);

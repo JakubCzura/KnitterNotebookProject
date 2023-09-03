@@ -21,6 +21,7 @@ namespace KnitterNotebookTests.Validators
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
         private readonly Mock<ITokenService> _tokenServiceMock = new();
         private readonly Mock<IConfiguration> _iconfigurationMock = new();
+
         public ResetPasswordDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();
@@ -41,20 +42,20 @@ namespace KnitterNotebookTests.Validators
         {
             List<User> users = new()
             {
-                new User() 
-                { 
-                    Id = 1, 
-                    Email = "nick1@mail.com", 
-                    Nickname = "Nick1", 
-                    PasswordResetToken = "123xpklo2", 
+                new User()
+                {
+                    Id = 1,
+                    Email = "nick1@mail.com",
+                    Nickname = "Nick1",
+                    PasswordResetToken = "123xpklo2",
                     PasswordResetTokenExpiresDate = DateTime.UtcNow.AddDays(1)
                 },
                 new User()
                 {
-                    Id = 2, 
+                    Id = 2,
                     Email = "nick2@mail.com",
-                    Nickname = "Nick2", 
-                    PasswordResetToken = "4213x3123", 
+                    Nickname = "Nick2",
+                    PasswordResetToken = "4213x3123",
                     PasswordResetTokenExpiresDate = DateTime.UtcNow.AddHours(2)
                 }
             };

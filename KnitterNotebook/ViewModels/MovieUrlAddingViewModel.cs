@@ -2,13 +2,11 @@
 using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
-using KnitterNotebook.Database;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -19,11 +17,12 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public partial class MovieUrlAddingViewModel : BaseViewModel
     {
-        public MovieUrlAddingViewModel(ILogger<MovieUrlAddingViewModel> logger, IMovieUrlService movieUrlService, IValidator<CreateMovieUrlDto> createMovieUrlValidator)
+        public MovieUrlAddingViewModel(ILogger<MovieUrlAddingViewModel> logger, IMovieUrlService movieUrlService, IValidator<CreateMovieUrlDto> createMovieUrlValidator, SharedResourceViewModel sharedResourceViewModel)
         {
             _logger = logger;
             _movieUrlService = movieUrlService;
             _createMovieUrlValidator = createMovieUrlValidator;
+            _sharedResourceViewModel = sharedResourceViewModel;
         }
 
         #region Delegates
@@ -32,7 +31,6 @@ namespace KnitterNotebook.ViewModels
 
         public static void OnNewMovieUrlAdded() => NewMovieUrlAdded?.Invoke();
 
-
         #endregion Delegates
 
         #region Properties
@@ -40,6 +38,7 @@ namespace KnitterNotebook.ViewModels
         private readonly ILogger<MovieUrlAddingViewModel> _logger;
         private readonly IMovieUrlService _movieUrlService;
         private readonly IValidator<CreateMovieUrlDto> _createMovieUrlValidator;
+        private readonly SharedResourceViewModel _sharedResourceViewModel;
 
         [ObservableProperty]
         private string _link = string.Empty;
@@ -59,7 +58,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                CreateMovieUrlDto createMovieUrl = new(Title, Link, Description, LoggedUserInformation.Id);
+                CreateMovieUrlDto createMovieUrl = new(Title, Link, Description, _sharedResourceViewModel.UserId);
                 ValidationResult validation = await _createMovieUrlValidator.ValidateAsync(createMovieUrl);
                 if (!validation.IsValid)
                 {

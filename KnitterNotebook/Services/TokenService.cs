@@ -22,7 +22,7 @@ namespace KnitterNotebook.Services
         /// <exception cref="TokenExpirationDateException"></exception>
         public DateTime CreateResetPasswordTokenExpirationDate(int daysToExpire)
         {
-            if(daysToExpire < 1)
+            if (daysToExpire < 1)
             {
                 throw new TokenExpirationDateException(ExceptionsMessages.TokenExpirationDateTooEarly(daysToExpire));
             }

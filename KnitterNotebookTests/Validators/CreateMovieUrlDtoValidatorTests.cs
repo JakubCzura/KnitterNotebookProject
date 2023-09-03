@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using FluentValidation.TestHelper;
+﻿using FluentValidation.TestHelper;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
@@ -22,6 +21,7 @@ namespace KnitterNotebookTests.Validators
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
         private readonly Mock<ITokenService> _tokenServiceMock = new();
         private readonly Mock<IConfiguration> _iconfigurationMock = new();
+
         public CreateMovieUrlDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();

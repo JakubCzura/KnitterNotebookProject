@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
-using KnitterNotebook.Database;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
@@ -24,7 +23,8 @@ namespace KnitterNotebook.ViewModels
             IValidator<ChangeEmailDto> changeEmailDtoValidator,
             IValidator<ChangePasswordDto> changePasswordDtoValidator,
             IValidator<ChangeThemeDto> changeThemeDtoValidator,
-            IWindowContentService windowContentService)
+            IWindowContentService windowContentService,
+            SharedResourceViewModel sharedResourceViewModel)
         {
             _logger = logger;
             _userService = userService;
@@ -33,6 +33,7 @@ namespace KnitterNotebook.ViewModels
             _changePasswordDtoValidator = changePasswordDtoValidator;
             _changeThemeDtoValidator = changeThemeDtoValidator;
             _windowContentService = windowContentService;
+            _sharedResourceViewModel = sharedResourceViewModel;
         }
 
         private readonly ILogger<SettingsViewModel> _logger;
@@ -42,6 +43,7 @@ namespace KnitterNotebook.ViewModels
         private readonly IValidator<ChangePasswordDto> _changePasswordDtoValidator;
         private readonly IValidator<ChangeThemeDto> _changeThemeDtoValidator;
         private readonly IWindowContentService _windowContentService;
+        private readonly SharedResourceViewModel _sharedResourceViewModel;
 
         [ObservableProperty]
         private UserControl _settingsWindowContent = new UserSettingsUserControl();
@@ -63,7 +65,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                ChangeEmailDto changeEmailDto = new(LoggedUserInformation.Id, NewEmail);
+                ChangeEmailDto changeEmailDto = new(_sharedResourceViewModel.UserId, NewEmail);
                 ValidationResult validation = await _changeEmailDtoValidator.ValidateAsync(changeEmailDto);
                 if (!validation.IsValid)
                 {
@@ -90,7 +92,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                ChangeNicknameDto changeNicknameDto = new(LoggedUserInformation.Id, NewNickname);
+                ChangeNicknameDto changeNicknameDto = new(_sharedResourceViewModel.UserId, NewNickname);
                 ValidationResult validation = await _changeNicknameDtoValidator.ValidateAsync(changeNicknameDto);
                 if (!validation.IsValid)
                 {
@@ -117,7 +119,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                ChangePasswordDto changePasswordDto = new(LoggedUserInformation.Id,
+                ChangePasswordDto changePasswordDto = new(_sharedResourceViewModel.UserId,
                                                         UserSettingsUserControl.Instance.NewPasswordPasswordBox.Password,
                                                         UserSettingsUserControl.Instance.RepeatedNewPasswordPasswordBox.Password);
                 ValidationResult validation = await _changePasswordDtoValidator.ValidateAsync(changePasswordDto);
@@ -150,7 +152,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                ChangeThemeDto changeThemeDto = new(LoggedUserInformation.Id, NewTheme);
+                ChangeThemeDto changeThemeDto = new(_sharedResourceViewModel.UserId, NewTheme);
                 ValidationResult validation = await _changeThemeDtoValidator.ValidateAsync(changeThemeDto);
                 if (!validation.IsValid)
                 {

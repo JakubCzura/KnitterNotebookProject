@@ -8,7 +8,6 @@ using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -60,7 +59,7 @@ namespace KnitterNotebook.ViewModels
             {
                 _logger.LogError(exception, "Error while registering user");
                 MessageBox.Show(exception.Message);
-            }      
+            }
             finally
             {
                 RegistrationWindow.Instance.UserPasswordPasswordBox.Password = string.Empty;

@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
-using KnitterNotebook.Database;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
@@ -12,7 +11,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -21,18 +19,22 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class SampleAddingViewModel : BaseViewModel
     {
-        public SampleAddingViewModel(ILogger<SampleAddingViewModel> logger, ISampleService sampleService, IValidator<CreateSampleDto> createSampleDtoValidator)
+        public SampleAddingViewModel(ILogger<SampleAddingViewModel> logger,
+            ISampleService sampleService,
+            IValidator<CreateSampleDto> createSampleDtoValidator,
+            SharedResourceViewModel sharedResourceViewModel)
         {
             _logger = logger;
             _sampleService = sampleService;
             _createSampleDtoValidator = createSampleDtoValidator;
             DeletePhotoCommand = new RelayCommand(() => SourceImagePath = null);
+            _sharedResourceViewModel = sharedResourceViewModel;
         }
 
         private readonly ILogger<SampleAddingViewModel> _logger;
         private readonly ISampleService _sampleService;
         private readonly IValidator<CreateSampleDto> _createSampleDtoValidator;
-
+        private readonly SharedResourceViewModel _sharedResourceViewModel;
         public ICommand DeletePhotoCommand { get; }
 
         [ObservableProperty]
@@ -78,7 +80,7 @@ namespace KnitterNotebook.ViewModels
         {
             try
             {
-                CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, LoggedUserInformation.Id, SourceImagePath);
+                CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, _sharedResourceViewModel.UserId, SourceImagePath);
                 ValidationResult validation = await _createSampleDtoValidator.ValidateAsync(createSampleDto);
                 if (!validation.IsValid)
                 {

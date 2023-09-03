@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
-using KnitterNotebook.Database;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
@@ -11,7 +10,6 @@ using KnitterNotebook.Views.Windows;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -53,7 +51,7 @@ namespace KnitterNotebook.ViewModels
             {
                 if (_sharedResourceViewModel.SelectedProjectInProgressId.HasValue)
                 {
-                    CreateProjectImageDto addProjectImageDto = new(_sharedResourceViewModel.SelectedProjectInProgressId.Value, SourceImagePath, LoggedUserInformation.Id);
+                    CreateProjectImageDto addProjectImageDto = new(_sharedResourceViewModel.SelectedProjectInProgressId.Value, SourceImagePath, _sharedResourceViewModel.UserId);
                     ValidationResult validation = await _createProjectImageDtoValidator.ValidateAsync(addProjectImageDto);
                     if (!validation.IsValid)
                     {

@@ -21,6 +21,7 @@ namespace KnitterNotebookTests.Validators
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
         private readonly Mock<ITokenService> _tokenServiceMock = new();
         private readonly Mock<IConfiguration> _iconfigurationMock = new();
+
         public ChangePasswordDtoValidatorTests()
         {
             DbContextOptionsBuilder<DatabaseContext> builder = new();

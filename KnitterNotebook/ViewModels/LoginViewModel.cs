@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
-using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
@@ -19,16 +18,18 @@ namespace KnitterNotebook.ViewModels
     /// </summary>
     public partial class LoginViewModel : BaseViewModel
     {
-        public LoginViewModel(ILogger<LoginViewModel> logger, IUserService userService, IValidator<LogInDto> logInDtoValidator)
+        public LoginViewModel(ILogger<LoginViewModel> logger, IUserService userService, IValidator<LogInDto> logInDtoValidator, SharedResourceViewModel sharedResourceViewModel)
         {
             _logger = logger;
             _userService = userService;
             _logInDtoValidator = logInDtoValidator;
+            _sharedResourceViewModel = sharedResourceViewModel;
         }
 
         private readonly ILogger<LoginViewModel> _logger;
         private readonly IUserService _userService;
         private readonly IValidator<LogInDto> _logInDtoValidator;
+        private readonly SharedResourceViewModel _sharedResourceViewModel;
 
         #region Properties
 
@@ -64,7 +65,7 @@ namespace KnitterNotebook.ViewModels
                     return;
                 }
 
-                LoggedUserInformation.Id = userId.Value;
+                _sharedResourceViewModel.UserId = userId.Value;
 
                 ShowWindow<MainWindow>();
                 Closewindow(LoginWindow.Instance);

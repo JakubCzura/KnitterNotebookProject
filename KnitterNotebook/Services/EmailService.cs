@@ -31,7 +31,7 @@ namespace KnitterNotebook.Services
             email.To.Add(MailboxAddress.Parse(sendEmailDto.To));
             email.Subject = sendEmailDto.Subject;
             email.Body = new TextPart(TextFormat.Html) { Text = sendEmailDto.Body };
-          
+
             using var smtp = new SmtpClient();
             smtp.Connect("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
             smtp.Authenticate(emailAddress, password);

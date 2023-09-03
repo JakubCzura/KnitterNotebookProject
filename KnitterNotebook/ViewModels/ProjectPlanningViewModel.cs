@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.Converters;
-using KnitterNotebook.Database;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models;
@@ -22,16 +21,21 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class ProjectPlanningViewModel : ObservableObject
     {
-        public ProjectPlanningViewModel(ILogger<ProjectPlanningViewModel> logger, IProjectService projectService, IValidator<PlanProjectDto> planProjectDtoValidator)
+        public ProjectPlanningViewModel(ILogger<ProjectPlanningViewModel> logger,
+            IProjectService projectService,
+            IValidator<PlanProjectDto> planProjectDtoValidator,
+            SharedResourceViewModel sharedResourceViewModel)
         {
             _logger = logger;
             _projectService = projectService;
             _planProjectDtoValidator = planProjectDtoValidator;
+            _sharedResourceViewModel = sharedResourceViewModel;
         }
 
         private readonly ILogger<ProjectPlanningViewModel> _logger;
         private readonly IProjectService _projectService;
         private readonly IValidator<PlanProjectDto> _planProjectDtoValidator;
+        private readonly SharedResourceViewModel _sharedResourceViewModel;
 
         [ObservableProperty]
         private string _name = string.Empty;
@@ -96,7 +100,7 @@ namespace KnitterNotebook.ViewModels
 
             try
             {
-                PlanProjectDto planProjectDto = new(Name, StartDate, needlesToCreate, yarnsToCreate, Description, PatternPdfPath, LoggedUserInformation.Id);
+                PlanProjectDto planProjectDto = new(Name, StartDate, needlesToCreate, yarnsToCreate, Description, PatternPdfPath, _sharedResourceViewModel.UserId);
                 ValidationResult validation = await _planProjectDtoValidator.ValidateAsync(planProjectDto);
                 if (!validation.IsValid)
                 {
