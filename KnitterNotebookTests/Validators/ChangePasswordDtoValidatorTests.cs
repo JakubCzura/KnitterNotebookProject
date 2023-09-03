@@ -76,7 +76,7 @@ namespace KnitterNotebookTests.Validators
             TestValidationResult<ChangePasswordDto> validationResult = await _validator.TestValidateAsync(changePasswordDto);
 
             //Assert
-            validationResult.ShouldHaveAnyValidationError();
+            validationResult.ShouldHaveValidationErrorFor(x => x.UserId);
         }
 
         [Theory]
