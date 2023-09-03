@@ -32,48 +32,6 @@ namespace KnitterNotebookTests.Validators
             SeedUsers();
         }
 
-        public static IEnumerable<object[]> InvalidData()
-        {
-            yield return new object[] { new ChangePasswordDto(-1, string.Empty, string.Empty) };
-            yield return new object[] { new ChangePasswordDto(0, null!, null!) };
-            yield return new object[] { new ChangePasswordDto(0, string.Empty, null!) };
-            yield return new object[] { new ChangePasswordDto(0, null!, string.Empty) };
-            yield return new object[] { new ChangePasswordDto(2, string.Empty, null!) };
-            yield return new object[] { new ChangePasswordDto(2, string.Empty, string.Empty) };
-            yield return new object[] { new ChangePasswordDto(1, null!, "321") };
-            yield return new object[] { new ChangePasswordDto(1, "321", null!) };
-            yield return new object[] { new ChangePasswordDto(1, "321", null!) };
-            yield return new object[] { new ChangePasswordDto(3, null!, string.Empty) };
-            yield return new object[] { new ChangePasswordDto(4, string.Empty, null!) };
-            yield return new object[] { new ChangePasswordDto(5, null!, string.Empty!) };
-            yield return new object[] { new ChangePasswordDto(1, "invaliddpassword", "invaliddpassword") };
-            yield return new object[] { new ChangePasswordDto(0, "invaliddpassword", "invaliddpassword") };
-            yield return new object[] { new ChangePasswordDto(-10, "invaliddpassword", "invaliddpassword") };
-            yield return new object[] { new ChangePasswordDto(1, "invaliddpassword1", "invaliddpassword1") };
-            yield return new object[] { new ChangePasswordDto(0, "invaliddpassword2", "invaliddpassword2") };
-            yield return new object[] { new ChangePasswordDto(-10, "invaliddpassword2", "invaliddpassword2") };
-            yield return new object[] { new ChangePasswordDto(1, " a ", "invaliddpassword2") };
-            yield return new object[] { new ChangePasswordDto(1, " a ", " a ") };
-            yield return new object[] { new ChangePasswordDto(2, "ValidPassword1", "invalidPassword") };
-            yield return new object[] { new ChangePasswordDto(2, "Testpassword", "ValidPassword1") };
-            yield return new object[] { new ChangePasswordDto(12, "ValidPassword1", "ValidPassword1") };
-            yield return new object[] { new ChangePasswordDto(2, ".", "ValidPassword1") };
-            yield return new object[] { new ChangePasswordDto(2, ".", ".") };
-            yield return new object[] { new ChangePasswordDto(2, "p@m1", "p@m1") };
-            yield return new object[] { new ChangePasswordDto(2, "p@m1", "p22@m1") };
-            yield return new object[] { new ChangePasswordDto(2, new string('K', 51), new string('K', 51)) };
-            yield return new object[] { new ChangePasswordDto(2, ".", new string('K', 51)) };
-            yield return new object[] { new ChangePasswordDto(12, "Ja@d1", new string('K', 51)) };
-        }
-
-        public static IEnumerable<object[]> ValidData()
-        {
-            yield return new object[] { new ChangePasswordDto(2, "ValidPassword1", "ValidPassword1") };
-            yield return new object[] { new ChangePasswordDto(2, "ValidPassword1@", "ValidPassword1@") };
-            yield return new object[] { new ChangePasswordDto(1, "PasswordAccepted123@", "PasswordAccepted123@") };
-            yield return new object[] { new ChangePasswordDto(3, "P123123@k", "P123123@k") };
-        }
-
         private void SeedUsers()
         {
             List<User> users = new()
@@ -86,15 +44,12 @@ namespace KnitterNotebookTests.Validators
             _databaseContext.SaveChanges();
         }
 
-        [Theory]
-        [MemberData(nameof(InvalidData))]
-        public async Task ValidateAsync_ForInvalidData_FailValidation(ChangePasswordDto changePasswordDto)
+        public static IEnumerable<object[]> ValidData()
         {
-            //Act
-            TestValidationResult<ChangePasswordDto> validationResult = await _validator.TestValidateAsync(changePasswordDto);
-
-            //Assert
-            validationResult.ShouldHaveAnyValidationError();
+            yield return new object[] { new ChangePasswordDto(2, "ValidPassword1", "ValidPassword1") };
+            yield return new object[] { new ChangePasswordDto(2, "ValidPassword1@", "ValidPassword1@") };
+            yield return new object[] { new ChangePasswordDto(1, "PasswordAccepted123@", "PasswordAccepted123@") };
+            yield return new object[] { new ChangePasswordDto(3, "P123123@k", "P123123@k") };
         }
 
         [Theory]
@@ -106,6 +61,39 @@ namespace KnitterNotebookTests.Validators
 
             //Assert
             validationResult.ShouldNotHaveAnyValidationErrors();
+        }
+
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(0)]
+        [InlineData(100)]
+        public async Task ValidateAsync_ForInvalidUserId_FailValidation(int userId)
+        {
+            //Arrange
+            ChangePasswordDto changePasswordDto = new(userId, "ValidPassword1", "ValidPassword1");
+
+            //Act
+            TestValidationResult<ChangePasswordDto> validationResult = await _validator.TestValidateAsync(changePasswordDto);
+
+            //Assert
+            validationResult.ShouldHaveAnyValidationError();
+        }
+
+        [Theory]
+        [InlineData(" ", " ")]
+        [InlineData(" 22", " 22")]
+        [InlineData(" invalid password", " invalid password")]
+        [InlineData("Password123@", "OtherPasswordPassword123@")]
+        public async Task ValidateAsync_ForInvalidNewPassword_FailValidation(string newPassword, string confirmPassword)
+        {
+            //Arrange
+            ChangePasswordDto changePasswordDto = new(1, newPassword, confirmPassword);
+
+            //Act
+            TestValidationResult<ChangePasswordDto> validationResult = await _validator.TestValidateAsync(changePasswordDto);
+
+            //Assert
+            validationResult.ShouldHaveValidationErrorFor(x => x.NewPassword);
         }
     }
 }

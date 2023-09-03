@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FluentValidation;
+using FluentValidation.Results;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Exceptions.Messages;
 using KnitterNotebook.Helpers.Extensions;
@@ -16,9 +18,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace KnitterNotebook.ViewModels
 {
@@ -33,7 +35,8 @@ namespace KnitterNotebook.ViewModels
             IThemeService themeService,
             IWebBrowserService webBrowserService,
             IProjectImageService projectImageService,
-            SharedResourceViewModel sharedResourceViewModel)
+            SharedResourceViewModel sharedResourceViewModel,
+            IValidator<ChangeProjectStatusDto> changeProjectStatusDtoValidator)
         {
             _logger = logger;
             _movieUrlService = movieUrlService;
@@ -55,6 +58,7 @@ namespace KnitterNotebook.ViewModels
             ProjectPlanningViewModel.NewProjectPlanned += async () => PlannedProjects = (await _projectService.GetUserPlannedProjectsAsync(User.Id)).ToObservableCollection();
             _sharedResourceViewModel.ProjectInProgressImageAdded += async (int projectId) => await HandleProjectInProgressImageAdded(projectId);
             _sharedResourceViewModel.UserUpdatedInDatabase += async (int userId) => await HandleUserUpdatedInDatabase(userId);
+            _changeProjectStatusDtoValidator = changeProjectStatusDtoValidator;
         }
 
         #region Properties
@@ -69,6 +73,7 @@ namespace KnitterNotebook.ViewModels
         private readonly IWebBrowserService _webBrowserService;
         private readonly IProjectImageService _projectImageService;
         private readonly SharedResourceViewModel _sharedResourceViewModel;
+        private readonly IValidator<ChangeProjectStatusDto> _changeProjectStatusDtoValidator;
 
         public ICommand ShowMovieUrlAddingWindowCommand { get; } = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
         public ICommand ShowSettingsWindowCommand { get; } = new RelayCommand(ShowWindow<SettingsWindow>);
@@ -390,7 +395,16 @@ namespace KnitterNotebook.ViewModels
                 {
                     int projectId = SelectedProjectInProgress.Id;
 
-                    await _projectService.ChangeProjectStatus(User.Id, SelectedProjectInProgress.Id, ProjectStatusName.Planned);
+                    ChangeProjectStatusDto changeProjectStatusDto = new(projectId, ProjectStatusName.Planned);
+                    ValidationResult validation = await _changeProjectStatusDtoValidator.ValidateAsync(changeProjectStatusDto);
+                    if (!validation.IsValid)
+                    {
+                        string errorMessage = validation.Errors.GetMessagesAsString();
+                        MessageBox.Show(errorMessage, "Błąd podczas zmiany statusu projektu");
+                        return;
+                    }
+
+                    await _projectService.ChangeProjectStatus(changeProjectStatusDto);
                     ProjectsInProgress.Remove(SelectedProjectInProgress);
 
                     PlannedProjectDto? project = await _projectService.GetPlannedProjectAsync(projectId);
@@ -415,7 +429,16 @@ namespace KnitterNotebook.ViewModels
                 {
                     int projectId = SelectedPlannedProject.Id;
 
-                    await _projectService.ChangeProjectStatus(User.Id, SelectedPlannedProject.Id, ProjectStatusName.InProgress);
+                    ChangeProjectStatusDto changeProjectStatusDto = new(projectId, ProjectStatusName.InProgress);
+                    ValidationResult validation = await _changeProjectStatusDtoValidator.ValidateAsync(changeProjectStatusDto);
+                    if (!validation.IsValid)
+                    {
+                        string errorMessage = validation.Errors.GetMessagesAsString();
+                        MessageBox.Show(errorMessage, "Błąd podczas zmiany statusu projektu");
+                        return;
+                    }
+
+                    await _projectService.ChangeProjectStatus(changeProjectStatusDto);
                     PlannedProjects.Remove(SelectedPlannedProject);
 
                     ProjectInProgressDto? project = await _projectService.GetProjectInProgressAsync(projectId);
@@ -466,7 +489,16 @@ namespace KnitterNotebook.ViewModels
                 {
                     int projectId = SelectedProjectInProgress.Id;
 
-                    await _projectService.ChangeProjectStatus(User.Id, SelectedProjectInProgress.Id, ProjectStatusName.Finished);
+                    ChangeProjectStatusDto changeProjectStatusDto = new(projectId, ProjectStatusName.Finished);
+                    ValidationResult validation = await _changeProjectStatusDtoValidator.ValidateAsync(changeProjectStatusDto);
+                    if (!validation.IsValid)
+                    {
+                        string errorMessage = validation.Errors.GetMessagesAsString();
+                        MessageBox.Show(errorMessage, "Błąd podczas zmiany statusu projektu");
+                        return;
+                    }
+
+                    await _projectService.ChangeProjectStatus(changeProjectStatusDto);
                     ProjectsInProgress.Remove(SelectedProjectInProgress);
 
                     FinishedProjectDto? project = await _projectService.GetFinishedProjectAsync(projectId);
@@ -491,7 +523,16 @@ namespace KnitterNotebook.ViewModels
                 {
                     int projectId = SelectedFinishedProject.Id;
 
-                    await _projectService.ChangeProjectStatus(User.Id, SelectedFinishedProject.Id, ProjectStatusName.InProgress);
+                    ChangeProjectStatusDto changeProjectStatusDto = new(projectId, ProjectStatusName.InProgress);
+                    ValidationResult validation = await _changeProjectStatusDtoValidator.ValidateAsync(changeProjectStatusDto);
+                    if (!validation.IsValid)
+                    {
+                        string errorMessage = validation.Errors.GetMessagesAsString();
+                        MessageBox.Show(errorMessage, "Błąd podczas zmiany statusu projektu");
+                        return;
+                    }
+
+                    await _projectService.ChangeProjectStatus(changeProjectStatusDto);
                     FinishedProjects.Remove(SelectedFinishedProject);
 
                     ProjectInProgressDto? project = await _projectService.GetProjectInProgressAsync(projectId);

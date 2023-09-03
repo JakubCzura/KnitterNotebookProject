@@ -28,7 +28,7 @@ namespace KnitterNotebook
             AppHost = Host.CreateDefaultBuilder()
                 .ConfigureAppConfiguration((hostContext, configurationBuilder) =>
                 {
-                    configurationBuilder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                    configurationBuilder.AddJsonFile("appsettings.json", false, true);
                 })
                 .UseSerilog((hostContext, loggerConfiguration) =>
                 {
@@ -42,6 +42,7 @@ namespace KnitterNotebook
                             o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
                     });
 
+                    #region Validators
                     services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
                     services.AddScoped<IValidator<ChangeNicknameDto>, ChangeNicknameDtoValidator>();
                     services.AddScoped<IValidator<ChangeEmailDto>, ChangeEmailDtoValidator>();
@@ -55,6 +56,10 @@ namespace KnitterNotebook
                     services.AddScoped<IValidator<PlanProjectDto>, PlanProjectDtoValidator>();
                     services.AddScoped<IValidator<LogInDto>, LogInDtoValidator>();
                     services.AddScoped<IValidator<CreateProjectImageDto>, CreateProjectImageDtoValidator>();
+                    services.AddScoped<IValidator<ChangeProjectStatusDto>, ChangeProjectStatusDtoValidator>();
+                    #endregion
+
+                    #region Services
                     services.AddScoped<IMovieUrlService, MovieUrlService>();
                     services.AddScoped<IUserService, UserService>();
                     services.AddScoped<IThemeService, ThemeService>();
@@ -66,41 +71,76 @@ namespace KnitterNotebook
                     services.AddScoped<IProjectImageService, ProjectImageService>();
                     services.AddScoped<IEmailService, EmailService>();
                     services.AddScoped<ITokenService, TokenService>();
+                    #endregion
+
+                    #region ViewModels
+                    services.AddSingleton(s => new SharedResourceViewModel());
                     services.AddTransient<LoginViewModel>();
+                    services.AddTransient<RegistrationViewModel>();
+                    services.AddSingleton(s => new MainViewModel(s.GetRequiredService<Microsoft.Extensions.Logging.ILogger<MainViewModel>>(),
+                                                                s.GetRequiredService<IMovieUrlService>(),
+                                                                s.GetRequiredService<ISampleService>(),
+                                                                s.GetRequiredService<IUserService>(),
+                                                                s.GetRequiredService<IProjectService>(),
+                                                                s.GetRequiredService<IWindowContentService>(),
+                                                                s.GetRequiredService<IThemeService>(),
+                                                                s.GetRequiredService<IWebBrowserService>(),
+                                                                s.GetRequiredService<IProjectImageService>(),
+                                                                s.GetRequiredService<SharedResourceViewModel>(), 
+                                                                s.GetRequiredService<IValidator<ChangeProjectStatusDto>>()));
+                    services.AddTransient<MovieUrlAddingViewModel>();
+                    services.AddTransient<SettingsViewModel>();
+                    services.AddTransient<SampleAddingViewModel>();
+                    services.AddTransient<ResetPasswordViewModel>();
+                    services.AddTransient<ProjectPlanningViewModel>();
+                    services.AddTransient<PdfBrowserViewModel>();
+                    services.AddTransient<ProjectImageAddingViewModel>();
+                    #endregion
+
+                    #region Windows
                     services.AddTransient(s => new LoginWindow()
                     {
                         DataContext = s.GetRequiredService<LoginViewModel>()
                     });
-                    services.AddTransient<RegistrationViewModel>();
                     services.AddTransient(s => new RegistrationWindow()
                     {
                         DataContext = s.GetService<RegistrationViewModel>()
                     });
-                    services.AddSingleton(s => new SharedResourceViewModel());
-                    services.AddSingleton(s => new MainViewModel(s.GetRequiredService<Microsoft.Extensions.Logging.ILogger<MainViewModel>>(),
-                                                                 s.GetRequiredService<IMovieUrlService>(),
-                                                                 s.GetRequiredService<ISampleService>(),
-                                                                 s.GetRequiredService<IUserService>(),
-                                                                 s.GetRequiredService<IProjectService>(),
-                                                                 s.GetRequiredService<IWindowContentService>(),
-                                                                 s.GetRequiredService<IThemeService>(),
-                                                                 s.GetRequiredService<IWebBrowserService>(),
-                                                                 s.GetRequiredService<IProjectImageService>(),
-                                                                 s.GetRequiredService<SharedResourceViewModel>()));
                     services.AddSingleton(s => new MainWindow()
                     {
                         DataContext = s.GetRequiredService<MainViewModel>()
                     });
-                    services.AddTransient<MovieUrlAddingViewModel>();
                     services.AddTransient(s => new MovieUrlAddingWindow()
                     {
                         DataContext = s.GetRequiredService<MovieUrlAddingViewModel>()
                     });
-                    services.AddTransient<SettingsViewModel>();
                     services.AddTransient(s => new SettingsWindow()
                     {
                         DataContext = s.GetRequiredService<SettingsViewModel>()
                     });
+                    services.AddTransient(s => new SampleAddingWindow()
+                    {
+                        DataContext = s.GetRequiredService<SampleAddingViewModel>()
+                    });                
+                    services.AddTransient(s => new ResetPasswordWindow()
+                    {
+                        DataContext = s.GetRequiredService<ResetPasswordViewModel>()
+                    });                
+                    services.AddTransient(s => new ProjectPlanningWindow()
+                    {
+                        DataContext = s.GetRequiredService<ProjectPlanningViewModel>()
+                    });                
+                    services.AddTransient(s => new PdfBrowserWindow()
+                    {
+                        DataContext = s.GetRequiredService<PdfBrowserViewModel>()
+                    });             
+                    services.AddTransient(s => new ProjectImageAddingWindow()
+                    {
+                        DataContext = s.GetRequiredService<ProjectImageAddingViewModel>()
+                    });
+                    #endregion
+
+                    #region UserControls
                     services.AddTransient(x => new SamplesUserControl()
                     {
                         DataContext = x.GetRequiredService<MainViewModel>()
@@ -124,32 +164,8 @@ namespace KnitterNotebook
                     services.AddTransient(x => new FinishedProjectsUserControl()
                     {
                         DataContext = x.GetRequiredService<MainViewModel>()
-                    });
-                    services.AddTransient<SampleAddingViewModel>();
-                    services.AddTransient(s => new SampleAddingWindow()
-                    {
-                        DataContext = s.GetRequiredService<SampleAddingViewModel>()
-                    });
-                    services.AddTransient<ResetPasswordViewModel>();
-                    services.AddTransient(s => new ResetPasswordWindow()
-                    {
-                        DataContext = s.GetRequiredService<ResetPasswordViewModel>()
-                    });
-                    services.AddTransient<ProjectPlanningViewModel>();
-                    services.AddTransient(s => new ProjectPlanningWindow()
-                    {
-                        DataContext = s.GetRequiredService<ProjectPlanningViewModel>()
-                    });
-                    services.AddTransient<PdfBrowserViewModel>();
-                    services.AddTransient(s => new PdfBrowserWindow()
-                    {
-                        DataContext = s.GetRequiredService<PdfBrowserViewModel>()
-                    });
-                    services.AddTransient<ProjectImageAddingViewModel>();
-                    services.AddTransient(s => new ProjectImageAddingWindow()
-                    {
-                        DataContext = s.GetRequiredService<ProjectImageAddingViewModel>()
-                    });
+                    });                  
+                    #endregion
                 })
                 .Build();
         }

@@ -124,12 +124,12 @@ namespace KnitterNotebook.Services
                                             .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.Finished)
                                             .Select(x => new FinishedProjectDto(x)).ToListAsync();
 
-        public async Task ChangeProjectStatus(int userId, int projectId, ProjectStatusName projectStatusName)
+        public async Task ChangeProjectStatus(ChangeProjectStatusDto changeProjectStatusDto)
         {
-            Project project = await _databaseContext.Projects.FirstOrDefaultAsync(x => x.UserId == userId && x.Id == projectId)
-                                    ?? throw new EntityNotFoundException("Id projektu jest nieodpowiednie lub nie odnaleziono użytkownika");
+            Project project = await _databaseContext.Projects.FirstOrDefaultAsync(x => x.Id == changeProjectStatusDto.ProjectId)
+                                    ?? throw new EntityNotFoundException("Id projektu jest nieodpowiednie");
 
-            project.AdjustProjectWhenChangingStatus(projectStatusName);
+            project.AdjustProjectWhenChangingStatus(changeProjectStatusDto.ProjectStatus);
 
             _databaseContext.Update(project);
             await _databaseContext.SaveChangesAsync();
