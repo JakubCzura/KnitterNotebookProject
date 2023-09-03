@@ -8,13 +8,17 @@ namespace KnitterNotebook.Services
 {
     public class TokenService : ITokenService
     {
+        /// <summary>
+        /// Creates random token for resetting password
+        /// </summary>
+        /// <returns>Random token</returns>
         public string CreateResetPasswordToken() => Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
 
         /// <summary>
         /// Creates token expiration date based on <paramref name="daysToExpire"/> and <see cref="DateTime.UtcNow"/>.
         /// </summary>
         /// <param name="daysToExpire">Quantity of days when token is valid</param>
-        /// <returns>Token necessary for resetting password</returns>
+        /// <returns>DateTime object when token necessary for resetting password expires</returns>
         /// <exception cref="TokenExpirationDateException"></exception>
         public DateTime CreateResetPasswordTokenExpirationDate(int daysToExpire)
         {
