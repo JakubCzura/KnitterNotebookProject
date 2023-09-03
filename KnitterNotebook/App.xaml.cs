@@ -38,7 +38,8 @@ namespace KnitterNotebook
                 {
                     services.AddDbContext<DatabaseContext>(options =>
                     {
-                        options.UseSqlServer(hostContext.Configuration.GetConnectionString("KnitterNotebookConnectionString"));
+                        options.UseSqlServer(hostContext.Configuration.GetConnectionString("KnitterNotebookConnectionString"), 
+                            o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
                     });
 
                     services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
