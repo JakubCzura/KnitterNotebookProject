@@ -7,12 +7,12 @@ using System.Windows.Data;
 namespace KnitterNotebook.Converters.XAMLConverters
 {
     /// <summary>
-    /// Converts <see cref="SampleDto"/>'s RowsQuantity and LoopsQuantity to a string. Works in Mode=OneWay only.
+    /// Converts <see cref="BasicSampleDto"/>'s RowsQuantity and LoopsQuantity to a string. Works in Mode=OneWay only.
     /// </summary>
     public class SampleDtoLoopsRowsToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => value is SampleDto sample
+            => value is BasicSampleDto sample
                 ? $"{sample.LoopsQuantity}x{sample.RowsQuantity}"
                 : string.Empty;
 

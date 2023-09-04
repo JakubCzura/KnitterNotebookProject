@@ -2,6 +2,10 @@
 {
     public class Yarn : BaseDbEntity
     {
+        public Yarn()
+        {
+        }
+
         public Yarn(string name)
         {
             Name = name;
