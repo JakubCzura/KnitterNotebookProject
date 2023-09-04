@@ -4,10 +4,6 @@ namespace KnitterNotebook.Models.Entities
 {
     public class Sample : BaseDbEntity
     {
-        public Sample()
-        {
-        }
-
         //Nazwa włóczki
         public string YarnName { get; set; } = string.Empty;
 
