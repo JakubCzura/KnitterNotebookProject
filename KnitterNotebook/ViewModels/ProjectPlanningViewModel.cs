@@ -94,9 +94,7 @@ namespace KnitterNotebook.ViewModels
             IEnumerable<CreateNeedleDto> needlesToCreate = NullableSizeNeedlesFilter.GetNeedlesWithPositiveSizeValue(Needle1, Needle2, Needle3, Needle4, Needle5)
                                                                                     .Select(CreateNeedleDtoConverter.Convert);
 
-            IEnumerable<CreateYarnDto> yarnsToCreate = !string.IsNullOrWhiteSpace(YarnsNamesWithDelimiter)
-                                                    ? CreateYarnDtoConverter.Convert(YarnsNamesWithDelimiter)
-                                                    : Enumerable.Empty<CreateYarnDto>();
+            IEnumerable<CreateYarnDto> yarnsToCreate = CreateYarnDtoConverter.Convert(YarnsNamesWithDelimiter);
 
             try
             {

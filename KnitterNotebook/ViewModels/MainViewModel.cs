@@ -46,8 +46,9 @@ namespace KnitterNotebook.ViewModels
             _windowContentService = windowContentService;
             _themeService = themeService;
             _webBrowserService = webBrowserService;
-            _sharedResourceViewModel = sharedResourceViewModel;
             _projectImageService = projectImageService;
+            _sharedResourceViewModel = sharedResourceViewModel;
+            _changeProjectStatusDtoValidator = changeProjectStatusDtoValidator;
             SamplesCollectionView = CollectionViewSource.GetDefaultView(Samples);
             PlannedProjectsCollectionView = CollectionViewSource.GetDefaultView(PlannedProjects);
             ProjectsInProgressCollectionView = CollectionViewSource.GetDefaultView(ProjectsInProgress);
@@ -58,7 +59,6 @@ namespace KnitterNotebook.ViewModels
             ProjectPlanningViewModel.NewProjectPlanned += async () => PlannedProjects = (await _projectService.GetUserPlannedProjectsAsync(User.Id)).ToObservableCollection();
             _sharedResourceViewModel.ProjectInProgressImageAdded += async (int projectId) => await HandleProjectInProgressImageAdded(projectId);
             _sharedResourceViewModel.UserUpdatedInDatabase += async (int userId) => await HandleUserUpdatedInDatabase(userId);
-            _changeProjectStatusDtoValidator = changeProjectStatusDtoValidator;
         }
 
         #region Properties

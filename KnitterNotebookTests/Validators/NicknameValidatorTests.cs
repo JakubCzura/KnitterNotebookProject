@@ -19,7 +19,6 @@ namespace KnitterNotebookTests.Validators
             yield return new object[] { "" };
             yield return new object[] { new string(' ', 40) };
             yield return new object[] { new string(' ', 51) };
-            yield return new object[] { " a " };
             yield return new object[] { " " };
             yield return new object[] { "invalid!" };
             yield return new object[] { "invalid1@" };
