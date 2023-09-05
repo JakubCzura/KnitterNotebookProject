@@ -1,9 +1,9 @@
 ﻿using KnitterNotebook.Database;
-using KnitterNotebook.Exceptions;
-using KnitterNotebook.Exceptions.Messages;
+using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services
@@ -12,7 +12,7 @@ namespace KnitterNotebook.Services
     /// Generic class to perform crud operations in database
     /// </summary>
     /// <typeparam name="T">Object to be stored in database</typeparam>
-    public class CrudService<T> : ICrudService<T> where T : class
+    public class CrudService<T> : ICrudService<T> where T : BaseDbEntity, new()
     {
         private readonly DatabaseContext _databaseContext;
         private readonly DbSet<T> _dbSet;
@@ -23,27 +23,22 @@ namespace KnitterNotebook.Services
             _dbSet = _databaseContext.Set<T>();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync() => await _dbSet.ToListAsync();
+        public async Task<IEnumerable<T>> GetAllAsync() => await _dbSet.AsNoTracking().ToListAsync();
 
         public async Task<T?> GetAsync(int id) => await _dbSet.FindAsync(id);
 
-        public async Task CreateAsync(T data)
+        public async Task<int> CreateAsync(T data)
         {
             await _dbSet.AddAsync(data);
-            await _databaseContext.SaveChangesAsync();
+            return await _databaseContext.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(T data)
+        public async Task<int> UpdateAsync(T data)
         {
             _dbSet.Update(data);
-            await _databaseContext.SaveChangesAsync();
+            return await _databaseContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
-        {
-            T data = await _dbSet.FindAsync(id) ?? throw new EntityNotFoundException(ExceptionsMessages.EntityWithIdNotFound(id));
-            _dbSet.Remove(data);
-            await _databaseContext.SaveChangesAsync();
-        }
+        public async Task<int> DeleteAsync(int id) => await _dbSet.Where(x => x.Id == id).ExecuteDeleteAsync();
     }
 }
