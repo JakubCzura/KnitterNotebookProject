@@ -8,7 +8,7 @@ namespace KnitterNotebook.Services.Interfaces
     /// Generic interface to perform crud operations in database
     /// </summary>
     /// <typeparam name="T">Objects to be stored in database</typeparam>
-    public interface ICrudService<T> where T : BaseDbEntity, new()
+    public interface ICrudService<T> where T : BaseDbEntity
     {
         Task<IEnumerable<T>> GetAllAsync();
 

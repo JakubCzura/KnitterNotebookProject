@@ -12,7 +12,7 @@ namespace KnitterNotebook.Services
     /// Generic class to perform crud operations in database
     /// </summary>
     /// <typeparam name="T">Object to be stored in database</typeparam>
-    public class CrudService<T> : ICrudService<T> where T : BaseDbEntity, new()
+    public class CrudService<T> : ICrudService<T> where T : BaseDbEntity
     {
         private readonly DatabaseContext _databaseContext;
         private readonly DbSet<T> _dbSet;
