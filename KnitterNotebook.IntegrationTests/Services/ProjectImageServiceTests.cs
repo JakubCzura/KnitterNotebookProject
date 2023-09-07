@@ -89,8 +89,6 @@ namespace KnitterNotebook.IntegrationTests.Services
         {
             //Arrange
             string path = ProjectDirectory.ProjectDirectoryFullPath + @"\HelpersForTesting\ProjectImage.jpg";
-            
-            //Arrange
             CreateProjectImageDto createProjectImageDto = new(1, path, 1);
 
             // Act
