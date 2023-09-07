@@ -23,7 +23,7 @@ namespace KnitterNotebook.Services
         public async Task<bool> ThemeExistsAsync(ApplicationTheme name) => await _databaseContext.Themes.AnyAsync(x => x.Name == name);
 
         /// <returns>Theme object if theme with given name was found otherwise null</returns>
-        public async Task<Theme?> GetByNameAsync(ApplicationTheme name) => await _databaseContext.Themes.FirstOrDefaultAsync(x => x.Name == name);
+        public async Task<int?> GetThemeIdAsync(ApplicationTheme name) => (await _databaseContext.Themes.FirstOrDefaultAsync(x => x.Name == name))?.Id;
 
         /// <summary>
         /// Adds new theme's resource dictionary to merged dictionaries and deletes old theme's resource dictionary if oldResourceDictionaryFullPath is not null

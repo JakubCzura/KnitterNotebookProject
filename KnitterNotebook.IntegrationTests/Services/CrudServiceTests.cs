@@ -1,11 +1,8 @@
-using FluentValidation.TestHelper;
+using FluentAssertions;
 using KnitterNotebook.Database;
 using KnitterNotebook.IntegrationTests.HelpersForTesting;
-using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Services;
-using KnitterNotebook.Services.Interfaces;
-using KnitterNotebook.Validators;
 using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebook.IntegrationTests.Services
@@ -13,7 +10,7 @@ namespace KnitterNotebook.IntegrationTests.Services
     public class CrudServiceTests
     {
         private readonly DatabaseContext _databaseContext;
-        private readonly CrudService _crudService;
+        private readonly CrudService<User> _crudService;
 
         public CrudServiceTests()
         {
@@ -28,10 +25,10 @@ namespace KnitterNotebook.IntegrationTests.Services
         {
             List<User> users = new()
             {
-                new User() { Id = 1, Email = "test1@test.com", Nickname = "nickname1"},
-                new User() { Id = 2, Email = "test2@test.com", Nickname = "nickname2"},
-                new User() { Id = 3, Email = "test3@test.com", Nickname = "nickname3"},
-                new User() { Id = 4, Email = "test4@test.com", Nickname = "nickname4"},
+                new() { Id = 1, Email = "test1@test.com", Nickname = "nickname1" },
+                new() { Id = 2, Email = "test2@test.com", Nickname = "nickname2" },
+                new() { Id = 3, Email = "test3@test.com", Nickname = "nickname3" },
+                new() { Id = 4, Email = "test4@test.com", Nickname = "nickname4" },
             };
             _databaseContext.Users.AddRange(users);
             _databaseContext.SaveChanges();
@@ -41,7 +38,7 @@ namespace KnitterNotebook.IntegrationTests.Services
         public async Task GetAllAsync_ReturnsAllRows()
         {
             //Act
-            var result = await _crudService.GetAllAsync();
+            IEnumerable<User> result = await _crudService.GetAllAsync();
 
             //Assert
             result.Should().HaveCount(4);
@@ -51,17 +48,17 @@ namespace KnitterNotebook.IntegrationTests.Services
         public async Task GetAsync_ForExistingRow_ReturnsRow()
         {
             //Act
-            var result = await _crudService.GetAsync(1);
+            User? result = await _crudService.GetAsync(1);
 
             //Assert
-            result.Should().NotBeNull()
+            result.Should().NotBeNull();
         }
 
         [Fact]
         public async Task GetAsync_ForNotExistingRow_ReturnsNull()
         {
             //Act
-            var result = await _crudService.GetAsync(99999999);
+            User? result = await _crudService.GetAsync(99999999);
 
             //Assert
             result.Should().BeNull();
@@ -71,36 +68,53 @@ namespace KnitterNotebook.IntegrationTests.Services
         public async Task CreateAsync_ForValidData_AddsRowToDatabase()
         {
             //Arrange
-            User user = new() {Email = "test1@test.com", Nickname = "nickname1", Password = "Password123!@#", ThemeId = 1};
+            User user = new() { Email = "test1@test.com", Nickname = "nickname1", Password = "Password123!@#", ThemeId = 1 };
 
             //Act
-            var result = await _crudService.CreateAsync(user);
+            int result = await _crudService.CreateAsync(user);
 
             //Assert
             result.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task CreateAsync_ForInvalidData_DoesNotAddRowToDatabase()
+        {
+            //Arrange
+            User user = null!;
+
+            //Act
+            int result = await _crudService.CreateAsync(user);
+
+            //Assert
+            result.Should().Be(0);
         }
 
         [Fact]
         public async Task UpdateAsync_ForValidData_UpdatesRowInDatabase()
         {
             //Arrange
-            User user = new() {Id = 1, Email = "new_test1@test.com", Nickname = "new_nickname1", Password = "NewPassword123!@#", ThemeId = 1};
+            User user = _databaseContext.Users.Find(1)!;
+            user.Email = "new_test1@test.com";
 
             //Act
-            var result = await _crudService.UpdateAsync(user);
+            int result = await _crudService.UpdateAsync(user);
 
             //Assert
             result.Should().Be(1);
         }
 
         [Fact]
-        public async Task DeleteAsync_ForValidId_DeletesRowFromDatabase()
+        public async Task UpdateAsync_ForInvalidData_DoesNotUpdateRowInDatabase()
         {
+            //Arrange
+            User user = null!;
+
             //Act
-            var result = await _crudService.DeleteAsync(1);
+            int result = await _crudService.UpdateAsync(user);
 
             //Assert
-            result.Should().Be(1);
+            result.Should().Be(0);
         }
     }
 }

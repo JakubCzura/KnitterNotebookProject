@@ -72,7 +72,7 @@ namespace KnitterNotebook.Services
                 Nickname = registerUserDto.Nickname,
                 Email = registerUserDto.Email,
                 Password = _passwordService.HashPassword(registerUserDto.Password),
-                Theme = await _themeService.GetByNameAsync(ApplicationTheme.Default)
+                ThemeId = await _themeService.GetThemeIdAsync(ApplicationTheme.Default)
                         ?? throw new EntityNotFoundException(ExceptionsMessages.ThemeWithNameNotFound(ApplicationTheme.Default.ToString()))
             };
             await _databaseContext.Users.AddAsync(user);
@@ -117,7 +117,7 @@ namespace KnitterNotebook.Services
             User user = await _databaseContext.Users.FindAsync(changeThemeDto.UserId)
                         ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(changeThemeDto.UserId));
 
-            user.Theme = await _themeService.GetByNameAsync(changeThemeDto.ThemeName)
+            user.ThemeId = await _themeService.GetThemeIdAsync(changeThemeDto.ThemeName)
                         ?? throw new EntityNotFoundException(ExceptionsMessages.ThemeWithNameNotFound(changeThemeDto.ThemeName.ToString()));
 
             _themeService.ReplaceTheme(changeThemeDto.ThemeName, user.Theme.Name);

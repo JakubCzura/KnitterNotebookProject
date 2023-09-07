@@ -5,6 +5,6 @@
         /// <summary>
         /// Creates unique name of database
         /// </summary>
-        public static string CreateUniqueDatabaseName => "TestDb" + DateTime.Now.Ticks.ToString();
+        public static string CreateUniqueDatabaseName => "TestDb" + Guid.NewGuid().ToString();
     }
 }

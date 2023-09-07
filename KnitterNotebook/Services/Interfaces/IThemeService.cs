@@ -8,7 +8,7 @@ namespace KnitterNotebook.Services.Interfaces
     {
         Task<bool> ThemeExistsAsync(ApplicationTheme name);
 
-        Task<Theme?> GetByNameAsync(ApplicationTheme name);
+        Task<int?> GetThemeIdAsync(ApplicationTheme name);
 
         void ReplaceTheme(ApplicationTheme newThemeName, ApplicationTheme? oldThemeName = null);
     }
