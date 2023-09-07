@@ -25,7 +25,7 @@ namespace KnitterNotebook.Services
             _userService = userService;
         }
 
-        public async Task CreateAsync(CreateProjectImageDto addProjectImageDto)
+        public async Task<int> CreateAsync(CreateProjectImageDto addProjectImageDto)
         {
             string? nickname = await _userService.GetNicknameAsync(addProjectImageDto.UserId);
             string? destinationImagePath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(addProjectImageDto.ImagePath));
@@ -35,7 +35,6 @@ namespace KnitterNotebook.Services
             ProjectImage projectImage = new()
             {
                 Path = destinationImagePath,
-                DateTime = DateTime.Now,
                 ProjectId = addProjectImageDto.ProjectId
             };
 
@@ -43,7 +42,7 @@ namespace KnitterNotebook.Services
                 FileHelper.CopyWithDirectoryCreation(addProjectImageDto.ImagePath, destinationImagePath);
 
             await _databaseContext.AddAsync(projectImage);
-            await _databaseContext.SaveChangesAsync();
+            return await _databaseContext.SaveChangesAsync();
         }
 
         public async Task<List<ProjectImageDto>> GetProjectImagesAsync(int projectId)

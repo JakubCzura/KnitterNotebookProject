@@ -7,7 +7,7 @@ namespace KnitterNotebook.Services.Interfaces
 {
     public interface IProjectImageService : ICrudService<ProjectImage>
     {
-        Task CreateAsync(CreateProjectImageDto addProjectImageDto);
+        Task<int> CreateAsync(CreateProjectImageDto addProjectImageDto);
 
         Task<List<ProjectImageDto>> GetProjectImagesAsync(int projectId);
     }

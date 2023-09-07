@@ -19,7 +19,14 @@ namespace KnitterNotebook.Services
             _databaseContext = databaseContext;
         }
 
-        public async Task CreateAsync(CreateMovieUrlDto createMovieUrl)
+        /// <summary>
+        /// Adds new movie url to database
+        /// </summary>
+        /// <param name="createMovieUrl">Dto model that should be added to database as movie url</param>
+        /// <returns>1 if object was added to database</returns>
+        /// <exception cref="NullReferenceException"></exception>"
+        /// <exception cref="UriFormatException"></exception>"
+        public async Task<int> CreateAsync(CreateMovieUrlDto createMovieUrl)
         {
             MovieUrl movieUrl = new()
             {
@@ -29,7 +36,7 @@ namespace KnitterNotebook.Services
                 UserId = createMovieUrl.UserId,
             };
             await _databaseContext.AddAsync(movieUrl);
-            await _databaseContext.SaveChangesAsync();
+            return await _databaseContext.SaveChangesAsync();
         }
 
         public async Task<List<MovieUrlDto>> GetUserMovieUrlsAsync(int userId)

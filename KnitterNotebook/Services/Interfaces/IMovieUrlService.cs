@@ -7,7 +7,7 @@ namespace KnitterNotebook.Services.Interfaces
 {
     public interface IMovieUrlService : ICrudService<MovieUrl>
     {
-        Task CreateAsync(CreateMovieUrlDto data);
+        Task<int> CreateAsync(CreateMovieUrlDto data);
 
         Task<List<MovieUrlDto>> GetUserMovieUrlsAsync(int userId);
     }
