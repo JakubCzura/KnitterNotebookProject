@@ -97,5 +97,18 @@ namespace KnitterNotebook.IntegrationTests.Services
             // Assert
             result.Should().Be(1);
         }
+
+        [Fact]
+        public async Task CreateAsync_ForNullProjectImage_ThrowNullReferenceException()
+        {
+            //Arrange
+            CreateProjectImageDto createProjectImageDto = null!;
+
+            // Act
+            Func<Task> action = async () => await _projectImageService.CreateAsync(createProjectImageDto);
+
+            // Assert
+            await action.Should().ThrowAsync<NullReferenceException>();
+        }
     }
 }

@@ -25,6 +25,13 @@ namespace KnitterNotebook.Services
             _userService = userService;
         }
 
+        /// <summary>
+        /// Adds project's new image to database and copies image to user's folder
+        /// </summary>
+        /// <param name="addProjectImageDto"></param>
+        /// <returns>1 if image was added and copied to user's folder</returns>
+        /// <exception cref="ArgumentNullException">If destinationImagePath is null</exception>
+        /// <exception cref="NullReferenceException">If dto is null</exception>
         public async Task<int> CreateAsync(CreateProjectImageDto addProjectImageDto)
         {
             string? nickname = await _userService.GetNicknameAsync(addProjectImageDto.UserId);
