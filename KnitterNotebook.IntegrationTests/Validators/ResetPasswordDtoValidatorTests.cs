@@ -53,7 +53,7 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
         public async Task ValidateAsync_ForValidData_PassValidation()
         {
             //Arrange
-            ResetPasswordDto resetPasswordDto = new ("nick1@mail.com", "123xpklo2", "PasswordNew123", "PasswordNew123");
+            ResetPasswordDto resetPasswordDto = new("nick1@mail.com", "123xpklo2", "PasswordNew123", "PasswordNew123");
 
             //Act
             TestValidationResult<ResetPasswordDto> validationResult = await _validator.TestValidateAsync(resetPasswordDto);

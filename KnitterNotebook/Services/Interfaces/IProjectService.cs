@@ -1,6 +1,5 @@
 ﻿using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
-using KnitterNotebook.Models.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

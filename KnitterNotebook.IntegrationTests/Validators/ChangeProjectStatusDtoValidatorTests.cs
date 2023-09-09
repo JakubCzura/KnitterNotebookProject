@@ -32,14 +32,14 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
         {
             List<User> users = new()
             {
-                new User() 
-                { 
-                    ThemeId = 1, 
+                new User()
+                {
+                    ThemeId = 1,
                     Projects = new()
-                    { 
+                    {
                         new Project() { Name = "Project1",},
-                        new Project() { Name = "Project2" }, 
-                    } 
+                        new Project() { Name = "Project2" },
+                    }
                 },
                 new User()
                 {

@@ -38,12 +38,13 @@ namespace KnitterNotebook
                 {
                     services.AddDbContext<DatabaseContext>(options =>
                     {
-                        options.UseSqlServer(hostContext.Configuration.GetConnectionString("KnitterNotebookConnectionString"), 
+                        options.UseSqlServer(hostContext.Configuration.GetConnectionString("KnitterNotebookConnectionString"),
                             o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
                         options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                     });
 
                     #region Validators
+
                     services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
                     services.AddScoped<IValidator<ChangeNicknameDto>, ChangeNicknameDtoValidator>();
                     services.AddScoped<IValidator<ChangeEmailDto>, ChangeEmailDtoValidator>();
@@ -58,9 +59,11 @@ namespace KnitterNotebook
                     services.AddScoped<IValidator<LogInDto>, LogInDtoValidator>();
                     services.AddScoped<IValidator<CreateProjectImageDto>, CreateProjectImageDtoValidator>();
                     services.AddScoped<IValidator<ChangeProjectStatusDto>, ChangeProjectStatusDtoValidator>();
-                    #endregion
+
+                    #endregion Validators
 
                     #region Services
+
                     services.AddScoped<IMovieUrlService, MovieUrlService>();
                     services.AddScoped<IUserService, UserService>();
                     services.AddScoped<IThemeService, ThemeService>();
@@ -72,9 +75,11 @@ namespace KnitterNotebook
                     services.AddScoped<IProjectImageService, ProjectImageService>();
                     services.AddScoped<IEmailService, EmailService>();
                     services.AddScoped<ITokenService, TokenService>();
-                    #endregion
+
+                    #endregion Services
 
                     #region ViewModels
+
                     services.AddSingleton(s => new SharedResourceViewModel());
                     services.AddTransient<LoginViewModel>();
                     services.AddTransient<RegistrationViewModel>();
@@ -87,7 +92,7 @@ namespace KnitterNotebook
                                                                 s.GetRequiredService<IThemeService>(),
                                                                 s.GetRequiredService<IWebBrowserService>(),
                                                                 s.GetRequiredService<IProjectImageService>(),
-                                                                s.GetRequiredService<SharedResourceViewModel>(), 
+                                                                s.GetRequiredService<SharedResourceViewModel>(),
                                                                 s.GetRequiredService<IValidator<ChangeProjectStatusDto>>()));
                     services.AddTransient<MovieUrlAddingViewModel>();
                     services.AddTransient<SettingsViewModel>();
@@ -96,9 +101,11 @@ namespace KnitterNotebook
                     services.AddTransient<ProjectPlanningViewModel>();
                     services.AddTransient<PdfBrowserViewModel>();
                     services.AddTransient<ProjectImageAddingViewModel>();
-                    #endregion
+
+                    #endregion ViewModels
 
                     #region Windows
+
                     services.AddTransient(s => new LoginWindow()
                     {
                         DataContext = s.GetRequiredService<LoginViewModel>()
@@ -122,26 +129,28 @@ namespace KnitterNotebook
                     services.AddTransient(s => new SampleAddingWindow()
                     {
                         DataContext = s.GetRequiredService<SampleAddingViewModel>()
-                    });                
+                    });
                     services.AddTransient(s => new ResetPasswordWindow()
                     {
                         DataContext = s.GetRequiredService<ResetPasswordViewModel>()
-                    });                
+                    });
                     services.AddTransient(s => new ProjectPlanningWindow()
                     {
                         DataContext = s.GetRequiredService<ProjectPlanningViewModel>()
-                    });                
+                    });
                     services.AddTransient(s => new PdfBrowserWindow()
                     {
                         DataContext = s.GetRequiredService<PdfBrowserViewModel>()
-                    });             
+                    });
                     services.AddTransient(s => new ProjectImageAddingWindow()
                     {
                         DataContext = s.GetRequiredService<ProjectImageAddingViewModel>()
                     });
-                    #endregion
+
+                    #endregion Windows
 
                     #region UserControls
+
                     services.AddTransient(x => new SamplesUserControl()
                     {
                         DataContext = x.GetRequiredService<MainViewModel>()
@@ -165,8 +174,9 @@ namespace KnitterNotebook
                     services.AddTransient(x => new FinishedProjectsUserControl()
                     {
                         DataContext = x.GetRequiredService<MainViewModel>()
-                    });                  
-                    #endregion
+                    });
+
+                    #endregion UserControls
                 })
                 .Build();
         }
