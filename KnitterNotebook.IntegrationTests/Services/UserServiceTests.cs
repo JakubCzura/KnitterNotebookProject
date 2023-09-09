@@ -22,14 +22,11 @@ namespace KnitterNotebook.IntegrationTests.Services
         public UserServiceTests()
         {
             Dictionary<string, string> myConfiguration = new() { { "Tokens:ResetPasswordTokenExpirationDays", "1" } };
+            IConfigurationRoot configuration = new ConfigurationBuilder().AddInMemoryCollection(myConfiguration!).Build();
 
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .AddInMemoryCollection(myConfiguration!)
-                .Build();
-
-            DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
-            _databaseContext = new DatabaseContext(builder.Options);
+            _databaseContext = DatabaseHelper.CreateDatabaseContext();
+            _databaseContext.Database.EnsureDeleted();
+            _databaseContext.Database.Migrate();
 
             _themeService = new(_databaseContext);
             _passwordService = new();
@@ -42,9 +39,9 @@ namespace KnitterNotebook.IntegrationTests.Services
         {
             List<Theme> themes = new()
             {
-                new() { Id = 1, Name = ApplicationTheme.Default },
-                new() { Id = 2, Name = ApplicationTheme.Light },
-                new() { Id = 3, Name = ApplicationTheme.Dark },
+                new() { Name = ApplicationTheme.Default },
+                new() { Name = ApplicationTheme.Light },
+                new() { Name = ApplicationTheme.Dark },
             };
             _databaseContext.Themes.AddRange(themes);
 
@@ -52,7 +49,6 @@ namespace KnitterNotebook.IntegrationTests.Services
             {
                 new()
                 {
-                    Id = 1,
                     Email = "user1@mail.com",
                     Nickname = "Nickname1",
                     Password = _passwordService.HashPassword("Password123"),
@@ -62,7 +58,6 @@ namespace KnitterNotebook.IntegrationTests.Services
                 },
                 new()
                 {
-                    Id = 2,
                     Email = "user2@mail.com",
                     Nickname = "Nickname2",
                     Password = _passwordService.HashPassword("Password123123"),
@@ -165,12 +160,12 @@ namespace KnitterNotebook.IntegrationTests.Services
 
             User user = new()
             {
-                Id = 10000,
                 Email = "emailtest@test.com",
                 Nickname = "Nickname12311123",
                 Password = "Password1233213",
                 PasswordResetToken = token,
-                PasswordResetTokenExpirationDate = passwordResetTokenExpirationDate
+                PasswordResetTokenExpirationDate = passwordResetTokenExpirationDate,
+                ThemeId = 1
             };
 
             _databaseContext.Users.Add(user);
@@ -328,19 +323,6 @@ namespace KnitterNotebook.IntegrationTests.Services
         }
 
         [Fact]
-        public async Task ChangePasswordAsync_ForValidData_ChangesPassword()
-        {
-            //Arrange
-            ChangePasswordDto changePasswordDto = new(1, "NewPassword123", "NewPassword123");
-
-            //Act
-            int result = await _userService.ChangePasswordAsync(changePasswordDto);
-
-            //Assert
-            result.Should().Be(1);
-        }
-
-        [Fact]
         public async Task ChangePasswordAsync_ForNullData_ThrowsInvalidOperationException()
         {
             //Arrange
@@ -354,16 +336,16 @@ namespace KnitterNotebook.IntegrationTests.Services
         }
 
         [Fact]
-        public async Task ChangePasswordAsync_ForNotExistingUser_ThrowsEntityNotFoundException()
+        public async Task ChangePasswordAsync_ForNotExistingUser_Returns0()
         {
             //Arrange
             ChangePasswordDto changePasswordDto = new(999999, "NewPassword123", "NewPassword123");
 
             //Act
-            Func<Task> action = async () => await _userService.ChangePasswordAsync(changePasswordDto);
+            int result = await _userService.ChangePasswordAsync(changePasswordDto);
 
             //Assert
-            await action.Should().ThrowAsync<EntityNotFoundException>();
+            result.Should().Be(0);
         }
 
         [Fact]
@@ -393,16 +375,16 @@ namespace KnitterNotebook.IntegrationTests.Services
         }
 
         [Fact]
-        public async Task ChangeNicknameAsync_ForNotExistingUser_ThrowsEntityNotFoundException()
+        public async Task ChangeNicknameAsync_ForNotExistingUser_Returns0()
         {
             //Arrange
             ChangeNicknameDto changeNicknameDto = new(999999, "NewNickname123");
 
             //Act
-            Func<Task> action = async () => await _userService.ChangeNicknameAsync(changeNicknameDto);
+            int result = await _userService.ChangeNicknameAsync(changeNicknameDto);
 
             //Assert
-            await action.Should().ThrowAsync<EntityNotFoundException>();
+            result.Should().Be(0);
         }
 
         [Fact]
@@ -432,13 +414,131 @@ namespace KnitterNotebook.IntegrationTests.Services
         }
 
         [Fact]
-        public async Task ChangeEmailAsync_ForNotExistingUser_ThrowsEntityNotFoundException()
+        public async Task ChangeEmailAsync_ForNotExistingUser_Returns0()
         {
             //Arrange
             ChangeEmailDto changeEmailDto = new(999999, "email@email.com");
 
             //Act
-            Func<Task> action = async () => await _userService.ChangeEmailAsync(changeEmailDto);
+            int result = await _userService.ChangeEmailAsync(changeEmailDto);
+
+            //Assert
+            result.Should().Be(0);
+        }
+
+        [Fact]
+        public async Task ChangeThemeAsync_ForValidData_ChangesTheme()
+        {
+            //Arrange
+            ChangeThemeDto changeThemeDto = new(1, ApplicationTheme.Light);
+
+            //Act
+            int result = await _userService.ChangeThemeAsync(changeThemeDto);
+
+            //Assert
+            result.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task ChangeThemeAsync_ForNullData_ThrowsNullReferenceException()
+        {
+            //Arrange
+            ChangeThemeDto changeThemeDto = null!;
+
+            //Act
+            Func<Task> action = async () => await _userService.ChangeThemeAsync(changeThemeDto);
+
+            //Assert
+            await action.Should().ThrowAsync<NullReferenceException>();
+        }
+
+        [Fact]
+        public async Task ChangeThemeAsync_ForNotExistingUser_Returns0()
+        {
+            //Arrange
+            ChangeThemeDto changeThemeDto = new(999999, ApplicationTheme.Light);
+
+            //Act
+            int result = await _userService.ChangeThemeAsync(changeThemeDto);
+
+            //Assert
+            result.Should().Be(0);
+        }
+
+        [Fact]
+        public async Task ChangeThemeAsync_NotExistingTheme_ThrowsEntityNotFoundException()
+        {
+            //Arrange
+            ChangeThemeDto changeThemeDto = new(1, (ApplicationTheme)999);
+
+            //Act
+            Func<Task> action = async () => await _userService.ChangeThemeAsync(changeThemeDto);
+
+            //Assert
+            await action.Should().ThrowAsync<EntityNotFoundException>();
+        }
+
+        [Fact]
+        public async Task ResetPasswordAsync_ForValidData_ChangesPassword()
+        {
+            //Arrange
+            ResetPasswordDto resetPasswordDto = new("user1@mail.com", "PasswordResetToken1", "NewPassword123", "NewPassword123");
+
+            //Act
+            int result = await _userService.ResetPasswordAsync(resetPasswordDto);
+
+            //Assert
+            result.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task ResetPasswordAsync_ForNotExistingUser_Returns0()
+        {
+            //Arrange
+            ResetPasswordDto resetPasswordDto = new("emailnotindatabase@emailnotindatabase.com", "Token", "NewPassword", "NewPassword");
+
+            //Act
+            int result = await _userService.ResetPasswordAsync(resetPasswordDto);
+
+            //Assert
+            result.Should().Be(0);
+        }
+
+        [Fact]
+        public async Task ResetPasswordAsync_ForNullData_ThrowsInvalidOperationException()
+        {
+            //Arrange
+            ResetPasswordDto resetPasswordDto = null!;
+
+            //Act
+            Func<Task> action = async () => await _userService.ResetPasswordAsync(resetPasswordDto);
+
+            //Assert
+            await action.Should().ThrowAsync<InvalidOperationException>();
+        }
+
+        [Fact]
+        public async Task UpdatePasswordResetTokenStatusAsync_ForValidData_UpdatesToken()
+        {
+            //Arrange
+            string email = "user1@mail.com";
+
+            //Act
+            (string, DateTime) result = await _userService.UpdatePasswordResetTokenStatusAsync(email);
+
+            //Assert
+            result.Item1.Should().NotBeNullOrEmpty();
+            result.Item2.Should().BeAfter(DateTime.UtcNow);
+        }
+
+        [Fact]
+        public async Task UpdatePasswordResetTokenStatusAsync_ForNotExistingUser_ThrowsEntityNotFoundException()
+        {
+            //Arrange
+            string email = "emailnotindatabase@emailnotindatabase.com";
+
+            //Act
+            Func<Task> action = async () => await _userService.UpdatePasswordResetTokenStatusAsync(email);
 
             //Assert
             await action.Should().ThrowAsync<EntityNotFoundException>();

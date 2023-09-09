@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Navigation;
 
 namespace KnitterNotebook.Services
 {
@@ -96,55 +95,44 @@ namespace KnitterNotebook.Services
         /// </summary>
         /// <param name="changePasswordDto">Data to change</param>
         /// <returns>1 if new password was saved</returns>
-        /// <exception cref="EntityNotFoundException">When user doesn't exists in database</exception>
         /// <exception cref="InvalidOperationException">When <paramref name="changePasswordDto"/> is null</exception>
         public async Task<int> ChangePasswordAsync(ChangePasswordDto changePasswordDto)
-        {
-            User user = _databaseContext.Users.FirstOrDefault(x => x.Id == changePasswordDto.UserId)
-                        ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(changePasswordDto.UserId));
-
-            user.Password = _passwordService.HashPassword(changePasswordDto.NewPassword);
-            return await _databaseContext.SaveChangesAsync();
-        }
+            => await _databaseContext.Users.Where(x => x.Id == changePasswordDto.UserId)
+                                     .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Password, _passwordService.HashPassword(changePasswordDto.NewPassword)));
 
         /// <summary>
         /// Changes user's nickname and saves it to database
         /// </summary>
         /// <param name="changeNicknameDto">Data to change</param>
         /// <returns>1 if new nickname was saved</returns>
-        /// <exception cref="EntityNotFoundException">When user doesn't exists in database</exception>
         /// <exception cref="InvalidOperationException">When <paramref name="changeNicknameDto"/> is null</exception>
         public async Task<int> ChangeNicknameAsync(ChangeNicknameDto changeNicknameDto)
-        {
-            User user = _databaseContext.Users.FirstOrDefault(x => x.Id == changeNicknameDto.UserId)
-                        ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(changeNicknameDto.UserId));
-
-            user.Nickname = changeNicknameDto.Nickname;
-            return await _databaseContext.SaveChangesAsync();
-        }
+            => await _databaseContext.Users.Where(x => x.Id == changeNicknameDto.UserId)
+                                     .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Nickname, changeNicknameDto.Nickname));
 
         /// <summary>
         /// Changes user's email and saves it to database
         /// </summary>
         /// <param name="changeEmailDto">Data to change</param>
         /// <returns>1 if new email was saved</returns>
-        /// <exception cref="EntityNotFoundException">When user doesn't exists in database</exception>
         /// <exception cref="InvalidOperationException">When <paramref name="changeEmailDto"/> is null</exception>
         public async Task<int> ChangeEmailAsync(ChangeEmailDto changeEmailDto)
-        {
-            User user = _databaseContext.Users.FirstOrDefault(x => x.Id == changeEmailDto.UserId)
-                        ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(changeEmailDto.UserId));
+            => await _databaseContext.Users.Where(x => x.Id == changeEmailDto.UserId)
+                                     .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Email, changeEmailDto.Email));
 
-            user.Email = changeEmailDto.Email;
-            return await _databaseContext.SaveChangesAsync();
-        }
-
+        /// <summary>
+        /// Changes user's theme and saves it to database
+        /// </summary>
+        /// <param name="changeThemeDto">Data to update</param>
+        /// <returns>1 if user's theme was changed</returns>
+        /// <exception cref="EntityNotFoundException">If theme doesn't exists in database</exception>
+        /// <exception cref="NullReferenceException">If <paramref name="changeThemeDto"/> is null</exception>
         public async Task<int> ChangeThemeAsync(ChangeThemeDto changeThemeDto)
         {
             int themeId = await _themeService.GetThemeIdAsync(changeThemeDto.ThemeName)
                         ?? throw new EntityNotFoundException(ExceptionsMessages.ThemeWithNameNotFound(changeThemeDto.ThemeName.ToString()));
 
-            User? user = await _databaseContext.Users.FindAsync(changeThemeDto.UserId); 
+            User? user = await _databaseContext.Users.Include(x => x.Theme).FirstOrDefaultAsync(x => x.Id == changeThemeDto.UserId);
             if (user == null) return 0;
 
             _themeService.ReplaceTheme(changeThemeDto.ThemeName, user.Theme.Name);
@@ -153,6 +141,12 @@ namespace KnitterNotebook.Services
                                          .ExecuteUpdate(setters => setters.SetProperty(x => x.ThemeId, themeId));
         }
 
+        /// <summary>
+        /// Changes user's password and saves it to database
+        /// </summary>
+        /// <param name="resetPasswordDto">Data to update</param>
+        /// <returns>1 if password was changed</returns>
+        /// <exception cref="InvalidOperationException">When <paramref name="resetPasswordDto"/> is null</exception>"
         public async Task<int> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
             => await _databaseContext.Users.Where(x => x.Email == resetPasswordDto.Email)
                                      .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Password, _passwordService.HashPassword(resetPasswordDto.NewPassword)));

@@ -40,6 +40,7 @@ namespace KnitterNotebook
                     {
                         options.UseSqlServer(hostContext.Configuration.GetConnectionString("KnitterNotebookConnectionString"), 
                             o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
+                        options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                     });
 
                     #region Validators

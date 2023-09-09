@@ -38,12 +38,12 @@ namespace KnitterNotebook.Services
             if (oldThemeName.HasValue)
             {
                 string oldThemeFullPath = Paths.ThemeFullPath(oldThemeName.Value);
-                ResourceDictionary? result = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source.ToString().Equals(oldThemeFullPath, StringComparison.OrdinalIgnoreCase));
-                Application.Current.Resources.MergedDictionaries.Remove(result);
+                ResourceDictionary? result = Application.Current?.Resources?.MergedDictionaries?.FirstOrDefault(x => x.Source.ToString().Equals(oldThemeFullPath, StringComparison.OrdinalIgnoreCase));
+                Application.Current?.Resources?.MergedDictionaries?.Remove(result);
             }
 
             //Set new theme
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(newThemeFullPath) });
+            Application.Current?.Resources?.MergedDictionaries?.Add(new ResourceDictionary { Source = new Uri(newThemeFullPath) });
         }
     }
 }
