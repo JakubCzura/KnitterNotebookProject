@@ -1,7 +1,10 @@
 ﻿using FluentAssertions;
 using KnitterNotebook.Database;
+using KnitterNotebook.Exceptions;
 using KnitterNotebook.IntegrationTests.HelpersForTesting;
+using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
+using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,27 +40,35 @@ namespace KnitterNotebook.IntegrationTests.Services
 
         private void SeedUsers()
         {
+            List<Theme> themes = new()
+            {
+                new() { Id = 1, Name = ApplicationTheme.Default },
+                new() { Id = 2, Name = ApplicationTheme.Light },
+                new() { Id = 3, Name = ApplicationTheme.Dark },
+            };
+            _databaseContext.Themes.AddRange(themes);
+
             List<User> users = new()
             {
-                new() 
-                { 
+                new()
+                {
                     Id = 1,
-                    Email = "user1@mail.com", 
-                    Nickname = "Nickname1", 
-                    Password = "Password123", 
+                    Email = "user1@mail.com",
+                    Nickname = "Nickname1",
+                    Password = _passwordService.HashPassword("Password123"),
                     PasswordResetToken = "PasswordResetToken1",
                     PasswordResetTokenExpirationDate = DateTime.UtcNow.AddDays(1),
-                    ThemeId = 1 
+                    ThemeId = 1
                 },
-                new() 
+                new()
                 {
                     Id = 2,
-                    Email = "user2@mail.com", 
-                    Nickname = "Nickname2", 
-                    Password = "User2Password123",
+                    Email = "user2@mail.com",
+                    Nickname = "Nickname2",
+                    Password = _passwordService.HashPassword("Password123123"),
                     PasswordResetToken = "PasswordResetToken2",
                     PasswordResetTokenExpirationDate = DateTime.UtcNow.AddDays(1),
-                    ThemeId = 1 
+                    ThemeId = 2
                 },
             };
             _databaseContext.Users.AddRange(users);
@@ -117,7 +128,7 @@ namespace KnitterNotebook.IntegrationTests.Services
         }
 
         [Fact]
-        public async Task ArePasswordResetTokenAndExpirationDateValidAsync_ForValidToken_ReturnsTrue()
+        public async Task ArePasswordResetTokenAndExpirationDateValidAsync_ForValidTokenAndTokenExpirationDate_ReturnsTrue()
         {
             //Arrange
             string token = "PasswordResetToken1";
@@ -140,6 +151,297 @@ namespace KnitterNotebook.IntegrationTests.Services
 
             //Assert
             result.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task ArePasswordResetTokenAndExpirationDateValidAsync_ForInvalidTokenExpirationDate_ReturnsFalse()
+        {
+            //Arrange
+            //I want to simulate situation when token is valid but expiration date is not.
+            //Token's expiration date is in the past so the situation presents user who has not reset password in time.
+
+            string token = "123098123098123098";
+            DateTime passwordResetTokenExpirationDate = DateTime.UtcNow.AddDays(-1);
+
+            User user = new()
+            {
+                Id = 10000,
+                Email = "emailtest@test.com",
+                Nickname = "Nickname12311123",
+                Password = "Password1233213",
+                PasswordResetToken = token,
+                PasswordResetTokenExpirationDate = passwordResetTokenExpirationDate
+            };
+
+            _databaseContext.Users.Add(user);
+            await _databaseContext.SaveChangesAsync();
+
+            //Act
+            bool result = await _userService.ArePasswordResetTokenAndExpirationDateValidAsync(token);
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task UserExistsAsync_ForExistingUser_ReturnsTrue()
+        {
+            //Arrange
+            int id = 1;
+
+            //Act
+            bool result = await _userService.UserExistsAsync(id);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task UserExistsAsync_ForNotExistingUser_ReturnsFalse()
+        {
+            //Arrange
+            int id = 999999;
+
+            //Act
+            bool result = await _userService.UserExistsAsync(id);
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task GetAsync_ForExistingUser_ReturnsUserDto()
+        {
+            //Based on SeedUsers() method
+            //Arrange
+            int id = 1;
+
+            //Act
+            UserDto? result = await _userService.GetAsync(id);
+
+            //Assert
+            result.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task GetAsync_ForNotExistingUser_ReturnsNull()
+        {
+            //Arrange
+            int id = 999999;
+
+            //Act
+            UserDto? result = await _userService.GetAsync(id);
+
+            //Assert
+            result.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task LogInAsync_ForValidCredentials_ReturnsUserId()
+        {
+            //Arrange
+            LogInDto logInDto = new("user1@mail.com", "Password123");
+
+            //Act
+            int? result = await _userService.LogInAsync(logInDto);
+
+            //Assert
+            result.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task LogInAsync_ForInvalidEmail_ReturnsNull()
+        {
+            //Arrange
+            LogInDto logInDto = new("emailNotInDatabase@mail.com", "Password123123");
+
+            //Act
+            int? result = await _userService.LogInAsync(logInDto);
+
+            //Assert
+            result.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task LogInAsync_ForValidEmailButInvalidPassword_ReturnsNull()
+        {
+            //Arrange
+            LogInDto logInDto = new("user1@mail.com", "InvalidPassword123");
+
+            //Act
+            int? result = await _userService.LogInAsync(logInDto);
+
+            //Assert
+            result.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task CreateAsync_ForValidData_AddsNewUserToDatabase()
+        {
+            //Arrange
+            RegisterUserDto registerUserDto = new("Nickname123KKK", "email123123@email123.com", "Password123KJ");
+
+            //Act
+            int result = await _userService.CreateAsync(registerUserDto);
+
+            //Assert
+            result.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task CreateAsync_ForNullData_ThrowsNullReferenceException()
+        {
+            //Arrange
+            RegisterUserDto registerUserDto = null!;
+
+            //Act
+            Func<Task> action = async () => await _userService.CreateAsync(registerUserDto);
+
+            //Assert
+            await action.Should().ThrowAsync<NullReferenceException>();
+        }
+
+        [Fact]
+        public async Task GetNickNameAsync_ForExistingUser_ReturnsNickname()
+        {
+            //Arrange
+            int id = 1;
+
+            //Act
+            string? result = await _userService.GetNicknameAsync(id);
+
+            //Assert
+            result.Should().Be("Nickname1");
+        }
+
+        [Fact]
+        public async Task GetNickNameAsync_ForNotExistingUser_ReturnsNull()
+        {
+            //Arrange
+            int id = 999999;
+
+            //Act
+            string? result = await _userService.GetNicknameAsync(id);
+
+            //Assert
+            result.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task ChangePasswordAsync_ForValidData_ChangesPassword()
+        {
+            //Arrange
+            ChangePasswordDto changePasswordDto = new(1, "NewPassword123", "NewPassword123");
+
+            //Act
+            int result = await _userService.ChangePasswordAsync(changePasswordDto);
+
+            //Assert
+            result.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task ChangePasswordAsync_ForNullData_ThrowsInvalidOperationException()
+        {
+            //Arrange
+            ChangePasswordDto changePasswordDto = null!;
+
+            //Act
+            Func<Task> action = async () => await _userService.ChangePasswordAsync(changePasswordDto);
+
+            //Assert
+            await action.Should().ThrowAsync<InvalidOperationException>();
+        }
+
+        [Fact]
+        public async Task ChangePasswordAsync_ForNotExistingUser_ThrowsEntityNotFoundException()
+        {
+            //Arrange
+            ChangePasswordDto changePasswordDto = new(999999, "NewPassword123", "NewPassword123");
+
+            //Act
+            Func<Task> action = async () => await _userService.ChangePasswordAsync(changePasswordDto);
+
+            //Assert
+            await action.Should().ThrowAsync<EntityNotFoundException>();
+        }
+
+        [Fact]
+        public async Task ChangeNicknameAsync_ForValidData_ChangesNickname()
+        {
+            //Arrange
+            ChangeNicknameDto changeNicknameDto = new(1, "NewNickname123");
+
+            //Act
+            int result = await _userService.ChangeNicknameAsync(changeNicknameDto);
+
+            //Assert
+            result.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task ChangeNicknameAsync_ForNullData_ThrowsInvalidOperationException()
+        {
+            //Arrange
+            ChangeNicknameDto changeNicknameDto = null!;
+
+            //Act
+            Func<Task> action = async () => await _userService.ChangeNicknameAsync(changeNicknameDto);
+
+            //Assert
+            await action.Should().ThrowAsync<InvalidOperationException>();
+        }
+
+        [Fact]
+        public async Task ChangeNicknameAsync_ForNotExistingUser_ThrowsEntityNotFoundException()
+        {
+            //Arrange
+            ChangeNicknameDto changeNicknameDto = new(999999, "NewNickname123");
+
+            //Act
+            Func<Task> action = async () => await _userService.ChangeNicknameAsync(changeNicknameDto);
+
+            //Assert
+            await action.Should().ThrowAsync<EntityNotFoundException>();
+        }
+
+        [Fact]
+        public async Task ChangeEmailAsync_ForValidData_ChangesEmail()
+        {
+            //Arrange
+            ChangeEmailDto changeEmailDto = new(1, "valid@email.com");
+
+            //Act
+            int result = await _userService.ChangeEmailAsync(changeEmailDto);
+
+            //Assert
+            result.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task ChangeEmailAsync_ForNullData_ThrowsInvalidOperationException()
+        {
+            //Arrange
+            ChangeEmailDto changeEmailDto = null!;
+
+            //Act
+            Func<Task> action = async () => await _userService.ChangeEmailAsync(changeEmailDto);
+
+            //Assert
+            await action.Should().ThrowAsync<InvalidOperationException>();
+        }
+
+        [Fact]
+        public async Task ChangeEmailAsync_ForNotExistingUser_ThrowsEntityNotFoundException()
+        {
+            //Arrange
+            ChangeEmailDto changeEmailDto = new(999999, "email@email.com");
+
+            //Act
+            Func<Task> action = async () => await _userService.ChangeEmailAsync(changeEmailDto);
+
+            //Assert
+            await action.Should().ThrowAsync<EntityNotFoundException>();
         }
     }
 }

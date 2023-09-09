@@ -15,21 +15,21 @@ namespace KnitterNotebook.Services.Interfaces
 
         Task<int?> LogInAsync(LogInDto logInDto);
 
-        Task CreateAsync(RegisterUserDto data);
+        Task<int> CreateAsync(RegisterUserDto data);
 
         new Task<UserDto?> GetAsync(int id);
 
         Task<string?> GetNicknameAsync(int id);
 
-        Task ChangeNicknameAsync(ChangeNicknameDto changeNicknameDto);
+        Task<int> ChangeNicknameAsync(ChangeNicknameDto changeNicknameDto);
 
-        Task ChangeEmailAsync(ChangeEmailDto changeEmailDto);
+        Task<int> ChangeEmailAsync(ChangeEmailDto changeEmailDto);
 
-        Task ChangePasswordAsync(ChangePasswordDto changePasswordDto);
+        Task<int> ChangePasswordAsync(ChangePasswordDto changePasswordDto);
 
-        Task ChangeThemeAsync(ChangeThemeDto changeThemeDto);
+        Task<int> ChangeThemeAsync(ChangeThemeDto changeThemeDto);
 
-        Task ResetPasswordAsync(ResetPasswordDto resetPasswordDto);
+        Task<int> ResetPasswordAsync(ResetPasswordDto resetPasswordDto);
 
         Task<(string, DateTime)> UpdatePasswordResetTokenStatusAsync(string userEmail);
 
