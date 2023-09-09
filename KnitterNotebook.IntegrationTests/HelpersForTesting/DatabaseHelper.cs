@@ -8,9 +8,12 @@ namespace KnitterNotebook.IntegrationTests.HelpersForTesting
         /// <summary>
         /// Creates unique name of database
         /// </summary>
-        public static string CreateUniqueDatabaseName => "TestDb" + Guid.NewGuid().ToString();
+        private static string CreateUniqueDatabaseName => $"KnitterNotebookDbIntegrationTests{DateTime.Now.Ticks}";
 
-        private static string ConnectionString => "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=KnitterNotebookDbIntegrationTests;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        /// <summary>
+        /// I decided to use unique database's name as I can run many tests in parallel without any problems
+        /// </summary>
+        private static string ConnectionString => $"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog={CreateUniqueDatabaseName};Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         public static DatabaseContext CreateDatabaseContext()
         {

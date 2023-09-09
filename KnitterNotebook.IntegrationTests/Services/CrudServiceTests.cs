@@ -2,6 +2,7 @@ using FluentAssertions;
 using KnitterNotebook.Database;
 using KnitterNotebook.IntegrationTests.HelpersForTesting;
 using KnitterNotebook.Models.Entities;
+using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,26 +10,33 @@ namespace KnitterNotebook.IntegrationTests.Services
 {
     public class CrudServiceTests
     {
-        private readonly DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
         private readonly CrudService<User> _crudService;
 
         public CrudServiceTests()
         {
-            DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
-            _databaseContext = new DatabaseContext(builder.Options);
             _crudService = new(_databaseContext);
+            _databaseContext.Database.EnsureDeleted();
+            _databaseContext.Database.Migrate();
             SeedUsers();
         }
 
         private void SeedUsers()
         {
+            List<Theme> themes = new()
+            {
+                new(){ Name = ApplicationTheme.Default },
+                new(){ Name = ApplicationTheme.Light },
+                new(){ Name = ApplicationTheme.Dark }
+            };
+            _databaseContext.Themes.AddRange(themes);
+
             List<User> users = new()
             {
-                new() { Id = 1, Email = "test1@test.com", Nickname = "nickname1" },
-                new() { Id = 2, Email = "test2@test.com", Nickname = "nickname2" },
-                new() { Id = 3, Email = "test3@test.com", Nickname = "nickname3" },
-                new() { Id = 4, Email = "test4@test.com", Nickname = "nickname4" },
+                new() { Email = "test1@test.com", Nickname = "nickname1", Password = "Password1231", ThemeId = 1 },
+                new() { Email = "test2@test.com", Nickname = "nickname2", Password = "Password1232", ThemeId = 1 },
+                new() { Email = "test3@test.com", Nickname = "nickname3", Password = "Password1233", ThemeId = 2},
+                new() { Email = "test4@test.com", Nickname = "nickname4", Password = "Password1234", ThemeId = 3},
             };
             _databaseContext.Users.AddRange(users);
             _databaseContext.SaveChanges();
@@ -112,6 +120,26 @@ namespace KnitterNotebook.IntegrationTests.Services
 
             //Act
             int result = await _crudService.UpdateAsync(user);
+
+            //Assert
+            result.Should().Be(0);
+        }
+
+        [Fact]
+        public async Task DeleteAsync_ForExistingRow_DeletesRowFromDatabase()
+        {
+            //Act
+            int result = await _crudService.DeleteAsync(1);
+
+            //Assert
+            result.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task DeleteAsync_ForNotExistingRow_DoesNotDeleteRowFromDatabase()
+        {
+            //Act
+            int result = await _crudService.DeleteAsync(99999999);
 
             //Assert
             result.Should().Be(0);

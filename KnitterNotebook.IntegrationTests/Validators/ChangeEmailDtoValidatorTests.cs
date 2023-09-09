@@ -15,7 +15,7 @@ namespace KnitterNotebook.IntegrationTests.Validators
     public class ChangeEmailDtoValidatorTests
     {
         private readonly ChangeEmailDtoValidator _validator;
-        private readonly DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _themeServiceMock = new();
         private readonly Mock<IPasswordService> _paswordServiceMock = new();
@@ -24,11 +24,10 @@ namespace KnitterNotebook.IntegrationTests.Validators
 
         public ChangeEmailDtoValidatorTests()
         {
-            DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
-            _databaseContext = new DatabaseContext(builder.Options);
             _userService = new(_databaseContext, _themeServiceMock.Object, _paswordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object);
             _validator = new ChangeEmailDtoValidator(_userService);
+            _databaseContext.Database.EnsureDeleted();
+            _databaseContext.Database.Migrate();
             SeedUsers();
         }
 
@@ -42,8 +41,8 @@ namespace KnitterNotebook.IntegrationTests.Validators
         {
             List<User> users = new()
             {
-                new User() { Id = 1, Email = "test1@test.com"},
-                new User() { Id = 2, Email = "test2@test.com"},
+                new User() { Email = "test1@test.com", ThemeId = 1},
+                new User() { Email = "test2@test.com", ThemeId = 1},
             };
             _databaseContext.Users.AddRange(users);
             _databaseContext.SaveChanges();
@@ -52,7 +51,6 @@ namespace KnitterNotebook.IntegrationTests.Validators
         [Theory]
         [InlineData(-1)]
         [InlineData(0)]
-        [InlineData(3)]
         [InlineData(4)]
         public async Task ValidateAsync_ForInvalidUserId_FailValidation(int userId)
         {

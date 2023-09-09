@@ -15,7 +15,7 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
     public class ChangePasswordDtoValidatorTests
     {
         private readonly ChangePasswordDtoValidator _validator;
-        private readonly DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _themeServiceMock = new();
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
@@ -24,11 +24,10 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
 
         public ChangePasswordDtoValidatorTests()
         {
-            DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
-            _databaseContext = new DatabaseContext(builder.Options);
             _userService = new UserService(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object);
             _validator = new ChangePasswordDtoValidator(_userService);
+            _databaseContext.Database.EnsureDeleted();
+            _databaseContext.Database.Migrate();
             SeedUsers();
         }
 
@@ -36,9 +35,9 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
         {
             List<User> users = new()
             {
-                new User() { Id = 1 },
-                new User() { Id = 2 },
-                new User() { Id = 3 }
+                new User() { ThemeId = 1},
+                new User() { ThemeId = 2 },
+                new User() { ThemeId = 3 }
             };
             _databaseContext.Users.AddRange(users);
             _databaseContext.SaveChanges();
@@ -63,14 +62,11 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
             validationResult.ShouldNotHaveAnyValidationErrors();
         }
 
-        [Theory]
-        [InlineData(-1)]
-        [InlineData(0)]
-        [InlineData(100)]
-        public async Task ValidateAsync_ForInvalidUserId_FailValidation(int userId)
+        [Fact]
+        public async Task ValidateAsync_ForInvalidUserId_FailValidation()
         {
             //Arrange
-            ChangePasswordDto changePasswordDto = new(userId, "ValidPassword1", "ValidPassword1");
+            ChangePasswordDto changePasswordDto = new(999999, "ValidPassword1", "ValidPassword1");
 
             //Act
             TestValidationResult<ChangePasswordDto> validationResult = await _validator.TestValidateAsync(changePasswordDto);

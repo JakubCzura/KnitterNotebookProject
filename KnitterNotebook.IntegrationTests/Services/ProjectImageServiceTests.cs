@@ -14,20 +14,20 @@ namespace KnitterNotebook.IntegrationTests.Services
 {
     public class ProjectImageServiceTests
     {
-        private readonly DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
         private readonly ProjectImageService _projectImageService;
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _themeServiceMock = new();
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
         private readonly Mock<ITokenService> _tokenServiceMock = new();
         private readonly Mock<IConfiguration> _configurationMock = new();
+
         public ProjectImageServiceTests()
         {
-            DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
-            _databaseContext = new DatabaseContext(builder.Options);
             _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _configurationMock.Object);
             _projectImageService = new(_databaseContext, _userService);
+            _databaseContext.Database.EnsureDeleted();
+            _databaseContext.Database.Migrate();
             SeedData();
         }
 
@@ -35,27 +35,27 @@ namespace KnitterNotebook.IntegrationTests.Services
         {
             User user = new()
             {
-                Id = 1,
                 Email = "test@test.com",
                 Nickname = "Nickname6",
                 Password = "Password123",
                 Projects = new()
                 {
-                    new() { Id = 1, Name = "Project1", Description = "Description1", ProjectImages = new()
+                    new() { Name = "Project1", Description = "Description1", ProjectImages = new()
                     {
-                        new(){ Id = 1, Path = @"c:\computer\test1.jpg", ProjectId = 1},
-                        new(){ Id = 2, Path = @"c:\computer\test2.jpg", ProjectId = 1},
-                        new(){ Id = 3, Path = @"c:\computer\test3.jpg", ProjectId = 1},
+                        new(){ Path = @"c:\computer\test1.jpg" },
+                        new(){ Path = @"c:\computer\test2.jpg" },
+                        new(){ Path = @"c:\computer\test3.jpg" },
                     } },
-                    new() { Id = 2, Name = "Project2", Description = "Description2", ProjectImages = new()
+                    new() { Name = "Project2", Description = "Description2", ProjectImages = new()
                     {
-                        new(){ Id = 4, Path = @"c:\computer\test4.jpg", ProjectId = 2},
-                        new(){ Id = 5, Path = @"c:\computer\test5.jpg", ProjectId = 2},
-                        new(){ Id = 6, Path = @"c:\computer\test6.jpg", ProjectId = 2},
+                        new(){ Path = @"c:\computer\test4.jpg" },
+                        new(){ Path = @"c:\computer\test5.jpg" },
+                        new(){ Path = @"c:\computer\test6.jpg" },
                     } }
-                }
-            };                                      
-           
+                },
+                ThemeId = 1
+            };
+
             _databaseContext.Users.AddRange(user);
             _databaseContext.SaveChanges();
         }
@@ -74,7 +74,7 @@ namespace KnitterNotebook.IntegrationTests.Services
         [Fact]
         public async Task GetProjectImagesAsync_ForNonExistingProject_ShouldReturnEmptyList()
         {
-            //Arrange   
+            //Arrange
             int projectId = 99999;
 
             // Act

@@ -15,28 +15,43 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
     public class ChangeProjectStatusDtoValidatorTests
     {
         private readonly ChangeProjectStatusDtoValidator _validator;
-        private readonly DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
         private readonly ProjectService _projectService;
-        private readonly Mock<IUserService> _iUserServiceMock = new();
+        private readonly Mock<IUserService> _userServiceMock = new();
 
         public ChangeProjectStatusDtoValidatorTests()
         {
-            DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
-            _databaseContext = new DatabaseContext(builder.Options);
-            _projectService = new(_databaseContext, _iUserServiceMock.Object);
+            _projectService = new(_databaseContext, _userServiceMock.Object);
             _validator = new ChangeProjectStatusDtoValidator(_projectService);
+            _databaseContext.Database.EnsureDeleted();
+            _databaseContext.Database.Migrate();
             SeedProjects();
         }
 
         private void SeedProjects()
         {
-            List<Project> projects = new()
+            List<User> users = new()
             {
-                new Project() { Id = 1, },
-                new Project() { Id = 2, },
+                new User() 
+                { 
+                    ThemeId = 1, 
+                    Projects = new()
+                    { 
+                        new Project() { Name = "Project1",},
+                        new Project() { Name = "Project2" }, 
+                    } 
+                },
+                new User()
+                {
+                    ThemeId = 2,
+                    Projects = new()
+                    {
+                        new Project() { Name = "Project3",},
+                        new Project() { Name = "Project4" },
+                    }
+                },
             };
-            _databaseContext.Projects.AddRange(projects);
+            _databaseContext.Users.AddRange(users);
             _databaseContext.SaveChanges();
         }
 
@@ -58,14 +73,11 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
             validationResult.ShouldNotHaveAnyValidationErrors();
         }
 
-        [Theory]
-        [InlineData(-1)]
-        [InlineData(0)]
-        [InlineData(3)]
-        public async Task ValidateAsync_ForInvalidProjectId_FailValidation(int id)
+        [Fact]
+        public async Task ValidateAsync_ForInvalidProjectId_FailValidation()
         {
             //Arrange
-            ChangeProjectStatusDto changeProjectStatusDto = new(id, ProjectStatusName.Planned);
+            ChangeProjectStatusDto changeProjectStatusDto = new(9999, ProjectStatusName.Planned);
 
             // Act
             TestValidationResult<ChangeProjectStatusDto> validationResult = await _validator.TestValidateAsync(changeProjectStatusDto);

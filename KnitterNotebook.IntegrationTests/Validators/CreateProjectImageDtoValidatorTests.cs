@@ -17,7 +17,7 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
         private readonly CreateProjectImageDtoValidator _validator;
         private readonly ProjectService _projectService;
         private readonly UserService _userService;
-        private readonly DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
         private readonly Mock<IThemeService> _themeServiceMock = new();
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
         private readonly Mock<ITokenService> _tokenServiceMock = new();
@@ -25,12 +25,11 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
 
         public CreateProjectImageDtoValidatorTests()
         {
-            DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
-            _databaseContext = new DatabaseContext(builder.Options);
             _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object);
             _projectService = new(_databaseContext, _userService);
             _validator = new CreateProjectImageDtoValidator(_projectService, _userService);
+            _databaseContext.Database.EnsureDeleted();
+            _databaseContext.Database.Migrate();
             SeedProjects();
         }
 
@@ -38,8 +37,8 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
         {
             List<Project> projects = new()
             {
-                new Project() { Id = 1, Name = "Project1", User = new() { Id = 1 } },
-                new Project() { Id = 2, Name = "Project2", User = new() { Id = 2 } },
+                new Project() { Name = "Project1", User = new() { Nickname = "Nickname1", ThemeId = 1 } },
+                new Project() { Name = "Project2", User = new() { Nickname = "Nickname2", ThemeId = 1 } },
             };
             _databaseContext.Projects.AddRange(projects);
             _databaseContext.SaveChanges();

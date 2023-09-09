@@ -4,20 +4,16 @@ using KnitterNotebook.IntegrationTests.HelpersForTesting;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebook.IntegrationTests.Services
 {
     public class ThemeServiceTests
     {
-        private readonly DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
         private readonly ThemeService _themeService;
 
         public ThemeServiceTests()
         {
-            DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
-            _databaseContext = new DatabaseContext(builder.Options);
             _themeService = new(_databaseContext);
             SeedThemes();
         }
@@ -26,16 +22,16 @@ namespace KnitterNotebook.IntegrationTests.Services
         {
             List<Theme> themes = new()
             {
-                new() { Id = 1, Name = ApplicationTheme.Default, Users = new() { new() { Id = 1, ThemeId = 1 }, new() { Id = 2, ThemeId = 1 } } },
-                new() { Id = 2, Name = ApplicationTheme.Light , Users = new() { new() { Id = 3, ThemeId = 2 }, new() { Id = 4, ThemeId = 2 } } },
-                new() { Id = 3, Name = ApplicationTheme.Dark , Users = new() { new() { Id = 5, ThemeId = 3 }, new() { Id = 6, ThemeId = 3 } } }
+                new() { Name = ApplicationTheme.Default },
+                new() { Name = ApplicationTheme.Light },
+                new() { Name = ApplicationTheme.Dark }
             };
             _databaseContext.Themes.AddRange(themes);
             _databaseContext.SaveChanges();
         }
 
         [Theory]
-        [InlineData(ApplicationTheme.Default), InlineData(ApplicationTheme.Light)]
+        [InlineData(ApplicationTheme.Default), InlineData(ApplicationTheme.Light), InlineData(ApplicationTheme.Dark)]
         public async Task ThemeExistsAsync_ForExistingTheme_ReturnsTrue(ApplicationTheme themeName)
         {
             //Act
@@ -45,7 +41,7 @@ namespace KnitterNotebook.IntegrationTests.Services
             result.Should().BeTrue();
         }
 
-        [Fact]  
+        [Fact]
         public async Task ThemeExistsAsync_ForNotExistingTheme_ReturnsTrue()
         {
             //Assert

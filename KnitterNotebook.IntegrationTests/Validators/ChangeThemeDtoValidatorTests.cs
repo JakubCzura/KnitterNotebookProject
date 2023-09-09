@@ -16,7 +16,7 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
     public class ChangeThemeDtoValidatorTests
     {
         private readonly ChangeThemeDtoValidator _validator;
-        private readonly DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
         private readonly UserService _userService;
         private readonly ThemeService _themeService;
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
@@ -25,12 +25,11 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
 
         public ChangeThemeDtoValidatorTests()
         {
-            DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
-            _databaseContext = new DatabaseContext(builder.Options);
             _themeService = new(_databaseContext);
             _userService = new(_databaseContext, _themeService, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object);
             _validator = new ChangeThemeDtoValidator(_userService, _themeService);
+            _databaseContext.Database.EnsureDeleted();
+            _databaseContext.Database.Migrate();
             SeedThemes();
         }
 
@@ -38,9 +37,9 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
         {
             List<Theme> themes = new()
             {
-                new Theme() { Name = ApplicationTheme.Default, Users = new List<User>() { new User() { Id = 1 } } },
-                new Theme() { Name = ApplicationTheme.Light, Users = new List<User>() { new User() { Id = 2 } }  },
-                new Theme() { Name = ApplicationTheme.Dark, Users = new List<User>() { new User() { Id = 3 } } }
+                new Theme() { Name = ApplicationTheme.Default, Users = new List<User>() { new User() { Nickname = "Name1" } } },
+                new Theme() { Name = ApplicationTheme.Light, Users = new List<User>() { new User() { Nickname = "Nickname2" } }  },
+                new Theme() { Name = ApplicationTheme.Dark, Users = new List<User>() { new User() { Nickname = "Nickname3" } } }
             };
             _databaseContext.Themes.AddRange(themes);
             _databaseContext.SaveChanges();

@@ -10,29 +10,49 @@ namespace KnitterNotebook.IntegrationTests.Services
 {
     public class MovieUrlServiceTests
     {
-        private readonly DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
         private readonly MovieUrlService _movieUrlService;
 
         public MovieUrlServiceTests()
         {
-            DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
-            _databaseContext = new DatabaseContext(builder.Options);
             _movieUrlService = new(_databaseContext);
+            _databaseContext.Database.EnsureDeleted();
+            _databaseContext.Database.Migrate();
             SeedMovieUrls();
         }
 
         private void SeedMovieUrls()
         {
-            List<MovieUrl> movieUrls = new()
+            List<User> users = new()
             {
-                new() { Id = 1, Title = "sample title 1", Link = new("http://testlink1.com"), Description = null, UserId = 1 },
-                new() { Id = 2, Title = "sample title 2", Link = new("http://testlink2.com"), Description = "description 2", UserId = 1 },
-                new() { Id = 3, Title = "sample title 3", Link = new("http://testlink3.com"), Description = null, UserId = 2 },
-                new() { Id = 4, Title = "sample title 4", Link = new("http://testlink4.com"), Description = null, UserId = 2 },
-                new() { Id = 5, Title = "sample title 5", Link = new("http://testlink5.com"), Description = "description 4", UserId = 2 }
+                new()
+                {
+                    Email = "email@email.com",
+                    Nickname = "Nickname",
+                    Password = "Password123",
+                    MovieUrls = new()
+                    {
+                        new() { Title = "sample title 1", Link = new("http://testlink1.com"), Description = null },
+                        new() { Title = "sample title 2", Link = new("http://testlink2.com"), Description = "description 2" }
+                    },
+                    ThemeId = 1
+                },
+                new()
+                {
+                    Email = "email2@email.com",
+                    Nickname = "Nickname2",
+                    Password = "Password123",
+                    MovieUrls = new()
+                    {
+                        new() { Title = "sample title 3", Link = new("http://testlink3.com"), Description = null },
+                        new() { Title = "sample title 4", Link = new("http://testlink4.com"), Description = null },
+                        new() { Title = "sample title 5", Link = new("http://testlink5.com"), Description = "description 4" }
+                    },
+                    ThemeId = 1
+                }
             };
-            _databaseContext.MovieUrls.AddRange(movieUrls);
+
+            _databaseContext.Users.AddRange(users);
             _databaseContext.SaveChanges();
         }
 

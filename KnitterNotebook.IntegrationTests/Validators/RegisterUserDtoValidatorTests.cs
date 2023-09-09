@@ -15,7 +15,7 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
     public class RegisterUserDtoValidatorTests
     {
         private readonly RegisterUserDtoValidator _validator;
-        private readonly DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _themeServiceMock = new();
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
@@ -24,11 +24,10 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
 
         public RegisterUserDtoValidatorTests()
         {
-            DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
-            _databaseContext = new DatabaseContext(builder.Options);
             _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object);
             _validator = new RegisterUserDtoValidator(_userService);
+            _databaseContext.Database.EnsureDeleted();
+            _databaseContext.Database.Migrate();
             SeedUsers();
         }
 
@@ -36,8 +35,8 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
         {
             List<User> users = new()
             {
-                new User() { Id = 1, Email = "nick1@mail.com", Nickname = "Nick1"},
-                new User() { Id = 2, Email = "nick2@mail.com", Nickname = "Nick2"},
+                new User() { Email = "nick1@mail.com", Nickname = "Nick1", ThemeId = 1 },
+                new User() { Email = "nick2@mail.com", Nickname = "Nick2", ThemeId = 1 },
             };
             _databaseContext.Users.AddRange(users);
             _databaseContext.SaveChanges();

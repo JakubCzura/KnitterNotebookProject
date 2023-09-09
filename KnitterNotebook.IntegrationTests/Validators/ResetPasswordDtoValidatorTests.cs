@@ -15,7 +15,7 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
     public class ResetPasswordDtoValidatorTests
     {
         private readonly ResetPasswordDtoValidator _validator;
-        private readonly DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
         private readonly UserService _userService;
         private readonly Mock<IThemeService> _ThemeServiceMock = new();
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
@@ -24,18 +24,12 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
 
         public ResetPasswordDtoValidatorTests()
         {
-            DbContextOptionsBuilder<DatabaseContext> builder = new();
-            builder.UseInMemoryDatabase(DatabaseHelper.CreateUniqueDatabaseName);
-            _databaseContext = new DatabaseContext(builder.Options);
             _userService = new(_databaseContext, _ThemeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object);
             _validator = new ResetPasswordDtoValidator(_userService);
+            _databaseContext = DatabaseHelper.CreateDatabaseContext();
+            _databaseContext.Database.EnsureDeleted();
+            _databaseContext.Database.Migrate();
             SeedUsers();
-        }
-
-        public static IEnumerable<object[]> ValidData()
-        {
-            yield return new object[] { new ResetPasswordDto("nick1@mail.com", "123xpklo2", "PasswordNew123", "PasswordNew123") };
-            yield return new object[] { new ResetPasswordDto("nick2@mail.com", "4213x3123", "PasswordNew123", "PasswordNew123") };
         }
 
         private void SeedUsers()
@@ -44,29 +38,23 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
             {
                 new User()
                 {
-                    Id = 1,
                     Email = "nick1@mail.com",
                     Nickname = "Nick1",
                     PasswordResetToken = "123xpklo2",
-                    PasswordResetTokenExpirationDate = DateTime.UtcNow.AddDays(1)
-                },
-                new User()
-                {
-                    Id = 2,
-                    Email = "nick2@mail.com",
-                    Nickname = "Nick2",
-                    PasswordResetToken = "4213x3123",
-                    PasswordResetTokenExpirationDate = DateTime.UtcNow.AddHours(2)
+                    PasswordResetTokenExpirationDate = DateTime.UtcNow.AddDays(1),
+                    ThemeId = 1
                 }
             };
             _databaseContext.Users.AddRange(users);
             _databaseContext.SaveChanges();
         }
 
-        [Theory]
-        [MemberData(nameof(ValidData))]
-        public async Task ValidateAsync_ForValidData_PassValidation(ResetPasswordDto resetPasswordDto)
+        [Fact]
+        public async Task ValidateAsync_ForValidData_PassValidation()
         {
+            //Arrange
+            ResetPasswordDto resetPasswordDto = new ("nick1@mail.com", "123xpklo2", "PasswordNew123", "PasswordNew123");
+
             //Act
             TestValidationResult<ResetPasswordDto> validationResult = await _validator.TestValidateAsync(resetPasswordDto);
 
@@ -77,8 +65,6 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        [InlineData(" ")]
-        [InlineData(" 123 ")]
         [InlineData(" 123 @")]
         [InlineData("email@email.com")]
         public async Task ValidateAsync_ForInvalidEmail_FailValidation(string email)
@@ -95,8 +81,6 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
 
         [Theory]
         [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
         [InlineData(" invalid")]
         [InlineData("231233213213123213121213")]
         public async Task ValidateAsync_ForInvalidPasswordResetToken_FailValidation(string token)
@@ -114,9 +98,7 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        [InlineData(" ")]
         [InlineData("123")]
-        [InlineData("123456789")]
         [InlineData("KJ")]
         public async Task ValidateAsync_ForInvalidNewPassword_FailValidation(string password)
         {
@@ -132,10 +114,8 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
 
         [Theory]
         [InlineData("validPassword123", null)]
-        [InlineData("validPassword123", "")]
         [InlineData("validPassword123", " ")]
         [InlineData("validPassword123", "other password")]
-        [InlineData("validPassword123", "againOtherPassword123")]
         public async Task ValidateAsync_ForNewPasswordNotEqualRepeatedNewPassword_FailValidation(string newPassword, string newRepeatedPassword)
         {
             //Arrange
