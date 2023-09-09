@@ -288,11 +288,6 @@ namespace KnitterNotebook.ViewModels
                 ProjectsInProgress = (await _projectService.GetUserProjectsInProgressAsync(User.Id)).ToObservableCollection();
                 FinishedProjects = (await _projectService.GetUserFinishedProjectsAsync(User.Id)).ToObservableCollection();
                 _themeService.ReplaceTheme(User.ThemeName, ApplicationTheme.Default);
-                //Deleting files which paths have been already deleted from database and they are not related to logged in user
-                //if (Samples is not null)
-                //{
-                //    FileHelper.DeleteUnusedUserImages(Samples, User.Nickname);
-                //}
             }
             catch (Exception exception)
             {
@@ -326,6 +321,10 @@ namespace KnitterNotebook.ViewModels
             {
                 if (SelectedSample is not null)
                 {
+                    if (!string.IsNullOrWhiteSpace(SelectedSample.ImagePath))
+                    {
+                        _sharedResourceViewModel.FilesToDelete.Add(SelectedSample.ImagePath);
+                    }
                     await _sampleService.DeleteAsync(SelectedSample.Id);
                     Samples.Remove(SelectedSample);
                 }
@@ -455,7 +454,17 @@ namespace KnitterNotebook.ViewModels
         }
 
         [RelayCommand]
-        private void LogOut() => _userService.LogOut();
+        private void LogOut()
+        {
+            try
+            {
+                _userService.LogOut();
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "Error while logging out");
+            }
+        }
 
         [RelayCommand]
         private async Task DeleteSelectedProjectInProgressImageAsync()

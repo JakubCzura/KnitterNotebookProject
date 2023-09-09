@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Windows.Documents;
 
 namespace KnitterNotebook.ViewModels
 {
@@ -27,5 +30,7 @@ namespace KnitterNotebook.ViewModels
         }
 
         public string? PatternPdfPath { get; set; }
+
+        public List<string> FilesToDelete { get; set; } = new();
     }
 }

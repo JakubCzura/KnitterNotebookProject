@@ -1,4 +1,5 @@
 ﻿using KnitterNotebook.Models.Enums;
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.IO;
 
@@ -6,8 +7,7 @@ namespace KnitterNotebook.ApplicationInformation
 {
     public class Paths
     {
-        public static string UsersDirectories => Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, "UsersDirectories");
-        //public static string UsersDirectories => Path.Combine(SpecialDirectories.MyDocuments, "UsersDirectories");
+        public static string UsersDirectories => Path.Combine(SpecialDirectories.MyDocuments, "KnitterNotebook", "UsersDirectories");
 
         public static string UserDirectory(string nickname) => Path.Combine(UsersDirectories, nickname);
 

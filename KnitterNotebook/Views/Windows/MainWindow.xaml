@@ -20,6 +20,9 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding LogOutCommand}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <Grid>

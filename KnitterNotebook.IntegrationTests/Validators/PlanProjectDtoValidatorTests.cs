@@ -7,6 +7,7 @@ using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
+using KnitterNotebook.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
@@ -22,10 +23,11 @@ namespace KnitterNotebookTests.IntegrationTests.Validators
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
         private readonly Mock<ITokenService> _tokenServiceMock = new();
         private readonly Mock<IConfiguration> _iconfigurationMock = new();
+        private readonly Mock<SharedResourceViewModel> _sharedResourceViewModelMock = new();
 
         public PlanProjectDtoValidatorTests()
         {
-            _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object);
+            _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object, _sharedResourceViewModelMock.Object);
             _validator = new PlanProjectDtoValidator(_userService);
             _databaseContext.Database.EnsureDeleted();
             _databaseContext.Database.Migrate();

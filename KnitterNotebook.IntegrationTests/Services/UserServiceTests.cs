@@ -6,6 +6,7 @@ using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services;
+using KnitterNotebook.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -13,25 +14,26 @@ namespace KnitterNotebook.IntegrationTests.Services
 {
     public class UserServiceTests
     {
-        private readonly DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
         private readonly ThemeService _themeService;
         private readonly PasswordService _passwordService;
         private readonly TokenService _tokenService;
         private readonly UserService _userService;
+        private readonly SharedResourceViewModel _sharedResourceViewModel;
 
         public UserServiceTests()
         {
             Dictionary<string, string> myConfiguration = new() { { "Tokens:ResetPasswordTokenExpirationDays", "1" } };
             IConfigurationRoot configuration = new ConfigurationBuilder().AddInMemoryCollection(myConfiguration!).Build();
 
-            _databaseContext = DatabaseHelper.CreateDatabaseContext();
             _databaseContext.Database.EnsureDeleted();
             _databaseContext.Database.Migrate();
 
             _themeService = new(_databaseContext);
             _passwordService = new();
             _tokenService = new();
-            _userService = new(_databaseContext, _themeService, _passwordService, _tokenService, configuration);
+            _sharedResourceViewModel = new();
+            _userService = new(_databaseContext, _themeService, _passwordService, _tokenService, configuration, _sharedResourceViewModel);
             SeedUsers();
         }
 

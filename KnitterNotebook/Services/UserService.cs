@@ -5,9 +5,11 @@ using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
+using KnitterNotebook.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,14 +22,21 @@ namespace KnitterNotebook.Services
         private readonly IPasswordService _passwordService;
         private readonly ITokenService _tokenService;
         private readonly IConfiguration _configuration;
+        private readonly SharedResourceViewModel _sharedResourceViewModel;
 
-        public UserService(DatabaseContext databaseContext, IThemeService themeService, IPasswordService passwordService, ITokenService tokenService, IConfiguration configuration) : base(databaseContext)
+        public UserService(DatabaseContext databaseContext,
+            IThemeService themeService,
+            IPasswordService passwordService,
+            ITokenService tokenService,
+            IConfiguration configuration,
+            SharedResourceViewModel sharedResourceViewModel) : base(databaseContext)
         {
             _databaseContext = databaseContext;
             _themeService = themeService;
             _passwordService = passwordService;
             _tokenService = tokenService;
             _configuration = configuration;
+            _sharedResourceViewModel = sharedResourceViewModel;
         }
 
         public async Task<bool> IsNicknameTakenAsync(string nickname) => await _databaseContext.Users.AnyAsync(x => x.Nickname == nickname);
@@ -165,6 +174,10 @@ namespace KnitterNotebook.Services
             return (user.PasswordResetToken, user.PasswordResetTokenExpirationDate.Value);
         }
 
-        public void LogOut() => Environment.Exit(0);
+        public void LogOut()
+        {
+            _sharedResourceViewModel.FilesToDelete.ForEach(x => { if (File.Exists(x)) File.Delete(x); });
+            Environment.Exit(0);
+        }
     }
 }
