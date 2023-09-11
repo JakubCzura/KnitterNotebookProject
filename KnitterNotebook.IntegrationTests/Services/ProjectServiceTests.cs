@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using KnitterNotebook.Database;
 using KnitterNotebook.IntegrationTests.HelpersForTesting;
+using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services;
@@ -109,6 +110,162 @@ namespace KnitterNotebook.IntegrationTests.Services
 
             //Assert
             result.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task GetPlannedProjectAsync_ForExistingProject_ReturnsPlannedProject()
+        {
+            //Arrange
+            int projectId = 1;
+
+            //Act
+            PlannedProjectDto? result = await _projectService.GetPlannedProjectAsync(projectId);
+
+            //Assert
+            result.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task GetPlannedProjectAsync_ForNotExistingProject_ReturnsNull()
+        {
+            //Arrange
+            int projectId = 99999;
+
+            //Act
+            PlannedProjectDto? result = await _projectService.GetPlannedProjectAsync(projectId);
+
+            //Assert
+            result.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task GetUserPlannedProjectsAsync_ForExistingProjectsAndUser_ReturnsProjects()
+        {
+            //Arrange
+            int userId = 1;
+
+            //Act
+            List<PlannedProjectDto> result = await _projectService.GetUserPlannedProjectsAsync(userId);
+
+            //Assert
+            result.Should().HaveCount(2);
+        }
+
+        [Fact]
+        public async Task GetUserPlannedProjectsAsync_ForNotExistingUser_ReturnsEmptyList()
+        {
+            //Arrange
+            int userId = 99999;
+
+            //Act
+            List<PlannedProjectDto> result = await _projectService.GetUserPlannedProjectsAsync(userId);
+
+            //Assert
+            result.Should().BeEmpty();
+        }
+
+        [Fact]
+        public async Task GetProjectInProgressAsync_ForExistingProject_ReturnsProject()
+        {
+            //Arrange
+            int projectId = 3;
+
+            //Act
+            ProjectInProgressDto? result = await _projectService.GetProjectInProgressAsync(projectId);
+
+            //Assert
+            result.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task GetProjectInProgressAsync_ForNotExistingProject_ReturnsNull()
+        {
+            //Arrange
+            int projectId = 99999;
+
+            //Act
+            ProjectInProgressDto? result = await _projectService.GetProjectInProgressAsync(projectId);
+
+            //Assert
+            result.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task GetUserProjectsInProgressAsync_ForExistingProjectsAndUser_ReturnsProjects()
+        {
+            //Arrange
+            int userId = 1;
+
+            //Act
+            List<ProjectInProgressDto> result = await _projectService.GetUserProjectsInProgressAsync(userId);
+
+            //Assert
+            result.Should().HaveCount(2);
+        }
+
+        [Fact]
+        public async Task GetUserProjectsInProgressAsync_ForNotExistingUser_ReturnsEmptyList()
+        {
+            //Arrange
+            int userId = 99999;
+
+            //Act
+            List<ProjectInProgressDto> result = await _projectService.GetUserProjectsInProgressAsync(userId);
+
+            //Assert
+            result.Should().BeEmpty();
+        }
+
+        [Fact]
+        public async Task GetFinishedProjectAsync_ForExistingProject_ReturnsProject()
+        {
+            //Arrange
+            int projectId = 5;
+
+            //Act
+            FinishedProjectDto? result = await _projectService.GetFinishedProjectAsync(projectId);
+
+            //Assert
+            result.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task GetFinishedProjectAsync_ForNotExistingProject_ReturnsNull()
+        {
+            //Arrange
+            int projectId = 99999;
+
+            //Act
+            FinishedProjectDto? result = await _projectService.GetFinishedProjectAsync(projectId);
+
+            //Assert
+            result.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task GetUserFinishedProjectsAsync_ForExistingProjectsAndUser_ReturnsProjects()
+        {
+            //Arrange
+            int userId = 1;
+
+            //Act
+            List<FinishedProjectDto> result = await _projectService.GetUserFinishedProjectsAsync(userId);
+
+            //Assert
+            result.Should().HaveCount(2);
+        }
+
+        [Fact]
+        public async Task GetUserFinishedProjectsAsync_ForNotExistingUser_ReturnsEmptyList()
+        {
+            //Arrange
+            int userId = 99999;
+
+            //Act
+            List<FinishedProjectDto> result = await _projectService.GetUserFinishedProjectsAsync(userId);
+
+            //Assert
+            result.Should().BeEmpty();
         }
     }
 }

@@ -11,8 +11,6 @@ namespace KnitterNotebook.Services.Interfaces
 
         Task PlanProjectAsync(PlanProjectDto planProjectDto);
 
-        Task<List<Project>> GetUserProjectsAsync(int userId);
-
         Task<PlannedProjectDto?> GetPlannedProjectAsync(int id);
 
         Task<List<PlannedProjectDto>> GetUserPlannedProjectsAsync(int userId);
@@ -25,6 +23,6 @@ namespace KnitterNotebook.Services.Interfaces
 
         Task<List<FinishedProjectDto>> GetUserFinishedProjectsAsync(int userId);
 
-        Task ChangeProjectStatus(ChangeProjectStatusDto changeProjectStatusDto);
+        Task<int> ChangeProjectStatus(ChangeProjectStatusDto changeProjectStatusDto);
     }
 }
