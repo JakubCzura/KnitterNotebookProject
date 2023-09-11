@@ -6,6 +6,7 @@ using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
+using KnitterNotebook.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
@@ -21,10 +22,11 @@ namespace KnitterNotebook.IntegrationTests.Services
         private readonly Mock<IPasswordService> _passwordServiceMock = new();
         private readonly Mock<ITokenService> _tokenServiceMock = new();
         private readonly Mock<IConfiguration> _configurationMock = new();
+        private readonly Mock<SharedResourceViewModel> _sharedResourceViewModelMock = new();
 
         public ProjectServiceTests()
         {
-            _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _configurationMock.Object);
+            _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _configurationMock.Object, _sharedResourceViewModelMock.Object);
             _projectService = new(_databaseContext, _userService);
             _databaseContext.Database.EnsureDeleted();
             _databaseContext.Database.Migrate();
