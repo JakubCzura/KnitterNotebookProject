@@ -176,6 +176,9 @@ namespace KnitterNotebook.Services
 
         public void LogOut()
         {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            // This garbage collector's operations prevent errors while deleting files : "Cannot access file because it is being used by another process"
             _sharedResourceViewModel.FilesToDelete.ForEach(x => { if (File.Exists(x)) File.Delete(x); });
             Environment.Exit(0);
         }
