@@ -63,18 +63,12 @@ namespace KnitterNotebook.Services
             await _databaseContext.SaveChangesAsync();
         }
 
-        public async Task<List<Project>> GetUserProjectsAsync(int userId)
-            => await _databaseContext.Projects.Include(x => x.Needles)
-                                              .Include(x => x.Yarns)
-                                              .Include(x => x.PatternPdf)
-                                              .Where(x => x.UserId == userId).ToListAsync();
-
         public async Task<PlannedProjectDto?> GetPlannedProjectAsync(int id)
         {
             Project? project = await _databaseContext.Projects.Include(x => x.Needles)
                                            .Include(x => x.Yarns)
                                            .Include(x => x.PatternPdf)
-                                           .FirstOrDefaultAsync(x => x.Id == id && x.ProjectStatus == ProjectStatusName.Planned);
+                                           .FirstOrDefaultAsync(x => x.Id == id);
 
             return project is not null ? new PlannedProjectDto(project) : null;
         }
@@ -92,7 +86,7 @@ namespace KnitterNotebook.Services
                                            .Include(x => x.Yarns)
                                            .Include(x => x.PatternPdf)
                                            .Include(x => x.ProjectImages)
-                                           .FirstOrDefaultAsync(x => x.Id == id && x.ProjectStatus == ProjectStatusName.InProgress);
+                                           .FirstOrDefaultAsync(x => x.Id == id);
 
             return project is not null ? new ProjectInProgressDto(project) : null;
         }
@@ -111,7 +105,7 @@ namespace KnitterNotebook.Services
                                            .Include(x => x.Yarns)
                                            .Include(x => x.PatternPdf)
                                            .Include(x => x.ProjectImages)
-                                           .FirstOrDefaultAsync(x => x.Id == id && x.ProjectStatus == ProjectStatusName.Finished);
+                                           .FirstOrDefaultAsync(x => x.Id == id);
 
             return project is not null ? new FinishedProjectDto(project) : null;
         }
@@ -124,15 +118,16 @@ namespace KnitterNotebook.Services
                                             .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.Finished)
                                             .Select(x => new FinishedProjectDto(x)).ToListAsync();
 
-        public async Task ChangeProjectStatus(ChangeProjectStatusDto changeProjectStatusDto)
+        public async Task<int> ChangeProjectStatus(ChangeProjectStatusDto changeProjectStatusDto)
         {
-            Project project = await _databaseContext.Projects.FirstOrDefaultAsync(x => x.Id == changeProjectStatusDto.ProjectId)
-                                    ?? throw new EntityNotFoundException("Id projektu jest nieodpowiednie");
+            Project? project = await _databaseContext.Projects.FirstOrDefaultAsync(x => x.Id == changeProjectStatusDto.ProjectId);
+
+            if (project is null) return 0;
 
             project.AdjustProjectWhenChangingStatus(changeProjectStatusDto.ProjectStatus);
 
             _databaseContext.Update(project);
-            await _databaseContext.SaveChangesAsync();
-        }
+            return await _databaseContext.SaveChangesAsync();
+        }            
     }
 }
