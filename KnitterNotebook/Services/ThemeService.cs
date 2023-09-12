@@ -1,5 +1,7 @@
 ﻿using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
+using KnitterNotebook.Exceptions;
+using KnitterNotebook.Exceptions.Messages;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services.Interfaces;
@@ -8,6 +10,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Xunit.Sdk;
 
 namespace KnitterNotebook.Services
 {
@@ -32,6 +35,15 @@ namespace KnitterNotebook.Services
         /// <param name="oldThemeName">Old theme to replace. Can be null when theme is set for the first time so there is not old theme to replace</param>
         public void ReplaceTheme(ApplicationTheme newThemeName, ApplicationTheme? oldThemeName = null)
         {
+            if(!Enum.IsDefined(typeof(ApplicationTheme), newThemeName))
+            {
+                throw new InvalidEnumException(ExceptionsMessages.EnumInvalidValue(newThemeName));
+            }
+            if (oldThemeName is not null && !Enum.IsDefined(typeof(ApplicationTheme), oldThemeName))
+            {
+                throw new InvalidEnumException(ExceptionsMessages.EnumInvalidValue(oldThemeName));
+            }
+
             string newThemeFullPath = Paths.ThemeFullPath(newThemeName);
 
             //Get and delete current theme

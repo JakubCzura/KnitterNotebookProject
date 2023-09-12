@@ -1,11 +1,13 @@
 ﻿using FluentAssertions;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
+using KnitterNotebook.Exceptions;
 using KnitterNotebook.IntegrationTests.HelpersForTesting;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services;
 using System.Windows;
+using Throw;
 
 namespace KnitterNotebook.IntegrationTests.Services
 {
@@ -111,6 +113,19 @@ namespace KnitterNotebook.IntegrationTests.Services
 
             //Assert
             Application.Current?.Resources.MergedDictionaries[0].Source.OriginalString.Should().Be(Paths.ThemeFullPath(newThemeName));
+        }
+
+        [Theory]
+        [InlineData((ApplicationTheme)99999, null)]
+        [InlineData((ApplicationTheme)99999, ApplicationTheme.Light)]
+        [InlineData(ApplicationTheme.Light, (ApplicationTheme)99999)]
+        public void ReplaceTheme_ForInvalidEnum_ThrowsInvalidEnumException(ApplicationTheme newApplicationTheme, ApplicationTheme? oldApplicationTheme)
+        {
+            //Act
+            Action action = () => _themeService.ReplaceTheme(newApplicationTheme, oldApplicationTheme);
+
+            //Assert
+            action.Should().Throw<InvalidEnumException>();
         }
     }
 }

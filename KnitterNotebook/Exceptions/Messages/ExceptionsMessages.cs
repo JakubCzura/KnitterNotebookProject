@@ -13,5 +13,7 @@
         public static string NullFileWhenSave => $"File was not saved because path was null";
 
         public static string TokenExpirationDateTooEarly(int givenDays) => $"Days to expire token must be greater than 0, but was given {givenDays}";
+
+        public static string EnumInvalidValue(object value) => $"{value} is not proper enum value for given type";
     }
 }
