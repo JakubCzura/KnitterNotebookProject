@@ -1,9 +1,11 @@
 ﻿using FluentAssertions;
+using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.IntegrationTests.HelpersForTesting;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services;
+using System.Windows;
 
 namespace KnitterNotebook.IntegrationTests.Services
 {
@@ -78,6 +80,37 @@ namespace KnitterNotebook.IntegrationTests.Services
 
             //Assert
             result.Should().BeNull();
+        }
+
+        [Fact]
+        public void ReplaceTheme_ForValidData_ReplacesTheme()
+        {
+            //Assert
+            ApplicationTheme newThemeName = ApplicationTheme.Default;
+            ApplicationTheme oldThemeName = ApplicationTheme.Light;
+            string oldThemeFullPath = Paths.ThemeFullPath(newThemeName);
+            Application.Current?.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(oldThemeFullPath) });
+
+
+            //Act
+            _themeService.ReplaceTheme(newThemeName, oldThemeName);
+
+            //Assert
+            Application.Current?.Resources.MergedDictionaries.Should().AllSatisfy(x => x.Source.OriginalString.Should().NotBe(oldThemeFullPath));
+            Application.Current?.Resources.MergedDictionaries[0].Source.OriginalString.Should().Be(Paths.ThemeFullPath(newThemeName));
+        }
+
+        [Fact]
+        public void ReplaceTheme_ForValidData_AddsNewThemeIfThereIsNotOldTheme()
+        {
+            //Assert
+            ApplicationTheme newThemeName = ApplicationTheme.Default;
+
+            //Act
+            _themeService.ReplaceTheme(newThemeName);
+
+            //Assert
+            Application.Current?.Resources.MergedDictionaries[0].Source.OriginalString.Should().Be(Paths.ThemeFullPath(newThemeName));
         }
     }
 }

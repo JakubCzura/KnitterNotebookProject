@@ -1,6 +1,7 @@
 ﻿using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
+using KnitterNotebook.Exceptions.Messages;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
@@ -29,15 +30,22 @@ namespace KnitterNotebook.Services
 
         public async Task<bool> ProjectExistsAsync(int id) => await _databaseContext.Projects.AnyAsync(x => x.Id == id);
 
-        public async Task PlanProjectAsync(PlanProjectDto planProjectDto)
+        /// <summary>
+        /// Creates new project and saves to database
+        /// </summary>
+        /// <param name="planProjectDto">Data to create</param>
+        /// <returns>Quantity of entities saved to database</returns>
+        /// <exception cref="NullReferenceException">When <paramref name="planProjectDto"/> is null</exception>
+        public async Task<int> PlanProjectAsync(PlanProjectDto planProjectDto)
         {
-            string? nickname = await _userService.GetNicknameAsync(planProjectDto.UserId);
+            string nickname = await _userService.GetNicknameAsync(planProjectDto.UserId)
+                             ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(planProjectDto.UserId));
+
             string? destinationPatternPdfPath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(planProjectDto.SourcePatternPdfPath));
+            PatternPdf? patternPdf = !string.IsNullOrWhiteSpace(destinationPatternPdfPath) ? new(destinationPatternPdfPath) : null;
 
             List<Needle> needles = planProjectDto.Needles.Select(x => new Needle(x.Size, x.SizeUnit)).ToList();
             List<Yarn> yarns = planProjectDto.Yarns.Select(x => new Yarn(x.Name)).ToList();
-
-            PatternPdf? patternPdf = !string.IsNullOrWhiteSpace(destinationPatternPdfPath) ? new(destinationPatternPdfPath) : null;
 
             //If planned project's start date is today then projectStatus is InProgress, otherwise it is Planned
             ProjectStatusName projectStatus = planProjectDto.StartDate.HasValue && planProjectDto.StartDate.Value.CompareTo(DateTime.Today) == 0
@@ -60,7 +68,7 @@ namespace KnitterNotebook.Services
                 FileHelper.CopyWithDirectoryCreation(planProjectDto.SourcePatternPdfPath, destinationPatternPdfPath);
 
             await _databaseContext.Projects.AddAsync(project);
-            await _databaseContext.SaveChangesAsync();
+            return await _databaseContext.SaveChangesAsync();
         }
 
         public async Task<PlannedProjectDto?> GetPlannedProjectAsync(int id)
@@ -78,7 +86,8 @@ namespace KnitterNotebook.Services
                                              .Include(x => x.Yarns)
                                              .Include(x => x.PatternPdf)
                                              .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.Planned)
-                                             .Select(x => new PlannedProjectDto(x)).ToListAsync();
+                                             .Select(x => new PlannedProjectDto(x))
+                                             .ToListAsync();
 
         public async Task<ProjectInProgressDto?> GetProjectInProgressAsync(int id)
         {
@@ -97,7 +106,8 @@ namespace KnitterNotebook.Services
                                             .Include(x => x.PatternPdf)
                                             .Include(x => x.ProjectImages)
                                             .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.InProgress)
-                                            .Select(x => new ProjectInProgressDto(x)).ToListAsync();
+                                            .Select(x => new ProjectInProgressDto(x))
+                                            .ToListAsync();
 
         public async Task<FinishedProjectDto?> GetFinishedProjectAsync(int id)
         {
@@ -116,8 +126,15 @@ namespace KnitterNotebook.Services
                                             .Include(x => x.PatternPdf)
                                             .Include(x => x.ProjectImages)
                                             .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.Finished)
-                                            .Select(x => new FinishedProjectDto(x)).ToListAsync();
+                                            .Select(x => new FinishedProjectDto(x))
+                                            .ToListAsync();
 
+        /// <summary>
+        /// Changes project's status and saves to database
+        /// </summary>
+        /// <param name="changeProjectStatusDto">Data to update</param>
+        /// <returns>Quantity of entities saved to database</returns>
+        /// <exception cref="InvalidOperationException">When <paramref name="changeProjectStatusDto"/> is null</exception>"
         public async Task<int> ChangeProjectStatus(ChangeProjectStatusDto changeProjectStatusDto)
         {
             Project? project = await _databaseContext.Projects.FirstOrDefaultAsync(x => x.Id == changeProjectStatusDto.ProjectId);
@@ -128,6 +145,6 @@ namespace KnitterNotebook.Services
 
             _databaseContext.Update(project);
             return await _databaseContext.SaveChangesAsync();
-        }            
+        }
     }
 }

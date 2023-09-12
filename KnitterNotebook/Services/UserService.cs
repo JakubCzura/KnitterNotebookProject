@@ -79,7 +79,7 @@ namespace KnitterNotebook.Services
         /// Adds new user to database
         /// </summary>
         /// <param name="registerUserDto">Dto with user information</param>
-        /// <returns>1 if user was created</returns>
+        /// <returns>Quantity of entities saved to database</returns>
         /// <exception cref="EntityNotFoundException">If default Theme entity doesn't exists in database</exception>
         /// <exception cref="NullReferenceException">If <paramref name="registerUserDto"/> is null</exception>
         public async Task<int> CreateAsync(RegisterUserDto registerUserDto)
@@ -103,7 +103,7 @@ namespace KnitterNotebook.Services
         /// Changes user's password and saves it to database
         /// </summary>
         /// <param name="changePasswordDto">Data to change</param>
-        /// <returns>1 if new password was saved</returns>
+        /// <returns>Quantity of entities saved to database</returns>
         /// <exception cref="InvalidOperationException">When <paramref name="changePasswordDto"/> is null</exception>
         public async Task<int> ChangePasswordAsync(ChangePasswordDto changePasswordDto)
             => await _databaseContext.Users.Where(x => x.Id == changePasswordDto.UserId)
@@ -113,7 +113,7 @@ namespace KnitterNotebook.Services
         /// Changes user's nickname and saves it to database
         /// </summary>
         /// <param name="changeNicknameDto">Data to change</param>
-        /// <returns>1 if new nickname was saved</returns>
+        /// <returns>Quantity of entities saved to database</returns>
         /// <exception cref="InvalidOperationException">When <paramref name="changeNicknameDto"/> is null</exception>
         public async Task<int> ChangeNicknameAsync(ChangeNicknameDto changeNicknameDto)
             => await _databaseContext.Users.Where(x => x.Id == changeNicknameDto.UserId)
@@ -123,7 +123,7 @@ namespace KnitterNotebook.Services
         /// Changes user's email and saves it to database
         /// </summary>
         /// <param name="changeEmailDto">Data to change</param>
-        /// <returns>1 if new email was saved</returns>
+        /// <returns>Quantity of entities saved to database</returns>
         /// <exception cref="InvalidOperationException">When <paramref name="changeEmailDto"/> is null</exception>
         public async Task<int> ChangeEmailAsync(ChangeEmailDto changeEmailDto)
             => await _databaseContext.Users.Where(x => x.Id == changeEmailDto.UserId)
@@ -133,7 +133,7 @@ namespace KnitterNotebook.Services
         /// Changes user's theme and saves it to database
         /// </summary>
         /// <param name="changeThemeDto">Data to update</param>
-        /// <returns>1 if user's theme was changed</returns>
+        /// <returns>Quantity of entities saved to database</returns>
         /// <exception cref="EntityNotFoundException">If theme doesn't exists in database</exception>
         /// <exception cref="NullReferenceException">If <paramref name="changeThemeDto"/> is null</exception>
         public async Task<int> ChangeThemeAsync(ChangeThemeDto changeThemeDto)
@@ -154,7 +154,7 @@ namespace KnitterNotebook.Services
         /// Changes user's password and saves it to database
         /// </summary>
         /// <param name="resetPasswordDto">Data to update</param>
-        /// <returns>1 if password was changed</returns>
+        /// <returns>Quantity of entities saved to database</returns>
         /// <exception cref="InvalidOperationException">When <paramref name="resetPasswordDto"/> is null</exception>"
         public async Task<int> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
             => await _databaseContext.Users.Where(x => x.Email == resetPasswordDto.Email)

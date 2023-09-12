@@ -35,8 +35,8 @@ namespace KnitterNotebook.IntegrationTests.Services
             {
                 new() { Email = "test1@test.com", Nickname = "nickname1", Password = "Password1231", ThemeId = 1 },
                 new() { Email = "test2@test.com", Nickname = "nickname2", Password = "Password1232", ThemeId = 1 },
-                new() { Email = "test3@test.com", Nickname = "nickname3", Password = "Password1233", ThemeId = 2},
-                new() { Email = "test4@test.com", Nickname = "nickname4", Password = "Password1234", ThemeId = 3},
+                new() { Email = "test3@test.com", Nickname = "nickname3", Password = "Password1233", ThemeId = 2 },
+                new() { Email = "test4@test.com", Nickname = "nickname4", Password = "Password1234", ThemeId = 3 },
             };
             _databaseContext.Users.AddRange(users);
             _databaseContext.SaveChanges();

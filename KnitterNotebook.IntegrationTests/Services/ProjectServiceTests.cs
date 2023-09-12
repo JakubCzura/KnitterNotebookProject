@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using KnitterNotebook.Database;
+using KnitterNotebook.Exceptions;
 using KnitterNotebook.IntegrationTests.HelpersForTesting;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
@@ -112,6 +113,51 @@ namespace KnitterNotebook.IntegrationTests.Services
 
             //Assert
             result.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task PlanProjectAsync_ForNullData_ThrowsNullReferenceException()
+        {
+            //Arrange
+            PlanProjectDto dto = null!;
+
+            //Act
+            Func<Task> action = async () => await _projectService.PlanProjectAsync(dto);
+
+            //Assert
+            await action.Should().ThrowAsync<NullReferenceException>();
+        }
+
+        [Fact]
+        public async Task PlanProjectAsync_ForNotExistingUser_ThrowsEntityNotFoundException()
+        {
+            //Arrange
+            PlanProjectDto dto = new("Project", DateTime.Today, new List<CreateNeedleDto>(), new List<CreateYarnDto>(), null, null, 99999);
+
+            //Act
+            Func<Task> action = async () => await _projectService.PlanProjectAsync(dto);
+
+            //Assert
+            await action.Should().ThrowAsync<EntityNotFoundException>();
+        }
+
+        [Fact]
+        public async Task PlanProjectAsync_ForValidData_CreatesProject()
+        {
+            //Arrange
+            PlanProjectDto dto = new("Project",
+                                    DateTime.Today, 
+                                    new List<CreateNeedleDto>() { new(2.5, NeedleSizeUnit.mm) }, 
+                                    new List<CreateYarnDto>() { new CreateYarnDto("SampleYarn1") }, 
+                                    "Description", 
+                                    null, 
+                                    1);
+
+            //Act
+            int result = await _projectService.PlanProjectAsync(dto);
+
+            //Assert
+            result.Should().Be(3);
         }
 
         [Fact]
@@ -268,6 +314,45 @@ namespace KnitterNotebook.IntegrationTests.Services
 
             //Assert
             result.Should().BeEmpty();
+        }
+
+        [Fact]
+        public async Task ChangeProjectStatus_ForNullData_ThrowsInvalidOperationException()
+        {
+            //Arrange
+            ChangeProjectStatusDto dto = null!;
+
+            //Act
+            Func<Task> action = async () => await _projectService.ChangeProjectStatus(dto);
+
+            //Assert
+            await action.Should().ThrowAsync<InvalidOperationException>();
+        }
+
+        [Fact]
+        public async Task ChangeProjectStatus_ForNotExistingProject_Returns0()
+        {
+            //Arrange
+            ChangeProjectStatusDto dto = new(99999, ProjectStatusName.InProgress);
+
+            //Act
+            int result = await _projectService.ChangeProjectStatus(dto);
+
+            //Assert
+            result.Should().Be(0);
+        }
+
+        [Fact]
+        public async Task ChangeProjectStatus_ForExistingProject_ChangesProjectStatus()
+        {
+            //Arrange
+            ChangeProjectStatusDto dto = new(1, ProjectStatusName.InProgress);
+
+            //Act
+            int result = await _projectService.ChangeProjectStatus(dto);
+
+            //Assert
+            result.Should().Be(1);
         }
     }
 }

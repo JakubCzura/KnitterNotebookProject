@@ -5,9 +5,6 @@ namespace KnitterNotebook.Models.Entities
 {
     public class User : BaseDbEntity
     {
-        public User()
-        { }
-
         public string Nickname { get; set; } = string.Empty;
 
         public string Email { get; set; } = string.Empty;

@@ -28,8 +28,8 @@ namespace KnitterNotebook.Services
         /// <summary>
         /// Adds new theme's resource dictionary to merged dictionaries and deletes old theme's resource dictionary if oldResourceDictionaryFullPath is not null
         /// </summary>
-        /// <param name="newThemeName">Full path with extension of new theme's resource dictionary</param>
-        /// <param name="oldThemeName">Full path with extension of old theme's resource dictionary or null if there is no need to delete to delete the dictionary</param>
+        /// <param name="newThemeName">New theme to set</param>
+        /// <param name="oldThemeName">Old theme to replace. Can be null when theme is set for the first time so there is not old theme to replace</param>
         public void ReplaceTheme(ApplicationTheme newThemeName, ApplicationTheme? oldThemeName = null)
         {
             string newThemeFullPath = Paths.ThemeFullPath(newThemeName);

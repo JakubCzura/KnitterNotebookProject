@@ -9,7 +9,7 @@ namespace KnitterNotebook.Services.Interfaces
     {
         Task<bool> ProjectExistsAsync(int id);
 
-        Task PlanProjectAsync(PlanProjectDto planProjectDto);
+        Task<int> PlanProjectAsync(PlanProjectDto planProjectDto);
 
         Task<PlannedProjectDto?> GetPlannedProjectAsync(int id);
 
