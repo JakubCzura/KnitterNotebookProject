@@ -24,7 +24,7 @@ namespace KnitterNotebook.Services
 
             //Important!
             //It is not safe to store password in appsettings.json file
-            //I did it only for learning purposes
+            //I used it only for learning purposes and didn't send credentials to GitHub
             //Email and password are not stored in appsettings.json so sending emails will not work when you clone this repository
             var password = _configuration.GetValue<string>("EmailSending:Password");
             var senderName = _configuration.GetValue<string>("EmailSending:SenderName");
