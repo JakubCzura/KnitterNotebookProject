@@ -1,7 +1,8 @@
 ﻿using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
-using KnitterNotebook.Exceptions.Messages;
 using KnitterNotebook.Exceptions;
+using KnitterNotebook.Exceptions.Messages;
+using KnitterNotebook.Helpers;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Services.Interfaces;
@@ -10,8 +11,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using KnitterNotebook.Helpers.Extensions;
-using KnitterNotebook.Helpers;
 
 namespace KnitterNotebook.Services
 {

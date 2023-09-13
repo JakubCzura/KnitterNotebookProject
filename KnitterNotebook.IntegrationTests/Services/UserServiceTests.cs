@@ -533,12 +533,10 @@ namespace KnitterNotebook.IntegrationTests.Services
             result.Item2.Should().BeAfter(DateTime.UtcNow);
         }
 
-        [Fact]
-        public async Task UpdatePasswordResetTokenStatusAsync_ForNotExistingUser_ThrowsEntityNotFoundException()
+        [Theory]
+        [InlineData(null), InlineData("emailnotindatabase@emailnotindatabase.com")]
+        public async Task UpdatePasswordResetTokenStatusAsync_ForNotExistingUser_ThrowsEntityNotFoundException(string email)
         {
-            //Arrange
-            string email = "emailnotindatabase@emailnotindatabase.com";
-
             //Act
             Func<Task> action = async () => await _userService.UpdatePasswordResetTokenStatusAsync(email);
 
