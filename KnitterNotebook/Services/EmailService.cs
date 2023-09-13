@@ -21,6 +21,11 @@ namespace KnitterNotebook.Services
         public async Task SendEmailAsync(SendEmailDto sendEmailDto)
         {
             var emailAddress = _configuration.GetValue<string>("EmailSending:Email");
+
+            //Important!
+            //It is not safe to store password in appsettings.json file
+            //I did it only for learning purposes
+            //Email and password are not stored in appsettings.json so sending emails will not work when you clone this repository
             var password = _configuration.GetValue<string>("EmailSending:Password");
             var senderName = _configuration.GetValue<string>("EmailSending:SenderName");
 
