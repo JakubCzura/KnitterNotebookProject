@@ -14,6 +14,7 @@
     <sys:Double x:Key="NavigationMenuFontSize">14</sys:Double>
     <sys:Double x:Key="SettingsHeaderFontSize">25</sys:Double>
     <sys:Double x:Key="SettingsElementFontSize">15</sys:Double>
+    <sys:Double x:Key="MainMenuButtonFontSize">14</sys:Double>
 
     <FontFamily x:Key="SettingsFontFamily">Candara</FontFamily>
 </ResourceDictionary>
