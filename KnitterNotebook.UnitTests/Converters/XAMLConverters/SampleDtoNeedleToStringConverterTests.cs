@@ -6,50 +6,49 @@ using KnitterNotebook.Models.Enums;
 using System.Globalization;
 using System.Windows;
 
-namespace KnitterNotebook.UnitTests.Converters.XAMLConverters
+namespace KnitterNotebook.UnitTests.Converters.XAMLConverters;
+
+public class SampleDtoNeedleToStringConverterTests
 {
-    public class SampleDtoNeedleToStringConverterTests
+    [Fact]
+    public void Convert_ForValidData_ReturnsConvertedString()
     {
-        [Fact]
-        public void Convert_ForValidData_ReturnsConvertedString()
-        {
-            //Arrange
-            SampleDtoNeedleToStringConverter converter = new();
-            BasicSampleDto sampleDto = new(new Sample { NeedleSize = 6, NeedleSizeUnit = NeedleSizeUnit.cm });
-            string expected = "6 cm";
+        //Arrange
+        SampleDtoNeedleToStringConverter converter = new();
+        BasicSampleDto sampleDto = new(new Sample { NeedleSize = 6, NeedleSizeUnit = NeedleSizeUnit.cm });
+        string expected = "6 cm";
 
-            //Act
-            string result = (string)converter.Convert(sampleDto, typeof(string), null!, CultureInfo.CurrentCulture);
+        //Act
+        string result = (string)converter.Convert(sampleDto, typeof(string), null!, CultureInfo.CurrentCulture);
 
-            //Assert
-            result.Should().Be(expected);
-        }
+        //Assert
+        result.Should().Be(expected);
+    }
 
-        [Fact]
-        public void Convert_ForInvalidData_ReturnsEmptyString()
-        {
-            //Arrange
-            SampleDtoNeedleToStringConverter converter = new();
-            BasicSampleDto sampleDto = null!;
+    [Fact]
+    public void Convert_ForInvalidData_ReturnsEmptyString()
+    {
+        //Arrange
+        SampleDtoNeedleToStringConverter converter = new();
+        BasicSampleDto sampleDto = null!;
 
-            //Act
-            string result = (string)converter.Convert(sampleDto, typeof(string), null!, CultureInfo.CurrentCulture);
+        //Act
+        string result = (string)converter.Convert(sampleDto, typeof(string), null!, CultureInfo.CurrentCulture);
 
-            //Assert
-            result.Should().BeEmpty();
-        }
+        //Assert
+        result.Should().BeEmpty();
+    }
 
-        [Fact]
-        public void ConvertBack_ReturnsUnsetValue()
-        {
-            //Arrange
-            SampleDtoNeedleToStringConverter converter = new();
+    [Fact]
+    public void ConvertBack_ReturnsUnsetValue()
+    {
+        //Arrange
+        SampleDtoNeedleToStringConverter converter = new();
 
-            //Act
-            object result = converter.ConvertBack("6cm", typeof(SampleDto), null!, CultureInfo.CurrentCulture);
+        //Act
+        object result = converter.ConvertBack("6cm", typeof(SampleDto), null!, CultureInfo.CurrentCulture);
 
-            //Assert
-            result.Should().Be(DependencyProperty.UnsetValue);
-        }
+        //Assert
+        result.Should().Be(DependencyProperty.UnsetValue);
     }
 }

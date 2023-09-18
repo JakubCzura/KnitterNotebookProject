@@ -3,12 +3,11 @@ using KnitterNotebook.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace KnitterNotebook.Services.Interfaces
-{
-    public interface IMovieUrlService : ICrudService<MovieUrl>
-    {
-        Task<int> CreateAsync(CreateMovieUrlDto data);
+namespace KnitterNotebook.Services.Interfaces;
 
-        Task<List<MovieUrlDto>> GetUserMovieUrlsAsync(int userId);
-    }
+public interface IMovieUrlService : ICrudService<MovieUrl>
+{
+    Task<int> CreateAsync(CreateMovieUrlDto data);
+
+    Task<List<MovieUrlDto>> GetUserMovieUrlsAsync(int userId);
 }

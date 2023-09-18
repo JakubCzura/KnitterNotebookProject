@@ -3,26 +3,25 @@ using KnitterNotebook.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace KnitterNotebook.Services.Interfaces
+namespace KnitterNotebook.Services.Interfaces;
+
+public interface IProjectService : ICrudService<Project>
 {
-    public interface IProjectService : ICrudService<Project>
-    {
-        Task<bool> ProjectExistsAsync(int id);
+    Task<bool> ProjectExistsAsync(int id);
 
-        Task<int> PlanProjectAsync(PlanProjectDto planProjectDto);
+    Task<int> PlanProjectAsync(PlanProjectDto planProjectDto);
 
-        Task<PlannedProjectDto?> GetPlannedProjectAsync(int id);
+    Task<PlannedProjectDto?> GetPlannedProjectAsync(int id);
 
-        Task<List<PlannedProjectDto>> GetUserPlannedProjectsAsync(int userId);
+    Task<List<PlannedProjectDto>> GetUserPlannedProjectsAsync(int userId);
 
-        Task<ProjectInProgressDto?> GetProjectInProgressAsync(int id);
+    Task<ProjectInProgressDto?> GetProjectInProgressAsync(int id);
 
-        Task<List<ProjectInProgressDto>> GetUserProjectsInProgressAsync(int userId);
+    Task<List<ProjectInProgressDto>> GetUserProjectsInProgressAsync(int userId);
 
-        Task<FinishedProjectDto?> GetFinishedProjectAsync(int id);
+    Task<FinishedProjectDto?> GetFinishedProjectAsync(int id);
 
-        Task<List<FinishedProjectDto>> GetUserFinishedProjectsAsync(int userId);
+    Task<List<FinishedProjectDto>> GetUserFinishedProjectsAsync(int userId);
 
-        Task<int> ChangeProjectStatus(ChangeProjectStatusDto changeProjectStatusDto);
-    }
+    Task<int> ChangeProjectStatus(ChangeProjectStatusDto changeProjectStatusDto);
 }

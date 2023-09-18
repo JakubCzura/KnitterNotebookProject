@@ -1,13 +1,12 @@
 ﻿using System.IO;
 
-namespace KnitterNotebook.Helpers
+namespace KnitterNotebook.Helpers;
+
+public class FileHelper
 {
-    public class FileHelper
+    public static void CopyWithDirectoryCreation(string sourceFileName, string destinationFileName, bool overwrite = false)
     {
-        public static void CopyWithDirectoryCreation(string sourceFileName, string destinationFileName, bool overwrite = false)
-        {
-            Directory.CreateDirectory(destinationFileName);
-            File.Copy(sourceFileName, destinationFileName, overwrite);
-        }
+        Directory.CreateDirectory(destinationFileName);
+        File.Copy(sourceFileName, destinationFileName, overwrite);
     }
 }

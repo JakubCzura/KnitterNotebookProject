@@ -11,89 +11,88 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
-namespace KnitterNotebookTests.IntegrationTests.Validators
+namespace KnitterNotebookTests.IntegrationTests.Validators;
+
+public class ChangeNicknameDtoValidatorTests
 {
-    public class ChangeNicknameDtoValidatorTests
+    private readonly ChangeNicknameDtoValidator _validator;
+    private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
+    private readonly UserService _userService;
+    private readonly Mock<IThemeService> _themeServiceMock = new();
+    private readonly Mock<IPasswordService> _passwordServiceMock = new();
+    private readonly Mock<ITokenService> _tokenServiceMock = new();
+    private readonly Mock<IConfiguration> _iconfigurationMock = new();
+    private readonly Mock<SharedResourceViewModel> _sharedResourceViewModelMock = new();
+
+    public ChangeNicknameDtoValidatorTests()
     {
-        private readonly ChangeNicknameDtoValidator _validator;
-        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
-        private readonly UserService _userService;
-        private readonly Mock<IThemeService> _themeServiceMock = new();
-        private readonly Mock<IPasswordService> _passwordServiceMock = new();
-        private readonly Mock<ITokenService> _tokenServiceMock = new();
-        private readonly Mock<IConfiguration> _iconfigurationMock = new();
-        private readonly Mock<SharedResourceViewModel> _sharedResourceViewModelMock = new();
+        _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object, _sharedResourceViewModelMock.Object);
+        _validator = new ChangeNicknameDtoValidator(_userService);
+        _databaseContext.Database.EnsureDeleted();
+        _databaseContext.Database.Migrate();
+        SeedUsers();
+    }
 
-        public ChangeNicknameDtoValidatorTests()
+    public static IEnumerable<object[]> ValidData()
+    {
+        yield return new object[] { new ChangeNicknameDto(1, "NewNick1") };
+        yield return new object[] { new ChangeNicknameDto(2, "TestNewNick") };
+    }
+
+    private void SeedUsers()
+    {
+        List<User> users = new()
         {
-            _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object, _sharedResourceViewModelMock.Object);
-            _validator = new ChangeNicknameDtoValidator(_userService);
-            _databaseContext.Database.EnsureDeleted();
-            _databaseContext.Database.Migrate();
-            SeedUsers();
-        }
+            new User() { Nickname = "Nick1", ThemeId = 1 },
+            new User() { Nickname = "TestNick", ThemeId = 2 },
+        };
+        _databaseContext.Users.AddRange(users);
+        _databaseContext.SaveChanges();
+    }
 
-        public static IEnumerable<object[]> ValidData()
-        {
-            yield return new object[] { new ChangeNicknameDto(1, "NewNick1") };
-            yield return new object[] { new ChangeNicknameDto(2, "TestNewNick") };
-        }
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(0)]
+    [InlineData(3)]
+    [InlineData(4)]
+    public async Task ValidateAsync_ForInvalidUserId_FailValidation(int userId)
+    {
+        //Arrange
+        ChangeNicknameDto changeNicknameDto = new(userId, "Nick1");
 
-        private void SeedUsers()
-        {
-            List<User> users = new()
-            {
-                new User() { Nickname = "Nick1", ThemeId = 1 },
-                new User() { Nickname = "TestNick", ThemeId = 2 },
-            };
-            _databaseContext.Users.AddRange(users);
-            _databaseContext.SaveChanges();
-        }
+        //Act
+        TestValidationResult<ChangeNicknameDto> validationResult = await _validator.TestValidateAsync(changeNicknameDto);
 
-        [Theory]
-        [InlineData(-1)]
-        [InlineData(0)]
-        [InlineData(3)]
-        [InlineData(4)]
-        public async Task ValidateAsync_ForInvalidUserId_FailValidation(int userId)
-        {
-            //Arrange
-            ChangeNicknameDto changeNicknameDto = new(userId, "Nick1");
+        //Assert
+        validationResult.ShouldHaveValidationErrorFor(x => x.UserId);
+    }
 
-            //Act
-            TestValidationResult<ChangeNicknameDto> validationResult = await _validator.TestValidateAsync(changeNicknameDto);
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    [InlineData("  ")]
+    [InlineData("InvalidTooLongNicknameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")]
+    public async Task ValidateAsync_ForInvalidNickname_FailValidation(string nickname)
+    {
+        //Arrange
+        ChangeNicknameDto changeNicknameDto = new(1, nickname);
 
-            //Assert
-            validationResult.ShouldHaveValidationErrorFor(x => x.UserId);
-        }
+        //Act
+        TestValidationResult<ChangeNicknameDto> validationResult = await _validator.TestValidateAsync(changeNicknameDto);
 
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData("  ")]
-        [InlineData("InvalidTooLongNicknameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")]
-        public async Task ValidateAsync_ForInvalidNickname_FailValidation(string nickname)
-        {
-            //Arrange
-            ChangeNicknameDto changeNicknameDto = new(1, nickname);
+        //Assert
+        validationResult.ShouldHaveValidationErrorFor(x => x.Nickname);
+    }
 
-            //Act
-            TestValidationResult<ChangeNicknameDto> validationResult = await _validator.TestValidateAsync(changeNicknameDto);
+    [Theory]
+    [MemberData(nameof(ValidData))]
+    public async Task ValidateAsync_ForValidData_PassValidation(ChangeNicknameDto changeNicknameDto)
+    {
+        //Act
+        TestValidationResult<ChangeNicknameDto> validationResult = await _validator.TestValidateAsync(changeNicknameDto);
 
-            //Assert
-            validationResult.ShouldHaveValidationErrorFor(x => x.Nickname);
-        }
-
-        [Theory]
-        [MemberData(nameof(ValidData))]
-        public async Task ValidateAsync_ForValidData_PassValidation(ChangeNicknameDto changeNicknameDto)
-        {
-            //Act
-            TestValidationResult<ChangeNicknameDto> validationResult = await _validator.TestValidateAsync(changeNicknameDto);
-
-            //Assert
-            validationResult.ShouldNotHaveAnyValidationErrors();
-        }
+        //Assert
+        validationResult.ShouldNotHaveAnyValidationErrors();
     }
 }

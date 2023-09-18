@@ -1,10 +1,9 @@
 ﻿using KnitterNotebook.Models.Dtos;
 using System.Threading.Tasks;
 
-namespace KnitterNotebook.Services.Interfaces
+namespace KnitterNotebook.Services.Interfaces;
+
+public interface IEmailService
 {
-    public interface IEmailService
-    {
-        Task SendEmailAsync(SendEmailDto sendEmailDto);
-    }
+    Task SendEmailAsync(SendEmailDto sendEmailDto);
 }

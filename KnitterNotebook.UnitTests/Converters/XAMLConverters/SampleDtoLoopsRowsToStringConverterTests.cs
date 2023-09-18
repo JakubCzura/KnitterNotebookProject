@@ -5,50 +5,49 @@ using KnitterNotebook.Models.Entities;
 using System.Globalization;
 using System.Windows;
 
-namespace KnitterNotebook.UnitTests.Converters.XAMLConverters
+namespace KnitterNotebook.UnitTests.Converters.XAMLConverters;
+
+public class SampleDtoLoopsRowsToStringConverterTests
 {
-    public class SampleDtoLoopsRowsToStringConverterTests
+    [Fact]
+    public void Convert_ForValidData_ReturnsConvertedString()
     {
-        [Fact]
-        public void Convert_ForValidData_ReturnsConvertedString()
-        {
-            //Arrange
-            SampleDtoLoopsRowsToStringConverter converter = new();
-            BasicSampleDto sampleDto = new(new Sample { LoopsQuantity = 5, RowsQuantity = 6 });
-            string expected = "5x6";
+        //Arrange
+        SampleDtoLoopsRowsToStringConverter converter = new();
+        BasicSampleDto sampleDto = new(new Sample { LoopsQuantity = 5, RowsQuantity = 6 });
+        string expected = "5x6";
 
-            //Act
-            string result = (string)converter.Convert(sampleDto, typeof(string), null!, CultureInfo.CurrentCulture);
+        //Act
+        string result = (string)converter.Convert(sampleDto, typeof(string), null!, CultureInfo.CurrentCulture);
 
-            //Assert
-            result.Should().Be(expected);
-        }
+        //Assert
+        result.Should().Be(expected);
+    }
 
-        [Fact]
-        public void Convert_ForInvalidData_ReturnsEmptyString()
-        {
-            //Arrange
-            SampleDtoLoopsRowsToStringConverter converter = new();
-            BasicSampleDto sampleDto = null!;
+    [Fact]
+    public void Convert_ForInvalidData_ReturnsEmptyString()
+    {
+        //Arrange
+        SampleDtoLoopsRowsToStringConverter converter = new();
+        BasicSampleDto sampleDto = null!;
 
-            //Act
-            string result = (string)converter.Convert(sampleDto, typeof(string), null!, CultureInfo.CurrentCulture);
+        //Act
+        string result = (string)converter.Convert(sampleDto, typeof(string), null!, CultureInfo.CurrentCulture);
 
-            //Assert
-            result.Should().BeEmpty();
-        }
+        //Assert
+        result.Should().BeEmpty();
+    }
 
-        [Fact]
-        public void ConvertBack_ReturnsUnsetValue()
-        {
-            //Arrange
-            SampleDtoLoopsRowsToStringConverter converter = new();
+    [Fact]
+    public void ConvertBack_ReturnsUnsetValue()
+    {
+        //Arrange
+        SampleDtoLoopsRowsToStringConverter converter = new();
 
-            //Act
-            object result = converter.ConvertBack("5x5", typeof(BasicSampleDto), null!, CultureInfo.CurrentCulture);
+        //Act
+        object result = converter.ConvertBack("5x5", typeof(BasicSampleDto), null!, CultureInfo.CurrentCulture);
 
-            //Assert
-            result.Should().Be(DependencyProperty.UnsetValue);
-        }
+        //Assert
+        result.Should().Be(DependencyProperty.UnsetValue);
     }
 }

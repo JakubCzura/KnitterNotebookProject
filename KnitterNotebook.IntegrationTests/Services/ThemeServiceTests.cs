@@ -9,123 +9,122 @@ using KnitterNotebook.Services;
 using System.Windows;
 using Throw;
 
-namespace KnitterNotebook.IntegrationTests.Services
+namespace KnitterNotebook.IntegrationTests.Services;
+
+public class ThemeServiceTests
 {
-    public class ThemeServiceTests
+    private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
+    private readonly ThemeService _themeService;
+
+    public ThemeServiceTests()
     {
-        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
-        private readonly ThemeService _themeService;
+        _themeService = new(_databaseContext);
+        SeedThemes();
+    }
 
-        public ThemeServiceTests()
+    private void SeedThemes()
+    {
+        List<Theme> themes = new()
         {
-            _themeService = new(_databaseContext);
-            SeedThemes();
-        }
+            new() { Name = ApplicationTheme.Default },
+            new() { Name = ApplicationTheme.Light },
+            new() { Name = ApplicationTheme.Dark }
+        };
+        _databaseContext.Themes.AddRange(themes);
+        _databaseContext.SaveChanges();
+    }
 
-        private void SeedThemes()
-        {
-            List<Theme> themes = new()
-            {
-                new() { Name = ApplicationTheme.Default },
-                new() { Name = ApplicationTheme.Light },
-                new() { Name = ApplicationTheme.Dark }
-            };
-            _databaseContext.Themes.AddRange(themes);
-            _databaseContext.SaveChanges();
-        }
+    [Theory]
+    [InlineData(ApplicationTheme.Default), InlineData(ApplicationTheme.Light), InlineData(ApplicationTheme.Dark)]
+    public async Task ThemeExistsAsync_ForExistingTheme_ReturnsTrue(ApplicationTheme themeName)
+    {
+        //Act
+        bool result = await _themeService.ThemeExistsAsync(themeName);
 
-        [Theory]
-        [InlineData(ApplicationTheme.Default), InlineData(ApplicationTheme.Light), InlineData(ApplicationTheme.Dark)]
-        public async Task ThemeExistsAsync_ForExistingTheme_ReturnsTrue(ApplicationTheme themeName)
-        {
-            //Act
-            bool result = await _themeService.ThemeExistsAsync(themeName);
+        //Assert
+        result.Should().BeTrue();
+    }
 
-            //Assert
-            result.Should().BeTrue();
-        }
+    [Fact]
+    public async Task ThemeExistsAsync_ForNotExistingTheme_ReturnsTrue()
+    {
+        //Assert
+        ApplicationTheme themeName = (ApplicationTheme)999;
 
-        [Fact]
-        public async Task ThemeExistsAsync_ForNotExistingTheme_ReturnsTrue()
-        {
-            //Assert
-            ApplicationTheme themeName = (ApplicationTheme)999;
+        //Act
+        bool result = await _themeService.ThemeExistsAsync(themeName);
 
-            //Act
-            bool result = await _themeService.ThemeExistsAsync(themeName);
+        //Assert
+        result.Should().BeFalse();
+    }
 
-            //Assert
-            result.Should().BeFalse();
-        }
+    [Fact]
+    public async Task GetThemeIdAsync_ForGivenThemeName_ReturnsThemeId()
+    {
+        //Assert
+        ApplicationTheme themeName = ApplicationTheme.Light;
 
-        [Fact]
-        public async Task GetThemeIdAsync_ForGivenThemeName_ReturnsThemeId()
-        {
-            //Assert
-            ApplicationTheme themeName = ApplicationTheme.Light;
+        //Act
+        int? result = await _themeService.GetThemeIdAsync(themeName);
 
-            //Act
-            int? result = await _themeService.GetThemeIdAsync(themeName);
+        //Assert
+        result.Should().Be(2); //2 as Light theme has Id = 2 in SeedThemes()
+    }
 
-            //Assert
-            result.Should().Be(2); //2 as Light theme has Id = 2 in SeedThemes()
-        }
+    [Fact]
+    public async Task GetThemeIdAsync_ForNotExistingThemeName_ReturnsNull()
+    {
+        //Assert
+        ApplicationTheme themeName = (ApplicationTheme)999;
 
-        [Fact]
-        public async Task GetThemeIdAsync_ForNotExistingThemeName_ReturnsNull()
-        {
-            //Assert
-            ApplicationTheme themeName = (ApplicationTheme)999;
+        //Act
+        int? result = await _themeService.GetThemeIdAsync(themeName);
 
-            //Act
-            int? result = await _themeService.GetThemeIdAsync(themeName);
+        //Assert
+        result.Should().BeNull();
+    }
 
-            //Assert
-            result.Should().BeNull();
-        }
-
-        [Fact]
-        public void ReplaceTheme_ForValidData_ReplacesTheme()
-        {
-            //Assert
-            ApplicationTheme newThemeName = ApplicationTheme.Default;
-            ApplicationTheme oldThemeName = ApplicationTheme.Light;
-            string oldThemeFullPath = Paths.ThemeFullPath(newThemeName);
-            Application.Current?.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(oldThemeFullPath) });
+    [Fact]
+    public void ReplaceTheme_ForValidData_ReplacesTheme()
+    {
+        //Assert
+        ApplicationTheme newThemeName = ApplicationTheme.Default;
+        ApplicationTheme oldThemeName = ApplicationTheme.Light;
+        string oldThemeFullPath = Paths.ThemeFullPath(newThemeName);
+        Application.Current?.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(oldThemeFullPath) });
 
 
-            //Act
-            _themeService.ReplaceTheme(newThemeName, oldThemeName);
+        //Act
+        _themeService.ReplaceTheme(newThemeName, oldThemeName);
 
-            //Assert
-            Application.Current?.Resources.MergedDictionaries.Should().AllSatisfy(x => x.Source.OriginalString.Should().NotBe(oldThemeFullPath));
-            Application.Current?.Resources.MergedDictionaries[0].Source.OriginalString.Should().Be(Paths.ThemeFullPath(newThemeName));
-        }
+        //Assert
+        Application.Current?.Resources.MergedDictionaries.Should().AllSatisfy(x => x.Source.OriginalString.Should().NotBe(oldThemeFullPath));
+        Application.Current?.Resources.MergedDictionaries[0].Source.OriginalString.Should().Be(Paths.ThemeFullPath(newThemeName));
+    }
 
-        [Fact]
-        public void ReplaceTheme_ForValidData_AddsNewThemeIfThereIsNotOldTheme()
-        {
-            //Assert
-            ApplicationTheme newThemeName = ApplicationTheme.Default;
+    [Fact]
+    public void ReplaceTheme_ForValidData_AddsNewThemeIfThereIsNotOldTheme()
+    {
+        //Assert
+        ApplicationTheme newThemeName = ApplicationTheme.Default;
 
-            //Act
-            _themeService.ReplaceTheme(newThemeName);
+        //Act
+        _themeService.ReplaceTheme(newThemeName);
 
-            //Assert
-            Application.Current?.Resources.MergedDictionaries[0].Source.OriginalString.Should().Be(Paths.ThemeFullPath(newThemeName));
-        }
+        //Assert
+        Application.Current?.Resources.MergedDictionaries[0].Source.OriginalString.Should().Be(Paths.ThemeFullPath(newThemeName));
+    }
 
-        [Theory]
-        [InlineData((ApplicationTheme)99999, null)]
-        [InlineData((ApplicationTheme)99999, ApplicationTheme.Light)]
-        [InlineData(ApplicationTheme.Light, (ApplicationTheme)99999)]
-        public void ReplaceTheme_ForInvalidEnum_ThrowsInvalidEnumException(ApplicationTheme newApplicationTheme, ApplicationTheme? oldApplicationTheme)
-        {
-            //Act
-            Action action = () => _themeService.ReplaceTheme(newApplicationTheme, oldApplicationTheme);
+    [Theory]
+    [InlineData((ApplicationTheme)99999, null)]
+    [InlineData((ApplicationTheme)99999, ApplicationTheme.Light)]
+    [InlineData(ApplicationTheme.Light, (ApplicationTheme)99999)]
+    public void ReplaceTheme_ForInvalidEnum_ThrowsInvalidEnumException(ApplicationTheme newApplicationTheme, ApplicationTheme? oldApplicationTheme)
+    {
+        //Act
+        Action action = () => _themeService.ReplaceTheme(newApplicationTheme, oldApplicationTheme);
 
-            //Assert
-            action.Should().Throw<InvalidEnumException>();
-        }
+        //Assert
+        action.Should().Throw<InvalidEnumException>();
     }
 }

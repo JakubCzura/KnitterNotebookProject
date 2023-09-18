@@ -1,17 +1,16 @@
 ﻿using System;
 
-namespace KnitterNotebook.Models.Entities
+namespace KnitterNotebook.Models.Entities;
+
+public class MovieUrl : BaseDbEntity
 {
-    public class MovieUrl : BaseDbEntity
-    {
-        public string Title { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
 
-        public Uri Link { get; set; }
+    public Uri Link { get; set; }
 
-        public string? Description { get; set; }
+    public string? Description { get; set; }
 
-        public virtual User User { get; set; }
+    public virtual User User { get; set; }
 
-        public int UserId { get; set; }
-    }
+    public int UserId { get; set; }
 }

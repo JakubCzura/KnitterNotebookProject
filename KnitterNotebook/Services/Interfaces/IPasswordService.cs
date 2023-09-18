@@ -1,9 +1,8 @@
-﻿namespace KnitterNotebook.Services.Interfaces
-{
-    public interface IPasswordService
-    {
-        public bool VerifyPassword(string password, string hash);
+﻿namespace KnitterNotebook.Services.Interfaces;
 
-        public string HashPassword(string password);
-    }
+public interface IPasswordService
+{
+    public bool VerifyPassword(string password, string hash);
+
+    public string HashPassword(string password);
 }

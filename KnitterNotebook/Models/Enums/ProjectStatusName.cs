@@ -1,9 +1,8 @@
-﻿namespace KnitterNotebook.Models.Enums
+﻿namespace KnitterNotebook.Models.Enums;
+
+public enum ProjectStatusName
 {
-    public enum ProjectStatusName
-    {
-        Planned,
-        InProgress,
-        Finished
-    }
+    Planned,
+    InProgress,
+    Finished
 }

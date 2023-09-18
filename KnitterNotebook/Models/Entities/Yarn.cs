@@ -1,18 +1,17 @@
-﻿namespace KnitterNotebook.Models.Entities
+﻿namespace KnitterNotebook.Models.Entities;
+
+public class Yarn : BaseDbEntity
 {
-    public class Yarn : BaseDbEntity
+    public Yarn()
     {
-        public Yarn()
-        {
-        }
-
-        public Yarn(string name)
-        {
-            Name = name;
-        }
-
-        public string Name { get; set; } = string.Empty;
-
-        public Project Project { get; set; } = new();
     }
+
+    public Yarn(string name)
+    {
+        Name = name;
+    }
+
+    public string Name { get; set; } = string.Empty;
+
+    public Project Project { get; set; } = new();
 }

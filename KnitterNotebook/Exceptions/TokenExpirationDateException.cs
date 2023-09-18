@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace KnitterNotebook.Exceptions
+namespace KnitterNotebook.Exceptions;
+
+public class TokenExpirationDateException : Exception
 {
-    public class TokenExpirationDateException : Exception
+    public TokenExpirationDateException(string message) : base(message)
     {
-        public TokenExpirationDateException(string message) : base(message)
-        {
-        }
     }
 }

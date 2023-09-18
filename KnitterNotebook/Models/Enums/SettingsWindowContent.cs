@@ -1,8 +1,7 @@
-﻿namespace KnitterNotebook.Models.Enums
+﻿namespace KnitterNotebook.Models.Enums;
+
+public enum SettingsWindowContent
 {
-    public enum SettingsWindowContent
-    {
-        ThemeSettingsUserControl,
-        UserSettingsUserControl
-    }
+    ThemeSettingsUserControl,
+    UserSettingsUserControl
 }

@@ -1,18 +1,17 @@
 ﻿using System.Windows;
 
-namespace KnitterNotebook.Views.Windows
-{
-    /// <summary>
-    /// Interaction logic for LoginWindow.xaml
-    /// </summary>
-    public partial class LoginWindow : Window
-    {
-        public static LoginWindow Instance { get; private set; } = null!;
+namespace KnitterNotebook.Views.Windows;
 
-        public LoginWindow()
-        {
-            InitializeComponent();
-            Instance = this;
-        }
+/// <summary>
+/// Interaction logic for LoginWindow.xaml
+/// </summary>
+public partial class LoginWindow : Window
+{
+    public static LoginWindow Instance { get; private set; } = null!;
+
+    public LoginWindow()
+    {
+        InitializeComponent();
+        Instance = this;
     }
 }

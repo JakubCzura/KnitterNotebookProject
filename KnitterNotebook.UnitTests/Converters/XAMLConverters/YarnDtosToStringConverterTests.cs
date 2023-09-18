@@ -5,55 +5,54 @@ using KnitterNotebook.Models.Entities;
 using System.Globalization;
 using System.Windows;
 
-namespace KnitterNotebook.UnitTests.Converters.XAMLConverters
+namespace KnitterNotebook.UnitTests.Converters.XAMLConverters;
+
+public class YarnDtosToStringConverterTests
 {
-    public class YarnDtosToStringConverterTests
+    [Fact]
+    public void Convert_ForValidData_ReturnsConvertedString()
     {
-        [Fact]
-        public void Convert_ForValidData_ReturnsConvertedString()
+        //Arrange
+        YarnDtosToStringConverter converter = new();
+        List<YarnDto> yarnDtos = new()
         {
-            //Arrange
-            YarnDtosToStringConverter converter = new();
-            List<YarnDto> yarnDtos = new()
-            {
-                new YarnDto(new Yarn() {Name = "yarn's name"} ),
-                new YarnDto(new Yarn() {Name = "cotton yarn's name"} ),
-                new YarnDto(new Yarn() {Name = "woolen yarn's name"} )
-            };
-            string expected = "yarn's name\ncotton yarn's name\nwoolen yarn's name";
+            new YarnDto(new Yarn() {Name = "yarn's name"} ),
+            new YarnDto(new Yarn() {Name = "cotton yarn's name"} ),
+            new YarnDto(new Yarn() {Name = "woolen yarn's name"} )
+        };
+        string expected = "yarn's name\ncotton yarn's name\nwoolen yarn's name";
 
-            //Act
-            string result = (string)converter.Convert(yarnDtos, typeof(string), null!, CultureInfo.CurrentCulture);
+        //Act
+        string result = (string)converter.Convert(yarnDtos, typeof(string), null!, CultureInfo.CurrentCulture);
 
-            //Assert
-            result.Should().Be(expected);
-        }
+        //Assert
+        result.Should().Be(expected);
+    }
 
-        [Fact]
-        public void Convert_ForInvalidData_ReturnsEmptyString()
-        {
-            //Arrange
-            YarnDtosToStringConverter converter = new();
-            List<YarnDto> sampleDto = null!;
+    [Fact]
+    public void Convert_ForInvalidData_ReturnsEmptyString()
+    {
+        //Arrange
+        YarnDtosToStringConverter converter = new();
+        List<YarnDto> sampleDto = null!;
 
-            //Act
-            string result = (string)converter.Convert(sampleDto, typeof(string), null!, CultureInfo.CurrentCulture);
+        //Act
+        string result = (string)converter.Convert(sampleDto, typeof(string), null!, CultureInfo.CurrentCulture);
 
-            //Assert
-            result.Should().BeEmpty();
-        }
+        //Assert
+        result.Should().BeEmpty();
+    }
 
-        [Fact]
-        public void ConvertBack_ReturnsUnsetValue()
-        {
-            //Arrange
-            YarnDtosToStringConverter converter = new();
+    [Fact]
+    public void ConvertBack_ReturnsUnsetValue()
+    {
+        //Arrange
+        YarnDtosToStringConverter converter = new();
 
-            //Act
-            object result = converter.ConvertBack("yarn's name\nsecond yarn's name", typeof(IEnumerable<YarnDto>), null!, CultureInfo.CurrentCulture);
+        //Act
+        object result = converter.ConvertBack("yarn's name\nsecond yarn's name", typeof(IEnumerable<YarnDto>), null!, CultureInfo.CurrentCulture);
 
-            //Assert
-            result.Should().Be(DependencyProperty.UnsetValue);
-        }
+        //Assert
+        result.Should().Be(DependencyProperty.UnsetValue);
     }
 }

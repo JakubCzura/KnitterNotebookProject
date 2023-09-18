@@ -10,93 +10,92 @@ using KnitterNotebook.Validators;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
-namespace KnitterNotebookTests.IntegrationTests.Validators
+namespace KnitterNotebookTests.IntegrationTests.Validators;
+
+public class ChangeProjectStatusDtoValidatorTests
 {
-    public class ChangeProjectStatusDtoValidatorTests
+    private readonly ChangeProjectStatusDtoValidator _validator;
+    private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
+    private readonly ProjectService _projectService;
+    private readonly Mock<IUserService> _userServiceMock = new();
+
+    public ChangeProjectStatusDtoValidatorTests()
     {
-        private readonly ChangeProjectStatusDtoValidator _validator;
-        private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
-        private readonly ProjectService _projectService;
-        private readonly Mock<IUserService> _userServiceMock = new();
+        _projectService = new(_databaseContext, _userServiceMock.Object);
+        _validator = new ChangeProjectStatusDtoValidator(_projectService);
+        _databaseContext.Database.EnsureDeleted();
+        _databaseContext.Database.Migrate();
+        SeedProjects();
+    }
 
-        public ChangeProjectStatusDtoValidatorTests()
+    private void SeedProjects()
+    {
+        List<User> users = new()
         {
-            _projectService = new(_databaseContext, _userServiceMock.Object);
-            _validator = new ChangeProjectStatusDtoValidator(_projectService);
-            _databaseContext.Database.EnsureDeleted();
-            _databaseContext.Database.Migrate();
-            SeedProjects();
-        }
-
-        private void SeedProjects()
-        {
-            List<User> users = new()
+            new User()
             {
-                new User()
+                ThemeId = 1,
+                Projects = new()
                 {
-                    ThemeId = 1,
-                    Projects = new()
-                    {
-                        new Project() { Name = "Project1",},
-                        new Project() { Name = "Project2" },
-                    }
-                },
-                new User()
+                    new Project() { Name = "Project1",},
+                    new Project() { Name = "Project2" },
+                }
+            },
+            new User()
+            {
+                ThemeId = 2,
+                Projects = new()
                 {
-                    ThemeId = 2,
-                    Projects = new()
-                    {
-                        new Project() { Name = "Project3",},
-                        new Project() { Name = "Project4" },
-                    }
-                },
-            };
-            _databaseContext.Users.AddRange(users);
-            _databaseContext.SaveChanges();
-        }
+                    new Project() { Name = "Project3",},
+                    new Project() { Name = "Project4" },
+                }
+            },
+        };
+        _databaseContext.Users.AddRange(users);
+        _databaseContext.SaveChanges();
+    }
 
-        public static IEnumerable<object[]> ValidData()
-        {
-            yield return new object[] { new ChangeProjectStatusDto(1, ProjectStatusName.Planned) };
-            yield return new object[] { new ChangeProjectStatusDto(1, ProjectStatusName.InProgress) };
-            yield return new object[] { new ChangeProjectStatusDto(2, ProjectStatusName.Finished) };
-        }
+    public static IEnumerable<object[]> ValidData()
+    {
+        yield return new object[] { new ChangeProjectStatusDto(1, ProjectStatusName.Planned) };
+        yield return new object[] { new ChangeProjectStatusDto(1, ProjectStatusName.InProgress) };
+        yield return new object[] { new ChangeProjectStatusDto(2, ProjectStatusName.Finished) };
+    }
 
-        [Theory]
-        [MemberData(nameof(ValidData))]
-        public async Task ValidateAsync_ForValidData_PassValidation(ChangeProjectStatusDto changeProjectStatusDto)
-        {
-            // Act
-            TestValidationResult<ChangeProjectStatusDto> validationResult = await _validator.TestValidateAsync(changeProjectStatusDto);
+    [Theory]
+    [MemberData(nameof(ValidData))]
+    public async Task ValidateAsync_ForValidData_PassValidation(ChangeProjectStatusDto changeProjectStatusDto)
+    {
+        // Act
+        TestValidationResult<ChangeProjectStatusDto> validationResult = await _validator.TestValidateAsync(changeProjectStatusDto);
 
-            // Assert
-            validationResult.ShouldNotHaveAnyValidationErrors();
-        }
+        // Assert
+        validationResult.ShouldNotHaveAnyValidationErrors();
+    }
 
-        [Fact]
-        public async Task ValidateAsync_ForInvalidProjectId_FailValidation()
-        {
-            //Arrange
-            ChangeProjectStatusDto changeProjectStatusDto = new(9999, ProjectStatusName.Planned);
+    [Fact]
+    public async Task ValidateAsync_ForInvalidProjectId_FailValidation()
+    {
+        //Arrange
+        ChangeProjectStatusDto changeProjectStatusDto = new(9999, ProjectStatusName.Planned);
 
-            // Act
-            TestValidationResult<ChangeProjectStatusDto> validationResult = await _validator.TestValidateAsync(changeProjectStatusDto);
+        // Act
+        TestValidationResult<ChangeProjectStatusDto> validationResult = await _validator.TestValidateAsync(changeProjectStatusDto);
 
-            // Assert
-            validationResult.ShouldHaveValidationErrorFor(x => x.ProjectId);
-        }
+        // Assert
+        validationResult.ShouldHaveValidationErrorFor(x => x.ProjectId);
+    }
 
-        [Fact]
-        public async Task ValidateAsync_ForInvalidProjectStatusName_FailValidation()
-        {
-            //Arrange
-            ChangeProjectStatusDto changeProjectStatusDto = new(1, (ProjectStatusName)100);
+    [Fact]
+    public async Task ValidateAsync_ForInvalidProjectStatusName_FailValidation()
+    {
+        //Arrange
+        ChangeProjectStatusDto changeProjectStatusDto = new(1, (ProjectStatusName)100);
 
-            // Act
-            TestValidationResult<ChangeProjectStatusDto> validationResult = await _validator.TestValidateAsync(changeProjectStatusDto);
+        // Act
+        TestValidationResult<ChangeProjectStatusDto> validationResult = await _validator.TestValidateAsync(changeProjectStatusDto);
 
-            // Assert
-            validationResult.ShouldHaveValidationErrorFor(x => x.ProjectStatus);
-        }
+        // Assert
+        validationResult.ShouldHaveValidationErrorFor(x => x.ProjectStatus);
     }
 }
