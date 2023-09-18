@@ -3,12 +3,11 @@ using KnitterNotebook.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace KnitterNotebook.Services.Interfaces
-{
-    public interface ISampleService : ICrudService<Sample>
-    {
-        Task<int> CreateAsync(CreateSampleDto createSampleDto);
+namespace KnitterNotebook.Services.Interfaces;
 
-        Task<List<SampleDto>> GetUserSamplesAsync(int userId);
-    }
+public interface ISampleService : ICrudService<Sample>
+{
+    Task<int> CreateAsync(CreateSampleDto createSampleDto);
+
+    Task<List<SampleDto>> GetUserSamplesAsync(int userId);
 }

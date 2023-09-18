@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace KnitterNotebook.Services.Interfaces
-{
-    public interface ITokenService
-    {
-        public string CreateResetPasswordToken();
+namespace KnitterNotebook.Services.Interfaces;
 
-        public DateTime CreateResetPasswordTokenExpirationDate(int daysToExpire);
-    }
+public interface ITokenService
+{
+    public string CreateResetPasswordToken();
+
+    public DateTime CreateResetPasswordTokenExpirationDate(int daysToExpire);
 }

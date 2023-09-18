@@ -1,15 +1,14 @@
 ﻿using System.Windows;
 
-namespace KnitterNotebook.Views.Windows
+namespace KnitterNotebook.Views.Windows;
+
+/// <summary>
+/// Interaction logic for MovieUrlAddingWindow.xaml
+/// </summary>
+public partial class MovieUrlAddingWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MovieUrlAddingWindow.xaml
-    /// </summary>
-    public partial class MovieUrlAddingWindow : Window
+    public MovieUrlAddingWindow()
     {
-        public MovieUrlAddingWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

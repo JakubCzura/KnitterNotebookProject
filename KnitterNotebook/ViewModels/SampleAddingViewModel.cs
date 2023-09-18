@@ -15,88 +15,87 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace KnitterNotebook.ViewModels
+namespace KnitterNotebook.ViewModels;
+
+public partial class SampleAddingViewModel : BaseViewModel
 {
-    public partial class SampleAddingViewModel : BaseViewModel
+    public SampleAddingViewModel(ILogger<SampleAddingViewModel> logger,
+        ISampleService sampleService,
+        IValidator<CreateSampleDto> createSampleDtoValidator,
+        SharedResourceViewModel sharedResourceViewModel)
     {
-        public SampleAddingViewModel(ILogger<SampleAddingViewModel> logger,
-            ISampleService sampleService,
-            IValidator<CreateSampleDto> createSampleDtoValidator,
-            SharedResourceViewModel sharedResourceViewModel)
+        _logger = logger;
+        _sampleService = sampleService;
+        _createSampleDtoValidator = createSampleDtoValidator;
+        DeletePhotoCommand = new RelayCommand(() => SourceImagePath = null);
+        _sharedResourceViewModel = sharedResourceViewModel;
+    }
+
+    private readonly ILogger<SampleAddingViewModel> _logger;
+    private readonly ISampleService _sampleService;
+    private readonly IValidator<CreateSampleDto> _createSampleDtoValidator;
+    private readonly SharedResourceViewModel _sharedResourceViewModel;
+    public ICommand DeletePhotoCommand { get; }
+
+    [ObservableProperty]
+    private string _yarnName = string.Empty;
+
+    [ObservableProperty]
+    private int _loopsQuantity;
+
+    [ObservableProperty]
+    private int _rowsQuantity;
+
+    [ObservableProperty]
+    private double _needleSize;
+
+    [ObservableProperty]
+    public NeedleSizeUnit _needleSizeUnit = NeedleSizeUnit.mm;
+
+    [ObservableProperty]
+    private string _description = string.Empty;
+
+    public static IEnumerable<string> NeedleSizeUnitList => Enum.GetNames<NeedleSizeUnit>();
+
+    [ObservableProperty]
+    private string? _sourceImagePath = null;
+
+    public static Action NewSampleAdded { get; set; } = null!;
+
+    public static void OnNewSampleAdded() => NewSampleAdded.Invoke();
+
+    [RelayCommand]
+    private void ChooseImage()
+    {
+        OpenFileDialog dialog = new()
         {
-            _logger = logger;
-            _sampleService = sampleService;
-            _createSampleDtoValidator = createSampleDtoValidator;
-            DeletePhotoCommand = new RelayCommand(() => SourceImagePath = null);
-            _sharedResourceViewModel = sharedResourceViewModel;
-        }
+            Filter = FileDialogFilter.ImageFilter
+        };
+        dialog.ShowDialog();
+        SourceImagePath = dialog.FileName;
+    }
 
-        private readonly ILogger<SampleAddingViewModel> _logger;
-        private readonly ISampleService _sampleService;
-        private readonly IValidator<CreateSampleDto> _createSampleDtoValidator;
-        private readonly SharedResourceViewModel _sharedResourceViewModel;
-        public ICommand DeletePhotoCommand { get; }
-
-        [ObservableProperty]
-        private string _yarnName = string.Empty;
-
-        [ObservableProperty]
-        private int _loopsQuantity;
-
-        [ObservableProperty]
-        private int _rowsQuantity;
-
-        [ObservableProperty]
-        private double _needleSize;
-
-        [ObservableProperty]
-        public NeedleSizeUnit _needleSizeUnit = NeedleSizeUnit.mm;
-
-        [ObservableProperty]
-        private string _description = string.Empty;
-
-        public static IEnumerable<string> NeedleSizeUnitList => Enum.GetNames<NeedleSizeUnit>();
-
-        [ObservableProperty]
-        private string? _sourceImagePath = null;
-
-        public static Action NewSampleAdded { get; set; } = null!;
-
-        public static void OnNewSampleAdded() => NewSampleAdded.Invoke();
-
-        [RelayCommand]
-        private void ChooseImage()
+    [RelayCommand]
+    private async Task AddSampleAsync()
+    {
+        try
         {
-            OpenFileDialog dialog = new()
+            CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, _sharedResourceViewModel.UserId, SourceImagePath);
+            ValidationResult validation = await _createSampleDtoValidator.ValidateAsync(createSampleDto);
+            if (!validation.IsValid)
             {
-                Filter = FileDialogFilter.ImageFilter
-            };
-            dialog.ShowDialog();
-            SourceImagePath = dialog.FileName;
-        }
-
-        [RelayCommand]
-        private async Task AddSampleAsync()
-        {
-            try
-            {
-                CreateSampleDto createSampleDto = new(YarnName, LoopsQuantity, RowsQuantity, NeedleSize, NeedleSizeUnit, Description, _sharedResourceViewModel.UserId, SourceImagePath);
-                ValidationResult validation = await _createSampleDtoValidator.ValidateAsync(createSampleDto);
-                if (!validation.IsValid)
-                {
-                    string errorMessage = validation.Errors.GetMessagesAsString();
-                    MessageBox.Show(errorMessage, "Błąd podczas dodawania próbki obliczeniowej");
-                    return;
-                }
-                await _sampleService.CreateAsync(createSampleDto);
-                OnNewSampleAdded();
-                MessageBox.Show("Zapisano nową próbkę obliczeniową");
+                string errorMessage = validation.Errors.GetMessagesAsString();
+                MessageBox.Show(errorMessage, "Błąd podczas dodawania próbki obliczeniowej");
+                return;
             }
-            catch (Exception exception)
-            {
-                _logger.LogError(exception, "Error while adding new sample");
-                MessageBox.Show(exception.Message);
-            }
+            await _sampleService.CreateAsync(createSampleDto);
+            OnNewSampleAdded();
+            MessageBox.Show("Zapisano nową próbkę obliczeniową");
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Error while adding new sample");
+            MessageBox.Show(exception.Message);
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace KnitterNotebook.Services.Interfaces
+namespace KnitterNotebook.Services.Interfaces;
+
+public interface IWebBrowserService
 {
-    public interface IWebBrowserService
-    {
-        void Open(Uri link);
-    }
+    void Open(Uri link);
 }

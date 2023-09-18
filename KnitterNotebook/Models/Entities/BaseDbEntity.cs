@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace KnitterNotebook.Models.Entities
+namespace KnitterNotebook.Models.Entities;
+
+public abstract class BaseDbEntity
 {
-    public abstract class BaseDbEntity
-    {
-        [Key]
-        public int Id { get; set; }
-    }
+    [Key]
+    public int Id { get; set; }
 }

@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace KnitterNotebook.Helpers.Extensions
+namespace KnitterNotebook.Helpers.Extensions;
+
+public static class EnumerableExtension
 {
-    public static class EnumerableExtension
-    {
-        /// <exception cref="ArgumentNullException"></exception>
-        public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> enumerableCollection) => new(enumerableCollection);
-    }
+    /// <exception cref="ArgumentNullException"></exception>
+    public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> enumerableCollection) => new(enumerableCollection);
 }

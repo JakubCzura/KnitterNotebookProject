@@ -1,9 +1,8 @@
-﻿namespace KnitterNotebook.Models.Enums
+﻿namespace KnitterNotebook.Models.Enums;
+
+public enum ApplicationTheme
 {
-    public enum ApplicationTheme
-    {
-        Default,
-        Light,
-        Dark
-    }
+    Default,
+    Light,
+    Dark
 }

@@ -2,18 +2,17 @@
 using System.IO;
 using System.Linq;
 
-namespace KnitterNotebook.Validators
+namespace KnitterNotebook.Validators;
+
+public class FileExtensionValidator
 {
-    public class FileExtensionValidator
-    {
-        private static readonly string validPdfExtensions = ".pdf";
-        private static readonly string[] validImageExtensions = { ".jpg", ".jpeg", ".png" };
+    private static readonly string validPdfExtensions = ".pdf";
+    private static readonly string[] validImageExtensions = { ".jpg", ".jpeg", ".png" };
 
-        public static bool IsPdf(string? filePath) => IsExtensionValid(filePath, validPdfExtensions);
+    public static bool IsPdf(string? filePath) => IsExtensionValid(filePath, validPdfExtensions);
 
-        public static bool IsImage(string? filePath) => IsExtensionValid(filePath, validImageExtensions);
+    public static bool IsImage(string? filePath) => IsExtensionValid(filePath, validImageExtensions);
 
-        private static bool IsExtensionValid(string? filePath, params string[] allowedExtensions)
-            => allowedExtensions.Contains(Path.GetExtension(filePath), StringComparer.OrdinalIgnoreCase);
-    }
+    private static bool IsExtensionValid(string? filePath, params string[] allowedExtensions)
+        => allowedExtensions.Contains(Path.GetExtension(filePath), StringComparer.OrdinalIgnoreCase);
 }

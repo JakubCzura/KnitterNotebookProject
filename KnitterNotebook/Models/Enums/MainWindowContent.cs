@@ -1,10 +1,9 @@
-﻿namespace KnitterNotebook.Models.Enums
+﻿namespace KnitterNotebook.Models.Enums;
+
+public enum MainWindowContent
 {
-    public enum MainWindowContent
-    {
-        PlannedProjectsUserControl,
-        ProjectsInProgressUserControl,
-        ProjectsUserControl,
-        SamplesUserControl
-    }
+    PlannedProjectsUserControl,
+    ProjectsInProgressUserControl,
+    ProjectsUserControl,
+    SamplesUserControl
 }

@@ -1,4 +1,3 @@
-﻿namespace KnitterNotebook.Models.Dtos
-{
-    public record ChangeNicknameDto(int UserId, string Nickname);
-}
+﻿namespace KnitterNotebook.Models.Dtos;
+
+public record ChangeNicknameDto(int UserId, string Nickname);

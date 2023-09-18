@@ -1,7 +1,6 @@
-﻿namespace KnitterNotebook.Models.Entities
+﻿namespace KnitterNotebook.Models.Entities;
+
+public abstract class BaseImage : BaseDbEntity
 {
-    public abstract class BaseImage : BaseDbEntity
-    {
-        public string Path { get; set; } = string.Empty;
-    }
+    public string Path { get; set; } = string.Empty;
 }

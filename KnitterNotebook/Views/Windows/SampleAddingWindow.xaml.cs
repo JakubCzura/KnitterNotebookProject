@@ -1,18 +1,17 @@
 ﻿using System.Windows;
 
-namespace KnitterNotebook.Views.Windows
-{
-    /// <summary>
-    /// Interaction logic for SampleAddingWindow.xaml
-    /// </summary>
-    public partial class SampleAddingWindow : Window
-    {
-        public static SampleAddingWindow Instance { get; private set; } = null!;
+namespace KnitterNotebook.Views.Windows;
 
-        public SampleAddingWindow()
-        {
-            InitializeComponent();
-            Instance = this;
-        }
+/// <summary>
+/// Interaction logic for SampleAddingWindow.xaml
+/// </summary>
+public partial class SampleAddingWindow : Window
+{
+    public static SampleAddingWindow Instance { get; private set; } = null!;
+
+    public SampleAddingWindow()
+    {
+        InitializeComponent();
+        Instance = this;
     }
 }

@@ -2,62 +2,61 @@
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Validators;
 
-namespace KnitterNotebook.UnitTests.Validators
+namespace KnitterNotebook.UnitTests.Validators;
+
+public class LogInDtoValidatorTests
 {
-    public class LogInDtoValidatorTests
+    private readonly LogInDtoValidator _validator = new();
+
+    [Fact]
+    public void Validate_ForValidData_PassValidation()
     {
-        private readonly LogInDtoValidator _validator = new();
+        //Arrange
+        LogInDto logInDto = new("helloemail@email.com", "ItIsMyPassword123");
 
-        [Fact]
-        public void Validate_ForValidData_PassValidation()
-        {
-            //Arrange
-            LogInDto logInDto = new("helloemail@email.com", "ItIsMyPassword123");
+        //Act
+        TestValidationResult<LogInDto> validationResult = _validator.TestValidate(logInDto);
 
-            //Act
-            TestValidationResult<LogInDto> validationResult = _validator.TestValidate(logInDto);
+        //Assert
+        validationResult.ShouldNotHaveAnyValidationErrors();
+    }
 
-            //Assert
-            validationResult.ShouldNotHaveAnyValidationErrors();
-        }
+    [Theory]
+    [InlineData(null!)]
+    [InlineData("")]
+    [InlineData(" ")]
+    [InlineData("helloemail.com")]
+    [InlineData("helloemail")]
+    [InlineData("helloemail.")]
+    [InlineData("helloemailcom")]
+    [InlineData("helloemailcom@")]
+    public void Validate_ForInvalidEmail_FailValidation(string email)
+    {
+        //Arrange
+        LogInDto logInDto = new(email, "ItIsMyPassword123");
 
-        [Theory]
-        [InlineData(null!)]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData("helloemail.com")]
-        [InlineData("helloemail")]
-        [InlineData("helloemail.")]
-        [InlineData("helloemailcom")]
-        [InlineData("helloemailcom@")]
-        public void Validate_ForInvalidEmail_FailValidation(string email)
-        {
-            //Arrange
-            LogInDto logInDto = new(email, "ItIsMyPassword123");
+        //Act
+        TestValidationResult<LogInDto> validationResult = _validator.TestValidate(logInDto);
 
-            //Act
-            TestValidationResult<LogInDto> validationResult = _validator.TestValidate(logInDto);
+        //Assert
+        validationResult.ShouldHaveValidationErrorFor(x => x.Email);
+    }
 
-            //Assert
-            validationResult.ShouldHaveValidationErrorFor(x => x.Email);
-        }
+    [Theory]
+    [InlineData(null!)]
+    [InlineData("")]
+    [InlineData(" ")]
+    [InlineData("1234567")]
+    [InlineData("test")]
+    public void Validate_ForInvalidPassword_FailValidation(string password)
+    {
+        //Arrange
+        LogInDto logInDto = new("helloemail@email.com", password);
 
-        [Theory]
-        [InlineData(null!)]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData("1234567")]
-        [InlineData("test")]
-        public void Validate_ForInvalidPassword_FailValidation(string password)
-        {
-            //Arrange
-            LogInDto logInDto = new("helloemail@email.com", password);
+        //Act
+        TestValidationResult<LogInDto> validationResult = _validator.TestValidate(logInDto);
 
-            //Act
-            TestValidationResult<LogInDto> validationResult = _validator.TestValidate(logInDto);
-
-            //Assert
-            validationResult.ShouldHaveValidationErrorFor(x => x.Password);
-        }
+        //Assert
+        validationResult.ShouldHaveValidationErrorFor(x => x.Password);
     }
 }

@@ -1,4 +1,3 @@
-﻿namespace KnitterNotebook.Models.Dtos
-{
-    public record LogInDto(string Email, string Password);
-}
+﻿namespace KnitterNotebook.Models.Dtos;
+
+public record LogInDto(string Email, string Password);

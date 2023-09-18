@@ -1,8 +1,7 @@
-﻿namespace KnitterNotebook.Models.Enums
+﻿namespace KnitterNotebook.Models.Enums;
+
+public enum NeedleSizeUnit
 {
-    public enum NeedleSizeUnit
-    {
-        mm,
-        cm
-    }
+    mm,
+    cm
 }
