@@ -7,7 +7,6 @@ using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services;
 using System.Windows;
-using Throw;
 
 namespace KnitterNotebook.IntegrationTests.Services;
 
