@@ -117,14 +117,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DeletePhoto" xml:space="preserve">
+    <value>Delete photo</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Delete project</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="DontHaveAccount" xml:space="preserve">
     <value>Don't have an account?</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="FilterByProjectName" xml:space="preserve">
+    <value>Filter by project's name</value>
+  </data>
+  <data name="FinishedProject" xml:space="preserve">
+    <value>Finished project</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
     <value>Forgot your password?</value>
   </data>
   <data name="LogInHeader" xml:space="preserve">
     <value>Welcome to Knitter Notebook</value>
+  </data>
+  <data name="MoveToProjectsInProgress" xml:space="preserve">
+    <value>Move to projects in progress</value>
+  </data>
+  <data name="Needles" xml:space="preserve">
+    <value>Needles</value>
+  </data>
+  <data name="NotYetSpecified" xml:space="preserve">
+    <value>Not yet specified</value>
+  </data>
+  <data name="Photos" xml:space="preserve">
+    <value>Photos</value>
   </data>
   <data name="Placeholder_Email" xml:space="preserve">
     <value>E-mail</value>
@@ -135,10 +165,19 @@
   <data name="ResetPassword" xml:space="preserve">
     <value>Reset password</value>
   </data>
+  <data name="ShowPattern" xml:space="preserve">
+    <value>Show pattern</value>
+  </data>
   <data name="SignIn" xml:space="preserve">
     <value>Sign in</value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>Sign up</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="Yarns" xml:space="preserve">
+    <value>Yarns</value>
   </data>
 </root>
