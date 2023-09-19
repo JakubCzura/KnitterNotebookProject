@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using System.Globalization;
+using System.Threading;
 using System.Windows;
 
 namespace KnitterNotebook;
@@ -25,6 +27,7 @@ public partial class App : Application
 
     public App()
     {
+        Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
         AppHost = Host.CreateDefaultBuilder()
             .ConfigureAppConfiguration((hostContext, configurationBuilder) =>
             {

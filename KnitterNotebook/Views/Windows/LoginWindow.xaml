@@ -7,6 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
     Title="KnitterNotebook"
     Width="500"
     Height="700"
@@ -28,12 +29,12 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Margin="0,30,0,40">
-                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="Witaj w Dzienniku Dziewiarki" />
+                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static translations:Resources.LogInHeader}" />
             </Grid>
 
             <Grid Grid.Row="1">
                 <StackPanel Margin="50,0,50,10">
-                    <Label Content="Zaloguj się" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                    <Label Content="{x:Static translations:Resources.SignIn}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
 
                     <DockPanel Margin="0,0,0,10">
                         <materialDesign:PackIcon
@@ -41,7 +42,7 @@
                             VerticalAlignment="Center"
                             Kind="Email" />
                         <TextBox
-                            adorners:Watermark.Text="e-mail"
+                            adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_Email}"
                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
                             Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
@@ -54,31 +55,31 @@
                             Kind="Password" />
                         <PasswordBox
                             x:Name="UserPasswordPasswordBox"
-                            adorners:Watermark.Text="hasło"
+                            adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_Password}"
                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                             Style="{StaticResource InputPasswordPasswordBoxStyle}" />
                     </DockPanel>
                     <Button
                         Command="{Binding LogInCommand}"
-                        Content="Zaloguj się"
+                        Content="{x:Static translations:Resources.SignIn}"
                         Style="{StaticResource LoginButtonStyle}" />
                     <Label
                         Margin="0,50,0,-10"
-                        Content="Nie posiadasz konta?"
+                        Content="{x:Static translations:Resources.DontHaveAccount}"
                         FontSize="20"
                         Style="{DynamicResource LabelAboveLoginInputStyle}" />
                     <Button
                         Command="{Binding ShowRegistrationWindowCommand}"
-                        Content="Zarejestruj się"
+                        Content="{x:Static translations:Resources.SignUp}"
                         Style="{DynamicResource LoginButtonStyle}" />
                     <Label
                         Margin="0,20,0,-10"
-                        Content="Zapomniałeś hasła?"
+                        Content="{x:Static translations:Resources.ForgotPassword}"
                         FontSize="20"
                         Style="{DynamicResource LabelAboveLoginInputStyle}" />
                     <Button
                         Command="{Binding ShowResetPasswordWindowCommand}"
-                        Content="Zresetuj hasło"
+                        Content="{x:Static translations:Resources.ResetPassword}"
                         Style="{DynamicResource LoginButtonStyle}" />
                 </StackPanel>
             </Grid>
