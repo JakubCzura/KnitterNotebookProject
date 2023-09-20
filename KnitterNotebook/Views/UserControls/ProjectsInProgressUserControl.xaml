@@ -4,9 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     xmlns:xamlConverters="clr-namespace:KnitterNotebook.Converters.XAMLConverters"
-    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
     d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -166,11 +166,11 @@
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Path=DateTime}"
-                            Header="{x:Static translations:Resources.Photos}"/>
+                            Header="{x:Static translations:Resources.Photos}" />
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Command="{Binding DeleteSelectedProjectInProgressImageCommand}" Header="{x:Static translations:Resources.DeletePhoto}"/>
+                            <MenuItem Command="{Binding DeleteSelectedProjectInProgressImageCommand}" Header="{x:Static translations:Resources.DeletePhoto}" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

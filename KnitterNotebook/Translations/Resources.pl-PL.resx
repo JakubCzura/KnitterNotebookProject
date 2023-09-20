@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddMovieUrl" xml:space="preserve">
+    <value>Dodaj link do filmu</value>
+  </data>
   <data name="AddPhoto" xml:space="preserve">
     <value>Dodaj zdjęcie</value>
   </data>
@@ -125,6 +128,9 @@
   </data>
   <data name="ApplicationTheme" xml:space="preserve">
     <value>Motyw aplikacji</value>
+  </data>
+  <data name="DeleteLink" xml:space="preserve">
+    <value>Skasuj link</value>
   </data>
   <data name="DeletePhoto" xml:space="preserve">
     <value>Skasuj zdjęcie</value>
@@ -153,11 +159,17 @@
   <data name="FinishedProject" xml:space="preserve">
     <value>Ukończony projekt</value>
   </data>
+  <data name="FinishedProjects" xml:space="preserve">
+    <value>Ukończone projekty</value>
+  </data>
   <data name="FinishProject" xml:space="preserve">
     <value>Zakończ projekt</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
     <value>Zapomniałeś hasła?</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Link</value>
   </data>
   <data name="LogInHeader" xml:space="preserve">
     <value>Witaj w Dzienniku Dziewiarki</value>
@@ -192,6 +204,9 @@
   <data name="NotYetSpecified" xml:space="preserve">
     <value>Jeszcze nie podano</value>
   </data>
+  <data name="Options" xml:space="preserve">
+    <value>Opcja</value>
+  </data>
   <data name="Photos" xml:space="preserve">
     <value>Zdjęcia</value>
   </data>
@@ -216,20 +231,38 @@
   <data name="PlannedProject" xml:space="preserve">
     <value>Planowany projekt</value>
   </data>
+  <data name="PlannedProjects" xml:space="preserve">
+    <value>Planowane projekty</value>
+  </data>
   <data name="PlanOutProject" xml:space="preserve">
     <value>Zaplanuj projekt</value>
+  </data>
+  <data name="PlayMovie" xml:space="preserve">
+    <value>Odtwórz film</value>
   </data>
   <data name="ProjectInProgress" xml:space="preserve">
     <value>Projekt w trakcie</value>
   </data>
+  <data name="ProjectsInProgress" xml:space="preserve">
+    <value>Projekty w trakcie</value>
+  </data>
   <data name="ResetPassword" xml:space="preserve">
     <value>Przywróć hasło</value>
+  </data>
+  <data name="Samples" xml:space="preserve">
+    <value>Próbki obliczeniowe</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ustawienia</value>
   </data>
   <data name="ShowPattern" xml:space="preserve">
     <value>Pokaż wzór</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Zaloguj się</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Wyloguj</value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>Zarejestruj się</value>
@@ -242,6 +275,9 @@
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Potwierdź</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Tytuł</value>
   </data>
   <data name="UserAccount" xml:space="preserve">
     <value>Konto użytkownika</value>

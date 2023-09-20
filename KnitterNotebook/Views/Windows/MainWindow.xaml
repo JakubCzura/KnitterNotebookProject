@@ -7,6 +7,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     Title="KnitterNotebook"
     Width="1200"
@@ -36,21 +37,25 @@
             Grid.Row="0"
             Margin="0,0,0,10"
             Style="{DynamicResource NavigationMenuStyle}">
-            <MenuItem Header="Opcje" Style="{DynamicResource NavigationMenuItemStyle}">
+            <MenuItem Header="{x:Static translations:Resources.Options}" Style="{DynamicResource NavigationMenuItemStyle}">
                 <MenuItem
                     Command="{Binding LogOutCommand}"
-                    Header="Wyloguj"
+                    Header="{x:Static translations:Resources.SignOut}"
                     Style="{DynamicResource NavigationMenuItemStyle}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Logout" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Ustawienia" Style="{DynamicResource NavigationMenuItemStyle}">
+            <MenuItem Header="{x:Static translations:Resources.Settings}" Style="{DynamicResource NavigationMenuItemStyle}">
                 <MenuItem
                     Command="{Binding ShowSettingsWindowCommand}"
-                    Header="Ustawienia"
-                    Style="{DynamicResource NavigationMenuItemStyle}" />
+                    Header="{x:Static translations:Resources.UserAccount}"
+                    Style="{DynamicResource NavigationMenuItemStyle}">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Settings" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1" Margin="5,5,5,5">
@@ -93,25 +98,25 @@
                                     Command="{Binding ChooseMainWindowContentCommand}"
                                     CommandParameter="{x:Static enums:MainWindowContent.PlannedProjectsUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
-                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Projekty w planach" />
+                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static translations:Resources.PlannedProjects}" />
                                 </Button>
                                 <Button
                                     Command="{Binding ChooseMainWindowContentCommand}"
                                     CommandParameter="{x:Static enums:MainWindowContent.ProjectsInProgressUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
-                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Projekty w trakcie" />
+                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static translations:Resources.ProjectsInProgress}" />
                                 </Button>
                                 <Button
                                     Command="{Binding ChooseMainWindowContentCommand}"
                                     CommandParameter="{x:Static enums:MainWindowContent.ProjectsUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
-                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Ukończone projekty" />
+                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static translations:Resources.FinishedProjects}" />
                                 </Button>
                                 <Button
                                     Command="{Binding ChooseMainWindowContentCommand}"
                                     CommandParameter="{x:Static enums:MainWindowContent.SamplesUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
-                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Próbki obliczeniowe" />
+                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static translations:Resources.Samples}" />
                                 </Button>
                             </StackPanel>
                         </ScrollViewer>
@@ -149,20 +154,20 @@
                             <DataGridTextColumn
                                 Width="*"
                                 Binding="{Binding Path=Title}"
-                                Header="Tytuł" />
+                                Header="{x:Static translations:Resources.Title}" />
                             <DataGridTextColumn
                                 Width="*"
                                 Binding="{Binding Path=Link}"
-                                Header="Link" />
+                                Header="{x:Static translations:Resources.Link}" />
                             <DataGridTextColumn
                                 Width="*"
                                 Binding="{Binding Path=Description}"
-                                Header="Opis" />
+                                Header="{x:Static translations:Resources.Description}" />
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Command="{Binding DeleteMovieUrlCommand}" Header="Skasuj link do filmu" />
-                                <MenuItem Command="{Binding OpenMovieUrlInWebBrowserCommand}" Header="Otwórz film" />
+                                <MenuItem Command="{Binding DeleteMovieUrlCommand}" Header="{x:Static translations:Resources.DeleteLink}" />
+                                <MenuItem Command="{Binding OpenMovieUrlInWebBrowserCommand}" Header="{x:Static translations:Resources.PlayMovie}" />
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                     </DataGrid>
@@ -170,7 +175,7 @@
                         Grid.Column="1"
                         Command="{Binding ShowMovieUrlAddingWindowCommand}"
                         Style="{DynamicResource MainMenuButtonStyle}">
-                        <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="Dodaj nowy link do filmu" />
+                        <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static translations:Resources.AddMovieUrl}" />
                     </Button>
                 </Grid>
             </Border>

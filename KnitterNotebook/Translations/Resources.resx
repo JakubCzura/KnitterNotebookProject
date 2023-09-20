@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddMovieUrl" xml:space="preserve">
+    <value>Add movie's url</value>
+  </data>
   <data name="AddPhoto" xml:space="preserve">
     <value>Add photo</value>
   </data>
@@ -125,6 +128,9 @@
   </data>
   <data name="ApplicationTheme" xml:space="preserve">
     <value>Application's theme</value>
+  </data>
+  <data name="DeleteLink" xml:space="preserve">
+    <value>Delete link</value>
   </data>
   <data name="DeletePhoto" xml:space="preserve">
     <value>Delete photo</value>
@@ -153,11 +159,17 @@
   <data name="FinishedProject" xml:space="preserve">
     <value>Finished project</value>
   </data>
+  <data name="FinishedProjects" xml:space="preserve">
+    <value>Finished projects</value>
+  </data>
   <data name="FinishProject" xml:space="preserve">
     <value>Finish project</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
     <value>Forgot your password?</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Link</value>
   </data>
   <data name="LogInHeader" xml:space="preserve">
     <value>Welcome to Knitter Notebook</value>
@@ -192,6 +204,9 @@
   <data name="NotYetSpecified" xml:space="preserve">
     <value>Not yet specified</value>
   </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
   <data name="Photos" xml:space="preserve">
     <value>Photos</value>
   </data>
@@ -216,20 +231,38 @@
   <data name="PlannedProject" xml:space="preserve">
     <value>Planned project</value>
   </data>
+  <data name="PlannedProjects" xml:space="preserve">
+    <value>Planned projects</value>
+  </data>
   <data name="PlanOutProject" xml:space="preserve">
     <value>Plan out project</value>
+  </data>
+  <data name="PlayMovie" xml:space="preserve">
+    <value>Play movie</value>
   </data>
   <data name="ProjectInProgress" xml:space="preserve">
     <value>Project in progress</value>
   </data>
+  <data name="ProjectsInProgress" xml:space="preserve">
+    <value>Projects in progress</value>
+  </data>
   <data name="ResetPassword" xml:space="preserve">
     <value>Reset password</value>
+  </data>
+  <data name="Samples" xml:space="preserve">
+    <value>Samples</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="ShowPattern" xml:space="preserve">
     <value>Show pattern</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Sign in</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Sign out</value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>Sign up</value>
@@ -242,6 +275,9 @@
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
   </data>
   <data name="UserAccount" xml:space="preserve">
     <value>User's account</value>
