@@ -1,10 +1,11 @@
 ﻿<UserControl
     x:Class="KnitterNotebook.Views.UserControls.UserSettingsUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:adorners="http://gu.se/Adorners"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     x:Name="UserSettings"
     d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel}"
@@ -21,48 +22,48 @@
         <TextBlock
             Grid.Row="0"
             Style="{DynamicResource SettingsHeaderTextBlockStyle}"
-            Text="Konto" />
+            Text="{x:Static translations:Resources.UserAccount}" />
 
         <StackPanel Grid.Row="1" Style="{DynamicResource SettingsStackPanelStyle}">
-            <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="Zmiana nazwy użytkownika" />
+            <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="{x:Static translations:Resources.NewNickname}" />
             <TextBox
                 VerticalContentAlignment="Center"
-                adorners:Watermark.Text="Podaj nową nazwę użytkownika"
+                adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeNewNickname}"
                 adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                 Text="{Binding NewNickname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Button
                 MaxWidth="100"
                 HorizontalAlignment="Left"
                 Command="{Binding ChangeNicknameCommand}"
-                Content="Potwierdź" />
-            <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="Zmiana e-mail" />
+                Content="{x:Static translations:Resources.Submit}" />
+            <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="{x:Static translations:Resources.NewEmail}" />
             <TextBox
                 VerticalContentAlignment="Center"
-                adorners:Watermark.Text="Podaj nowy adres e-mail"
+                adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeNewEmail}"
                 adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                 Text="{Binding NewEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Button
                 MaxWidth="100"
                 HorizontalAlignment="Left"
                 Command="{Binding ChangeEmailCommand}"
-                Content="Potwierdź" />
-            <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="Zmiana hasła" />
+                Content="{x:Static translations:Resources.Submit}" />
+            <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="{x:Static translations:Resources.NewPassword}" />
             <PasswordBox
                 Name="NewPasswordPasswordBox"
                 VerticalContentAlignment="Center"
-                adorners:Watermark.Text="Podaj nowe hasło"
+                adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeNewPassword}"
                 adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused" />
             <PasswordBox
                 Name="RepeatedNewPasswordPasswordBox"
                 VerticalContentAlignment="Center"
-                adorners:Watermark.Text="Powtórz hasło"
+                adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_RepeatNewPassword}"
                 adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                 Style="{DynamicResource MaterialDesignPasswordBox}" />
             <Button
                 MaxWidth="100"
                 HorizontalAlignment="Left"
                 Command="{Binding ChangePasswordCommand}"
-                Content="Potwierdź" />
+                Content="{x:Static translations:Resources.Submit}" />
         </StackPanel>
     </Grid>
 </UserControl>

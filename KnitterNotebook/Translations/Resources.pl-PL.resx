@@ -177,6 +177,15 @@
   <data name="NeedleSize" xml:space="preserve">
     <value>Needle's size</value>
   </data>
+  <data name="NewEmail" xml:space="preserve">
+    <value>Nowy e-mail</value>
+  </data>
+  <data name="NewNickname" xml:space="preserve">
+    <value>Nowa nazwa użytkownika</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nowe hasło</value>
+  </data>
   <data name="NewTheme" xml:space="preserve">
     <value>Nowy motyw</value>
   </data>
@@ -191,6 +200,18 @@
   </data>
   <data name="Placeholder_Password" xml:space="preserve">
     <value>Hasło</value>
+  </data>
+  <data name="Placeholder_RepeatNewPassword" xml:space="preserve">
+    <value>Powtórz nowe hasło</value>
+  </data>
+  <data name="Placeholder_TypeNewEmail" xml:space="preserve">
+    <value>Podaj nowy adres e-mail</value>
+  </data>
+  <data name="Placeholder_TypeNewNickname" xml:space="preserve">
+    <value>Podaj nową nazwę użytkownika</value>
+  </data>
+  <data name="Placeholder_TypeNewPassword" xml:space="preserve">
+    <value>Podaj nowe hasło</value>
   </data>
   <data name="PlannedProject" xml:space="preserve">
     <value>Planowany projekt</value>
@@ -221,6 +242,9 @@
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Potwierdź</value>
+  </data>
+  <data name="UserAccount" xml:space="preserve">
+    <value>Konto użytkownika</value>
   </data>
   <data name="YarnName" xml:space="preserve">
     <value>Nazwa włóczki</value>

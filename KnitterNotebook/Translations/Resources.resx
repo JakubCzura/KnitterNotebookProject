@@ -177,6 +177,15 @@
   <data name="NeedleSize" xml:space="preserve">
     <value>Needle's size</value>
   </data>
+  <data name="NewEmail" xml:space="preserve">
+    <value>New e-mail</value>
+  </data>
+  <data name="NewNickname" xml:space="preserve">
+    <value>New nickname</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
   <data name="NewTheme" xml:space="preserve">
     <value>New theme</value>
   </data>
@@ -191,6 +200,18 @@
   </data>
   <data name="Placeholder_Password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="Placeholder_RepeatNewPassword" xml:space="preserve">
+    <value>Repeat new password</value>
+  </data>
+  <data name="Placeholder_TypeNewEmail" xml:space="preserve">
+    <value>Type new email</value>
+  </data>
+  <data name="Placeholder_TypeNewNickname" xml:space="preserve">
+    <value>Type new nickname</value>
+  </data>
+  <data name="Placeholder_TypeNewPassword" xml:space="preserve">
+    <value>Type new password</value>
   </data>
   <data name="PlannedProject" xml:space="preserve">
     <value>Planned project</value>
@@ -221,6 +242,9 @@
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
+  </data>
+  <data name="UserAccount" xml:space="preserve">
+    <value>User's account</value>
   </data>
   <data name="YarnName" xml:space="preserve">
     <value>Yarn's name</value>

@@ -241,6 +241,33 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New e-mail.
+        /// </summary>
+        public static string NewEmail {
+            get {
+                return ResourceManager.GetString("NewEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New nickname.
+        /// </summary>
+        public static string NewNickname {
+            get {
+                return ResourceManager.GetString("NewNickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New password.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New theme.
         /// </summary>
         public static string NewTheme {
@@ -282,6 +309,42 @@ namespace KnitterNotebook.Translations {
         public static string Placeholder_Password {
             get {
                 return ResourceManager.GetString("Placeholder_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeat new password.
+        /// </summary>
+        public static string Placeholder_RepeatNewPassword {
+            get {
+                return ResourceManager.GetString("Placeholder_RepeatNewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type new email.
+        /// </summary>
+        public static string Placeholder_TypeNewEmail {
+            get {
+                return ResourceManager.GetString("Placeholder_TypeNewEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type new nickname.
+        /// </summary>
+        public static string Placeholder_TypeNewNickname {
+            get {
+                return ResourceManager.GetString("Placeholder_TypeNewNickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type new password.
+        /// </summary>
+        public static string Placeholder_TypeNewPassword {
+            get {
+                return ResourceManager.GetString("Placeholder_TypeNewPassword", resourceCulture);
             }
         }
         
@@ -372,6 +435,15 @@ namespace KnitterNotebook.Translations {
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User&apos;s account.
+        /// </summary>
+        public static string UserAccount {
+            get {
+                return ResourceManager.GetString("UserAccount", resourceCulture);
             }
         }
         
