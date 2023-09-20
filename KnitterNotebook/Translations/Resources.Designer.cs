@@ -70,6 +70,15 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add sample.
+        /// </summary>
+        public static string AddSample {
+            get {
+                return ResourceManager.GetString("AddSample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete photo.
         /// </summary>
         public static string DeletePhoto {
@@ -84,6 +93,15 @@ namespace KnitterNotebook.Translations {
         public static string DeleteProject {
             get {
                 return ResourceManager.GetString("DeleteProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete sample.
+        /// </summary>
+        public static string DeleteSample {
+            get {
+                return ResourceManager.GetString("DeleteSample", resourceCulture);
             }
         }
         
@@ -111,6 +129,15 @@ namespace KnitterNotebook.Translations {
         public static string EndDate {
             get {
                 return ResourceManager.GetString("EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter by needle&apos;s size.
+        /// </summary>
+        public static string FilterByNeedleSize {
+            get {
+                return ResourceManager.GetString("FilterByNeedleSize", resourceCulture);
             }
         }
         
@@ -160,6 +187,15 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loops x rows.
+        /// </summary>
+        public static string LoopsXRows {
+            get {
+                return ResourceManager.GetString("LoopsXRows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move to planned projects.
         /// </summary>
         public static string MoveToPlannedProjects {
@@ -183,6 +219,15 @@ namespace KnitterNotebook.Translations {
         public static string Needles {
             get {
                 return ResourceManager.GetString("Needles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Needle&apos;s size.
+        /// </summary>
+        public static string NeedleSize {
+            get {
+                return ResourceManager.GetString("NeedleSize", resourceCulture);
             }
         }
         
@@ -300,6 +345,15 @@ namespace KnitterNotebook.Translations {
         public static string StartProject {
             get {
                 return ResourceManager.GetString("StartProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yarn&apos;s name.
+        /// </summary>
+        public static string YarnName {
+            get {
+                return ResourceManager.GetString("YarnName", resourceCulture);
             }
         }
         

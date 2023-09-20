@@ -120,11 +120,17 @@
   <data name="AddPhoto" xml:space="preserve">
     <value>Add photo</value>
   </data>
+  <data name="AddSample" xml:space="preserve">
+    <value>Add sample</value>
+  </data>
   <data name="DeletePhoto" xml:space="preserve">
     <value>Delete photo</value>
   </data>
   <data name="DeleteProject" xml:space="preserve">
     <value>Delete project</value>
+  </data>
+  <data name="DeleteSample" xml:space="preserve">
+    <value>Delete sample</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -134,6 +140,9 @@
   </data>
   <data name="EndDate" xml:space="preserve">
     <value>End date</value>
+  </data>
+  <data name="FilterByNeedleSize" xml:space="preserve">
+    <value>Filter by needle's size</value>
   </data>
   <data name="FilterByProjectName" xml:space="preserve">
     <value>Filter by project's name</value>
@@ -150,6 +159,9 @@
   <data name="LogInHeader" xml:space="preserve">
     <value>Welcome to Knitter Notebook</value>
   </data>
+  <data name="LoopsXRows" xml:space="preserve">
+    <value>Loops x rows</value>
+  </data>
   <data name="MoveToPlannedProjects" xml:space="preserve">
     <value>Move to planned projects</value>
   </data>
@@ -158,6 +170,9 @@
   </data>
   <data name="Needles" xml:space="preserve">
     <value>Needles</value>
+  </data>
+  <data name="NeedleSize" xml:space="preserve">
+    <value>Needle's size</value>
   </data>
   <data name="NotYetSpecified" xml:space="preserve">
     <value>Not yet specified</value>
@@ -197,6 +212,9 @@
   </data>
   <data name="StartProject" xml:space="preserve">
     <value>Start project</value>
+  </data>
+  <data name="YarnName" xml:space="preserve">
+    <value>Yarn's name</value>
   </data>
   <data name="Yarns" xml:space="preserve">
     <value>Yarns</value>
