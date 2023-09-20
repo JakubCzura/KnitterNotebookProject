@@ -123,6 +123,9 @@
   <data name="AddSample" xml:space="preserve">
     <value>Add sample</value>
   </data>
+  <data name="ApplicationTheme" xml:space="preserve">
+    <value>Application's theme</value>
+  </data>
   <data name="DeletePhoto" xml:space="preserve">
     <value>Delete photo</value>
   </data>
@@ -174,6 +177,9 @@
   <data name="NeedleSize" xml:space="preserve">
     <value>Needle's size</value>
   </data>
+  <data name="NewTheme" xml:space="preserve">
+    <value>New theme</value>
+  </data>
   <data name="NotYetSpecified" xml:space="preserve">
     <value>Not yet specified</value>
   </data>
@@ -212,6 +218,9 @@
   </data>
   <data name="StartProject" xml:space="preserve">
     <value>Start project</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
   </data>
   <data name="YarnName" xml:space="preserve">
     <value>Yarn's name</value>

@@ -123,6 +123,9 @@
   <data name="AddSample" xml:space="preserve">
     <value>Dodaj próbkę</value>
   </data>
+  <data name="ApplicationTheme" xml:space="preserve">
+    <value>Motyw aplikacji</value>
+  </data>
   <data name="DeletePhoto" xml:space="preserve">
     <value>Skasuj zdjęcie</value>
   </data>
@@ -174,6 +177,9 @@
   <data name="NeedleSize" xml:space="preserve">
     <value>Needle's size</value>
   </data>
+  <data name="NewTheme" xml:space="preserve">
+    <value>Nowy motyw</value>
+  </data>
   <data name="NotYetSpecified" xml:space="preserve">
     <value>Jeszcze nie podano</value>
   </data>
@@ -212,6 +218,9 @@
   </data>
   <data name="StartProject" xml:space="preserve">
     <value>Rozpocznij projekt</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Potwierdź</value>
   </data>
   <data name="YarnName" xml:space="preserve">
     <value>Nazwa włóczki</value>

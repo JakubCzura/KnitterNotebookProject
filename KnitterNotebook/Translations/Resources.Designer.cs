@@ -79,6 +79,15 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application&apos;s theme.
+        /// </summary>
+        public static string ApplicationTheme {
+            get {
+                return ResourceManager.GetString("ApplicationTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete photo.
         /// </summary>
         public static string DeletePhoto {
@@ -232,6 +241,15 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New theme.
+        /// </summary>
+        public static string NewTheme {
+            get {
+                return ResourceManager.GetString("NewTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not yet specified.
         /// </summary>
         public static string NotYetSpecified {
@@ -345,6 +363,15 @@ namespace KnitterNotebook.Translations {
         public static string StartProject {
             get {
                 return ResourceManager.GetString("StartProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        public static string Submit {
+            get {
+                return ResourceManager.GetString("Submit", resourceCulture);
             }
         }
         

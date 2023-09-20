@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     x:Name="ThemeSettings"
     d:DataContext="{d:DesignInstance Type=viewModels:SettingsViewModel}"
@@ -20,10 +21,10 @@
         <TextBlock
             Grid.Row="0"
             Style="{DynamicResource SettingsHeaderTextBlockStyle}"
-            Text="Motyw aplikacji" />
+            Text="{x:Static translations:Resources.ApplicationTheme}" />
 
         <StackPanel Grid.Row="1">
-            <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="Zmiana motywu aplikacji" />
+            <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="{x:Static translations:Resources.NewTheme}" />
             <UniformGrid Rows="1">
                 <TextBlock Style="{DynamicResource SettingsElementTextBlockStyle}" Text="{Binding Path=NewTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <ComboBox
@@ -36,7 +37,7 @@
                 MaxWidth="100"
                 HorizontalAlignment="Left"
                 Command="{Binding ChangeThemeCommand}"
-                Content="Potwierdź" />
+                Content="{x:Static translations:Resources.Submit}" />
         </StackPanel>
     </Grid>
 </UserControl>
