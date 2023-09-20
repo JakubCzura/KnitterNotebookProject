@@ -162,6 +162,12 @@
   <data name="Placeholder_Password" xml:space="preserve">
     <value>Hasło</value>
   </data>
+  <data name="PlannedProject" xml:space="preserve">
+    <value>Planowany projekt</value>
+  </data>
+  <data name="PlanOutProject" xml:space="preserve">
+    <value>Zaplanuj projekt</value>
+  </data>
   <data name="ResetPassword" xml:space="preserve">
     <value>Przywróć hasło</value>
   </data>
@@ -176,6 +182,9 @@
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>Data rozpoczęcia</value>
+  </data>
+  <data name="StartProject" xml:space="preserve">
+    <value>Rozpocznij projekt</value>
   </data>
   <data name="Yarns" xml:space="preserve">
     <value>Włóczki</value>
