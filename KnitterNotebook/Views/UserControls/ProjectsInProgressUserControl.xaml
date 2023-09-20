@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     xmlns:xamlConverters="clr-namespace:KnitterNotebook.Converters.XAMLConverters"
+    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
     d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -37,7 +38,7 @@
                     <TextBlock
                         Grid.Row="0"
                         Style="{DynamicResource MaterialDesignBody1TextBlock}"
-                        Text="Filtruj po nazwie projektu" />
+                        Text="{x:Static translations:Resources.FilterByProjectName}" />
                     <UniformGrid Grid.Row="1" Rows="1">
                         <TextBox Text="{Binding FilterProjectInProgressName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </UniformGrid>
@@ -45,7 +46,7 @@
                 <Button
                     Command="{Binding ShowPatternPdfWindowCommand}"
                     CommandParameter="{Binding SelectedProjectInProgress.PatternPdfPath}"
-                    Content="Pokaż PDF ze wzorem"
+                    Content="{x:Static translations:Resources.ShowPattern}"
                     DockPanel.Dock="Bottom" />
                 <DataGrid
                     AutoGenerateColumns="False"
@@ -59,13 +60,13 @@
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Path=Name}"
-                            Header="Planowany projekt" />
+                            Header="{x:Static translations:Resources.ProjectInProgress}" />
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Command="{Binding MoveProjectInProgressToPlannedProjectsCommand}" Header="Przenieś do planowanych projektów" />
-                            <MenuItem Command="{Binding FinishProjectInProgressCommand}" Header="Zakończ projekt" />
-                            <MenuItem Command="{Binding DeleteProjectInProgressCommand}" Header="Skasuj projekt" />
+                            <MenuItem Command="{Binding MoveProjectInProgressToPlannedProjectsCommand}" Header="{x:Static translations:Resources.MoveToPlannedProjects}" />
+                            <MenuItem Command="{Binding FinishProjectInProgressCommand}" Header="{x:Static translations:Resources.FinishProject}" />
+                            <MenuItem Command="{Binding DeleteProjectInProgressCommand}" Header="{x:Static translations:Resources.DeleteProject}" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>
@@ -82,7 +83,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="Projekt w trakcie:"
+                        Text="{x:Static translations:Resources.ProjectInProgress}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -93,7 +94,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="Data rozpoczęcia:"
+                        Text="{x:Static translations:Resources.StartDate}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -104,7 +105,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="Druty:"
+                        Text="{x:Static translations:Resources.Needles}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -115,7 +116,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="Włóczki:"
+                        Text="{x:Static translations:Resources.Yarns}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -126,7 +127,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="Inne:"
+                        Text="{x:Static translations:Resources.Description}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -151,7 +152,7 @@
                 </Grid>
                 <Button
                     Command="{Binding ShowProjectImageAddingWindowCommand}"
-                    Content="Dodaj zdjęcie"
+                    Content="{x:Static translations:Resources.AddPhoto}"
                     DockPanel.Dock="Bottom" />
                 <DataGrid
                     AutoGenerateColumns="False"
@@ -165,11 +166,11 @@
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Path=DateTime}"
-                            Header="Zdjęcia postępów" />
+                            Header="{x:Static translations:Resources.Photos}"/>
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Command="{Binding DeleteSelectedProjectInProgressImageCommand}" Header="Skasuj zdjęcie" />
+                            <MenuItem Command="{Binding DeleteSelectedProjectInProgressImageCommand}" Header="{x:Static translations:Resources.DeletePhoto}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

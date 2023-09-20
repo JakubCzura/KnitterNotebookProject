@@ -61,6 +61,15 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add photo.
+        /// </summary>
+        public static string AddPhoto {
+            get {
+                return ResourceManager.GetString("AddPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete photo.
         /// </summary>
         public static string DeletePhoto {
@@ -124,6 +133,15 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finish project.
+        /// </summary>
+        public static string FinishProject {
+            get {
+                return ResourceManager.GetString("FinishProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forgot your password?.
         /// </summary>
         public static string ForgotPassword {
@@ -138,6 +156,15 @@ namespace KnitterNotebook.Translations {
         public static string LogInHeader {
             get {
                 return ResourceManager.GetString("LogInHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to planned projects.
+        /// </summary>
+        public static string MoveToPlannedProjects {
+            get {
+                return ResourceManager.GetString("MoveToPlannedProjects", resourceCulture);
             }
         }
         
@@ -210,6 +237,15 @@ namespace KnitterNotebook.Translations {
         public static string PlanOutProject {
             get {
                 return ResourceManager.GetString("PlanOutProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project in progress.
+        /// </summary>
+        public static string ProjectInProgress {
+            get {
+                return ResourceManager.GetString("ProjectInProgress", resourceCulture);
             }
         }
         

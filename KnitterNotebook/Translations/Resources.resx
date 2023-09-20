@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddPhoto" xml:space="preserve">
+    <value>Add photo</value>
+  </data>
   <data name="DeletePhoto" xml:space="preserve">
     <value>Delete photo</value>
   </data>
@@ -138,11 +141,17 @@
   <data name="FinishedProject" xml:space="preserve">
     <value>Finished project</value>
   </data>
+  <data name="FinishProject" xml:space="preserve">
+    <value>Finish project</value>
+  </data>
   <data name="ForgotPassword" xml:space="preserve">
     <value>Forgot your password?</value>
   </data>
   <data name="LogInHeader" xml:space="preserve">
     <value>Welcome to Knitter Notebook</value>
+  </data>
+  <data name="MoveToPlannedProjects" xml:space="preserve">
+    <value>Move to planned projects</value>
   </data>
   <data name="MoveToProjectsInProgress" xml:space="preserve">
     <value>Move to projects in progress</value>
@@ -167,6 +176,9 @@
   </data>
   <data name="PlanOutProject" xml:space="preserve">
     <value>Plan out project</value>
+  </data>
+  <data name="ProjectInProgress" xml:space="preserve">
+    <value>Project in progress</value>
   </data>
   <data name="ResetPassword" xml:space="preserve">
     <value>Reset password</value>
