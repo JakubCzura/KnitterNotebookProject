@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
+    xmlns:properties="clr-namespace:KnitterNotebook.Properties"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     xmlns:xamlConverters="clr-namespace:KnitterNotebook.Converters.XAMLConverters"
     d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
@@ -38,7 +38,7 @@
                     <TextBlock
                         Grid.Row="0"
                         Style="{DynamicResource MaterialDesignBody1TextBlock}"
-                        Text="{x:Static translations:Resources.FilterByProjectName}" />
+                        Text="{x:Static properties:Translations.FilterByProjectName}" />
                     <UniformGrid Grid.Row="1" Rows="1">
                         <TextBox Text="{Binding FilterFinishedProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </UniformGrid>
@@ -46,7 +46,7 @@
                 <Button
                     Command="{Binding ShowPatternPdfWindowCommand}"
                     CommandParameter="{Binding SelectedFinishedProject.PatternPdfPath}"
-                    Content="{x:Static translations:Resources.ShowPattern}"
+                    Content="{x:Static properties:Translations.ShowPattern}"
                     DockPanel.Dock="Bottom" />
                 <DataGrid
                     AutoGenerateColumns="False"
@@ -60,12 +60,12 @@
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Path=Name}"
-                            Header="{x:Static translations:Resources.FinishedProject}" />
+                            Header="{x:Static properties:Translations.FinishedProject}" />
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Command="{Binding MoveFinishedProjectToProjectsInProgressCommand}" Header="{x:Static translations:Resources.MoveToProjectsInProgress}" />
-                            <MenuItem Command="{Binding DeleteFinishedProjectCommand}" Header="{x:Static translations:Resources.DeleteProject}" />
+                            <MenuItem Command="{Binding MoveFinishedProjectToProjectsInProgressCommand}" Header="{x:Static properties:Translations.MoveToProjectsInProgress}" />
+                            <MenuItem Command="{Binding DeleteFinishedProjectCommand}" Header="{x:Static properties:Translations.DeleteProject}" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>
@@ -82,7 +82,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.FinishedProject}"
+                        Text="{x:Static properties:Translations.FinishedProject}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -93,29 +93,29 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.StartDate}"
+                        Text="{x:Static properties:Translations.StartDate}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
                         FontSize="15"
-                        Text="{Binding SelectedFinishedProject.StartDate, StringFormat=dddd dd MMMM yyyy, ConverterCulture=PL, TargetNullValue={x:Static translations:Resources.NotYetSpecified}}"
+                        Text="{Binding SelectedFinishedProject.StartDate, StringFormat=dddd dd MMMM yyyy, ConverterCulture=PL, TargetNullValue={x:Static properties:Translations.NotYetSpecified}}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.EndDate}"
+                        Text="{x:Static properties:Translations.EndDate}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
                         FontSize="15"
-                        Text="{Binding SelectedFinishedProject.EndDate, StringFormat=dddd dd MMMM yyyy, ConverterCulture=PL, TargetNullValue={x:Static translations:Resources.NotYetSpecified}}"
+                        Text="{Binding SelectedFinishedProject.EndDate, StringFormat=dddd dd MMMM yyyy, ConverterCulture=PL, TargetNullValue={x:Static properties:Translations.NotYetSpecified}}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.Needles}"
+                        Text="{x:Static properties:Translations.Needles}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -126,7 +126,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.Yarns}"
+                        Text="{x:Static properties:Translations.Yarns}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -137,7 +137,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.Description}"
+                        Text="{x:Static properties:Translations.Description}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -172,11 +172,11 @@
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Path=DateTime}"
-                            Header="{x:Static translations:Resources.Photos}" />
+                            Header="{x:Static properties:Translations.Photos}" />
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Command="{Binding DeleteFinishedProjectImageCommand}" Header="{x:Static translations:Resources.DeletePhoto}" />
+                            <MenuItem Command="{Binding DeleteFinishedProjectImageCommand}" Header="{x:Static properties:Translations.DeletePhoto}" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

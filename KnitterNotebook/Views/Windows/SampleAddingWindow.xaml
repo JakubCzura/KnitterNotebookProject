@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
+    xmlns:properties="clr-namespace:KnitterNotebook.Properties"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     Title="SampleAddingWindow"
     Width="1200"
@@ -26,7 +26,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="0,30,0,50">
-                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static translations:Resources.AddSample}" />
+                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static properties:Translations.AddSample}" />
             </Grid>
             <Grid Grid.Row="1">
                 <StackPanel Margin="50,10,50,10">
@@ -37,7 +37,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                            <Label Content="{x:Static translations:Resources.YarnName}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static properties:Translations.YarnName}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -45,13 +45,13 @@
                                     Kind="Text" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeYarnName}"
+                                    adorners:Watermark.Text="{x:Static properties:Translations.Placeholder_TypeYarnName}"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding YarnName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
-                            <Label Content="{x:Static translations:Resources.LoopsQuantity}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static properties:Translations.LoopsQuantity}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -59,13 +59,13 @@
                                     Kind="Numeric" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeLoopsQuantity}"
+                                    adorners:Watermark.Text="{x:Static properties:Translations.Placeholder_TypeLoopsQuantity}"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding LoopsQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
-                            <Label Content="{x:Static translations:Resources.Description}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static properties:Translations.Description}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -73,7 +73,7 @@
                                     Kind="Text" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeDescription}"
+                                    adorners:Watermark.Text="{x:Static properties:Translations.Placeholder_TypeDescription}"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -81,7 +81,7 @@
                             </DockPanel>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                            <Label Content="{x:Static translations:Resources.NeedleSize}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static properties:Translations.NeedleSize}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -95,7 +95,7 @@
                                     <TextBox
                                         Grid.Column="0"
                                         MaxWidth="300"
-                                        adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeNeedleSize}"
+                                        adorners:Watermark.Text="{x:Static properties:Translations.Placeholder_TypeNeedleSize}"
                                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                         Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                         Text="{Binding NeedleSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=F2}"
@@ -108,7 +108,7 @@
                                         SelectedItem="{Binding NeedleSizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </Grid>
                             </DockPanel>
-                            <Label Content="{x:Static translations:Resources.RowsQuantity}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static properties:Translations.RowsQuantity}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -116,13 +116,13 @@
                                     Kind="Numeric" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeLoopsQuantity}"
+                                    adorners:Watermark.Text="{x:Static properties:Translations.Placeholder_TypeLoopsQuantity}"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding RowsQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
-                            <Label Content="{x:Static translations:Resources.Photo}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static properties:Translations.Photo}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -148,18 +148,18 @@
                         <Button
                             Margin="0,10,0,0"
                             Command="{Binding ChooseImageCommand}"
-                            Content="{x:Static translations:Resources.ChoosePhoto}"
+                            Content="{x:Static properties:Translations.ChoosePhoto}"
                             Style="{DynamicResource LoginButtonStyle}" />
                         <Button
                             Margin="0,10,0,0"
                             Command="{Binding DeletePhotoCommand}"
-                            Content="{x:Static translations:Resources.DeletePhoto}"
+                            Content="{x:Static properties:Translations.DeletePhoto}"
                             Style="{DynamicResource LoginButtonStyle}" />
                     </UniformGrid>
                     <Button
                         Margin="0,10,0,0"
                         Command="{Binding AddSampleCommand}"
-                        Content="{x:Static translations:Resources.Submit}"
+                        Content="{x:Static properties:Translations.Submit}"
                         Style="{DynamicResource LoginButtonStyle}" />
                 </StackPanel>
             </Grid>

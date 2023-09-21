@@ -5,7 +5,7 @@
     xmlns:adorners="http://gu.se/Adorners"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
+    xmlns:properties="clr-namespace:KnitterNotebook.Properties"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     Title="KnitterNotebook"
     Width="500"
@@ -25,7 +25,7 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Margin="0,30,0,50">
-                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static translations:Resources.WelcomeToKnitterNotebook}" />
+                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static properties:Translations.WelcomeToKnitterNotebook}" />
             </Grid>
 
             <Grid Grid.Row="1">
@@ -34,14 +34,14 @@
                     <TextBox
                         Margin="0,0,0,10"
                         VerticalContentAlignment="Center"
-                        adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_Nickname}"
+                        adorners:Watermark.Text="{x:Static properties:Translations.Placeholder_Nickname}"
                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                         Style="{DynamicResource InputLoginDataTextBoxStyle}"
                         Text="{Binding Nickname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     <TextBox
                         Margin="0,0,0,10"
                         VerticalContentAlignment="Center"
-                        adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_Email}"
+                        adorners:Watermark.Text="{x:Static properties:Translations.Placeholder_Email}"
                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                         Style="{DynamicResource InputLoginDataTextBoxStyle}"
                         Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
@@ -49,12 +49,12 @@
                         x:Name="UserPasswordPasswordBox"
                         Margin="0,0,0,10"
                         VerticalContentAlignment="Center"
-                        adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_Password}"
+                        adorners:Watermark.Text="{x:Static properties:Translations.Placeholder_Password}"
                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                         Style="{DynamicResource InputPasswordPasswordBoxStyle}" />
                     <Button
                         Command="{Binding RegisterUserCommand}"
-                        Content="{x:Static translations:Resources.SignUp}"
+                        Content="{x:Static properties:Translations.SignUp}"
                         Style="{DynamicResource LoginButtonStyle}" />
                 </StackPanel>
             </Grid>

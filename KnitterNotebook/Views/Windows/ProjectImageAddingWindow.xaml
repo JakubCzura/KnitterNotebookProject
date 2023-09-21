@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
+    xmlns:properties="clr-namespace:KnitterNotebook.Properties"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     Title="ProjectImageAddingWindow"
     Width="500"
@@ -26,7 +26,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="0,30,0,50">
-                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static translations:Resources.AddProjectPhoto}" />
+                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static properties:Translations.AddProjectPhoto}" />
             </Grid>
             <Grid Grid.Row="1">
                 <StackPanel Margin="50,10,50,10">
@@ -38,12 +38,12 @@
                     <Button
                         Margin="0,10,0,0"
                         Command="{Binding ChooseImageCommand}"
-                        Content="{x:Static translations:Resources.ChoosePhoto}"
+                        Content="{x:Static properties:Translations.ChoosePhoto}"
                         Style="{DynamicResource LoginButtonStyle}" />
                     <Button
                         Margin="0,10,0,0"
                         Command="{Binding AddProjectImageCommand}"
-                        Content="{x:Static translations:Resources.Submit}"
+                        Content="{x:Static properties:Translations.Submit}"
                         Style="{DynamicResource LoginButtonStyle}" />
                 </StackPanel>
             </Grid>

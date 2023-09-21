@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
+    xmlns:properties="clr-namespace:KnitterNotebook.Properties"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     xmlns:xamlConverters="clr-namespace:KnitterNotebook.Converters.XAMLConverters"
@@ -38,14 +38,14 @@
                     <TextBlock
                         Grid.Row="0"
                         Style="{DynamicResource MaterialDesignBody1TextBlock}"
-                        Text="{x:Static translations:Resources.FilterByProjectName}" />
+                        Text="{x:Static properties:Translations.FilterByProjectName}" />
                     <UniformGrid Grid.Row="1" Rows="1">
                         <TextBox Text="{Binding FilterPlannedProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </UniformGrid>
                 </Grid>
                 <Button
                     Command="{Binding ShowProjectPlanningWindowCommand}"
-                    Content="{x:Static translations:Resources.PlanOutProject}"
+                    Content="{x:Static properties:Translations.PlanOutProject}"
                     DockPanel.Dock="Bottom" />
                 <DataGrid
                     AutoGenerateColumns="False"
@@ -59,12 +59,12 @@
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Path=Name}"
-                            Header="{x:Static translations:Resources.PlannedProject}" />
+                            Header="{x:Static properties:Translations.PlannedProject}" />
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Command="{Binding StartPlannedProjectCommand}" Header="{x:Static translations:Resources.StartProject}" />
-                            <MenuItem Command="{Binding DeletePlannedProjectCommand}" Header="{x:Static translations:Resources.DeleteProject}" />
+                            <MenuItem Command="{Binding StartPlannedProjectCommand}" Header="{x:Static properties:Translations.StartProject}" />
+                            <MenuItem Command="{Binding DeletePlannedProjectCommand}" Header="{x:Static properties:Translations.DeleteProject}" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>
@@ -81,7 +81,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.PlannedProject}"
+                        Text="{x:Static properties:Translations.PlannedProject}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -92,7 +92,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.StartDate}"
+                        Text="{x:Static properties:Translations.StartDate}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -103,7 +103,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.Needles}"
+                        Text="{x:Static properties:Translations.Needles}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -114,7 +114,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.Yarns}"
+                        Text="{x:Static properties:Translations.Yarns}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -125,7 +125,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.Description}"
+                        Text="{x:Static properties:Translations.Description}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"

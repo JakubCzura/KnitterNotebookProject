@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
+    xmlns:properties="clr-namespace:KnitterNotebook.Properties"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     xmlns:xamlConverters="clr-namespace:KnitterNotebook.Converters.XAMLConverters"
     d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
@@ -37,7 +37,7 @@
                     <TextBlock
                         Grid.Row="0"
                         Style="{DynamicResource MaterialDesignBody1TextBlock}"
-                        Text="{x:Static translations:Resources.FilterByNeedleSize}" />
+                        Text="{x:Static properties:Translations.FilterByNeedleSize}" />
                     <UniformGrid Grid.Row="1" Rows="1">
                         <TextBox Margin="0,0,5,0" Text="{Binding FilterNeedleSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" />
                         <ComboBox
@@ -48,7 +48,7 @@
                 </Grid>
                 <Button
                     Command="{Binding ShowSampleAddingWindowCommand}"
-                    Content="{x:Static translations:Resources.AddSample}"
+                    Content="{x:Static properties:Translations.AddSample}"
                     DockPanel.Dock="Bottom" />
                 <DataGrid
                     AutoGenerateColumns="False"
@@ -62,11 +62,11 @@
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding Path=YarnName}"
-                            Header="{x:Static translations:Resources.YarnName}" />
+                            Header="{x:Static properties:Translations.YarnName}" />
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Command="{Binding DeleteSampleCommand}" Header="{x:Static translations:Resources.DeleteSample}" />
+                            <MenuItem Command="{Binding DeleteSampleCommand}" Header="{x:Static properties:Translations.DeleteSample}" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>
@@ -83,7 +83,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.YarnName}"
+                        Text="{x:Static properties:Translations.YarnName}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -94,7 +94,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.LoopsXRows}"
+                        Text="{x:Static properties:Translations.LoopsXRows}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -105,7 +105,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.NeedleSize}"
+                        Text="{x:Static properties:Translations.NeedleSize}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"
@@ -116,7 +116,7 @@
                         Margin="5,0,5,0"
                         FontSize="20"
                         FontWeight="Medium"
-                        Text="{x:Static translations:Resources.Description}"
+                        Text="{x:Static properties:Translations.Description}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,5"

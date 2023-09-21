@@ -7,7 +7,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
+    xmlns:properties="clr-namespace:KnitterNotebook.Properties"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     Title="KnitterNotebook"
     Width="1200"
@@ -37,20 +37,20 @@
             Grid.Row="0"
             Margin="0,0,0,10"
             Style="{DynamicResource NavigationMenuStyle}">
-            <MenuItem Header="{x:Static translations:Resources.Options}" Style="{DynamicResource NavigationMenuItemStyle}">
+            <MenuItem Header="{x:Static properties:Translations.Options}" Style="{DynamicResource NavigationMenuItemStyle}">
                 <MenuItem
                     Command="{Binding LogOutCommand}"
-                    Header="{x:Static translations:Resources.SignOut}"
+                    Header="{x:Static properties:Translations.SignOut}"
                     Style="{DynamicResource NavigationMenuItemStyle}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Logout" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{x:Static translations:Resources.Settings}" Style="{DynamicResource NavigationMenuItemStyle}">
+            <MenuItem Header="{x:Static properties:Translations.Settings}" Style="{DynamicResource NavigationMenuItemStyle}">
                 <MenuItem
                     Command="{Binding ShowSettingsWindowCommand}"
-                    Header="{x:Static translations:Resources.UserAccount}"
+                    Header="{x:Static properties:Translations.UserAccount}"
                     Style="{DynamicResource NavigationMenuItemStyle}">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon Kind="Settings" />
@@ -98,25 +98,25 @@
                                     Command="{Binding ChooseMainWindowContentCommand}"
                                     CommandParameter="{x:Static enums:MainWindowContent.PlannedProjectsUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
-                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static translations:Resources.PlannedProjects}" />
+                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static properties:Translations.PlannedProjects}" />
                                 </Button>
                                 <Button
                                     Command="{Binding ChooseMainWindowContentCommand}"
                                     CommandParameter="{x:Static enums:MainWindowContent.ProjectsInProgressUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
-                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static translations:Resources.ProjectsInProgress}" />
+                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static properties:Translations.ProjectsInProgress}" />
                                 </Button>
                                 <Button
                                     Command="{Binding ChooseMainWindowContentCommand}"
                                     CommandParameter="{x:Static enums:MainWindowContent.ProjectsUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
-                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static translations:Resources.FinishedProjects}" />
+                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static properties:Translations.FinishedProjects}" />
                                 </Button>
                                 <Button
                                     Command="{Binding ChooseMainWindowContentCommand}"
                                     CommandParameter="{x:Static enums:MainWindowContent.SamplesUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
-                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static translations:Resources.Samples}" />
+                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static properties:Translations.Samples}" />
                                 </Button>
                             </StackPanel>
                         </ScrollViewer>
@@ -154,20 +154,20 @@
                             <DataGridTextColumn
                                 Width="*"
                                 Binding="{Binding Path=Title}"
-                                Header="{x:Static translations:Resources.Title}" />
+                                Header="{x:Static properties:Translations.Title}" />
                             <DataGridTextColumn
                                 Width="*"
                                 Binding="{Binding Path=Link}"
-                                Header="{x:Static translations:Resources.Link}" />
+                                Header="{x:Static properties:Translations.Link}" />
                             <DataGridTextColumn
                                 Width="*"
                                 Binding="{Binding Path=Description}"
-                                Header="{x:Static translations:Resources.Description}" />
+                                Header="{x:Static properties:Translations.Description}" />
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Command="{Binding DeleteMovieUrlCommand}" Header="{x:Static translations:Resources.DeleteLink}" />
-                                <MenuItem Command="{Binding OpenMovieUrlInWebBrowserCommand}" Header="{x:Static translations:Resources.PlayMovie}" />
+                                <MenuItem Command="{Binding DeleteMovieUrlCommand}" Header="{x:Static properties:Translations.DeleteLink}" />
+                                <MenuItem Command="{Binding OpenMovieUrlInWebBrowserCommand}" Header="{x:Static properties:Translations.PlayMovie}" />
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                     </DataGrid>
@@ -175,7 +175,7 @@
                         Grid.Column="1"
                         Command="{Binding ShowMovieUrlAddingWindowCommand}"
                         Style="{DynamicResource MainMenuButtonStyle}">
-                        <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static translations:Resources.AddMovieUrl}" />
+                        <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static properties:Translations.AddMovieUrl}" />
                     </Button>
                 </Grid>
             </Border>

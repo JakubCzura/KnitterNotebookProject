@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:enums="clr-namespace:KnitterNotebook.Models.Enums"
-    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
+    xmlns:properties="clr-namespace:KnitterNotebook.Properties"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     Title="KnitterNotebook"
     Width="800"
@@ -28,7 +28,7 @@
                     <TextBlock
                         DockPanel.Dock="Bottom"
                         Style="{DynamicResource WelcomeTextBlockStyle}"
-                        Text="{x:Static translations:Resources.Settings}" />
+                        Text="{x:Static properties:Translations.Settings}" />
                 </DockPanel>
             </Grid>
             <Grid Grid.Row="1">
@@ -54,13 +54,13 @@
                                             Command="{Binding ChooseSettingsWindowContentCommand}"
                                             CommandParameter="{x:Static enums:SettingsWindowContent.UserSettingsUserControl}"
                                             Style="{DynamicResource MainMenuButtonStyle}">
-                                            <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static translations:Resources.Account}" />
+                                            <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static properties:Translations.Account}" />
                                         </Button>
                                         <Button
                                             Command="{Binding ChooseSettingsWindowContentCommand}"
                                             CommandParameter="{x:Static enums:SettingsWindowContent.ThemeSettingsUserControl}"
                                             Style="{DynamicResource MainMenuButtonStyle}">
-                                            <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static translations:Resources.ApplicationTheme}" />
+                                            <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static properties:Translations.ApplicationTheme}" />
                                         </Button>
                                     </StackPanel>
                                 </ScrollViewer>

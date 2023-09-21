@@ -5,6 +5,7 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -54,22 +55,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Translations\Resources.Designer.cs">
+    <Compile Update="Properties\Translations.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
+      <DependentUpon>Translations.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Translations\Resources.pl-PL.resx">
-      <SubType>Designer</SubType>
+    <EmbeddedResource Update="Properties\Translations.pl-PL.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Translations\Resources.resx">
-      <SubType>Designer</SubType>
+    <EmbeddedResource Update="Properties\Translations.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Translations.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
