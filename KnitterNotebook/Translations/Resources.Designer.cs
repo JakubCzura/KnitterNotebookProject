@@ -268,6 +268,15 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loops quantity.
+        /// </summary>
+        public static string LoopsQuantity {
+            get {
+                return ResourceManager.GetString("LoopsQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loops x rows.
         /// </summary>
         public static string LoopsXRows {
@@ -376,6 +385,15 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Photo.
+        /// </summary>
+        public static string Photo {
+            get {
+                return ResourceManager.GetString("Photo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Photos.
         /// </summary>
         public static string Photos {
@@ -457,6 +475,24 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type loops quantity.
+        /// </summary>
+        public static string Placeholder_TypeLoopsQuantity {
+            get {
+                return ResourceManager.GetString("Placeholder_TypeLoopsQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type needle&apos;s size.
+        /// </summary>
+        public static string Placeholder_TypeNeedleSize {
+            get {
+                return ResourceManager.GetString("Placeholder_TypeNeedleSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type new email.
         /// </summary>
         public static string Placeholder_TypeNewEmail {
@@ -493,11 +529,29 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type rows quantity.
+        /// </summary>
+        public static string Placeholder_TypeRowsQuantity {
+            get {
+                return ResourceManager.GetString("Placeholder_TypeRowsQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type title.
         /// </summary>
         public static string Placeholder_TypeTitle {
             get {
                 return ResourceManager.GetString("Placeholder_TypeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type yarn&apos;s name.
+        /// </summary>
+        public static string Placeholder_TypeYarnName {
+            get {
+                return ResourceManager.GetString("Placeholder_TypeYarnName", resourceCulture);
             }
         }
         
@@ -570,6 +624,15 @@ namespace KnitterNotebook.Translations {
         public static string ResetPassword {
             get {
                 return ResourceManager.GetString("ResetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rows quantity.
+        /// </summary>
+        public static string RowsQuantity {
+            get {
+                return ResourceManager.GetString("RowsQuantity", resourceCulture);
             }
         }
         

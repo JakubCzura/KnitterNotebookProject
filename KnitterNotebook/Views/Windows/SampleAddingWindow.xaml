@@ -7,6 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
     Title="SampleAddingWindow"
     Width="1200"
     Height="700"
@@ -25,7 +26,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="0,30,0,50">
-                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="Dodanie próbki obliczeniowej" />
+                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static translations:Resources.AddSample}" />
             </Grid>
             <Grid Grid.Row="1">
                 <StackPanel Margin="50,10,50,10">
@@ -36,7 +37,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                            <Label Content="Nazwa włóczki" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static translations:Resources.YarnName}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -44,13 +45,13 @@
                                     Kind="Text" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="Nazwa włóczki"
+                                    adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeYarnName}"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding YarnName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
-                            <Label Content="Ilość oczek" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static translations:Resources.LoopsQuantity}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -58,13 +59,13 @@
                                     Kind="Numeric" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="Ilość oczek"
+                                    adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeLoopsQuantity}"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding LoopsQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
-                            <Label Content="Opis" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static translations:Resources.Description}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -72,7 +73,7 @@
                                     Kind="Text" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="Opis"
+                                    adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeDescription}"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -80,7 +81,7 @@
                             </DockPanel>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                            <Label Content="Rozmiar drutu" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static translations:Resources.NeedleSize}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -94,7 +95,7 @@
                                     <TextBox
                                         Grid.Column="0"
                                         MaxWidth="300"
-                                        adorners:Watermark.Text="Rozmiar drutu"
+                                        adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeNeedleSize}"
                                         adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                         Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                         Text="{Binding NeedleSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat=F2}"
@@ -107,7 +108,7 @@
                                         SelectedItem="{Binding NeedleSizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </Grid>
                             </DockPanel>
-                            <Label Content="Ilość rzędów" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static translations:Resources.RowsQuantity}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -115,13 +116,13 @@
                                     Kind="Numeric" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="Ilość rzędów"
+                                    adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeLoopsQuantity}"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding RowsQuantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
-                            <Label Content="Zdjęcie" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static translations:Resources.Photo}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -147,18 +148,18 @@
                         <Button
                             Margin="0,10,0,0"
                             Command="{Binding ChooseImageCommand}"
-                            Content="Wybierz zdjęcie"
+                            Content="{x:Static translations:Resources.ChoosePhoto}"
                             Style="{DynamicResource LoginButtonStyle}" />
                         <Button
                             Margin="0,10,0,0"
                             Command="{Binding DeletePhotoCommand}"
-                            Content="Skasuj zdjęcie"
+                            Content="{x:Static translations:Resources.DeletePhoto}"
                             Style="{DynamicResource LoginButtonStyle}" />
                     </UniformGrid>
                     <Button
                         Margin="0,10,0,0"
                         Command="{Binding AddSampleCommand}"
-                        Content="Dodaj próbkę"
+                        Content="{x:Static translations:Resources.Submit}"
                         Style="{DynamicResource LoginButtonStyle}" />
                 </StackPanel>
             </Grid>

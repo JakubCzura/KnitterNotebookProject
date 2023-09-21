@@ -186,6 +186,9 @@
   <data name="Link" xml:space="preserve">
     <value>Link</value>
   </data>
+  <data name="LoopsQuantity" xml:space="preserve">
+    <value>Loops quantity</value>
+  </data>
   <data name="LoopsXRows" xml:space="preserve">
     <value>Loops x rows</value>
   </data>
@@ -222,6 +225,9 @@
   <data name="PdfWithPattern" xml:space="preserve">
     <value>Pdf with pattern</value>
   </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Photo</value>
+  </data>
   <data name="Photos" xml:space="preserve">
     <value>Photos</value>
   </data>
@@ -249,6 +255,12 @@
   <data name="Placeholder_TypeLink" xml:space="preserve">
     <value>Type link</value>
   </data>
+  <data name="Placeholder_TypeLoopsQuantity" xml:space="preserve">
+    <value>Type loops quantity</value>
+  </data>
+  <data name="Placeholder_TypeNeedleSize" xml:space="preserve">
+    <value>Type needle's size</value>
+  </data>
   <data name="Placeholder_TypeNewEmail" xml:space="preserve">
     <value>Type new email</value>
   </data>
@@ -261,8 +273,14 @@
   <data name="Placeholder_TypeProjectName" xml:space="preserve">
     <value>Type project's name</value>
   </data>
+  <data name="Placeholder_TypeRowsQuantity" xml:space="preserve">
+    <value>Type rows quantity</value>
+  </data>
   <data name="Placeholder_TypeTitle" xml:space="preserve">
     <value>Type title</value>
+  </data>
+  <data name="Placeholder_TypeYarnName" xml:space="preserve">
+    <value>Type yarn's name</value>
   </data>
   <data name="PlannedProject" xml:space="preserve">
     <value>Planned project</value>
@@ -287,6 +305,9 @@
   </data>
   <data name="ResetPassword" xml:space="preserve">
     <value>Reset password</value>
+  </data>
+  <data name="RowsQuantity" xml:space="preserve">
+    <value>Rows quantity</value>
   </data>
   <data name="Samples" xml:space="preserve">
     <value>Samples</value>

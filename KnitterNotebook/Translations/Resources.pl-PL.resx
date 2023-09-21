@@ -186,6 +186,9 @@
   <data name="Link" xml:space="preserve">
     <value>Link</value>
   </data>
+  <data name="LoopsQuantity" xml:space="preserve">
+    <value>Ilość oczek</value>
+  </data>
   <data name="LoopsXRows" xml:space="preserve">
     <value>Oczka x rzędy</value>
   </data>
@@ -222,6 +225,9 @@
   <data name="PdfWithPattern" xml:space="preserve">
     <value>Pdf ze wzorem</value>
   </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Zdjęcie</value>
+  </data>
   <data name="Photos" xml:space="preserve">
     <value>Zdjęcia</value>
   </data>
@@ -249,6 +255,12 @@
   <data name="Placeholder_TypeLink" xml:space="preserve">
     <value>Podaj link</value>
   </data>
+  <data name="Placeholder_TypeLoopsQuantity" xml:space="preserve">
+    <value>Podaj ilość oczek</value>
+  </data>
+  <data name="Placeholder_TypeNeedleSize" xml:space="preserve">
+    <value>Podaj rozmiar drutu</value>
+  </data>
   <data name="Placeholder_TypeNewEmail" xml:space="preserve">
     <value>Podaj nowy adres e-mail</value>
   </data>
@@ -261,8 +273,14 @@
   <data name="Placeholder_TypeProjectName" xml:space="preserve">
     <value>Podaj nazwę projektu</value>
   </data>
+  <data name="Placeholder_TypeRowsQuantity" xml:space="preserve">
+    <value>Podaj ilość rzędów</value>
+  </data>
   <data name="Placeholder_TypeTitle" xml:space="preserve">
     <value>Podaj tytuł</value>
+  </data>
+  <data name="Placeholder_TypeYarnName" xml:space="preserve">
+    <value>Podaj nazwę włóczki</value>
   </data>
   <data name="PlannedProject" xml:space="preserve">
     <value>Planowany projekt</value>
@@ -287,6 +305,9 @@
   </data>
   <data name="ResetPassword" xml:space="preserve">
     <value>Przywróć hasło</value>
+  </data>
+  <data name="RowsQuantity" xml:space="preserve">
+    <value>Ilość rzędów</value>
   </data>
   <data name="Samples" xml:space="preserve">
     <value>Próbki obliczeniowe</value>
