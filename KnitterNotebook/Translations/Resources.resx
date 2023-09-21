@@ -219,6 +219,12 @@
   <data name="Placeholder_RepeatNewPassword" xml:space="preserve">
     <value>Repeat new password</value>
   </data>
+  <data name="Placeholder_TypeDescription" xml:space="preserve">
+    <value>Type description</value>
+  </data>
+  <data name="Placeholder_TypeLink" xml:space="preserve">
+    <value>Type link</value>
+  </data>
   <data name="Placeholder_TypeNewEmail" xml:space="preserve">
     <value>Type new email</value>
   </data>
@@ -227,6 +233,9 @@
   </data>
   <data name="Placeholder_TypeNewPassword" xml:space="preserve">
     <value>Type new password</value>
+  </data>
+  <data name="Placeholder_TypeTitle" xml:space="preserve">
+    <value>Type title</value>
   </data>
   <data name="PlannedProject" xml:space="preserve">
     <value>Planned project</value>

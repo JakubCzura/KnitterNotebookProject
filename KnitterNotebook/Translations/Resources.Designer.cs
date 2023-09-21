@@ -367,6 +367,24 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type description.
+        /// </summary>
+        public static string Placeholder_TypeDescription {
+            get {
+                return ResourceManager.GetString("Placeholder_TypeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type link.
+        /// </summary>
+        public static string Placeholder_TypeLink {
+            get {
+                return ResourceManager.GetString("Placeholder_TypeLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type new email.
         /// </summary>
         public static string Placeholder_TypeNewEmail {
@@ -390,6 +408,15 @@ namespace KnitterNotebook.Translations {
         public static string Placeholder_TypeNewPassword {
             get {
                 return ResourceManager.GetString("Placeholder_TypeNewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type title.
+        /// </summary>
+        public static string Placeholder_TypeTitle {
+            get {
+                return ResourceManager.GetString("Placeholder_TypeTitle", resourceCulture);
             }
         }
         

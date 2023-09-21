@@ -7,6 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
     Title="KnitterNotebook"
     Width="500"
     Height="650"
@@ -26,43 +27,43 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Margin="0,30,0,50">
-                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="Dodanie linku do filmu" />
+                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static translations:Resources.AddMovieUrl}" />
             </Grid>
 
             <Grid Grid.Row="1">
                 <StackPanel Margin="50,10,50,10">
-                    <Label Content="Tytuł filmu" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                    <Label Content="{x:Static translations:Resources.Title}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                     <DockPanel Margin="0,0,0,10">
                         <materialDesign:PackIcon
                             Margin="5,0,5,0"
                             VerticalAlignment="Center"
                             Kind="FormatTitle" />
                         <TextBox
-                            adorners:Watermark.Text="Tytuł"
+                            adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeTitle}"
                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
                             Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </DockPanel>
-                    <Label Content="Link do filmu" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                    <Label Content="{x:Static translations:Resources.Link}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                     <DockPanel Margin="0,0,0,10">
                         <materialDesign:PackIcon
                             Margin="5,0,5,0"
                             VerticalAlignment="Center"
                             Kind="Link" />
                         <TextBox
-                            adorners:Watermark.Text="Link"
+                            adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeLink}"
                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
                             Text="{Binding Link, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </DockPanel>
-                    <Label Content="Opis filmu" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                    <Label Content="{x:Static translations:Resources.Description}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                     <DockPanel Margin="0,0,0,10">
                         <materialDesign:PackIcon
                             Margin="5,0,5,0"
                             VerticalAlignment="Center"
                             Kind="Link" />
                         <TextBox
-                            adorners:Watermark.Text="Opis"
+                            adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeDescription}"
                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
                             Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
@@ -70,7 +71,7 @@
                     <Button
                         Margin="0,10,0,0"
                         Command="{Binding AddMovieUrlCommand}"
-                        Content="Dodaj film"
+                        Content="{x:Static translations:Resources.Submit}"
                         Style="{DynamicResource LoginButtonStyle}" />
                 </StackPanel>
             </Grid>

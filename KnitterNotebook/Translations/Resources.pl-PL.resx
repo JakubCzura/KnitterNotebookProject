@@ -210,6 +210,9 @@
   <data name="Photos" xml:space="preserve">
     <value>Zdjęcia</value>
   </data>
+  <data name="Placeholder_Description" xml:space="preserve">
+    <value>Type description</value>
+  </data>
   <data name="Placeholder_Email" xml:space="preserve">
     <value>E-mail</value>
   </data>
@@ -219,6 +222,9 @@
   <data name="Placeholder_RepeatNewPassword" xml:space="preserve">
     <value>Powtórz nowe hasło</value>
   </data>
+  <data name="Placeholder_TypeLink" xml:space="preserve">
+    <value>Podaj link</value>
+  </data>
   <data name="Placeholder_TypeNewEmail" xml:space="preserve">
     <value>Podaj nowy adres e-mail</value>
   </data>
@@ -227,6 +233,9 @@
   </data>
   <data name="Placeholder_TypeNewPassword" xml:space="preserve">
     <value>Podaj nowe hasło</value>
+  </data>
+  <data name="Placeholder_TypeTitle" xml:space="preserve">
+    <value>Podaj tytuł</value>
   </data>
   <data name="PlannedProject" xml:space="preserve">
     <value>Planowany projekt</value>
