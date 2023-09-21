@@ -4,6 +4,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
@@ -63,17 +64,17 @@ public partial class MovieUrlAddingViewModel : BaseViewModel
             if (!validation.IsValid)
             {
                 string errorMessage = validation.Errors.GetMessagesAsString();
-                MessageBox.Show(errorMessage, "Błąd podczas rejestracji");
+                MessageBox.Show(errorMessage);
                 return;
             }
             await _movieUrlService.CreateAsync(createMovieUrl);
             OnNewMovieUrlAdded();
-            MessageBox.Show("Dodano nowy film");
+            MessageBox.Show(Translations.NewMovieUrlAdded);
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Error while adding new movie's url");
-            MessageBox.Show(exception.Message);
+            _logger.LogError(exception, "Error while adding movie's url");
+            MessageBox.Show(Translations.ErrorWhileAddingMovieUrl);
         }
     }
 

@@ -8,6 +8,7 @@ using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
 using Microsoft.Extensions.Logging;
@@ -94,7 +95,7 @@ public partial class MainViewModel : BaseViewModel
 
     public static List<string> NeedleSizeUnitList => Enum.GetNames<NeedleSizeUnit>().ToList();
 
-    public string Greetings => $"Miło Cię widzieć {User.Nickname}!";
+    public string Greetings => $"{Translations.NiceToSeeYou} {User.Nickname}!";
 
     [ObservableProperty]
     private UserControl _chosenMainWindowContent;
@@ -292,7 +293,7 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while loading main window viewmodel");
-            MessageBox.Show(exception.Message + "\nThe application will shut down", "Unexpected database error");
+            MessageBox.Show(Translations.ApplicationWillShutDown, Translations.DatabaseError);
             Environment.Exit(0);
         }
     }
@@ -311,7 +312,7 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while deleting movie's url");
-            MessageBox.Show("Błąd podczas kasowania filmu", exception.Message);
+            MessageBox.Show(Translations.ErrorWhileDeletingMovieUrl);
         }
     }
 
@@ -333,7 +334,7 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while deleting sample");
-            MessageBox.Show("Błąd podczas kasowania próbki obliczeniowej", exception.Message);
+            MessageBox.Show(Translations.ErrorWhileDeletingSample);
         }
     }
 
@@ -349,8 +350,8 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Error while opening movie's url in web browser");
-            MessageBox.Show(exception.Message, "Błąd otworzenia filmu");
+            _logger.LogError(exception, "Error while opening movie in web browser");
+            MessageBox.Show(Translations.ErrorWhileOpeningMovieInWebBrowser);
         }
     }
 
@@ -368,7 +369,7 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while deleting planned project");
-            MessageBox.Show(exception.Message, "Błąd skasowania planowanego projektu");
+            MessageBox.Show(Translations.ErrorWhileDeletingPlannedProject);
         }
     }
 
@@ -386,7 +387,7 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while deleting project in progress");
-            MessageBox.Show(exception.Message, "Błąd skasowania projektu w trakcie");
+            MessageBox.Show(Translations.ErrorWhileDeletingProjectInProgress);
         }
     }
 
@@ -404,7 +405,7 @@ public partial class MainViewModel : BaseViewModel
                 if (!validation.IsValid)
                 {
                     string errorMessage = validation.Errors.GetMessagesAsString();
-                    MessageBox.Show(errorMessage, "Błąd podczas zmiany statusu projektu");
+                    MessageBox.Show(errorMessage);
                     return;
                 }
 
@@ -421,7 +422,7 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while moving project in progress to planned projects");
-            MessageBox.Show(exception.Message, "Błąd przeniesienia projektu do planowanych projektów");
+            MessageBox.Show(Translations.ErrorWhileMovingProjectInProgressToPlannedProjects);
         }
     }
 
@@ -439,7 +440,7 @@ public partial class MainViewModel : BaseViewModel
                 if (!validation.IsValid)
                 {
                     string errorMessage = validation.Errors.GetMessagesAsString();
-                    MessageBox.Show(errorMessage, "Błąd podczas zmiany statusu projektu");
+                    MessageBox.Show(errorMessage);
                     return;
                 }
 
@@ -456,7 +457,7 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while starting planned project");
-            MessageBox.Show(exception.Message, "Błąd rozpoczęcia planowanego projektu");
+            MessageBox.Show(Translations.ErrorWhileStartingPlannedProject);
         }
     }
 
@@ -469,7 +470,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Error while logging out");
+            _logger.LogError(exception, "Error while signing out");
         }
     }
 
@@ -492,8 +493,8 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Error while deleting project in progress image");
-            MessageBox.Show(exception.Message, "Błąd skasowania zdjęcia projektu w trakcie");
+            _logger.LogError(exception, "Error while deleting project in progress photo");
+            MessageBox.Show(Translations.ErrorWhileDeletingProjectInProgressPhoto);
         }
     }
 
@@ -511,7 +512,7 @@ public partial class MainViewModel : BaseViewModel
                 if (!validation.IsValid)
                 {
                     string errorMessage = validation.Errors.GetMessagesAsString();
-                    MessageBox.Show(errorMessage, "Błąd podczas zmiany statusu projektu");
+                    MessageBox.Show(errorMessage);
                     return;
                 }
 
@@ -528,7 +529,7 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while finishing project in progress");
-            MessageBox.Show(exception.Message, "Błąd zakończenia projektu w trakcie");
+            MessageBox.Show(Translations.ErrorWhileFinishingProjectInProgress);
         }
     }
 
@@ -546,7 +547,7 @@ public partial class MainViewModel : BaseViewModel
                 if (!validation.IsValid)
                 {
                     string errorMessage = validation.Errors.GetMessagesAsString();
-                    MessageBox.Show(errorMessage, "Błąd podczas zmiany statusu projektu");
+                    MessageBox.Show(errorMessage);
                     return;
                 }
 
@@ -563,7 +564,7 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while moving finished project to projects in progress");
-            MessageBox.Show(exception.Message, "Błąd przeniesienia projektu do projektów w trakcie");
+            MessageBox.Show(Translations.ErrorWhileMovingFinishedProjectToProjectsInProgress);
         }
     }
 
@@ -586,8 +587,8 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Error while deleting finished project's image");
-            MessageBox.Show(exception.Message, "Błąd skasowania zdjęcia ukończonego projektu");
+            _logger.LogError(exception, "Error while deleting finished project's photo");
+            MessageBox.Show(Translations.ErrorWhileDeletingFinishedProjectPhoto);
         }
     }
 
@@ -605,7 +606,7 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while deleting finished project");
-            MessageBox.Show(exception.Message, "Błąd skasowania ukończonego projektu");
+            MessageBox.Show(Translations.ErrorWhileDeletingFinishedProject);
         }
     }
 
@@ -622,7 +623,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Error while fetching project in progress data");
+            _logger.LogError(exception, "Error while fetching project's in progress data");
         }
     }
 

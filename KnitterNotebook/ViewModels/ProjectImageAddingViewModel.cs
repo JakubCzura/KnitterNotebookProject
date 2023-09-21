@@ -5,6 +5,7 @@ using FluentValidation.Results;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
 using Microsoft.Extensions.Logging;
@@ -56,7 +57,7 @@ public partial class ProjectImageAddingViewModel : BaseViewModel
                 if (!validation.IsValid)
                 {
                     string errorMessage = validation.Errors.GetMessagesAsString();
-                    MessageBox.Show(errorMessage, "Błąd podczas dodania zdjęcia projektu");
+                    MessageBox.Show(errorMessage);
                     return;
                 }
                 await _projectImageService.CreateAsync(addProjectImageDto);
@@ -66,8 +67,8 @@ public partial class ProjectImageAddingViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Error while adding project's image");
-            MessageBox.Show("Błąd podczas dodawania zdjęcia projektu");
+            _logger.LogError(exception, "Error while adding project's photo");
+            MessageBox.Show(Translations.ErrorWhileAddingProjectPhoto);
         }
     }
 }

@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
 using Microsoft.Extensions.Logging;
@@ -54,14 +55,14 @@ public partial class LoginViewModel : BaseViewModel
             ValidationResult validation = _logInDtoValidator.Validate(logInDto);
             if (!validation.IsValid)
             {
-                MessageBox.Show("Nieprawidłowe dane logowania");
+                MessageBox.Show(Translations.InvalidLoginCredentials);
                 return;
             }
 
             int? userId = await _userService.LogInAsync(logInDto);
             if (!userId.HasValue)
             {
-                MessageBox.Show("Nie odnaleziono użytkownika");
+                MessageBox.Show(Translations.UserNotFound);
                 return;
             }
 
@@ -72,8 +73,8 @@ public partial class LoginViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Error while logging in");
-            MessageBox.Show(exception.Message);
+            _logger.LogError(exception, "Error while signing in");
+            MessageBox.Show(Translations.ErrorWhileSigninIn);
         }
         finally
         {

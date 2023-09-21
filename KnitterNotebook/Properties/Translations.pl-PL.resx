@@ -135,6 +135,9 @@
   <data name="ApplicationTheme" xml:space="preserve">
     <value>Motyw aplikacji</value>
   </data>
+  <data name="ApplicationWillShutDown" xml:space="preserve">
+    <value>Aplikacja zostanie zamknięta</value>
+  </data>
   <data name="ChoosePdfFileWithPattern" xml:space="preserve">
     <value>Wybierz plik .pdf ze wzorem</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Utwórz konto</value>
+  </data>
+  <data name="DatabaseError" xml:space="preserve">
+    <value>Błąd bazy danych</value>
   </data>
   <data name="DeleteLink" xml:space="preserve">
     <value>Skasuj link</value>
@@ -168,6 +174,54 @@
   <data name="EndDate" xml:space="preserve">
     <value>Data zakończenia</value>
   </data>
+  <data name="ErrorWhileAddingMovieUrl" xml:space="preserve">
+    <value>Błąd podczas dodania linku do filmu</value>
+  </data>
+  <data name="ErrorWhileAddingProjectPhoto" xml:space="preserve">
+    <value>Błąd podczas dodania zdjęcia projektu</value>
+  </data>
+  <data name="ErrorWhileDeletingFinishedProject" xml:space="preserve">
+    <value>Błąd podczas kasowania ukończonego projektu</value>
+  </data>
+  <data name="ErrorWhileDeletingFinishedProjectPhoto" xml:space="preserve">
+    <value>Błąd podczas kasowania zdjęcia ukończonego projektu</value>
+  </data>
+  <data name="ErrorWhileDeletingMovieUrl" xml:space="preserve">
+    <value>Błąd podczas kasowania linku do filmu</value>
+  </data>
+  <data name="ErrorWhileDeletingPlannedProject" xml:space="preserve">
+    <value>Błąd podczas kasowania planowanego projektu</value>
+  </data>
+  <data name="ErrorWhileDeletingProjectInProgress" xml:space="preserve">
+    <value>Błąd podczas kasowania projektu w trakcie</value>
+  </data>
+  <data name="ErrorWhileDeletingProjectInProgressPhoto" xml:space="preserve">
+    <value>Błąd podczas kasowania zdjęcia projektu w trakcie</value>
+  </data>
+  <data name="ErrorWhileDeletingSample" xml:space="preserve">
+    <value>Błąd podczas kasowania próbki obliczeniowej</value>
+  </data>
+  <data name="ErrorWhileFinishingProjectInProgress" xml:space="preserve">
+    <value>Błąd podczas ukończenia projektu w trakcie</value>
+  </data>
+  <data name="ErrorWhileMovingFinishedProjectToProjectsInProgress" xml:space="preserve">
+    <value>Błąd podczas przeniesienia ukończonego projektu do projektów w trakcie</value>
+  </data>
+  <data name="ErrorWhileMovingProjectInProgressToPlannedProjects" xml:space="preserve">
+    <value>Błąd podczas przeniesienia projektu w trakcie do planowanych projektów</value>
+  </data>
+  <data name="ErrorWhileOpeningMovieInWebBrowser" xml:space="preserve">
+    <value>Błąd podczas otworzenia filmu w przeglądarce</value>
+  </data>
+  <data name="ErrorWhilePlanningNewProject" xml:space="preserve">
+    <value>Błąd podczas planowania nowego projektu</value>
+  </data>
+  <data name="ErrorWhileSigningIn" xml:space="preserve">
+    <value>Błąd podczas logowania</value>
+  </data>
+  <data name="ErrorWhileStartingPlannedProject" xml:space="preserve">
+    <value>Błąd podczas rozpoczynania planowanego projektu</value>
+  </data>
   <data name="FilterByNeedleSize" xml:space="preserve">
     <value>Filtruj po rozmiarze drutu</value>
   </data>
@@ -185,6 +239,9 @@
   </data>
   <data name="ForgotPassword" xml:space="preserve">
     <value>Zapomniałeś hasła?</value>
+  </data>
+  <data name="InvalidLoginCredentials" xml:space="preserve">
+    <value>Nieprawidłowe dane logowania</value>
   </data>
   <data name="Link" xml:space="preserve">
     <value>Link</value>
@@ -210,14 +267,23 @@
   <data name="NewEmail" xml:space="preserve">
     <value>Nowy e-mail</value>
   </data>
+  <data name="NewMovieUrlAdded" xml:space="preserve">
+    <value>Dodano nowy link do filmu</value>
+  </data>
   <data name="NewNickname" xml:space="preserve">
     <value>Nowa nazwa użytkownika</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
     <value>Nowe hasło</value>
   </data>
+  <data name="NewProjectPlanned" xml:space="preserve">
+    <value>Zaplanowano nowy projekt</value>
+  </data>
   <data name="NewTheme" xml:space="preserve">
     <value>Nowy motyw</value>
+  </data>
+  <data name="NiceToSeeYou" xml:space="preserve">
+    <value>Miło Cię widzieć</value>
   </data>
   <data name="NotYetSpecified" xml:space="preserve">
     <value>Jeszcze nie podano</value>
@@ -353,6 +419,9 @@
   </data>
   <data name="UserAccount" xml:space="preserve">
     <value>Konto użytkownika</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Nie znaleziono użytkownika</value>
   </data>
   <data name="WelcomeToKnitterNotebook" xml:space="preserve">
     <value>Witaj w Dzienniku Dziewiarki</value>

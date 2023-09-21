@@ -8,6 +8,7 @@ using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
@@ -103,17 +104,17 @@ public partial class ProjectPlanningViewModel : ObservableObject
             if (!validation.IsValid)
             {
                 string errorMessage = validation.Errors.GetMessagesAsString();
-                MessageBox.Show(errorMessage, "Błąd podczas planowania projektu");
+                MessageBox.Show(errorMessage);
                 return;
             }
             await _projectService.PlanProjectAsync(planProjectDto);
             OnNewProjectPlanned();
-            MessageBox.Show("Zaplanowano nowy projekt");
+            MessageBox.Show(Translations.NewProjectPlanned);
         }
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while planning new project");
-            MessageBox.Show(exception.Message);
+            MessageBox.Show(Translations.ErrorWhilePlanningNewProject);
         }
     }
 }

@@ -115,6 +115,15 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application will shut down.
+        /// </summary>
+        public static string ApplicationWillShutDown {
+            get {
+                return ResourceManager.GetString("ApplicationWillShutDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose .pdf file with pattern.
         /// </summary>
         public static string ChoosePdfFileWithPattern {
@@ -138,6 +147,15 @@ namespace KnitterNotebook.Properties {
         public static string CreateAccount {
             get {
                 return ResourceManager.GetString("CreateAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database error.
+        /// </summary>
+        public static string DatabaseError {
+            get {
+                return ResourceManager.GetString("DatabaseError", resourceCulture);
             }
         }
         
@@ -214,6 +232,150 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while adding movie&apos;s url.
+        /// </summary>
+        public static string ErrorWhileAddingMovieUrl {
+            get {
+                return ResourceManager.GetString("ErrorWhileAddingMovieUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while adding project&apos;s photo.
+        /// </summary>
+        public static string ErrorWhileAddingProjectPhoto {
+            get {
+                return ResourceManager.GetString("ErrorWhileAddingProjectPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while deleting finished project.
+        /// </summary>
+        public static string ErrorWhileDeletingFinishedProject {
+            get {
+                return ResourceManager.GetString("ErrorWhileDeletingFinishedProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while deleting finished project&apos;s photo.
+        /// </summary>
+        public static string ErrorWhileDeletingFinishedProjectPhoto {
+            get {
+                return ResourceManager.GetString("ErrorWhileDeletingFinishedProjectPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while deleting movie&apos;s url.
+        /// </summary>
+        public static string ErrorWhileDeletingMovieUrl {
+            get {
+                return ResourceManager.GetString("ErrorWhileDeletingMovieUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while deleting planned project.
+        /// </summary>
+        public static string ErrorWhileDeletingPlannedProject {
+            get {
+                return ResourceManager.GetString("ErrorWhileDeletingPlannedProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while deleting project in progress.
+        /// </summary>
+        public static string ErrorWhileDeletingProjectInProgress {
+            get {
+                return ResourceManager.GetString("ErrorWhileDeletingProjectInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while deleting project in progress photo.
+        /// </summary>
+        public static string ErrorWhileDeletingProjectInProgressPhoto {
+            get {
+                return ResourceManager.GetString("ErrorWhileDeletingProjectInProgressPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while deleting sample.
+        /// </summary>
+        public static string ErrorWhileDeletingSample {
+            get {
+                return ResourceManager.GetString("ErrorWhileDeletingSample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while finishing project in progress.
+        /// </summary>
+        public static string ErrorWhileFinishingProjectInProgress {
+            get {
+                return ResourceManager.GetString("ErrorWhileFinishingProjectInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while moving finished project to projects in progress.
+        /// </summary>
+        public static string ErrorWhileMovingFinishedProjectToProjectsInProgress {
+            get {
+                return ResourceManager.GetString("ErrorWhileMovingFinishedProjectToProjectsInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while moving project in progress to planned projects.
+        /// </summary>
+        public static string ErrorWhileMovingProjectInProgressToPlannedProjects {
+            get {
+                return ResourceManager.GetString("ErrorWhileMovingProjectInProgressToPlannedProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while opening movie in web browser.
+        /// </summary>
+        public static string ErrorWhileOpeningMovieInWebBrowser {
+            get {
+                return ResourceManager.GetString("ErrorWhileOpeningMovieInWebBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while planning new project.
+        /// </summary>
+        public static string ErrorWhilePlanningNewProject {
+            get {
+                return ResourceManager.GetString("ErrorWhilePlanningNewProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while signing in.
+        /// </summary>
+        public static string ErrorWhileSigninIn {
+            get {
+                return ResourceManager.GetString("ErrorWhileSigninIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while starting planned project.
+        /// </summary>
+        public static string ErrorWhileStartingPlannedProject {
+            get {
+                return ResourceManager.GetString("ErrorWhileStartingPlannedProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter by needle&apos;s size.
         /// </summary>
         public static string FilterByNeedleSize {
@@ -264,6 +426,15 @@ namespace KnitterNotebook.Properties {
         public static string ForgotPassword {
             get {
                 return ResourceManager.GetString("ForgotPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid login credentials.
+        /// </summary>
+        public static string InvalidLoginCredentials {
+            get {
+                return ResourceManager.GetString("InvalidLoginCredentials", resourceCulture);
             }
         }
         
@@ -340,6 +511,15 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New movie&apos;s url added.
+        /// </summary>
+        public static string NewMovieUrlAdded {
+            get {
+                return ResourceManager.GetString("NewMovieUrlAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New nickname.
         /// </summary>
         public static string NewNickname {
@@ -358,11 +538,29 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New project planned.
+        /// </summary>
+        public static string NewProjectPlanned {
+            get {
+                return ResourceManager.GetString("NewProjectPlanned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New theme.
         /// </summary>
         public static string NewTheme {
             get {
                 return ResourceManager.GetString("NewTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nice to see you.
+        /// </summary>
+        public static string NiceToSeeYou {
+            get {
+                return ResourceManager.GetString("NiceToSeeYou", resourceCulture);
             }
         }
         
@@ -768,6 +966,15 @@ namespace KnitterNotebook.Properties {
         public static string UserAccount {
             get {
                 return ResourceManager.GetString("UserAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User not found.
+        /// </summary>
+        public static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
         
