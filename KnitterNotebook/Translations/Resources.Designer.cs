@@ -124,6 +124,15 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create account.
+        /// </summary>
+        public static string CreateAccount {
+            get {
+                return ResourceManager.GetString("CreateAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete link.
         /// </summary>
         public static string DeleteLink {
@@ -255,15 +264,6 @@ namespace KnitterNotebook.Translations {
         public static string Link {
             get {
                 return ResourceManager.GetString("Link", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to Knitter Notebook.
-        /// </summary>
-        public static string LogInHeader {
-            get {
-                return ResourceManager.GetString("LogInHeader", resourceCulture);
             }
         }
         
@@ -403,11 +403,29 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nickname.
+        /// </summary>
+        public static string Placeholder_Nickname {
+            get {
+                return ResourceManager.GetString("Placeholder_Nickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Placeholder_Password {
             get {
                 return ResourceManager.GetString("Placeholder_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password reset token.
+        /// </summary>
+        public static string Placeholder_PasswordResetToken {
+            get {
+                return ResourceManager.GetString("Placeholder_PasswordResetToken", resourceCulture);
             }
         }
         
@@ -565,6 +583,15 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string Settings {
@@ -646,11 +673,47 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type e-mail.
+        /// </summary>
+        public static string TypeEmail {
+            get {
+                return ResourceManager.GetString("TypeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type new login credentials.
+        /// </summary>
+        public static string TypeNewLoginCredentials {
+            get {
+                return ResourceManager.GetString("TypeNewLoginCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User&apos;s account.
         /// </summary>
         public static string UserAccount {
             get {
                 return ResourceManager.GetString("UserAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to Knitter Notebook.
+        /// </summary>
+        public static string WelcomeToKnitterNotebook {
+            get {
+                return ResourceManager.GetString("WelcomeToKnitterNotebook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We will send you token necessary to reset your password.
+        /// </summary>
+        public static string WeWillSendPasswordResetToken {
+            get {
+                return ResourceManager.GetString("WeWillSendPasswordResetToken", resourceCulture);
             }
         }
         

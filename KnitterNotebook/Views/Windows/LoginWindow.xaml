@@ -29,7 +29,7 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Margin="0,30,0,40">
-                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static translations:Resources.LogInHeader}" />
+                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static translations:Resources.WelcomeToKnitterNotebook}" />
             </Grid>
 
             <Grid Grid.Row="1">

@@ -138,6 +138,9 @@
   <data name="ChoosePhoto" xml:space="preserve">
     <value>Choose photo</value>
   </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create account</value>
+  </data>
   <data name="DeleteLink" xml:space="preserve">
     <value>Delete link</value>
   </data>
@@ -182,9 +185,6 @@
   </data>
   <data name="Link" xml:space="preserve">
     <value>Link</value>
-  </data>
-  <data name="LogInHeader" xml:space="preserve">
-    <value>Welcome to Knitter Notebook</value>
   </data>
   <data name="LoopsXRows" xml:space="preserve">
     <value>Loops x rows</value>
@@ -231,8 +231,14 @@
   <data name="Placeholder_Email" xml:space="preserve">
     <value>E-mail</value>
   </data>
+  <data name="Placeholder_Nickname" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
   <data name="Placeholder_Password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="Placeholder_PasswordResetToken" xml:space="preserve">
+    <value>Password reset token</value>
   </data>
   <data name="Placeholder_RepeatNewPassword" xml:space="preserve">
     <value>Repeat new password</value>
@@ -285,6 +291,9 @@
   <data name="Samples" xml:space="preserve">
     <value>Samples</value>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
@@ -312,8 +321,20 @@
   <data name="Title" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="TypeEmail" xml:space="preserve">
+    <value>Type e-mail</value>
+  </data>
+  <data name="TypeNewLoginCredentials" xml:space="preserve">
+    <value>Type new login credentials</value>
+  </data>
   <data name="UserAccount" xml:space="preserve">
     <value>User's account</value>
+  </data>
+  <data name="WelcomeToKnitterNotebook" xml:space="preserve">
+    <value>Welcome to Knitter Notebook</value>
+  </data>
+  <data name="WeWillSendPasswordResetToken" xml:space="preserve">
+    <value>We will send you token necessary to reset your password</value>
   </data>
   <data name="YarnName" xml:space="preserve">
     <value>Yarn's name</value>
