@@ -7,6 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
     Title="ProjectPlanningWindow"
     Width="1200"
     Height="700"
@@ -25,7 +26,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="0,30,0,50">
-                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="Zaplanowanie nowego projektu" />
+                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static translations:Resources.PlanOutProject}" />
             </Grid>
             <Grid Grid.Row="1">
                 <StackPanel Margin="50,10,50,10">
@@ -36,7 +37,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                            <Label Content="Nazwa projektu" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static translations:Resources.ProjectName}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -44,13 +45,13 @@
                                     Kind="Text" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="Nazwa projektu"
+                                    adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeProjectName}"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
-                            <Label Content="Nazwy włóczek" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static translations:Resources.YarnsNames}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -58,13 +59,13 @@
                                     Kind="Numeric" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="Nazwy oddzielone przecinkiem np.: w1 , w2 , w3"
+                                    adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_CommaSeparatedNames}"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding YarnsNamesWithDelimiter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
-                            <Label Content="Inne" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static translations:Resources.Description}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -72,7 +73,7 @@
                                     Kind="Text" />
                                 <TextBox
                                     MaxWidth="300"
-                                    adorners:Watermark.Text="Opis"
+                                    adorners:Watermark.Text="{x:Static translations:Resources.Placeholder_TypeDescription}"
                                     adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                     Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -80,7 +81,7 @@
                             </DockPanel>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                            <Label Content="Data rozpoczęcia" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static translations:Resources.StartDate}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -93,7 +94,7 @@
                                         Style="{DynamicResource MaterialDesignOutlinedDatePicker}" />
                                 </Grid>
                             </DockPanel>
-                            <Label Content="PDF ze wzorem" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                            <Label Content="{x:Static translations:Resources.PdfWithPattern}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                             <DockPanel Margin="0,0,0,10">
                                 <materialDesign:PackIcon
                                     Margin="5,0,5,0"
@@ -109,7 +110,7 @@
                         </StackPanel>
                         <Grid Grid.Column="2" Margin="10,0,0,0">
                             <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                                <Label Content="Druty" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                                <Label Content="{x:Static translations:Resources.Needles}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                                 <DockPanel Margin="0,0,0,10">
                                     <materialDesign:PackIcon
                                         Margin="5,0,5,0"
@@ -123,7 +124,7 @@
                                         <TextBox
                                             Grid.Column="0"
                                             MaxWidth="300"
-                                            adorners:Watermark.Text="Rozmiar drutu"
+                                            adorners:Watermark.Text="{x:Static translations:Resources.NeedleSize}"
                                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                             Text="{Binding Needle1.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue='', StringFormat=F2}"
@@ -149,7 +150,7 @@
                                         <TextBox
                                             Grid.Column="0"
                                             MaxWidth="300"
-                                            adorners:Watermark.Text="Rozmiar drutu"
+                                            adorners:Watermark.Text="{x:Static translations:Resources.NeedleSize}"
                                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                             Text="{Binding Needle2.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue='', StringFormat=F2}"
@@ -175,7 +176,7 @@
                                         <TextBox
                                             Grid.Column="0"
                                             MaxWidth="300"
-                                            adorners:Watermark.Text="Rozmiar drutu"
+                                            adorners:Watermark.Text="{x:Static translations:Resources.NeedleSize}"
                                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                             Text="{Binding Needle3.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue='', StringFormat=F2}"
@@ -201,7 +202,7 @@
                                         <TextBox
                                             Grid.Column="0"
                                             MaxWidth="300"
-                                            adorners:Watermark.Text="Rozmiar drutu"
+                                            adorners:Watermark.Text="{x:Static translations:Resources.NeedleSize}"
                                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                             Text="{Binding Needle4.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue='', StringFormat=F2}"
@@ -227,7 +228,7 @@
                                         <TextBox
                                             Grid.Column="0"
                                             MaxWidth="300"
-                                            adorners:Watermark.Text="Rozmiar drutu"
+                                            adorners:Watermark.Text="{x:Static translations:Resources.NeedleSize}"
                                             adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused"
                                             Style="{DynamicResource InputLoginDataTextBoxStyle}"
                                             Text="{Binding Needle5.Size, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue='', StringFormat=F2}"
@@ -248,18 +249,18 @@
                         <Button
                             Margin="0,10,0,0"
                             Command="{Binding ChoosePatternPdfCommand}"
-                            Content="Wybierz plik .pdf ze wzorem"
+                            Content="{x:Static translations:Resources.ChoosePdfFileWithPattern}"
                             Style="{DynamicResource LoginButtonStyle}" />
                         <Button
                             Margin="0,10,0,0"
                             Command="{Binding DeletePatternPdfCommand}"
-                            Content="Skasuj plik .pdf ze wzorem"
+                            Content="{x:Static translations:Resources.DeletePdfFileWithPattern}"
                             Style="{DynamicResource LoginButtonStyle}" />
                     </UniformGrid>
                     <Button
                         Margin="0,10,0,0"
                         Command="{Binding AddProjectCommand}"
-                        Content="Dodaj projekt"
+                        Content="{x:Static translations:Resources.Submit}"
                         Style="{DynamicResource LoginButtonStyle}" />
                 </StackPanel>
             </Grid>

@@ -106,6 +106,15 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose .pdf file with pattern.
+        /// </summary>
+        public static string ChoosePdfFileWithPattern {
+            get {
+                return ResourceManager.GetString("ChoosePdfFileWithPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose photo.
         /// </summary>
         public static string ChoosePhoto {
@@ -120,6 +129,15 @@ namespace KnitterNotebook.Translations {
         public static string DeleteLink {
             get {
                 return ResourceManager.GetString("DeleteLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete .pdf file with pattern.
+        /// </summary>
+        public static string DeletePdfFileWithPattern {
+            get {
+                return ResourceManager.GetString("DeletePdfFileWithPattern", resourceCulture);
             }
         }
         
@@ -349,11 +367,29 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pdf with pattern.
+        /// </summary>
+        public static string PdfWithPattern {
+            get {
+                return ResourceManager.GetString("PdfWithPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Photos.
         /// </summary>
         public static string Photos {
             get {
                 return ResourceManager.GetString("Photos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comma-separated names, e.g.: w1 , w2 , w3.
+        /// </summary>
+        public static string Placeholder_CommaSeparatedNames {
+            get {
+                return ResourceManager.GetString("Placeholder_CommaSeparatedNames", resourceCulture);
             }
         }
         
@@ -430,6 +466,15 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type project&apos;s name.
+        /// </summary>
+        public static string Placeholder_TypeProjectName {
+            get {
+                return ResourceManager.GetString("Placeholder_TypeProjectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type title.
         /// </summary>
         public static string Placeholder_TypeTitle {
@@ -480,6 +525,15 @@ namespace KnitterNotebook.Translations {
         public static string ProjectInProgress {
             get {
                 return ResourceManager.GetString("ProjectInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project&apos;s name.
+        /// </summary>
+        public static string ProjectName {
+            get {
+                return ResourceManager.GetString("ProjectName", resourceCulture);
             }
         }
         
@@ -615,6 +669,15 @@ namespace KnitterNotebook.Translations {
         public static string Yarns {
             get {
                 return ResourceManager.GetString("Yarns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to YarnsNames.
+        /// </summary>
+        public static string YarnsNames {
+            get {
+                return ResourceManager.GetString("YarnsNames", resourceCulture);
             }
         }
     }

@@ -132,11 +132,17 @@
   <data name="ApplicationTheme" xml:space="preserve">
     <value>Application's theme</value>
   </data>
+  <data name="ChoosePdfFileWithPattern" xml:space="preserve">
+    <value>Choose .pdf file with pattern</value>
+  </data>
   <data name="ChoosePhoto" xml:space="preserve">
     <value>Choose photo</value>
   </data>
   <data name="DeleteLink" xml:space="preserve">
     <value>Delete link</value>
+  </data>
+  <data name="DeletePdfFileWithPattern" xml:space="preserve">
+    <value>Delete .pdf file with pattern</value>
   </data>
   <data name="DeletePhoto" xml:space="preserve">
     <value>Delete photo</value>
@@ -213,8 +219,14 @@
   <data name="Options" xml:space="preserve">
     <value>Options</value>
   </data>
+  <data name="PdfWithPattern" xml:space="preserve">
+    <value>Pdf with pattern</value>
+  </data>
   <data name="Photos" xml:space="preserve">
     <value>Photos</value>
+  </data>
+  <data name="Placeholder_CommaSeparatedNames" xml:space="preserve">
+    <value>Comma-separated names, e.g.: w1 , w2 , w3</value>
   </data>
   <data name="Placeholder_Email" xml:space="preserve">
     <value>E-mail</value>
@@ -240,6 +252,9 @@
   <data name="Placeholder_TypeNewPassword" xml:space="preserve">
     <value>Type new password</value>
   </data>
+  <data name="Placeholder_TypeProjectName" xml:space="preserve">
+    <value>Type project's name</value>
+  </data>
   <data name="Placeholder_TypeTitle" xml:space="preserve">
     <value>Type title</value>
   </data>
@@ -257,6 +272,9 @@
   </data>
   <data name="ProjectInProgress" xml:space="preserve">
     <value>Project in progress</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Project's name</value>
   </data>
   <data name="ProjectsInProgress" xml:space="preserve">
     <value>Projects in progress</value>
@@ -302,5 +320,8 @@
   </data>
   <data name="Yarns" xml:space="preserve">
     <value>Yarns</value>
+  </data>
+  <data name="YarnsNames" xml:space="preserve">
+    <value>YarnsNames</value>
   </data>
 </root>
