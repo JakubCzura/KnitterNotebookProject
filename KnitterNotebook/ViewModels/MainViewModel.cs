@@ -310,6 +310,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
+            _logger.LogError(exception, "Error while deleting movie's url");
             MessageBox.Show("Błąd podczas kasowania filmu", exception.Message);
         }
     }
@@ -331,6 +332,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
+            _logger.LogError(exception, "Error while deleting sample");
             MessageBox.Show("Błąd podczas kasowania próbki obliczeniowej", exception.Message);
         }
     }
@@ -347,6 +349,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
+            _logger.LogError(exception, "Error while opening movie's url in web browser");
             MessageBox.Show(exception.Message, "Błąd otworzenia filmu");
         }
     }
@@ -364,6 +367,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
+            _logger.LogError(exception, "Error while deleting planned project");
             MessageBox.Show(exception.Message, "Błąd skasowania planowanego projektu");
         }
     }
@@ -381,6 +385,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
+            _logger.LogError(exception, "Error while deleting project in progress");
             MessageBox.Show(exception.Message, "Błąd skasowania projektu w trakcie");
         }
     }
@@ -415,6 +420,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
+            _logger.LogError(exception, "Error while moving project in progress to planned projects");
             MessageBox.Show(exception.Message, "Błąd przeniesienia projektu do planowanych projektów");
         }
     }
@@ -449,6 +455,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
+            _logger.LogError(exception, "Error while starting planned project");
             MessageBox.Show(exception.Message, "Błąd rozpoczęcia planowanego projektu");
         }
     }
@@ -485,6 +492,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
+            _logger.LogError(exception, "Error while deleting project in progress image");
             MessageBox.Show(exception.Message, "Błąd skasowania zdjęcia projektu w trakcie");
         }
     }
@@ -519,6 +527,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
+            _logger.LogError(exception, "Error while finishing project in progress");
             MessageBox.Show(exception.Message, "Błąd zakończenia projektu w trakcie");
         }
     }
@@ -553,6 +562,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
+            _logger.LogError(exception, "Error while moving finished project to projects in progress");
             MessageBox.Show(exception.Message, "Błąd przeniesienia projektu do projektów w trakcie");
         }
     }
@@ -576,6 +586,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
+            _logger.LogError(exception, "Error while deleting finished project's image");
             MessageBox.Show(exception.Message, "Błąd skasowania zdjęcia ukończonego projektu");
         }
     }
@@ -593,6 +604,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
+            _logger.LogError(exception, "Error while deleting finished project");
             MessageBox.Show(exception.Message, "Błąd skasowania ukończonego projektu");
         }
     }
