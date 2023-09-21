@@ -123,11 +123,17 @@
   <data name="AddPhoto" xml:space="preserve">
     <value>Add photo</value>
   </data>
+  <data name="AddProjectPhoto" xml:space="preserve">
+    <value>Add project's photo</value>
+  </data>
   <data name="AddSample" xml:space="preserve">
     <value>Add sample</value>
   </data>
   <data name="ApplicationTheme" xml:space="preserve">
     <value>Application's theme</value>
+  </data>
+  <data name="ChoosePhoto" xml:space="preserve">
+    <value>Choose photo</value>
   </data>
   <data name="DeleteLink" xml:space="preserve">
     <value>Delete link</value>

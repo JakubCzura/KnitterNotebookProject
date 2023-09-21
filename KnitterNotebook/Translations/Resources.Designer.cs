@@ -79,6 +79,15 @@ namespace KnitterNotebook.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add project&apos;s photo.
+        /// </summary>
+        public static string AddProjectPhoto {
+            get {
+                return ResourceManager.GetString("AddProjectPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add sample.
         /// </summary>
         public static string AddSample {
@@ -93,6 +102,15 @@ namespace KnitterNotebook.Translations {
         public static string ApplicationTheme {
             get {
                 return ResourceManager.GetString("ApplicationTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose photo.
+        /// </summary>
+        public static string ChoosePhoto {
+            get {
+                return ResourceManager.GetString("ChoosePhoto", resourceCulture);
             }
         }
         

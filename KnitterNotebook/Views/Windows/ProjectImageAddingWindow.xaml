@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+    xmlns:translations="clr-namespace:KnitterNotebook.Translations"
     Title="ProjectImageAddingWindow"
     Width="500"
     Height="750"
@@ -25,7 +26,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="0,30,0,50">
-                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="Dodanie zdjęcia do projektu" />
+                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static translations:Resources.AddProjectPhoto}" />
             </Grid>
             <Grid Grid.Row="1">
                 <StackPanel Margin="50,10,50,10">
@@ -37,12 +38,12 @@
                     <Button
                         Margin="0,10,0,0"
                         Command="{Binding ChooseImageCommand}"
-                        Content="Wybierz zdjęcie"
+                        Content="{x:Static translations:Resources.ChoosePhoto}"
                         Style="{DynamicResource LoginButtonStyle}" />
                     <Button
                         Margin="0,10,0,0"
                         Command="{Binding AddProjectImageCommand}"
-                        Content="Zatwierdź"
+                        Content="{x:Static translations:Resources.Submit}"
                         Style="{DynamicResource LoginButtonStyle}" />
                 </StackPanel>
             </Grid>
