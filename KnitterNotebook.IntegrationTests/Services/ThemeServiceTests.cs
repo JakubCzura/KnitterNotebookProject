@@ -92,7 +92,6 @@ public class ThemeServiceTests
         string oldThemeFullPath = Paths.ThemeFullPath(newThemeName);
         Application.Current?.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(oldThemeFullPath) });
 
-
         //Act
         _themeService.ReplaceTheme(newThemeName, oldThemeName);
 

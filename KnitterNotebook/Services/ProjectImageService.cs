@@ -2,7 +2,6 @@
 using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions.Messages;
 using KnitterNotebook.Helpers;
-using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Services.Interfaces;

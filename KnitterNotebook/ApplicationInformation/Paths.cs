@@ -3,7 +3,7 @@ using Microsoft.VisualBasic.FileIO;
 using System;
 using System.IO;
 
-namespace KnitterNotebook.ApplicationInformation; 
+namespace KnitterNotebook.ApplicationInformation;
 
 public class Paths
 {

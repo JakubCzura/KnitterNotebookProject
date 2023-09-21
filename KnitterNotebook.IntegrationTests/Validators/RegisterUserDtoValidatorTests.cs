@@ -23,6 +23,7 @@ public class RegisterUserDtoValidatorTests
     private readonly Mock<ITokenService> _tokenServiceMock = new();
     private readonly Mock<IConfiguration> _iconfigurationMock = new();
     private readonly Mock<SharedResourceViewModel> _sharedResourceViewModelMock = new();
+
     public RegisterUserDtoValidatorTests()
     {
         _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object, _sharedResourceViewModelMock.Object);

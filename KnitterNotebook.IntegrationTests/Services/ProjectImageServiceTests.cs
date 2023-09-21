@@ -23,6 +23,7 @@ public class ProjectImageServiceTests
     private readonly Mock<ITokenService> _tokenServiceMock = new();
     private readonly Mock<IConfiguration> _configurationMock = new();
     private readonly Mock<SharedResourceViewModel> _sharedResourceViewModelMock = new();
+
     public ProjectImageServiceTests()
     {
         _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _configurationMock.Object, _sharedResourceViewModelMock.Object);

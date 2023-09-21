@@ -12,8 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using System.Globalization;
-using System.Threading;
 using System.Windows;
 
 namespace KnitterNotebook;

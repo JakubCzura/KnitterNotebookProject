@@ -146,11 +146,11 @@ public class ProjectServiceTests
     {
         //Arrange
         PlanProjectDto dto = new("Project",
-                                DateTime.Today, 
-                                new List<CreateNeedleDto>() { new(2.5, NeedleSizeUnit.mm) }, 
-                                new List<CreateYarnDto>() { new CreateYarnDto("SampleYarn1") }, 
-                                "Description", 
-                                null, 
+                                DateTime.Today,
+                                new List<CreateNeedleDto>() { new(2.5, NeedleSizeUnit.mm) },
+                                new List<CreateYarnDto>() { new CreateYarnDto("SampleYarn1") },
+                                "Description",
+                                null,
                                 1);
 
         //Act
