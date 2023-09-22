@@ -6,6 +6,7 @@ using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
@@ -85,17 +86,17 @@ public partial class SampleAddingViewModel : BaseViewModel
             if (!validation.IsValid)
             {
                 string errorMessage = validation.Errors.GetMessagesAsString();
-                MessageBox.Show(errorMessage, "Błąd podczas dodawania próbki obliczeniowej");
+                MessageBox.Show(errorMessage);
                 return;
             }
             await _sampleService.CreateAsync(createSampleDto);
             OnNewSampleAdded();
-            MessageBox.Show("Zapisano nową próbkę obliczeniową");
+            MessageBox.Show(Translations.NewSampleAdded);
         }
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while adding new sample");
-            MessageBox.Show(exception.Message);
+            MessageBox.Show(Translations.ErrorWhileAddingNewSample);
         }
     }
 }

@@ -4,6 +4,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
 using Microsoft.Extensions.Configuration;
@@ -16,7 +17,11 @@ namespace KnitterNotebook.ViewModels;
 
 public partial class ResetPasswordViewModel : BaseViewModel
 {
-    public ResetPasswordViewModel(ILogger<ResetPasswordViewModel> logger, IConfiguration configuration, IUserService userService, IValidator<ResetPasswordDto> resetPasswordDtoValidator, IEmailService emailService)
+    public ResetPasswordViewModel(ILogger<ResetPasswordViewModel> logger, 
+        IConfiguration configuration, 
+        IUserService userService, 
+        IValidator<ResetPasswordDto> resetPasswordDtoValidator, 
+        IEmailService emailService)
     {
         _logger = logger;
         _configuration = configuration;
@@ -43,7 +48,7 @@ public partial class ResetPasswordViewModel : BaseViewModel
         bool emailExists = await _userService.IsEmailTakenAsync(Email);
         if (!emailExists)
         {
-            MessageBox.Show("Nie odnaleziono adresu e-mail", "Błąd wysłania tokenu");
+            MessageBox.Show(Translations.EmailNotFound);
             return;
         }
 
@@ -72,17 +77,17 @@ public partial class ResetPasswordViewModel : BaseViewModel
             if (!validation.IsValid)
             {
                 string errorMessage = validation.Errors.GetMessagesAsString();
-                MessageBox.Show(errorMessage, "Błąd zmiany hasła");
+                MessageBox.Show(errorMessage);
                 return;
             }
             await _userService.ResetPasswordAsync(resetPasswordDto);
-            MessageBox.Show($"Ustawiono nowe hasło");
+            MessageBox.Show(Translations.PasswordChangedSuccessfully);
             Closewindow(ResetPasswordWindow.Instance);
         }
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while resetting password");
-            MessageBox.Show(exception.Message);
+            MessageBox.Show(Translations.ErrorWhileResettingPassword);
         }
         finally
         {

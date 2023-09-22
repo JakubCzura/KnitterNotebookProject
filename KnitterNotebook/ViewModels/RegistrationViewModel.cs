@@ -4,6 +4,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
 using Microsoft.Extensions.Logging;
@@ -48,7 +49,7 @@ public partial class RegistrationViewModel : BaseViewModel
             if (!validation.IsValid)
             {
                 string errorMessage = validation.Errors.GetMessagesAsString();
-                MessageBox.Show(errorMessage, "Błąd podczas rejestracji");
+                MessageBox.Show(errorMessage);
                 return;
             }
             await _userService.CreateAsync(registerUserDto);
@@ -57,8 +58,8 @@ public partial class RegistrationViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Error while registering user");
-            MessageBox.Show(exception.Message);
+            _logger.LogError(exception, "Error while signing up");
+            MessageBox.Show(Translations.ErrorWhileSigningUp);
         }
         finally
         {

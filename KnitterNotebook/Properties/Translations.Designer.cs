@@ -115,6 +115,15 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application&apos;s theme changed successfully.
+        /// </summary>
+        public static string ApplicationThemeChangedSuccessfully {
+            get {
+                return ResourceManager.GetString("ApplicationThemeChangedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application will shut down.
         /// </summary>
         public static string ApplicationWillShutDown {
@@ -223,6 +232,24 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email changed successfully.
+        /// </summary>
+        public static string EmailChangedSuccessfully {
+            get {
+                return ResourceManager.GetString("EmailChangedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email not found.
+        /// </summary>
+        public static string EmailNotFound {
+            get {
+                return ResourceManager.GetString("EmailNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End date.
         /// </summary>
         public static string EndDate {
@@ -241,11 +268,56 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while adding new sample.
+        /// </summary>
+        public static string ErrorWhileAddingNewSample {
+            get {
+                return ResourceManager.GetString("ErrorWhileAddingNewSample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error while adding project&apos;s photo.
         /// </summary>
         public static string ErrorWhileAddingProjectPhoto {
             get {
                 return ResourceManager.GetString("ErrorWhileAddingProjectPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while changing application&apos;s theme.
+        /// </summary>
+        public static string ErrorWhileChangingApplicationTheme {
+            get {
+                return ResourceManager.GetString("ErrorWhileChangingApplicationTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while changing e-mail.
+        /// </summary>
+        public static string ErrorWhileChangingEmail {
+            get {
+                return ResourceManager.GetString("ErrorWhileChangingEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while changing nickname.
+        /// </summary>
+        public static string ErrorWhileChangingNickname {
+            get {
+                return ResourceManager.GetString("ErrorWhileChangingNickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while changing password.
+        /// </summary>
+        public static string ErrorWhileChangingPassword {
+            get {
+                return ResourceManager.GetString("ErrorWhileChangingPassword", resourceCulture);
             }
         }
         
@@ -354,6 +426,24 @@ namespace KnitterNotebook.Properties {
         public static string ErrorWhilePlanningNewProject {
             get {
                 return ResourceManager.GetString("ErrorWhilePlanningNewProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while resetting password.
+        /// </summary>
+        public static string ErrorWhileResettingPassword {
+            get {
+                return ResourceManager.GetString("ErrorWhileResettingPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while signing up.
+        /// </summary>
+        public static string ErrorWhileSigningUp {
+            get {
+                return ResourceManager.GetString("ErrorWhileSigningUp", resourceCulture);
             }
         }
         
@@ -547,6 +637,15 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New sample added.
+        /// </summary>
+        public static string NewSampleAdded {
+            get {
+                return ResourceManager.GetString("NewSampleAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New theme.
         /// </summary>
         public static string NewTheme {
@@ -565,6 +664,15 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nickname changed successfully.
+        /// </summary>
+        public static string NicknameChangedSuccessfully {
+            get {
+                return ResourceManager.GetString("NicknameChangedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not yet specified.
         /// </summary>
         public static string NotYetSpecified {
@@ -579,6 +687,15 @@ namespace KnitterNotebook.Properties {
         public static string Options {
             get {
                 return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password changed successfully.
+        /// </summary>
+        public static string PasswordChangedSuccessfully {
+            get {
+                return ResourceManager.GetString("PasswordChangedSuccessfully", resourceCulture);
             }
         }
         

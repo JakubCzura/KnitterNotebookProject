@@ -135,6 +135,9 @@
   <data name="ApplicationTheme" xml:space="preserve">
     <value>Motyw aplikacji</value>
   </data>
+  <data name="ApplicationThemeChangedSuccessfully" xml:space="preserve">
+    <value>Pomyślnie zmieniono motyw aplikacji</value>
+  </data>
   <data name="ApplicationWillShutDown" xml:space="preserve">
     <value>Aplikacja zostanie zamknięta</value>
   </data>
@@ -171,14 +174,35 @@
   <data name="DontHaveAccount" xml:space="preserve">
     <value>Nie posiadasz konta?</value>
   </data>
+  <data name="EmailChangedSuccessfully" xml:space="preserve">
+    <value>Pomyślnie zmieniono adres e-mail</value>
+  </data>
+  <data name="EmailNotFound" xml:space="preserve">
+    <value>Nie odnaleziono adresu e-mail</value>
+  </data>
   <data name="EndDate" xml:space="preserve">
     <value>Data zakończenia</value>
   </data>
   <data name="ErrorWhileAddingMovieUrl" xml:space="preserve">
     <value>Błąd podczas dodania linku do filmu</value>
   </data>
+  <data name="ErrorWhileAddingNewSample" xml:space="preserve">
+    <value>Błąd podczas dodawania nowej próbki obliczeniowej</value>
+  </data>
   <data name="ErrorWhileAddingProjectPhoto" xml:space="preserve">
     <value>Błąd podczas dodania zdjęcia projektu</value>
+  </data>
+  <data name="ErrorWhileChangingApplicationTheme" xml:space="preserve">
+    <value>Błąd podczas zmiany motywu aplikacji</value>
+  </data>
+  <data name="ErrorWhileChangingEmail" xml:space="preserve">
+    <value>Błąd podczas zmiany adresu e-mail</value>
+  </data>
+  <data name="ErrorWhileChangingNickname" xml:space="preserve">
+    <value>Error while changing nickname</value>
+  </data>
+  <data name="ErrorWhileChangingPassword" xml:space="preserve">
+    <value>Błąd podczas zmiany hasła</value>
   </data>
   <data name="ErrorWhileDeletingFinishedProject" xml:space="preserve">
     <value>Błąd podczas kasowania ukończonego projektu</value>
@@ -216,8 +240,14 @@
   <data name="ErrorWhilePlanningNewProject" xml:space="preserve">
     <value>Błąd podczas planowania nowego projektu</value>
   </data>
+  <data name="ErrorWhileResettingPassword" xml:space="preserve">
+    <value>Błąd podczas resetowania hasła</value>
+  </data>
   <data name="ErrorWhileSigningIn" xml:space="preserve">
     <value>Błąd podczas logowania</value>
+  </data>
+  <data name="ErrorWhileSigningUp" xml:space="preserve">
+    <value>Błąd podczas rejestracji</value>
   </data>
   <data name="ErrorWhileStartingPlannedProject" xml:space="preserve">
     <value>Błąd podczas rozpoczynania planowanego projektu</value>
@@ -279,17 +309,26 @@
   <data name="NewProjectPlanned" xml:space="preserve">
     <value>Zaplanowano nowy projekt</value>
   </data>
+  <data name="NewSampleAdded" xml:space="preserve">
+    <value>Dodano nową próbkę obliczeniową</value>
+  </data>
   <data name="NewTheme" xml:space="preserve">
     <value>Nowy motyw</value>
   </data>
   <data name="NiceToSeeYou" xml:space="preserve">
     <value>Miło Cię widzieć</value>
   </data>
+  <data name="NicknameChangedSuccessfully" xml:space="preserve">
+    <value>Pomyślnie zmieniono nazwę użytkownika</value>
+  </data>
   <data name="NotYetSpecified" xml:space="preserve">
     <value>Jeszcze nie podano</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>Opcja</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>Pomyślnie zmieniono hasło</value>
   </data>
   <data name="PdfWithPattern" xml:space="preserve">
     <value>Pdf ze wzorem</value>

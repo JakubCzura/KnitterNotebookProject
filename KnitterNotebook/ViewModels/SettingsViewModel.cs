@@ -5,6 +5,7 @@ using FluentValidation.Results;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.UserControls;
 using Microsoft.Extensions.Logging;
@@ -70,17 +71,17 @@ public partial class SettingsViewModel : BaseViewModel
             if (!validation.IsValid)
             {
                 string errorMessage = validation.Errors.GetMessagesAsString();
-                MessageBox.Show(errorMessage, "Błąd zmiany email");
+                MessageBox.Show(errorMessage);
                 return;
             }
             await _userService.ChangeEmailAsync(changeEmailDto);
             _sharedResourceViewModel.OnUserUpdatedInDatabase();
-            MessageBox.Show($"Zmieniono email na: {changeEmailDto.Email}");
+            MessageBox.Show(Translations.EmailChangedSuccessfully);
         }
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while changing e-mail");
-            MessageBox.Show(exception.Message);
+            MessageBox.Show(Translations.ErrorWhileChangingEmail);
         }
         finally
         {
@@ -98,17 +99,17 @@ public partial class SettingsViewModel : BaseViewModel
             if (!validation.IsValid)
             {
                 string errorMessage = validation.Errors.GetMessagesAsString();
-                MessageBox.Show(errorMessage, "Błąd zmiany nazwy użytkownika");
+                MessageBox.Show(errorMessage);
                 return;
             }
             await _userService.ChangeNicknameAsync(changeNicknameDto);
             _sharedResourceViewModel.OnUserUpdatedInDatabase();
-            MessageBox.Show($"Zmieniono nazwę użytkownika");
+            MessageBox.Show(Translations.NicknameChangedSuccessfully);
         }
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while changing nickname");
-            MessageBox.Show(exception.Message);
+            MessageBox.Show(Translations.ErrorWhileChangingNickname);
         }
         finally
         {
@@ -128,16 +129,17 @@ public partial class SettingsViewModel : BaseViewModel
             if (!validation.IsValid)
             {
                 string errorMessage = validation.Errors.GetMessagesAsString();
-                MessageBox.Show(errorMessage, "Błąd zmiany hasła");
+                MessageBox.Show(errorMessage);
                 return;
             }
             await _userService.ChangePasswordAsync(changePasswordDto);
-            MessageBox.Show($"Zmieniono hasło");
+            _sharedResourceViewModel.OnUserUpdatedInDatabase();
+            MessageBox.Show(Translations.PasswordChangedSuccessfully);
         }
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while changing password");
-            MessageBox.Show(exception.Message);
+            MessageBox.Show(Translations.ErrorWhileChangingPassword);
         }
         finally
         {
@@ -159,17 +161,17 @@ public partial class SettingsViewModel : BaseViewModel
             if (!validation.IsValid)
             {
                 string errorMessage = validation.Errors.GetMessagesAsString();
-                MessageBox.Show(errorMessage, "Błąd zmiany motywu");
+                MessageBox.Show(errorMessage);
                 return;
             }
             await _userService.ChangeThemeAsync(changeThemeDto);
-            MessageBox.Show($"Zmieniono interfejs aplikacji na {NewTheme}");
+            _sharedResourceViewModel.OnUserUpdatedInDatabase();
+            MessageBox.Show(Translations.ApplicationThemeChangedSuccessfully);
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Error while changing theme");
-            _sharedResourceViewModel.OnUserUpdatedInDatabase();
-            MessageBox.Show(exception.Message);
+            _logger.LogError(exception, "Error while changing application's theme");
+            MessageBox.Show(Translations.ErrorWhileChangingApplicationTheme);
         }
     }
 

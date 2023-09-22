@@ -135,6 +135,9 @@
   <data name="ApplicationTheme" xml:space="preserve">
     <value>Application's theme</value>
   </data>
+  <data name="ApplicationThemeChangedSuccessfully" xml:space="preserve">
+    <value>Application's theme changed successfully</value>
+  </data>
   <data name="ApplicationWillShutDown" xml:space="preserve">
     <value>Application will shut down</value>
   </data>
@@ -171,14 +174,35 @@
   <data name="DontHaveAccount" xml:space="preserve">
     <value>Don't have an account?</value>
   </data>
+  <data name="EmailChangedSuccessfully" xml:space="preserve">
+    <value>Email changed successfully</value>
+  </data>
+  <data name="EmailNotFound" xml:space="preserve">
+    <value>Email not found</value>
+  </data>
   <data name="EndDate" xml:space="preserve">
     <value>End date</value>
   </data>
   <data name="ErrorWhileAddingMovieUrl" xml:space="preserve">
     <value>Error while adding movie's url</value>
   </data>
+  <data name="ErrorWhileAddingNewSample" xml:space="preserve">
+    <value>Error while adding new sample</value>
+  </data>
   <data name="ErrorWhileAddingProjectPhoto" xml:space="preserve">
     <value>Error while adding project's photo</value>
+  </data>
+  <data name="ErrorWhileChangingApplicationTheme" xml:space="preserve">
+    <value>Error while changing application's theme</value>
+  </data>
+  <data name="ErrorWhileChangingEmail" xml:space="preserve">
+    <value>Error while changing e-mail</value>
+  </data>
+  <data name="ErrorWhileChangingNickname" xml:space="preserve">
+    <value>Error while changing nickname</value>
+  </data>
+  <data name="ErrorWhileChangingPassword" xml:space="preserve">
+    <value>Error while changing password</value>
   </data>
   <data name="ErrorWhileDeletingFinishedProject" xml:space="preserve">
     <value>Error while deleting finished project</value>
@@ -215,6 +239,12 @@
   </data>
   <data name="ErrorWhilePlanningNewProject" xml:space="preserve">
     <value>Error while planning new project</value>
+  </data>
+  <data name="ErrorWhileResettingPassword" xml:space="preserve">
+    <value>Error while resetting password</value>
+  </data>
+  <data name="ErrorWhileSigningUp" xml:space="preserve">
+    <value>Error while signing up</value>
   </data>
   <data name="ErrorWhileSigninIn" xml:space="preserve">
     <value>Error while signing in</value>
@@ -279,17 +309,26 @@
   <data name="NewProjectPlanned" xml:space="preserve">
     <value>New project planned</value>
   </data>
+  <data name="NewSampleAdded" xml:space="preserve">
+    <value>New sample added</value>
+  </data>
   <data name="NewTheme" xml:space="preserve">
     <value>New theme</value>
   </data>
   <data name="NiceToSeeYou" xml:space="preserve">
     <value>Nice to see you</value>
   </data>
+  <data name="NicknameChangedSuccessfully" xml:space="preserve">
+    <value>Nickname changed successfully</value>
+  </data>
   <data name="NotYetSpecified" xml:space="preserve">
     <value>Not yet specified</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>Options</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>Password changed successfully</value>
   </data>
   <data name="PdfWithPattern" xml:space="preserve">
     <value>Pdf with pattern</value>
