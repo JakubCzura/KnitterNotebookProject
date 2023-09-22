@@ -7,6 +7,11 @@ namespace KnitterNotebook.ApplicationInformation;
 
 public class Paths
 {
+    /// <summary>
+    /// Path to project's directory
+    /// </summary>
+    public static string ProjectDirectoryFullPath => Path.Combine(Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.FullName);
+
     public static string UsersDirectories => Path.Combine(SpecialDirectories.MyDocuments, "KnitterNotebook", "UsersDirectories");
 
     public static string UserDirectory(string nickname) => Path.Combine(UsersDirectories, nickname);
@@ -22,5 +27,5 @@ public class Paths
          ? null
          : Path.Combine(UserDirectory(nickname), DateTime.Now.Ticks.ToString() + fileNameWithExtension);
 
-    public static string ThemeFullPath(ApplicationTheme themeName) => Path.Combine(ProjectDirectory.ProjectDirectoryFullPath, $"Themes/{themeName}Mode.xaml");
+    public static string ThemeFullPath(ApplicationTheme themeName) => Path.Combine(ProjectDirectoryFullPath, $"Themes/{themeName}Mode.xaml");
 }
