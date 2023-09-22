@@ -1,12 +1,12 @@
 ﻿<Window
     x:Class="KnitterNotebook.Views.Windows.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:enums="clr-namespace:KnitterNotebook.Models.Enums"
-    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:enums="clr-namespace:KnitterNotebook.Models.Enums"
     xmlns:properties="clr-namespace:KnitterNotebook.Properties"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     Title="KnitterNotebook"
@@ -96,6 +96,12 @@
                             <StackPanel VerticalAlignment="Top" Orientation="Vertical">
                                 <Button
                                     Command="{Binding ChooseMainWindowContentCommand}"
+                                    CommandParameter="{x:Static enums:MainWindowContent.SamplesUserControl}"
+                                    Style="{DynamicResource MainMenuButtonStyle}">
+                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static properties:Translations.Samples}" />
+                                </Button>
+                                <Button
+                                    Command="{Binding ChooseMainWindowContentCommand}"
                                     CommandParameter="{x:Static enums:MainWindowContent.PlannedProjectsUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static properties:Translations.PlannedProjects}" />
@@ -111,12 +117,6 @@
                                     CommandParameter="{x:Static enums:MainWindowContent.ProjectsUserControl}"
                                     Style="{DynamicResource MainMenuButtonStyle}">
                                     <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static properties:Translations.FinishedProjects}" />
-                                </Button>
-                                <Button
-                                    Command="{Binding ChooseMainWindowContentCommand}"
-                                    CommandParameter="{x:Static enums:MainWindowContent.SamplesUserControl}"
-                                    Style="{DynamicResource MainMenuButtonStyle}">
-                                    <TextBlock Style="{DynamicResource WrapTextBlockStyle}" Text="{x:Static properties:Translations.Samples}" />
                                 </Button>
                             </StackPanel>
                         </ScrollViewer>

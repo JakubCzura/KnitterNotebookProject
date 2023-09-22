@@ -7,6 +7,7 @@ using KnitterNotebook.Exceptions.Messages;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
@@ -55,9 +56,9 @@ public partial class MainViewModel : BaseViewModel
         ProjectsInProgressCollectionView = CollectionViewSource.GetDefaultView(ProjectsInProgress);
         FinishedProjectsCollectionView = CollectionViewSource.GetDefaultView(FinishedProjects);
         ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(MainWindowContent.SamplesUserControl);
-        MovieUrlAddingViewModel.NewMovieUrlAdded += async () => MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection();
-        SampleAddingViewModel.NewSampleAdded += async () => Samples = (await _sampleService.GetUserSamplesAsync(User.Id)).ToObservableCollection();
-        ProjectPlanningViewModel.NewProjectPlanned += async () => PlannedProjects = (await _projectService.GetUserPlannedProjectsAsync(User.Id)).ToObservableCollection();
+        MovieUrlAddingViewModel.NewMovieUrlAdded += async () => await HandleNewMovieUrlAdded();
+        SampleAddingViewModel.NewSampleAdded += async () => await HandleNewSampleAdded();
+        ProjectPlanningViewModel.NewProjectPlanned += async () => await HandleNewProjectPlanned();
         _sharedResourceViewModel.ProjectInProgressImageAdded += async (int projectId) => await HandleProjectInProgressImageAdded(projectId);
         _sharedResourceViewModel.UserUpdatedInDatabase += async (int userId) => await HandleUserUpdatedInDatabase(userId);
     }
@@ -636,6 +637,41 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while fetching user's data");
+        }
+    }
+
+    private async Task HandleNewProjectPlanned()
+    {
+        try
+        {
+            PlannedProjects = (await _projectService.GetUserPlannedProjectsAsync(User.Id)).ToObservableCollection();
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Error while fetching planned projects's data");
+        }
+    }
+
+    private async Task HandleNewSampleAdded()
+    {
+        try
+        {
+            Samples = (await _sampleService.GetUserSamplesAsync(User.Id)).ToObservableCollection();
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Error while fetching samples' data");
+        }
+    }
+    private async Task HandleNewMovieUrlAdded()
+    {
+        try
+        {
+            MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection();
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Error while fetching movies' data");
         }
     }
 
