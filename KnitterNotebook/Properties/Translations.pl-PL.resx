@@ -325,7 +325,7 @@
     <value>Jeszcze nie podano</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Opcja</value>
+    <value>Opcje</value>
   </data>
   <data name="PasswordChangedSuccessfully" xml:space="preserve">
     <value>Pomyślnie zmieniono hasło</value>
