@@ -323,10 +323,7 @@ public partial class MainViewModel : BaseViewModel
         {
             if (SelectedSample is not null)
             {
-                if (!string.IsNullOrWhiteSpace(SelectedSample.ImagePath))
-                {
-                    _sharedResourceViewModel.FilesToDelete.Add(SelectedSample.ImagePath);
-                }
+                _sharedResourceViewModel.FilesToDelete.AddIfNotNullOrEmpty(SelectedSample.ImagePath);
                 await _sampleService.DeleteAsync(SelectedSample.Id);
                 Samples.Remove(SelectedSample);
             }
@@ -362,6 +359,7 @@ public partial class MainViewModel : BaseViewModel
         {
             if (SelectedPlannedProject is not null)
             {
+                _sharedResourceViewModel.FilesToDelete.AddIfNotNullOrEmpty(SelectedPlannedProject.PatternPdfPath);
                 await _projectService.DeleteAsync(SelectedPlannedProject.Id);
                 PlannedProjects = (await _projectService.GetUserPlannedProjectsAsync(User.Id)).ToObservableCollection();
             }
@@ -380,6 +378,8 @@ public partial class MainViewModel : BaseViewModel
         {
             if (SelectedProjectInProgress is not null)
             {
+                _sharedResourceViewModel.FilesToDelete.AddIfNotNullOrEmpty(SelectedProjectInProgress.PatternPdfPath);
+                _sharedResourceViewModel.FilesToDelete.AddRangeIfNotNullOrEmpty(SelectedProjectInProgress.ProjectImages.Select(x => x.Path));
                 await _projectService.DeleteAsync(SelectedProjectInProgress.Id);
                 ProjectsInProgress = (await _projectService.GetUserProjectsInProgressAsync(User.Id)).ToObservableCollection();
             }
@@ -484,8 +484,6 @@ public partial class MainViewModel : BaseViewModel
                 await _projectImageService.DeleteAsync(SelectedProjectInProgressImage.Id);
                 if (SelectedProjectInProgress is not null)
                 {
-                    int projectId = SelectedProjectInProgress.Id;
-
                     SelectedProjectInProgress.ProjectImages = await _projectImageService.GetProjectImagesAsync(SelectedProjectInProgress.Id);
                     OnPropertyChanged(nameof(SelectedProjectInProgress));
                 }
@@ -599,6 +597,8 @@ public partial class MainViewModel : BaseViewModel
         {
             if (SelectedFinishedProject is not null)
             {
+                _sharedResourceViewModel.FilesToDelete.AddIfNotNullOrEmpty(SelectedFinishedProject.PatternPdfPath);
+                _sharedResourceViewModel.FilesToDelete.AddRangeIfNotNullOrEmpty(SelectedFinishedProject.ProjectImages.Select(x => x.Path));
                 await _projectService.DeleteAsync(SelectedFinishedProject.Id);
                 FinishedProjects = (await _projectService.GetUserFinishedProjectsAsync(User.Id)).ToObservableCollection();
             }
