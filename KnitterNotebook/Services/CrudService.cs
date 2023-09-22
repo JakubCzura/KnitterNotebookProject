@@ -23,9 +23,9 @@ public class CrudService<T> : ICrudService<T> where T : BaseDbEntity
         _dbSet = _databaseContext.Set<T>();
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync() => await _dbSet.ToListAsync();
+    public async Task<IEnumerable<T>> GetAllAsync() => await _dbSet.AsNoTracking().ToListAsync();
 
-    public async Task<T?> GetAsync(int id) => await _dbSet.FindAsync(id);
+    public async Task<T?> GetAsync(int id) => await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
     public async Task<int> CreateAsync(T data)
     {

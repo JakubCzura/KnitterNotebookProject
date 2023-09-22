@@ -28,7 +28,7 @@ public class ProjectService : CrudService<Project>, IProjectService
         _userService = userService;
     }
 
-    public async Task<bool> ProjectExistsAsync(int id) => await _databaseContext.Projects.AnyAsync(x => x.Id == id);
+    public async Task<bool> ProjectExistsAsync(int id) => await _databaseContext.Projects.AsNoTracking().AnyAsync(x => x.Id == id);
 
     /// <summary>
     /// Creates new project and saves to database
@@ -73,16 +73,18 @@ public class ProjectService : CrudService<Project>, IProjectService
 
     public async Task<PlannedProjectDto?> GetPlannedProjectAsync(int id)
     {
-        Project? project = await _databaseContext.Projects.Include(x => x.Needles)
-                                       .Include(x => x.Yarns)
-                                       .Include(x => x.PatternPdf)
-                                       .FirstOrDefaultAsync(x => x.Id == id);
+        Project? project = await _databaseContext.Projects.AsNoTracking()
+                                                          .Include(x => x.Needles)
+                                                          .Include(x => x.Yarns)
+                                                          .Include(x => x.PatternPdf)
+                                                          .FirstOrDefaultAsync(x => x.Id == id);
 
         return project is not null ? new PlannedProjectDto(project) : null;
     }
 
     public async Task<List<PlannedProjectDto>> GetUserPlannedProjectsAsync(int userId)
-       => await _databaseContext.Projects.Include(x => x.Needles)
+       => await _databaseContext.Projects.AsNoTracking()
+                                         .Include(x => x.Needles)
                                          .Include(x => x.Yarns)
                                          .Include(x => x.PatternPdf)
                                          .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.Planned)
@@ -91,17 +93,19 @@ public class ProjectService : CrudService<Project>, IProjectService
 
     public async Task<ProjectInProgressDto?> GetProjectInProgressAsync(int id)
     {
-        Project? project = await _databaseContext.Projects.Include(x => x.Needles)
-                                       .Include(x => x.Yarns)
-                                       .Include(x => x.PatternPdf)
-                                       .Include(x => x.ProjectImages)
-                                       .FirstOrDefaultAsync(x => x.Id == id);
+        Project? project = await _databaseContext.Projects.AsNoTracking()
+                                                          .Include(x => x.Needles)
+                                                          .Include(x => x.Yarns)
+                                                          .Include(x => x.PatternPdf)
+                                                          .Include(x => x.ProjectImages)
+                                                          .FirstOrDefaultAsync(x => x.Id == id);
 
         return project is not null ? new ProjectInProgressDto(project) : null;
     }
 
     public async Task<List<ProjectInProgressDto>> GetUserProjectsInProgressAsync(int userId)
-      => await _databaseContext.Projects.Include(x => x.Needles)
+      => await _databaseContext.Projects.AsNoTracking()
+                                        .Include(x => x.Needles)
                                         .Include(x => x.Yarns)
                                         .Include(x => x.PatternPdf)
                                         .Include(x => x.ProjectImages)
@@ -111,11 +115,12 @@ public class ProjectService : CrudService<Project>, IProjectService
 
     public async Task<FinishedProjectDto?> GetFinishedProjectAsync(int id)
     {
-        Project? project = await _databaseContext.Projects.Include(x => x.Needles)
-                                       .Include(x => x.Yarns)
-                                       .Include(x => x.PatternPdf)
-                                       .Include(x => x.ProjectImages)
-                                       .FirstOrDefaultAsync(x => x.Id == id);
+        Project? project = await _databaseContext.Projects.AsNoTracking()
+                                                          .Include(x => x.Needles)
+                                                          .Include(x => x.Yarns)
+                                                          .Include(x => x.PatternPdf)
+                                                          .Include(x => x.ProjectImages)
+                                                          .FirstOrDefaultAsync(x => x.Id == id);
 
         return project is not null ? new FinishedProjectDto(project) : null;
     }

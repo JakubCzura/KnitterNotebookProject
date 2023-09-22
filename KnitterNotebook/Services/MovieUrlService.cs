@@ -40,6 +40,7 @@ public class MovieUrlService : CrudService<MovieUrl>, IMovieUrlService
     }
 
     public async Task<List<MovieUrlDto>> GetUserMovieUrlsAsync(int userId)
-        => await _databaseContext.MovieUrls.Where(x => x.UserId == userId)
+        => await _databaseContext.MovieUrls.AsNoTracking()
+                                           .Where(x => x.UserId == userId)
                                            .Select(x => new MovieUrlDto(x)).ToListAsync();
 }

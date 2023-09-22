@@ -53,6 +53,7 @@ public class ProjectImageService : CrudService<ProjectImage>, IProjectImageServi
     }
 
     public async Task<List<ProjectImageDto>> GetProjectImagesAsync(int projectId)
-        => await _databaseContext.ProjectImages.Where(x => x.ProjectId == projectId)
+        => await _databaseContext.ProjectImages.AsNoTracking()
+                                               .Where(x => x.ProjectId == projectId)
                                                .Select(x => new ProjectImageDto(x)).ToListAsync();
 }

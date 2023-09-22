@@ -54,7 +54,8 @@ public class SampleService : CrudService<Sample>, ISampleService
     }
 
     public async Task<List<SampleDto>> GetUserSamplesAsync(int userId)
-        => await _databaseContext.Samples.Include(x => x.Image)
+        => await _databaseContext.Samples.AsNoTracking()
+                                         .Include(x => x.Image)
                                          .Where(x => x.UserId == userId)
                                          .Select(x => new SampleDto(x))
                                          .ToListAsync();

@@ -39,13 +39,13 @@ public class UserService : CrudService<User>, IUserService
         _sharedResourceViewModel = sharedResourceViewModel;
     }
 
-    public async Task<bool> IsNicknameTakenAsync(string nickname) => await _databaseContext.Users.AnyAsync(x => x.Nickname == nickname);
+    public async Task<bool> IsNicknameTakenAsync(string nickname) => await _databaseContext.Users.AsNoTracking().AnyAsync(x => x.Nickname == nickname);
 
-    public async Task<bool> IsEmailTakenAsync(string email) => await _databaseContext.Users.AnyAsync(x => x.Email == email);
+    public async Task<bool> IsEmailTakenAsync(string email) => await _databaseContext.Users.AsNoTracking().AnyAsync(x => x.Email == email);
 
     public async Task<bool> ArePasswordResetTokenAndExpirationDateValidAsync(string token)
     {
-        User? user = await _databaseContext.Users.FirstOrDefaultAsync(x => x.PasswordResetToken == token);
+        User? user = await _databaseContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.PasswordResetToken == token);
 
         return user is not null
                && user.PasswordResetToken is not null
@@ -54,12 +54,13 @@ public class UserService : CrudService<User>, IUserService
                && user.PasswordResetTokenExpirationDate.Value.ToUniversalTime() >= DateTime.UtcNow;
     }
 
-    public async Task<bool> UserExistsAsync(int id) => await _databaseContext.Users.AnyAsync(x => x.Id == id);
+    public async Task<bool> UserExistsAsync(int id) => await _databaseContext.Users.AsNoTracking().AnyAsync(x => x.Id == id);
 
     /// <returns>User object if found in database otherwise null</returns>
     public new async Task<UserDto?> GetAsync(int id)
     {
         User? user = await _databaseContext.Users
+                      .AsNoTracking()
                       .Include(x => x.Theme)
                       .FirstOrDefaultAsync(x => x.Id == id);
 
