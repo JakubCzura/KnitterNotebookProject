@@ -1,12 +1,22 @@
-﻿<Window x:Class="KnitterNotebook.Views.Windows.PlannedProjectEditingWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KnitterNotebook.Views.Windows"
-        mc:Ignorable="d"
-        Title="PlannedProjectEditingWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+﻿<Window
+    x:Class="KnitterNotebook.Views.Windows.PlannedProjectEditingWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
+    Title="PlannedProjectEditingWindow"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance Type=viewModels:PlannedProjectEditingViewModel}"
+    mc:Ignorable="d">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid />
 </Window>

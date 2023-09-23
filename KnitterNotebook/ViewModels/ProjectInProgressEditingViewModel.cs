@@ -1,4 +1,5 @@
-﻿using KnitterNotebook.Services.Interfaces;
+﻿using CommunityToolkit.Mvvm.Input;
+using KnitterNotebook.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -18,5 +19,11 @@ namespace KnitterNotebook.ViewModels
 
         private readonly ILogger<ProjectInProgressEditingViewModel> _logger;
         private readonly IProjectService _projectService;
+
+        [RelayCommand]
+        private async Task OnLoadedWindowAsync()
+        {
+
+        }
     }
 }
