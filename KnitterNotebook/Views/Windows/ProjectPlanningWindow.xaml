@@ -104,7 +104,7 @@
                                     MaxWidth="300"
                                     IsReadOnly="True"
                                     Style="{DynamicResource InputLoginDataTextBoxStyle}"
-                                    Text="{Binding PatternPdfPath, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                                    Text="{Binding PatternPdfPath}"
                                     TextWrapping="NoWrap" />
                             </DockPanel>
                         </StackPanel>

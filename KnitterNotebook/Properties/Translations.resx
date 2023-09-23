@@ -174,8 +174,14 @@
   <data name="DontHaveAccount" xml:space="preserve">
     <value>Don't have an account?</value>
   </data>
+  <data name="EditPlannedProject" xml:space="preserve">
+    <value>Edit planned project</value>
+  </data>
   <data name="EditProject" xml:space="preserve">
     <value>Edit project</value>
+  </data>
+  <data name="EditProjectInProgress" xml:space="preserve">
+    <value>Edit project in progress</value>
   </data>
   <data name="EmailChangedSuccessfully" xml:space="preserve">
     <value>Email changed successfully</value>

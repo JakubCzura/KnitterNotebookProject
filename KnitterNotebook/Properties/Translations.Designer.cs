@@ -232,11 +232,29 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit planned project.
+        /// </summary>
+        public static string EditPlannedProject {
+            get {
+                return ResourceManager.GetString("EditPlannedProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit project.
         /// </summary>
         public static string EditProject {
             get {
                 return ResourceManager.GetString("EditProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit project in progress.
+        /// </summary>
+        public static string EditProjectInProgress {
+            get {
+                return ResourceManager.GetString("EditProjectInProgress", resourceCulture);
             }
         }
         
