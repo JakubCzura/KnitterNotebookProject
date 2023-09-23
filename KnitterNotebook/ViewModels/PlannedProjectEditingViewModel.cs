@@ -1,16 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FluentValidation;
+using FluentValidation.Results;
 using KnitterNotebook.Converters;
+using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Enums;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
+using KnitterNotebook.Validators;
 using KnitterNotebook.Views.Windows;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -18,16 +24,23 @@ namespace KnitterNotebook.ViewModels
 {
     public partial class PlannedProjectEditingViewModel : BaseViewModel
     {
-        public PlannedProjectEditingViewModel(ILogger<PlannedProjectEditingViewModel> logger, IProjectService projectService, SharedResourceViewModel sharedResourceViewModel)
+        public PlannedProjectEditingViewModel(ILogger<PlannedProjectEditingViewModel> logger, 
+            IProjectService projectService, 
+            IValidator<EditPlannedProjectDto> editPlannedProjectDtoValidator, 
+            SharedResourceViewModel sharedResourceViewModel)
         {
             _logger = logger;
             _projectService = projectService;
+            _editPlannedProjectDtoValidator = editPlannedProjectDtoValidator;
             _sharedResourceViewModel = sharedResourceViewModel;
         }
 
         private readonly ILogger<PlannedProjectEditingViewModel> _logger;
         private readonly IProjectService _projectService;
+        private readonly IValidator<EditPlannedProjectDto> _editPlannedProjectDtoValidator;
         private readonly SharedResourceViewModel _sharedResourceViewModel;
+
+        private string? _originalPatternPdfPath = null;
 
         [ObservableProperty]
         private string _name = string.Empty;
@@ -103,6 +116,9 @@ namespace KnitterNotebook.ViewModels
                     Closewindow(PlannedProjectEditingWindow.Instance);
                     return;
                 }
+
+                _originalPatternPdfPath = plannedProjectDto.PatternPdfPath;
+
                 Name = plannedProjectDto.Name;
                 StartDate = plannedProjectDto.StartDate;
                 YarnsNamesWithDelimiter = YarnsNamesWithDelimiterConverter.Convert(plannedProjectDto.Yarns);
@@ -169,8 +185,37 @@ namespace KnitterNotebook.ViewModels
         }
 
         [RelayCommand]
-        private async Task EditProjectCommand()
+        private async Task EditProjectAsync()
         {
+            IEnumerable<CreateNeedleDto> needlesToCreate = NullableSizeNeedlesFilter.GetNeedlesWithPositiveSizeValue(Needle1, Needle2, Needle3, Needle4, Needle5)
+                                                                                .Select(CreateNeedleDtoConverter.Convert);
+
+            IEnumerable<CreateYarnDto> yarnsToCreate = CreateYarnDtoConverter.Convert(YarnsNamesWithDelimiter);
+
+            //try
+            //{
+                EditPlannedProjectDto editPlannedProjectDto = new(_sharedResourceViewModel.EditPlannedProjectId, Name, StartDate, needlesToCreate, yarnsToCreate, Description, PatternPdfPath, _sharedResourceViewModel.UserId);
+                ValidationResult validation = await _editPlannedProjectDtoValidator.ValidateAsync(editPlannedProjectDto);
+                if (!validation.IsValid)
+                {
+                    string errorMessage = validation.Errors.GetMessagesAsString();
+                    MessageBox.Show(errorMessage);
+                    return;
+                }
+                //if user changes pattern pdf, then old one should be deleted
+                if(!string.IsNullOrEmpty(_originalPatternPdfPath) && _originalPatternPdfPath != PatternPdfPath)
+                {
+                    _sharedResourceViewModel.FilesToDelete.Add(_originalPatternPdfPath);
+                }
+                await _projectService.EditPlannedProjectAsync(editPlannedProjectDto);
+                _sharedResourceViewModel.OnPlannedProjectEdited();
+                MessageBox.Show(Translations.PlannedProjectEditedSuccessfully);
+            //}
+            //catch (Exception exception)
+            //{
+            //    _logger.LogError(exception, "Error while editing planned project");
+            //    MessageBox.Show(Translations.ErrorWhileEditingPlannedProject);
+            //}
         }
     }
 }

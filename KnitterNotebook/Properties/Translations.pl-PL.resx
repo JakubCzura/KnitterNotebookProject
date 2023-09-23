@@ -234,6 +234,12 @@
   <data name="ErrorWhileDeletingSample" xml:space="preserve">
     <value>Błąd podczas kasowania próbki obliczeniowej</value>
   </data>
+  <data name="ErrorWhileEditingPlannedProject" xml:space="preserve">
+    <value>Błąd podczas edytowania planowanego projektu</value>
+  </data>
+  <data name="ErrorWhileEditingProjectInProgress" xml:space="preserve">
+    <value>Błąd podczas edytowania projektu w trakcie</value>
+  </data>
   <data name="ErrorWhileFinishingProjectInProgress" xml:space="preserve">
     <value>Błąd podczas ukończenia projektu w trakcie</value>
   </data>
@@ -402,6 +408,9 @@
   <data name="PlannedProject" xml:space="preserve">
     <value>Planowany projekt</value>
   </data>
+  <data name="PlannedProjectEditedSuccessfully" xml:space="preserve">
+    <value>Pomyślnie edytowano planowany projekt</value>
+  </data>
   <data name="PlannedProjects" xml:space="preserve">
     <value>Planowane projekty</value>
   </data>
@@ -413,6 +422,9 @@
   </data>
   <data name="ProjectInProgress" xml:space="preserve">
     <value>Projekt w trakcie</value>
+  </data>
+  <data name="ProjectInProgressEditedSuccessfully" xml:space="preserve">
+    <value>Pomyślnie edytowano projekt w trakcie</value>
   </data>
   <data name="ProjectName" xml:space="preserve">
     <value>Nazwa projektu</value>

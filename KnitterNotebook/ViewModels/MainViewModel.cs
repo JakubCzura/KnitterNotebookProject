@@ -60,6 +60,7 @@ public partial class MainViewModel : BaseViewModel
         ProjectPlanningViewModel.NewProjectPlanned += async () => await HandleNewProjectPlanned();
         _sharedResourceViewModel.ProjectInProgressImageAdded += async (int projectId) => await HandleProjectInProgressImageAdded(projectId);
         _sharedResourceViewModel.UserUpdatedInDatabase += async (int userId) => await HandleUserUpdatedInDatabase(userId);
+        _sharedResourceViewModel.PlannedProjectEdited += async (int projectId) => await HandlePlannedProjectEdited(projectId);
     }
 
     #region Properties
@@ -672,6 +673,20 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while fetching movies' data");
+        }
+    }
+
+    private async Task HandlePlannedProjectEdited(int projectId)
+    {
+        try
+        {
+            PlannedProjectDto? plannedProjectDto = await _projectService.GetPlannedProjectAsync(projectId);
+            PlannedProjectDto? project = PlannedProjects.FirstOrDefault(x => x.Id == projectId);
+            project = plannedProjectDto;
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Error while fetching planned project's data");
         }
     }
 

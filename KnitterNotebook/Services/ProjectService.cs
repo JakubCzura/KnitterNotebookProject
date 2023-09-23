@@ -151,4 +151,35 @@ public class ProjectService : CrudService<Project>, IProjectService
         _databaseContext.Update(project);
         return await _databaseContext.SaveChangesAsync();
     }
+
+    public async Task<int> EditPlannedProjectAsync(EditPlannedProjectDto editPlannedProjectDto)
+    {
+        throw new NotImplementedException("EditPlannedProjectAsync");
+        //string nickname = await _userService.GetNicknameAsync(editPlannedProjectDto.UserId)
+        //                 ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(editPlannedProjectDto.UserId));
+
+        //string? destinationPatternPdfPath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(editPlannedProjectDto.SourcePatternPdfPath));
+        //PatternPdf? patternPdf = !string.IsNullOrWhiteSpace(destinationPatternPdfPath) ? new(destinationPatternPdfPath) : null;
+
+        //List<Needle> needles = editPlannedProjectDto.Needles.Select(x => new Needle(x.Size, x.SizeUnit)).ToList();
+        //List<Yarn> yarns = editPlannedProjectDto.Yarns.Select(x => new Yarn(x.Name)).ToList();
+
+        //if (!string.IsNullOrWhiteSpace(editPlannedProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(destinationPatternPdfPath))
+        //    FileHelper.CopyWithDirectoryCreation(editPlannedProjectDto.SourcePatternPdfPath, destinationPatternPdfPath);
+
+        //Project? project = await _databaseContext.Projects.FindAsync(editPlannedProjectDto.Id);
+        //if (project == null)
+        //{
+        //    return 0;
+        //}
+        //project.Name = editPlannedProjectDto.Name;
+        //project.StartDate = editPlannedProjectDto.StartDate;
+        //project.Needles = needles;
+        //project.Yarns = yarns;
+        //project.Description = editPlannedProjectDto.Description;
+        //project.PatternPdf = patternPdf;
+
+        //_databaseContext.Update(project);
+        //return await _databaseContext.SaveChangesAsync();
+    }
 }

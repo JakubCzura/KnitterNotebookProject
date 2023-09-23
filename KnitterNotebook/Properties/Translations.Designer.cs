@@ -412,6 +412,24 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while editing planned project.
+        /// </summary>
+        public static string ErrorWhileEditingPlannedProject {
+            get {
+                return ResourceManager.GetString("ErrorWhileEditingPlannedProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while editing project in progress.
+        /// </summary>
+        public static string ErrorWhileEditingProjectInProgress {
+            get {
+                return ResourceManager.GetString("ErrorWhileEditingProjectInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error while finishing project in progress.
         /// </summary>
         public static string ErrorWhileFinishingProjectInProgress {
@@ -916,6 +934,15 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Planned project edited successfully.
+        /// </summary>
+        public static string PlannedProjectEditedSuccessfully {
+            get {
+                return ResourceManager.GetString("PlannedProjectEditedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Planned projects.
         /// </summary>
         public static string PlannedProjects {
@@ -948,6 +975,15 @@ namespace KnitterNotebook.Properties {
         public static string ProjectInProgress {
             get {
                 return ResourceManager.GetString("ProjectInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project in progress edited successfully.
+        /// </summary>
+        public static string ProjectInProgressEditedSuccessfully {
+            get {
+                return ResourceManager.GetString("ProjectInProgressEditedSuccessfully", resourceCulture);
             }
         }
         

@@ -59,6 +59,7 @@ public partial class App : Application
                 services.AddScoped<IValidator<LogInDto>, LogInDtoValidator>();
                 services.AddScoped<IValidator<CreateProjectImageDto>, CreateProjectImageDtoValidator>();
                 services.AddScoped<IValidator<ChangeProjectStatusDto>, ChangeProjectStatusDtoValidator>();
+                services.AddScoped<IValidator<EditPlannedProjectDto>, EditPlannedProjectDtoValidator>();
 
                 #endregion Validators
 

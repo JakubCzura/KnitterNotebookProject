@@ -24,4 +24,6 @@ public interface IProjectService : ICrudService<Project>
     Task<List<FinishedProjectDto>> GetUserFinishedProjectsAsync(int userId);
 
     Task<int> ChangeProjectStatus(ChangeProjectStatusDto changeProjectStatusDto);
+
+    Task<int> EditPlannedProjectAsync(EditPlannedProjectDto editPlannedProjectDto);
 }
