@@ -1,11 +1,11 @@
 ﻿<Window
     x:Class="KnitterNotebook.Views.Windows.PlannedProjectEditingWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:adorners="http://gu.se/Adorners"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:KnitterNotebook.Properties"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
@@ -24,7 +24,7 @@
     </i:Interaction.Triggers>
 
     <Window.InputBindings>
-        <KeyBinding Key="Enter" Command="{Binding AddProjectCommand}" />
+        <KeyBinding Key="Enter" Command="{Binding EditProjectCommand}" />
     </Window.InputBindings>
     <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto">
         <Grid>
@@ -140,6 +140,7 @@
                                             Grid.Column="1"
                                             HorizontalAlignment="Right"
                                             ItemsSource="{Binding NeedleSizeUnitList}"
+                                            SelectedIndex="{Binding Needle1SizeUnitIndex}"
                                             SelectedItem="{Binding Needle1.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
@@ -165,6 +166,7 @@
                                             Grid.Column="1"
                                             HorizontalAlignment="Right"
                                             ItemsSource="{Binding NeedleSizeUnitList}"
+                                            SelectedIndex="{Binding Needle2SizeUnitIndex}"
                                             SelectedItem="{Binding Needle2.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
@@ -190,6 +192,7 @@
                                             Grid.Column="1"
                                             HorizontalAlignment="Right"
                                             ItemsSource="{Binding NeedleSizeUnitList}"
+                                            SelectedIndex="{Binding Needle3SizeUnitIndex}"
                                             SelectedItem="{Binding Needle3.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
@@ -215,6 +218,7 @@
                                             Grid.Column="1"
                                             HorizontalAlignment="Right"
                                             ItemsSource="{Binding NeedleSizeUnitList}"
+                                            SelectedIndex="{Binding Needle4SizeUnitIndex}"
                                             SelectedItem="{Binding Needle4.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
@@ -240,6 +244,7 @@
                                             Grid.Column="1"
                                             HorizontalAlignment="Right"
                                             ItemsSource="{Binding NeedleSizeUnitList}"
+                                            SelectedIndex="{Binding Needle5SizeUnitIndex}"
                                             SelectedItem="{Binding Needle5.SizeUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
                                 </DockPanel>
@@ -261,7 +266,7 @@
                     </UniformGrid>
                     <Button
                         Margin="0,10,0,0"
-                        Command="{Binding AddProjectCommand}"
+                        Command="{Binding EditProjectCommand}"
                         Content="{x:Static properties:Translations.Submit}"
                         Style="{DynamicResource LoginButtonStyle}" />
                 </StackPanel>
