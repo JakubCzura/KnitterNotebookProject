@@ -30,4 +30,16 @@ public partial class SharedResourceViewModel : BaseViewModel
     public string? PatternPdfPath { get; set; }
 
     public List<string> FilesToDelete { get; set; } = new();
+
+    public int EditPlannedProjectId { get; set; }
+
+    public Action<int> PlannedProjectEdited { get; set; } = null!;
+
+    public void OnPlannedProjectEdited() => PlannedProjectEdited?.Invoke(EditPlannedProjectId);
+
+    public int EditProjectInProgressId { get; set; }    
+
+    public Action<int> ProjectInProgressEdited { get; set; } = null!;
+
+    public void OnProjectInProgressEdited() => ProjectInProgressEdited?.Invoke(EditProjectInProgressId);
 }

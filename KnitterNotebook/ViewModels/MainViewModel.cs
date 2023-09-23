@@ -7,7 +7,6 @@ using KnitterNotebook.Exceptions.Messages;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
-using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
@@ -663,6 +662,7 @@ public partial class MainViewModel : BaseViewModel
             _logger.LogError(exception, "Error while fetching samples' data");
         }
     }
+
     private async Task HandleNewMovieUrlAdded()
     {
         try
@@ -672,6 +672,27 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while fetching movies' data");
+        }
+    }
+
+    [RelayCommand]
+    private void EditProject(ProjectStatusName projectStatusName)
+    {
+        if (projectStatusName == ProjectStatusName.Planned)
+        {
+            if (SelectedPlannedProject is not null)
+            {
+                _sharedResourceViewModel.EditPlannedProjectId = SelectedPlannedProject.Id;
+                ShowWindow<PlannedProjectEditingWindow>();
+            }
+        }
+        else if (projectStatusName == ProjectStatusName.InProgress)
+        {
+            if (SelectedProjectInProgress is not null)
+            {
+                _sharedResourceViewModel.EditProjectInProgressId = SelectedProjectInProgress.Id;
+                ShowWindow<ProjectInProgressEditingWindow>();
+            }
         }
     }
 

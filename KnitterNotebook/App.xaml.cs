@@ -101,6 +101,8 @@ public partial class App : Application
                 services.AddTransient<ProjectPlanningViewModel>();
                 services.AddTransient<PdfBrowserViewModel>();
                 services.AddTransient<ProjectImageAddingViewModel>();
+                services.AddTransient<PlannedProjectEditingViewModel>();
+                services.AddTransient<ProjectInProgressEditingViewModel>();
 
                 #endregion ViewModels
 
@@ -145,6 +147,14 @@ public partial class App : Application
                 services.AddTransient(s => new ProjectImageAddingWindow()
                 {
                     DataContext = s.GetRequiredService<ProjectImageAddingViewModel>()
+                });
+                services.AddTransient(s => new PlannedProjectEditingWindow()
+                {
+                    DataContext = s.GetRequiredService<PlannedProjectEditingViewModel>()
+                });
+                services.AddTransient(s => new ProjectInProgressEditingWindow()
+                {
+                    DataContext = s.GetRequiredService<ProjectInProgressEditingViewModel>()
                 });
 
                 #endregion Windows
