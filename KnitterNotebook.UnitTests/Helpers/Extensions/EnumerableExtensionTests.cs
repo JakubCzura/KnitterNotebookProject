@@ -49,4 +49,43 @@ public class EnumerableExtensionTests
         //Assert
         action.Should().Throw<ArgumentNullException>();
     }
+
+    [Fact]
+    public void NotNullAndHaveAnyElement_ForNullCollection_ReturnsFalse()
+    {
+        //Arrange
+        List<int> list = null!;
+
+        //Act
+        bool result = list.NotNullAndHaveAnyElement();
+
+        //Assert
+        result.Should().BeFalse();
+    }
+
+    [Fact]
+    public void NotNullAndHaveAnyElement_ForEmptyCollection_ReturnsFalse()
+    {
+        //Arrange
+        List<int> list = new();
+
+        //Act
+        bool result = list.NotNullAndHaveAnyElement();
+
+        //Assert
+        result.Should().BeFalse();
+    }
+
+    [Fact]
+    public void NotNullAndHaveAnyElement_ForCollectionWithElements_ReturnsTrue()
+    {
+        //Arrange
+        List<int> list = new() { 1, 2, 3 };
+
+        //Act
+        bool result = list.NotNullAndHaveAnyElement();
+
+        //Assert
+        result.Should().BeTrue();
+    }
 }

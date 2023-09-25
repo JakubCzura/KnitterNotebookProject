@@ -192,8 +192,8 @@ namespace KnitterNotebook.ViewModels
 
             IEnumerable<CreateYarnDto> yarnsToCreate = CreateYarnDtoConverter.Convert(YarnsNamesWithDelimiter);
 
-            //try
-            //{
+            try
+            {
                 EditPlannedProjectDto editPlannedProjectDto = new(_sharedResourceViewModel.EditPlannedProjectId, Name, StartDate, needlesToCreate, yarnsToCreate, Description, PatternPdfPath, _sharedResourceViewModel.UserId);
                 ValidationResult validation = await _editPlannedProjectDtoValidator.ValidateAsync(editPlannedProjectDto);
                 if (!validation.IsValid)
@@ -203,19 +203,20 @@ namespace KnitterNotebook.ViewModels
                     return;
                 }
                 //if user changes pattern pdf, then old one should be deleted
-                if(!string.IsNullOrEmpty(_originalPatternPdfPath) && _originalPatternPdfPath != PatternPdfPath)
+                if (!string.IsNullOrEmpty(_originalPatternPdfPath) && _originalPatternPdfPath != PatternPdfPath)
                 {
                     _sharedResourceViewModel.FilesToDelete.Add(_originalPatternPdfPath);
                 }
                 await _projectService.EditPlannedProjectAsync(editPlannedProjectDto);
                 _sharedResourceViewModel.OnPlannedProjectEdited();
                 MessageBox.Show(Translations.PlannedProjectEditedSuccessfully);
-            //}
-            //catch (Exception exception)
-            //{
-            //    _logger.LogError(exception, "Error while editing planned project");
-            //    MessageBox.Show(Translations.ErrorWhileEditingPlannedProject);
-            //}
+                Closewindow(PlannedProjectEditingWindow.Instance);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "Error while editing planned project");
+                MessageBox.Show(Translations.ErrorWhileEditingPlannedProject);
+            }
         }
     }
 }

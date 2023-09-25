@@ -154,32 +154,45 @@ public class ProjectService : CrudService<Project>, IProjectService
 
     public async Task<int> EditPlannedProjectAsync(EditPlannedProjectDto editPlannedProjectDto)
     {
-        throw new NotImplementedException("EditPlannedProjectAsync");
-        //string nickname = await _userService.GetNicknameAsync(editPlannedProjectDto.UserId)
-        //                 ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(editPlannedProjectDto.UserId));
+        string nickname = await _userService.GetNicknameAsync(editPlannedProjectDto.UserId)
+                         ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(editPlannedProjectDto.UserId));
 
-        //string? destinationPatternPdfPath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(editPlannedProjectDto.SourcePatternPdfPath));
-        //PatternPdf? patternPdf = !string.IsNullOrWhiteSpace(destinationPatternPdfPath) ? new(destinationPatternPdfPath) : null;
+        Project? project = await _databaseContext.Projects
+                                                 .Include(p => p.PatternPdf)
+                                                 .Include(p => p.Needles)
+                                                 .Include(p => p.Yarns)
+                                                 .FirstOrDefaultAsync(p => p.Id == editPlannedProjectDto.Id);
+        if (project == null)
+        {
+            return 0;
+        }
 
-        //List<Needle> needles = editPlannedProjectDto.Needles.Select(x => new Needle(x.Size, x.SizeUnit)).ToList();
-        //List<Yarn> yarns = editPlannedProjectDto.Yarns.Select(x => new Yarn(x.Name)).ToList();
+        project.Name = editPlannedProjectDto.Name;
+        project.StartDate = editPlannedProjectDto.StartDate;
+        project.Description = editPlannedProjectDto.Description;
 
-        //if (!string.IsNullOrWhiteSpace(editPlannedProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(destinationPatternPdfPath))
-        //    FileHelper.CopyWithDirectoryCreation(editPlannedProjectDto.SourcePatternPdfPath, destinationPatternPdfPath);
+        if (editPlannedProjectDto.Needles.NotNullAndHaveAnyElement())
+        {
+            project.Needles.Clear();
+            project.Needles.AddRange(editPlannedProjectDto.Needles.Select(x => new Needle(x.Size, x.SizeUnit)));
+        }
 
-        //Project? project = await _databaseContext.Projects.FindAsync(editPlannedProjectDto.Id);
-        //if (project == null)
-        //{
-        //    return 0;
-        //}
-        //project.Name = editPlannedProjectDto.Name;
-        //project.StartDate = editPlannedProjectDto.StartDate;
-        //project.Needles = needles;
-        //project.Yarns = yarns;
-        //project.Description = editPlannedProjectDto.Description;
-        //project.PatternPdf = patternPdf;
+        if (editPlannedProjectDto.Yarns.NotNullAndHaveAnyElement())
+        {
+            project.Yarns.Clear();
+            project.Yarns.AddRange(editPlannedProjectDto.Yarns.Select(x => new Yarn(x.Name)));
+        }
 
-        //_databaseContext.Update(project);
-        //return await _databaseContext.SaveChangesAsync();
+        string? destinationPatternPdfPath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(editPlannedProjectDto.SourcePatternPdfPath));
+        PatternPdf? patternPdf = !string.IsNullOrWhiteSpace(destinationPatternPdfPath) ? new(destinationPatternPdfPath) : null;
+        project.PatternPdf = patternPdf;
+
+        if (!string.IsNullOrWhiteSpace(editPlannedProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(destinationPatternPdfPath))
+        {
+            FileHelper.CopyWithDirectoryCreation(editPlannedProjectDto.SourcePatternPdfPath, destinationPatternPdfPath);
+        }
+
+        _databaseContext.Update(project);
+        return await _databaseContext.SaveChangesAsync();
     }
 }
