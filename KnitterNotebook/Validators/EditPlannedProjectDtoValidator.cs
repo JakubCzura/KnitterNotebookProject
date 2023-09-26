@@ -6,16 +6,17 @@ namespace KnitterNotebook.Validators
 {
     public class EditPlannedProjectDtoValidator : AbstractValidator<EditPlannedProjectDto>
     {
-        private readonly IProjectService _projectService;
         private readonly IUserService _userService;
-        public EditPlannedProjectDtoValidator(IProjectService projectService, IUserService userService)
+        private readonly IProjectService _projectService;
+
+        public EditPlannedProjectDtoValidator(IUserService userService, IProjectService projectService)
         {
-            _projectService = projectService;
             _userService = userService;
+            _projectService = projectService;
 
             RuleFor(dto => dto.Id)
-               .MustAsync(async (id, cancellationToken) => await _projectService.ProjectExistsAsync(id))
-               .WithMessage("Nie znaleziono projektu");
+                .MustAsync(async (id, cancellationToken) => await _projectService.ProjectExistsAsync(id))
+                .WithMessage("Nie znaleziono projektu");
 
             RuleFor(dto => dto)
                 .SetValidator(new PlanProjectDtoValidator(_userService));
