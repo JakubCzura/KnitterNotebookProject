@@ -79,6 +79,8 @@ public class ChangePasswordDtoValidatorTests
 
     [Theory]
     [InlineData(" ", " ")]
+    [InlineData(null, " ")]
+    [InlineData(" ", null)]
     [InlineData(" 22", " 22")]
     [InlineData(" invalid password", " invalid password")]
     [InlineData("Password123@", "OtherPasswordPassword123@")]

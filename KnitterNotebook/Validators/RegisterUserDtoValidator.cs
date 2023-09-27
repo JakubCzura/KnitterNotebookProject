@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 
 namespace KnitterNotebook.Validators;
@@ -13,19 +14,18 @@ public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
         _userService = userService;
 
         RuleFor(x => x.Nickname)
-            .NotEmpty().WithMessage("Nazwa użytkownika nie może być pusta")
             .SetValidator(new NicknameValidator())
             .MustAsync(async (nickname, cancellationToken) => !await _userService.IsNicknameTakenAsync(nickname))
-            .WithMessage("Nick jest już używany");
+            .WithMessage(Translations.NicknameIsAlreadyTaken);
 
         RuleFor(x => x.Email)
-            .NotEmpty().WithMessage("E-mail nie może być pusty")
-            .EmailAddress().WithMessage("Niepoprawny format e-mail")
+            .NotEmpty()
+            .WithMessage(Translations.EmailCantBeEmpty)
+            .EmailAddress().WithMessage(Translations.InvalidEmailFormat)
             .MustAsync(async (email, cancellationToken) => !await _userService.IsEmailTakenAsync(email))
-            .WithMessage("E-mail jest już używany");
+            .WithMessage(Translations.EmailIsAlreadyTaken);
 
         RuleFor(x => x.Password)
-            .NotEmpty().WithMessage("Hasło nie może być puste")
             .SetValidator(new PasswordValidator());
     }
 }

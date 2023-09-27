@@ -1402,6 +1402,15 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Token is invalid or expired.
+        /// </summary>
+        public static string TokenInvalidOrExpired {
+            get {
+                return ResourceManager.GetString("TokenInvalidOrExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type e-mail.
         /// </summary>
         public static string TypeEmail {

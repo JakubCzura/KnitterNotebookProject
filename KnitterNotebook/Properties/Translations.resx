@@ -564,6 +564,9 @@
   <data name="TitleMax100Chars" xml:space="preserve">
     <value>Title can't have more than 100 characters</value>
   </data>
+  <data name="TokenInvalidOrExpired" xml:space="preserve">
+    <value>Token is invalid or expired</value>
+  </data>
   <data name="TypeEmail" xml:space="preserve">
     <value>Type e-mail</value>
   </data>

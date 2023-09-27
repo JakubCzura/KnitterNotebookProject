@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 
 namespace KnitterNotebook.Validators;
@@ -13,16 +14,16 @@ public class ResetPasswordDtoValidator : AbstractValidator<ResetPasswordDto>
         _userService = userService;
 
         RuleFor(x => x.NewPassword)
-          .NotEmpty().WithMessage("Hasło nie może być puste")
           .SetValidator(new PasswordValidator())
-          .Equal(x => x.RepeatedNewPassword).WithMessage("Nowe hasło ma dwie różne wartości");
+          .Equal(x => x.RepeatedNewPassword)
+          .WithMessage(Translations.PasswordsAreNotIdentical);
 
         RuleFor(x => x.Email)
           .MustAsync(async (email, cancellationToken) => await _userService.IsEmailTakenAsync(email))
-          .WithMessage("E-mail nie pasuje do żadnego użytkownika");
+          .WithMessage(Translations.EmailNotFound);
 
         RuleFor(x => x.Token)
           .MustAsync(async (token, cancellationToken) => await _userService.ArePasswordResetTokenAndExpirationDateValidAsync(token))
-          .WithMessage("Token jest nieprawidłowy lub wygasł jego czas użycia");
+          .WithMessage(Translations.TokenInvalidOrExpired);
     }
 }

@@ -18,8 +18,6 @@ public class ChangePasswordDtoValidator : AbstractValidator<ChangePasswordDto>
             .WithMessage(Translations.UserNotFound);
 
         RuleFor(x => x.NewPassword)
-            .NotEmpty()
-            .WithMessage(Translations.PasswordCantBeEmpty)
             .SetValidator(new PasswordValidator())
             .Equal(x => x.ConfirmPassword)
             .WithMessage(Translations.PasswordsAreNotIdentical);
