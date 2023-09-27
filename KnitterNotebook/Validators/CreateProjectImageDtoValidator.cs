@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 
 namespace KnitterNotebook.Validators;
@@ -15,13 +16,15 @@ public class CreateProjectImageDtoValidator : AbstractValidator<CreateProjectIma
         _userService = userService;
 
         RuleFor(x => x.ImagePath)
-           .Must(FileExtensionValidator.IsImage).WithMessage("Wybierz zdjęcie z innym formatem: .jpg, .jpeg, .png lub usuń odnośnik do zdjęcia");
+           .Must(FileExtensionValidator.IsImage)
+           .WithMessage(Translations.PhotoValidExtension);
 
         RuleFor(x => x.ProjectId)
-           .MustAsync(async (id, cancellationToken) => await _projectService.ProjectExistsAsync(id)).WithMessage("Nie odnaleziono projektu");
+           .MustAsync(async (id, cancellationToken) => await _projectService.ProjectExistsAsync(id))
+           .WithMessage(Translations.ProjectNotFound);
 
         RuleFor(x => x.UserId)
-            .MustAsync(async (id, cancellationToken) => await _userService.UserExistsAsync(id))
-            .WithMessage("Nie znaleziono użytkownika");
+           .MustAsync(async (id, cancellationToken) => await _userService.UserExistsAsync(id))
+           .WithMessage(Translations.UserNotFound);
     }
 }

@@ -141,6 +141,9 @@
   <data name="ApplicationWillShutDown" xml:space="preserve">
     <value>Application will shut down</value>
   </data>
+  <data name="characters" xml:space="preserve">
+    <value>characters</value>
+  </data>
   <data name="ChoosePdfFileWithPattern" xml:space="preserve">
     <value>Choose .pdf file with pattern</value>
   </data>
@@ -171,6 +174,9 @@
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="DescriptionMaxChars" xml:space="preserve">
+    <value>Description can't have more than</value>
+  </data>
   <data name="DontHaveAccount" xml:space="preserve">
     <value>Don't have an account?</value>
   </data>
@@ -183,8 +189,14 @@
   <data name="EditProjectInProgress" xml:space="preserve">
     <value>Edit project in progress</value>
   </data>
+  <data name="EmailCantBeEmpty" xml:space="preserve">
+    <value>E-mail can't be empty</value>
+  </data>
   <data name="EmailChangedSuccessfully" xml:space="preserve">
     <value>Email changed successfully</value>
+  </data>
+  <data name="EmailIsAlreadyTaken" xml:space="preserve">
+    <value>E-mail is already taken</value>
   </data>
   <data name="EmailNotFound" xml:space="preserve">
     <value>Email not found</value>
@@ -285,14 +297,29 @@
   <data name="ForgotPassword" xml:space="preserve">
     <value>Forgot your password?</value>
   </data>
+  <data name="InvalidEmailFormat" xml:space="preserve">
+    <value>Invalid e-mail's format</value>
+  </data>
   <data name="InvalidLoginCredentials" xml:space="preserve">
     <value>Invalid login credentials</value>
+  </data>
+  <data name="InvalidProjectStatus" xml:space="preserve">
+    <value>Invalid project's status</value>
+  </data>
+  <data name="InvalidSizeUnit" xml:space="preserve">
+    <value>Invalid size unit</value>
   </data>
   <data name="Link" xml:space="preserve">
     <value>Link</value>
   </data>
+  <data name="LinkCantBeEmpty" xml:space="preserve">
+    <value>Link can't be empty</value>
+  </data>
   <data name="LoopsQuantity" xml:space="preserve">
     <value>Loops quantity</value>
+  </data>
+  <data name="LoopsQuantityMustBeBetween" xml:space="preserve">
+    <value>Loops quantity must be between</value>
   </data>
   <data name="LoopsXRows" xml:space="preserve">
     <value>Loops x rows</value>
@@ -303,11 +330,17 @@
   <data name="MoveToProjectsInProgress" xml:space="preserve">
     <value>Move to projects in progress</value>
   </data>
+  <data name="NeedleCollectionCantBeEmpty" xml:space="preserve">
+    <value>Needle collection can't be empty</value>
+  </data>
   <data name="Needles" xml:space="preserve">
     <value>Needles</value>
   </data>
   <data name="NeedleSize" xml:space="preserve">
     <value>Needle's size</value>
+  </data>
+  <data name="NeedleSizeMustBeBetween" xml:space="preserve">
+    <value>Needle's size must be between</value>
   </data>
   <data name="NewEmail" xml:space="preserve">
     <value>New e-mail</value>
@@ -333,8 +366,20 @@
   <data name="NiceToSeeYou" xml:space="preserve">
     <value>Nice to see you</value>
   </data>
+  <data name="NicknameCanConsistOfLettersSpacesAndNumbers" xml:space="preserve">
+    <value>Nickname can consist of letters, spaces and numbers</value>
+  </data>
+  <data name="NicknameCantBeEmpty" xml:space="preserve">
+    <value>Nickname can't be empty</value>
+  </data>
   <data name="NicknameChangedSuccessfully" xml:space="preserve">
     <value>Nickname changed successfully</value>
+  </data>
+  <data name="NicknameIsAlreadyTaken" xml:space="preserve">
+    <value>Nickname is already taken</value>
+  </data>
+  <data name="NicknameMaxChars" xml:space="preserve">
+    <value>Nickname can't have more than</value>
   </data>
   <data name="NotYetSpecified" xml:space="preserve">
     <value>Not yet specified</value>
@@ -342,8 +387,26 @@
   <data name="Options" xml:space="preserve">
     <value>Options</value>
   </data>
+  <data name="PasswordCantBeEmpty" xml:space="preserve">
+    <value>Password can't be empty</value>
+  </data>
   <data name="PasswordChangedSuccessfully" xml:space="preserve">
     <value>Password changed successfully</value>
+  </data>
+  <data name="PasswordLengthMustBeBetween" xml:space="preserve">
+    <value>Password's length must be between</value>
+  </data>
+  <data name="PasswordMustHaveAtLeastOneLowerLetter" xml:space="preserve">
+    <value>Password must have at least one lower letter</value>
+  </data>
+  <data name="PasswordMustHaveAtLeastOneNumber" xml:space="preserve">
+    <value>Password must have at least one number</value>
+  </data>
+  <data name="PasswordMustHaveAtLeastOneUpperLetter" xml:space="preserve">
+    <value>Password must have at least one upper letter</value>
+  </data>
+  <data name="PasswordsAreNotIdentical" xml:space="preserve">
+    <value>Passwords are not identical</value>
   </data>
   <data name="PdfWithPattern" xml:space="preserve">
     <value>Pdf with pattern</value>
@@ -353,6 +416,12 @@
   </data>
   <data name="Photos" xml:space="preserve">
     <value>Photos</value>
+  </data>
+  <data name="PhotoValidExtension" xml:space="preserve">
+    <value>Photo must have .jpg, .jpeg, .png extension</value>
+  </data>
+  <data name="PhotoValidExtensionOrEmpty" xml:space="preserve">
+    <value>Photo must have .jpg, .jpeg, .png extension or be empty</value>
   </data>
   <data name="Placeholder_CommaSeparatedNames" xml:space="preserve">
     <value>Comma-separated names, e.g.: w1 , w2 , w3</value>
@@ -429,14 +498,29 @@
   <data name="ProjectName" xml:space="preserve">
     <value>Project's name</value>
   </data>
+  <data name="ProjectNameCantBeEmpty" xml:space="preserve">
+    <value>Project's name can't be empty</value>
+  </data>
+  <data name="ProjectNameMaxChars" xml:space="preserve">
+    <value>Project's name can't have more than</value>
+  </data>
+  <data name="ProjectNotFound" xml:space="preserve">
+    <value>Project not found</value>
+  </data>
   <data name="ProjectsInProgress" xml:space="preserve">
     <value>Projects in progress</value>
+  </data>
+  <data name="ProjectStartDateValidOrEmpty" xml:space="preserve">
+    <value>Project's start date must be today or later or empty</value>
   </data>
   <data name="ResetPassword" xml:space="preserve">
     <value>Reset password</value>
   </data>
   <data name="RowsQuantity" xml:space="preserve">
     <value>Rows quantity</value>
+  </data>
+  <data name="RowsQuantityMustBeBetween" xml:space="preserve">
+    <value>Rows quantity must be between</value>
   </data>
   <data name="Samples" xml:space="preserve">
     <value>Samples</value>
@@ -468,8 +552,17 @@
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="ThemeNotFound" xml:space="preserve">
+    <value>Theme not found</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="TitleCantBeEmpty" xml:space="preserve">
+    <value>Title can't be empty</value>
+  </data>
+  <data name="TitleMax100Chars" xml:space="preserve">
+    <value>Title can't have more than 100 characters</value>
   </data>
   <data name="TypeEmail" xml:space="preserve">
     <value>Type e-mail</value>
@@ -483,14 +576,26 @@
   <data name="UserNotFound" xml:space="preserve">
     <value>User not found</value>
   </data>
+  <data name="ValueCantBeEmpty" xml:space="preserve">
+    <value>Value can't be empty</value>
+  </data>
   <data name="WelcomeToKnitterNotebook" xml:space="preserve">
     <value>Welcome to Knitter Notebook</value>
   </data>
   <data name="WeWillSendPasswordResetToken" xml:space="preserve">
     <value>We will send you token necessary to reset your password</value>
   </data>
+  <data name="YarnCollectionCantBeEmpty" xml:space="preserve">
+    <value>Yarn collection can't be empty</value>
+  </data>
   <data name="YarnName" xml:space="preserve">
     <value>Yarn's name</value>
+  </data>
+  <data name="YarnNameCantBeEmpty" xml:space="preserve">
+    <value>Yarn's name can't be empty</value>
+  </data>
+  <data name="YarnNameMax100Chars" xml:space="preserve">
+    <value>Yarn's name can't have more than 100 characters</value>
   </data>
   <data name="Yarns" xml:space="preserve">
     <value>Yarns</value>

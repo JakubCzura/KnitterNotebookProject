@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 
 namespace KnitterNotebook.Validators;
@@ -14,11 +15,13 @@ public class ChangePasswordDtoValidator : AbstractValidator<ChangePasswordDto>
 
         RuleFor(dto => dto.UserId)
             .MustAsync(async (id, cancellationToken) => await _userService.UserExistsAsync(id))
-            .WithMessage("Nie znaleziono użytkownika");
+            .WithMessage(Translations.UserNotFound);
 
         RuleFor(x => x.NewPassword)
-            .NotEmpty().WithMessage("Wartość nie może być pusta")
+            .NotEmpty()
+            .WithMessage(Translations.PasswordCantBeEmpty)
             .SetValidator(new PasswordValidator())
-            .Equal(x => x.ConfirmPassword).WithMessage("Nowe hasło ma dwie różne wartości");
+            .Equal(x => x.ConfirmPassword)
+            .WithMessage(Translations.PasswordsAreNotIdentical);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 
 namespace KnitterNotebook.Validators;
@@ -13,17 +14,21 @@ public class CreateMovieUrlDtoValidator : AbstractValidator<CreateMovieUrlDto>
         _userService = userService;
 
         RuleFor(x => x.Title)
-            .NotEmpty().WithMessage("Tytuł nie może być pusty")
-            .MaximumLength(100).WithMessage("Tytył nie może mieć więcej niż 100 znaków");
+            .NotEmpty()
+            .WithMessage(Translations.TitleCantBeEmpty)
+            .MaximumLength(100)
+            .WithMessage(Translations.TitleMax100Chars);
 
         RuleFor(x => x.Link)
-            .NotEmpty().WithMessage("Link do filmu nie może być pusty");
+            .NotEmpty()
+            .WithMessage(Translations.LinkCantBeEmpty);
 
         RuleFor(x => x.Description)
-          .MaximumLength(100).WithMessage("Opis filmu nie może mieć więcej niż 100 znaków");
+            .MaximumLength(100)
+            .WithMessage($"{Translations.DescriptionMaxChars} 100 {Translations.characters}");
 
         RuleFor(dto => dto.UserId)
             .MustAsync(async (id, cancellationToken) => await _userService.UserExistsAsync(id))
-            .WithMessage("Nie znaleziono użytkownika");
+            .WithMessage(Translations.UserNotFound);
     }
 }

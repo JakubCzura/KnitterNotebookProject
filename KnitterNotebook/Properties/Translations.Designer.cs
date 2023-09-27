@@ -133,6 +133,15 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to characters.
+        /// </summary>
+        public static string characters {
+            get {
+                return ResourceManager.GetString("characters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose .pdf file with pattern.
         /// </summary>
         public static string ChoosePdfFileWithPattern {
@@ -223,6 +232,15 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description can&apos;t have more than.
+        /// </summary>
+        public static string DescriptionMaxChars {
+            get {
+                return ResourceManager.GetString("DescriptionMaxChars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Don&apos;t have an account?.
         /// </summary>
         public static string DontHaveAccount {
@@ -259,11 +277,29 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to E-mail can&apos;t be empty.
+        /// </summary>
+        public static string EmailCantBeEmpty {
+            get {
+                return ResourceManager.GetString("EmailCantBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email changed successfully.
         /// </summary>
         public static string EmailChangedSuccessfully {
             get {
                 return ResourceManager.GetString("EmailChangedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-mail is already taken.
+        /// </summary>
+        public static string EmailIsAlreadyTaken {
+            get {
+                return ResourceManager.GetString("EmailIsAlreadyTaken", resourceCulture);
             }
         }
         
@@ -565,11 +601,38 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid e-mail&apos;s format.
+        /// </summary>
+        public static string InvalidEmailFormat {
+            get {
+                return ResourceManager.GetString("InvalidEmailFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid login credentials.
         /// </summary>
         public static string InvalidLoginCredentials {
             get {
                 return ResourceManager.GetString("InvalidLoginCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid project&apos;s status.
+        /// </summary>
+        public static string InvalidProjectStatus {
+            get {
+                return ResourceManager.GetString("InvalidProjectStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid size unit.
+        /// </summary>
+        public static string InvalidSizeUnit {
+            get {
+                return ResourceManager.GetString("InvalidSizeUnit", resourceCulture);
             }
         }
         
@@ -583,11 +646,29 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Link can&apos;t be empty.
+        /// </summary>
+        public static string LinkCantBeEmpty {
+            get {
+                return ResourceManager.GetString("LinkCantBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loops quantity.
         /// </summary>
         public static string LoopsQuantity {
             get {
                 return ResourceManager.GetString("LoopsQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loops quantity must be between.
+        /// </summary>
+        public static string LoopsQuantityMustBeBetween {
+            get {
+                return ResourceManager.GetString("LoopsQuantityMustBeBetween", resourceCulture);
             }
         }
         
@@ -619,6 +700,15 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Needle collection can&apos;t be empty.
+        /// </summary>
+        public static string NeedleCollectionCantBeEmpty {
+            get {
+                return ResourceManager.GetString("NeedleCollectionCantBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Needles.
         /// </summary>
         public static string Needles {
@@ -633,6 +723,15 @@ namespace KnitterNotebook.Properties {
         public static string NeedleSize {
             get {
                 return ResourceManager.GetString("NeedleSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Needle&apos;s size must be between.
+        /// </summary>
+        public static string NeedleSizeMustBeBetween {
+            get {
+                return ResourceManager.GetString("NeedleSizeMustBeBetween", resourceCulture);
             }
         }
         
@@ -709,11 +808,47 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nickname can consist of letters, spaces and numbers.
+        /// </summary>
+        public static string NicknameCanConsistOfLettersSpacesAndNumbers {
+            get {
+                return ResourceManager.GetString("NicknameCanConsistOfLettersSpacesAndNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nickname can&apos;t be empty.
+        /// </summary>
+        public static string NicknameCantBeEmpty {
+            get {
+                return ResourceManager.GetString("NicknameCantBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nickname changed successfully.
         /// </summary>
         public static string NicknameChangedSuccessfully {
             get {
                 return ResourceManager.GetString("NicknameChangedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nickname is already taken.
+        /// </summary>
+        public static string NicknameIsAlreadyTaken {
+            get {
+                return ResourceManager.GetString("NicknameIsAlreadyTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nickname can&apos;t have more than.
+        /// </summary>
+        public static string NicknameMaxChars {
+            get {
+                return ResourceManager.GetString("NicknameMaxChars", resourceCulture);
             }
         }
         
@@ -736,11 +871,65 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password can&apos;t be empty.
+        /// </summary>
+        public static string PasswordCantBeEmpty {
+            get {
+                return ResourceManager.GetString("PasswordCantBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password changed successfully.
         /// </summary>
         public static string PasswordChangedSuccessfully {
             get {
                 return ResourceManager.GetString("PasswordChangedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password&apos;s length must be between.
+        /// </summary>
+        public static string PasswordLengthMustBeBetween {
+            get {
+                return ResourceManager.GetString("PasswordLengthMustBeBetween", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must have at least one lower letter.
+        /// </summary>
+        public static string PasswordMustHaveAtLeastOneLowerLetter {
+            get {
+                return ResourceManager.GetString("PasswordMustHaveAtLeastOneLowerLetter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must have at least one number.
+        /// </summary>
+        public static string PasswordMustHaveAtLeastOneNumber {
+            get {
+                return ResourceManager.GetString("PasswordMustHaveAtLeastOneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must have at least one upper letter.
+        /// </summary>
+        public static string PasswordMustHaveAtLeastOneUpperLetter {
+            get {
+                return ResourceManager.GetString("PasswordMustHaveAtLeastOneUpperLetter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords are not identical.
+        /// </summary>
+        public static string PasswordsAreNotIdentical {
+            get {
+                return ResourceManager.GetString("PasswordsAreNotIdentical", resourceCulture);
             }
         }
         
@@ -768,6 +957,24 @@ namespace KnitterNotebook.Properties {
         public static string Photos {
             get {
                 return ResourceManager.GetString("Photos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photo must have .jpg, .jpeg, .png extension.
+        /// </summary>
+        public static string PhotoValidExtension {
+            get {
+                return ResourceManager.GetString("PhotoValidExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photo must have .jpg, .jpeg, .png extension or be empty.
+        /// </summary>
+        public static string PhotoValidExtensionOrEmpty {
+            get {
+                return ResourceManager.GetString("PhotoValidExtensionOrEmpty", resourceCulture);
             }
         }
         
@@ -997,11 +1204,47 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project&apos;s name can&apos;t be empty.
+        /// </summary>
+        public static string ProjectNameCantBeEmpty {
+            get {
+                return ResourceManager.GetString("ProjectNameCantBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project&apos;s name can&apos;t have more than.
+        /// </summary>
+        public static string ProjectNameMaxChars {
+            get {
+                return ResourceManager.GetString("ProjectNameMaxChars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project not found.
+        /// </summary>
+        public static string ProjectNotFound {
+            get {
+                return ResourceManager.GetString("ProjectNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Projects in progress.
         /// </summary>
         public static string ProjectsInProgress {
             get {
                 return ResourceManager.GetString("ProjectsInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project&apos;s start date must be today or later or empty.
+        /// </summary>
+        public static string ProjectStartDateValidOrEmpty {
+            get {
+                return ResourceManager.GetString("ProjectStartDateValidOrEmpty", resourceCulture);
             }
         }
         
@@ -1020,6 +1263,15 @@ namespace KnitterNotebook.Properties {
         public static string RowsQuantity {
             get {
                 return ResourceManager.GetString("RowsQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rows quantity must be between.
+        /// </summary>
+        public static string RowsQuantityMustBeBetween {
+            get {
+                return ResourceManager.GetString("RowsQuantityMustBeBetween", resourceCulture);
             }
         }
         
@@ -1114,11 +1366,38 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Theme not found.
+        /// </summary>
+        public static string ThemeNotFound {
+            get {
+                return ResourceManager.GetString("ThemeNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title can&apos;t be empty.
+        /// </summary>
+        public static string TitleCantBeEmpty {
+            get {
+                return ResourceManager.GetString("TitleCantBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title can&apos;t have more than 100 characters.
+        /// </summary>
+        public static string TitleMax100Chars {
+            get {
+                return ResourceManager.GetString("TitleMax100Chars", resourceCulture);
             }
         }
         
@@ -1159,6 +1438,15 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Value can&apos;t be empty.
+        /// </summary>
+        public static string ValueCantBeEmpty {
+            get {
+                return ResourceManager.GetString("ValueCantBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome to Knitter Notebook.
         /// </summary>
         public static string WelcomeToKnitterNotebook {
@@ -1177,11 +1465,38 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yarn collection can&apos;t be empty.
+        /// </summary>
+        public static string YarnCollectionCantBeEmpty {
+            get {
+                return ResourceManager.GetString("YarnCollectionCantBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yarn&apos;s name.
         /// </summary>
         public static string YarnName {
             get {
                 return ResourceManager.GetString("YarnName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yarn&apos;s name can&apos;t be empty.
+        /// </summary>
+        public static string YarnNameCantBeEmpty {
+            get {
+                return ResourceManager.GetString("YarnNameCantBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yarn&apos;s name can&apos;t have more than 100 characters.
+        /// </summary>
+        public static string YarnNameMax100Chars {
+            get {
+                return ResourceManager.GetString("YarnNameMax100Chars", resourceCulture);
             }
         }
         

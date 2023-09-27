@@ -141,6 +141,9 @@
   <data name="ApplicationWillShutDown" xml:space="preserve">
     <value>Aplikacja zostanie zamknięta</value>
   </data>
+  <data name="characters" xml:space="preserve">
+    <value>znaków</value>
+  </data>
   <data name="ChoosePdfFileWithPattern" xml:space="preserve">
     <value>Wybierz plik .pdf ze wzorem</value>
   </data>
@@ -171,6 +174,9 @@
   <data name="Description" xml:space="preserve">
     <value>Opis</value>
   </data>
+  <data name="DescriptionMaxChars" xml:space="preserve">
+    <value>Opis nie może mieć więcej niż</value>
+  </data>
   <data name="DontHaveAccount" xml:space="preserve">
     <value>Nie posiadasz konta?</value>
   </data>
@@ -183,8 +189,14 @@
   <data name="EditProjectInProgress" xml:space="preserve">
     <value>Edytuj projekt w trakcie</value>
   </data>
+  <data name="EmailCantBeEmpty" xml:space="preserve">
+    <value>E-mail nie może być pusty</value>
+  </data>
   <data name="EmailChangedSuccessfully" xml:space="preserve">
     <value>Pomyślnie zmieniono adres e-mail</value>
+  </data>
+  <data name="EmailIsAlreadyTaken" xml:space="preserve">
+    <value>E-mail jest już zajęty</value>
   </data>
   <data name="EmailNotFound" xml:space="preserve">
     <value>Nie odnaleziono adresu e-mail</value>
@@ -285,14 +297,29 @@
   <data name="ForgotPassword" xml:space="preserve">
     <value>Zapomniałeś hasła?</value>
   </data>
+  <data name="InvalidEmailFormat" xml:space="preserve">
+    <value>Niepoprawny format e-mail</value>
+  </data>
   <data name="InvalidLoginCredentials" xml:space="preserve">
     <value>Nieprawidłowe dane logowania</value>
+  </data>
+  <data name="InvalidProjectStatus" xml:space="preserve">
+    <value>Nieprawidłowy status projektu</value>
+  </data>
+  <data name="InvalidSizeUnit" xml:space="preserve">
+    <value>Nieprawidłowa jednostka rozmiaru</value>
   </data>
   <data name="Link" xml:space="preserve">
     <value>Link</value>
   </data>
+  <data name="LinkCantBeEmpty" xml:space="preserve">
+    <value>Link nie może być pusty</value>
+  </data>
   <data name="LoopsQuantity" xml:space="preserve">
     <value>Ilość oczek</value>
+  </data>
+  <data name="LoopsQuantityMustBeBetween" xml:space="preserve">
+    <value>Ilość oczek musi być pomiędzy</value>
   </data>
   <data name="LoopsXRows" xml:space="preserve">
     <value>Oczka x rzędy</value>
@@ -303,11 +330,17 @@
   <data name="MoveToProjectsInProgress" xml:space="preserve">
     <value>Przenieś do projektów w trakcie</value>
   </data>
+  <data name="NeedleCollectionCantBeEmpty" xml:space="preserve">
+    <value>Zbiór drutów nie może być pusty</value>
+  </data>
   <data name="Needles" xml:space="preserve">
     <value>Druty</value>
   </data>
   <data name="NeedleSize" xml:space="preserve">
     <value>Rozmiar drutu</value>
+  </data>
+  <data name="NeedleSizeMustBeBetween" xml:space="preserve">
+    <value>Rozmiar drutu musi być pomiędzy</value>
   </data>
   <data name="NewEmail" xml:space="preserve">
     <value>Nowy e-mail</value>
@@ -333,8 +366,20 @@
   <data name="NiceToSeeYou" xml:space="preserve">
     <value>Miło Cię widzieć</value>
   </data>
+  <data name="NicknameCanConsistOfLettersSpacesAndNumbers" xml:space="preserve">
+    <value>Nickname może składać się z liter, spacji i cyfr</value>
+  </data>
+  <data name="NicknameCantBeEmpty" xml:space="preserve">
+    <value>Nazwa użytkownika nie może być pusta</value>
+  </data>
   <data name="NicknameChangedSuccessfully" xml:space="preserve">
     <value>Pomyślnie zmieniono nazwę użytkownika</value>
+  </data>
+  <data name="NicknameIsAlreadyTaken" xml:space="preserve">
+    <value>Nazwa użytkownika jest już zajęta</value>
+  </data>
+  <data name="NicknameMaxChars" xml:space="preserve">
+    <value>Nazwa użytkownika nie może mieć więcej niż</value>
   </data>
   <data name="NotYetSpecified" xml:space="preserve">
     <value>Jeszcze nie podano</value>
@@ -342,8 +387,26 @@
   <data name="Options" xml:space="preserve">
     <value>Opcje</value>
   </data>
+  <data name="PasswordCantBeEmpty" xml:space="preserve">
+    <value>Hasło nie może być puste</value>
+  </data>
   <data name="PasswordChangedSuccessfully" xml:space="preserve">
     <value>Pomyślnie zmieniono hasło</value>
+  </data>
+  <data name="PasswordLengthMustBeBetween" xml:space="preserve">
+    <value>Długość hasła musi wynosić</value>
+  </data>
+  <data name="PasswordMustHaveAtLeastOneLowerLetter" xml:space="preserve">
+    <value>Hasło musi posiadać conajmniej jedną małą literę</value>
+  </data>
+  <data name="PasswordMustHaveAtLeastOneNumber" xml:space="preserve">
+    <value>Hasło musi posiadać conajmniej jedną liczbę</value>
+  </data>
+  <data name="PasswordMustHaveAtLeastOneUpperLetter" xml:space="preserve">
+    <value>Hasło musi posiadać conajmniej jedną wielką literę</value>
+  </data>
+  <data name="PasswordsAreNotIdentical" xml:space="preserve">
+    <value>Passwords are not identical</value>
   </data>
   <data name="PdfWithPattern" xml:space="preserve">
     <value>Pdf ze wzorem</value>
@@ -353,6 +416,12 @@
   </data>
   <data name="Photos" xml:space="preserve">
     <value>Zdjęcia</value>
+  </data>
+  <data name="PhotoValidExtension" xml:space="preserve">
+    <value>Zdjęcie musi posiadać rozszerzenie .jpg, .jpeg, .png</value>
+  </data>
+  <data name="PhotoValidExtensionOrEmpty" xml:space="preserve">
+    <value>Zdjęcie musi posiadać rozszerzenie .jpg, .jpeg, .png lub pozostać puste</value>
   </data>
   <data name="Placeholder_CommaSeparatedNames" xml:space="preserve">
     <value>Nazwy oddzielone przecinkiem, np.: w1 , w2 , w3</value>
@@ -429,14 +498,29 @@
   <data name="ProjectName" xml:space="preserve">
     <value>Nazwa projektu</value>
   </data>
+  <data name="ProjectNameCantBeEmpty" xml:space="preserve">
+    <value>Nazwa projektu nie może być pusta</value>
+  </data>
+  <data name="ProjectNameMaxChars" xml:space="preserve">
+    <value>Nazwa projektu nie może mieć więcej niż</value>
+  </data>
+  <data name="ProjectNotFound" xml:space="preserve">
+    <value>Nie odnaleziono projektu</value>
+  </data>
   <data name="ProjectsInProgress" xml:space="preserve">
     <value>Projekty w trakcie</value>
+  </data>
+  <data name="ProjectStartDateValidOrEmpty" xml:space="preserve">
+    <value>Data rozpoczęcia projektu musi być dzisiaj, później lub być pusta</value>
   </data>
   <data name="ResetPassword" xml:space="preserve">
     <value>Przywróć hasło</value>
   </data>
   <data name="RowsQuantity" xml:space="preserve">
     <value>Ilość rzędów</value>
+  </data>
+  <data name="RowsQuantityMustBeBetween" xml:space="preserve">
+    <value>Ilość rzędów musi być pomiędzy</value>
   </data>
   <data name="Samples" xml:space="preserve">
     <value>Próbki obliczeniowe</value>
@@ -468,8 +552,17 @@
   <data name="Submit" xml:space="preserve">
     <value>Potwierdź</value>
   </data>
+  <data name="ThemeNotFound" xml:space="preserve">
+    <value>Nie odnaleziono motywu</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Tytuł</value>
+  </data>
+  <data name="TitleCantBeEmpty" xml:space="preserve">
+    <value>Tytuł nie może być pusty</value>
+  </data>
+  <data name="TitleMax100Chars" xml:space="preserve">
+    <value>Tytuł nie może mieć więcej niż 100 znaków</value>
   </data>
   <data name="TypeEmail" xml:space="preserve">
     <value>Podaj e-mail</value>
@@ -483,14 +576,26 @@
   <data name="UserNotFound" xml:space="preserve">
     <value>Nie znaleziono użytkownika</value>
   </data>
+  <data name="ValueCantBeEmpty" xml:space="preserve">
+    <value>Wartość nie może być pusta</value>
+  </data>
   <data name="WelcomeToKnitterNotebook" xml:space="preserve">
     <value>Witaj w Dzienniku Dziewiarki</value>
   </data>
   <data name="WeWillSendPasswordResetToken" xml:space="preserve">
     <value>Wyślemy ci token potrzebny do zresetowania hasła</value>
   </data>
+  <data name="YarnCollectionCantBeEmpty" xml:space="preserve">
+    <value>Zbiór włóczek nie może być pusty</value>
+  </data>
   <data name="YarnName" xml:space="preserve">
     <value>Nazwa włóczki</value>
+  </data>
+  <data name="YarnNameCantBeEmpty" xml:space="preserve">
+    <value>Nazwa włóczki nie może być pusta</value>
+  </data>
+  <data name="YarnNameMax100Chars" xml:space="preserve">
+    <value>Nazwa włóczki nie może mieć więcej niż 100 znaków</value>
   </data>
   <data name="Yarns" xml:space="preserve">
     <value>Włóczki</value>

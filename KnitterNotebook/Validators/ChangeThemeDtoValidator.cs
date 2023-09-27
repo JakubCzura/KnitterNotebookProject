@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 
 namespace KnitterNotebook.Validators;
@@ -16,10 +17,10 @@ public class ChangeThemeDtoValidator : AbstractValidator<ChangeThemeDto>
 
         RuleFor(dto => dto.UserId)
            .MustAsync(async (id, cancellationToken) => await _userService.UserExistsAsync(id))
-           .WithMessage("Nie znaleziono użytkownika");
+           .WithMessage(Translations.UserNotFound);
 
         RuleFor(dto => dto.ThemeName)
-          .MustAsync(async (themeName, cancellationToken) => await _themeService.ThemeExistsAsync(themeName))
-          .WithMessage("Nie znaleziono podanego motywu w bazie danych");
+           .MustAsync(async (themeName, cancellationToken) => await _themeService.ThemeExistsAsync(themeName))
+           .WithMessage(Translations.ThemeNotFound);
     }
 }

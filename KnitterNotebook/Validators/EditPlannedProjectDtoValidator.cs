@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 
 namespace KnitterNotebook.Validators
@@ -16,7 +17,7 @@ namespace KnitterNotebook.Validators
 
             RuleFor(dto => dto.Id)
                 .MustAsync(async (id, cancellationToken) => await _projectService.ProjectExistsAsync(id))
-                .WithMessage("Nie znaleziono projektu");
+                .WithMessage(Translations.ProjectNotFound);
 
             RuleFor(dto => dto)
                 .SetValidator(new PlanProjectDtoValidator(_userService));

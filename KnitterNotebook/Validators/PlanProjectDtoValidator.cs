@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 using System;
 using System.Linq;
@@ -15,37 +16,42 @@ public class PlanProjectDtoValidator : AbstractValidator<PlanProjectDto>
         _userService = userService;
 
         RuleFor(dto => dto.Name)
-            .NotEmpty().WithMessage("Nazwa projektu nie może być pusta")
-            .Length(1, 100).WithMessage("Długość nazwy projektu musi mieć 1-100 znaków");
+            .NotEmpty()
+            .WithMessage(Translations.ProjectNameCantBeEmpty)
+            .MaximumLength(100)
+            .WithMessage($"{Translations.ProjectNameMaxChars} 100 {Translations.characters}");
 
         //StartDate can be null, but if it's not null it must be greater or equal today
         RuleFor(dto => dto.StartDate)
             .Must(x => !x.HasValue || x.Value.Date.CompareTo(DateTime.Today) >= 0)
-            .WithMessage("Data rozpoczęcia projektu nie może być przed dzisiejszym dniem");
+            .WithMessage(Translations.ProjectStartDateValidOrEmpty);
 
         RuleFor(dto => dto.Needles)
-            .Must(x => x is not null && x.Any()).WithMessage("Zbiór drutów nie może być pusty")
+            .Must(x => x is not null && x.Any())
+            .WithMessage(Translations.NeedleCollectionCantBeEmpty)
             .ForEach(needle =>
             {
                 needle.SetValidator(new CreateNeedleDtoValidator());
             });
 
         RuleFor(x => x.Yarns)
-            .Must(x => x is not null && x.Any()).WithMessage("Zbiór nazw włóczek nie może być pusty")
+            .Must(x => x is not null && x.Any())
+            .WithMessage(Translations.YarnCollectionCantBeEmpty)
             .ForEach(yarn =>
             {
                 yarn.SetValidator(new CreateYarnDtoValidator());
             });
 
         RuleFor(dto => dto.Description)
-            .MaximumLength(300).WithMessage("Długość opisu nie może być większa niż 300 znaków");
+            .MaximumLength(300)
+            .WithMessage($"{Translations.DescriptionMaxChars} 300 {Translations.characters}");
 
         RuleFor(x => x.SourcePatternPdfPath)
             .Must(x => x is null || FileExtensionValidator.IsPdf(x))
-            .WithMessage("Wybierz plik z poprawnym rozszerzeniem .pdf lub usuń odnośnik do wzoru");
+            .WithMessage(Translations.PhotoValidExtensionOrEmpty);
 
         RuleFor(dto => dto.UserId)
             .MustAsync(async (id, cancellationToken) => await _userService.UserExistsAsync(id))
-            .WithMessage("Nie znaleziono użytkownika");
+            .WithMessage(Translations.UserNotFound);
     }
 }

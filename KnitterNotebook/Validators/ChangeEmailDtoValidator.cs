@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 
 namespace KnitterNotebook.Validators;
@@ -14,12 +15,14 @@ public class ChangeEmailDtoValidator : AbstractValidator<ChangeEmailDto>
 
         RuleFor(dto => dto.UserId)
             .MustAsync(async (id, cancellationToken) => await _userService.UserExistsAsync(id))
-            .WithMessage("Nie znaleziono użytkownika");
+            .WithMessage(Translations.UserNotFound);
 
         RuleFor(x => x.Email)
-            .NotNull().WithMessage("Wartość nie może być pusta")
+            .NotNull()
+            .WithMessage(Translations.EmailCantBeEmpty)
             .MustAsync(async (email, cancellationToken) => !await _userService.IsEmailTakenAsync(email))
-            .WithMessage("E-mail jest już używany")
-            .EmailAddress().WithMessage("Niepoprawny format e-mail");
+            .WithMessage(Translations.EmailIsAlreadyTaken)
+            .EmailAddress()
+            .WithMessage(Translations.InvalidEmailFormat);
     }
 }
