@@ -16,10 +16,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using UserControl = System.Windows.Controls.UserControl;
 
@@ -362,7 +364,7 @@ public partial class MainViewModel : BaseViewModel
             {
                 _sharedResourceViewModel.FilesToDelete.AddIfNotNullOrEmpty(SelectedPlannedProject.PatternPdfPath);
                 await _projectService.DeleteAsync(SelectedPlannedProject.Id);
-                PlannedProjects = (await _projectService.GetUserPlannedProjectsAsync(User.Id)).ToObservableCollection();
+                PlannedProjects.Remove(SelectedPlannedProject);
             }
         }
         catch (Exception exception)
@@ -382,7 +384,7 @@ public partial class MainViewModel : BaseViewModel
                 _sharedResourceViewModel.FilesToDelete.AddIfNotNullOrEmpty(SelectedProjectInProgress.PatternPdfPath);
                 _sharedResourceViewModel.FilesToDelete.AddRangeIfNotNullOrEmpty(SelectedProjectInProgress.ProjectImages.Select(x => x.Path));
                 await _projectService.DeleteAsync(SelectedProjectInProgress.Id);
-                ProjectsInProgress = (await _projectService.GetUserProjectsInProgressAsync(User.Id)).ToObservableCollection();
+                ProjectsInProgress.Remove(SelectedProjectInProgress);
             }
         }
         catch (Exception exception)
@@ -577,8 +579,6 @@ public partial class MainViewModel : BaseViewModel
                 await _projectImageService.DeleteAsync(SelectedFinishedProjectImage.Id);
                 if (SelectedFinishedProject is not null)
                 {
-                    int projectId = SelectedFinishedProject.Id;
-
                     SelectedFinishedProject.ProjectImages = await _projectImageService.GetProjectImagesAsync(SelectedFinishedProject.Id);
                     OnPropertyChanged(nameof(SelectedFinishedProject));
                 }
@@ -601,7 +601,7 @@ public partial class MainViewModel : BaseViewModel
                 _sharedResourceViewModel.FilesToDelete.AddIfNotNullOrEmpty(SelectedFinishedProject.PatternPdfPath);
                 _sharedResourceViewModel.FilesToDelete.AddRangeIfNotNullOrEmpty(SelectedFinishedProject.ProjectImages.Select(x => x.Path));
                 await _projectService.DeleteAsync(SelectedFinishedProject.Id);
-                FinishedProjects = (await _projectService.GetUserFinishedProjectsAsync(User.Id)).ToObservableCollection();
+                FinishedProjects.Remove(SelectedFinishedProject);
             }
         }
         catch (Exception exception)
@@ -680,9 +680,12 @@ public partial class MainViewModel : BaseViewModel
     {
         try
         {
-            PlannedProjectDto? plannedProjectDto = await _projectService.GetPlannedProjectAsync(projectId);
-            PlannedProjectDto? project = PlannedProjects.FirstOrDefault(x => x.Id == projectId);
-            project = plannedProjectDto;
+            PlannedProjectDto? editedProject = await _projectService.GetPlannedProjectAsync(projectId);
+            if(SelectedPlannedProject is not null && editedProject is not null)
+            {
+                int index = PlannedProjects.IndexOf(SelectedPlannedProject);
+                PlannedProjects[index] = editedProject;
+            }
         }
         catch (Exception exception)
         {

@@ -20,7 +20,6 @@ namespace KnitterNotebook.ViewModels
         [ObservableProperty]
         protected string _yarnsNamesWithDelimiter = string.Empty;
 
-        //Tzw. "inne"
         [ObservableProperty]
         protected string? _description = null;
 
