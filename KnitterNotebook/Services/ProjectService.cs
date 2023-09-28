@@ -183,13 +183,17 @@ public class ProjectService : CrudService<Project>, IProjectService
             project.Yarns.AddRange(editPlannedProjectDto.Yarns.Select(x => new Yarn(x.Name)));
         }
 
-        string? destinationPatternPdfPath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(editPlannedProjectDto.SourcePatternPdfPath));
-        PatternPdf? patternPdf = !string.IsNullOrWhiteSpace(destinationPatternPdfPath) ? new(destinationPatternPdfPath) : null;
-        project.PatternPdf = patternPdf;
-
-        if (!string.IsNullOrWhiteSpace(editPlannedProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(destinationPatternPdfPath))
+        //Prevent editing PatternPdf if user didn't choose new file or didn't delete old file
+        if (editPlannedProjectDto.SourcePatternPdfPath != project.PatternPdf?.Path)
         {
-            FileHelper.CopyWithDirectoryCreation(editPlannedProjectDto.SourcePatternPdfPath, destinationPatternPdfPath);
+            string? destinationPatternPdfPath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(editPlannedProjectDto.SourcePatternPdfPath));
+            PatternPdf? patternPdf = !string.IsNullOrWhiteSpace(destinationPatternPdfPath) ? new(destinationPatternPdfPath) : null;
+            project.PatternPdf = patternPdf;
+
+            if (!string.IsNullOrWhiteSpace(editPlannedProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(destinationPatternPdfPath))
+            {
+                FileHelper.CopyWithDirectoryCreation(editPlannedProjectDto.SourcePatternPdfPath, destinationPatternPdfPath);
+            }
         }
 
         _databaseContext.Update(project);
