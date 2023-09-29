@@ -7,7 +7,7 @@ namespace KnitterNotebook.Converters;
 public class CreateNeedleDtoConverter
 {
     /// <summary>
-    /// Converts <see cref="NullableSizeNeedle"/> to <see cref="CreateNeedleDto"/>
+    /// Converts <paramref name="nullableSizeNeedle"/> to new instance of <see cref="CreateNeedleDto"/>
     /// </summary>
     /// <param name="nullableSizeNeedle">Object to convert</param>
     /// <returns>New instance of <see cref="CreateNeedleDto"/></returns>

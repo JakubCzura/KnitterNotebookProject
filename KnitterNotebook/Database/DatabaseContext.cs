@@ -50,8 +50,8 @@ public class DatabaseContext : DbContext
              .OnDelete(DeleteBehavior.NoAction);
             t.Property(x => x.Name).IsRequired().HasConversion<string>();
             t.HasData(new Theme() { Id = 1, Name = ApplicationTheme.Default },
-                  new Theme() { Id = 2, Name = ApplicationTheme.Light },
-                  new Theme() { Id = 3, Name = ApplicationTheme.Dark });
+                      new Theme() { Id = 2, Name = ApplicationTheme.Light },
+                      new Theme() { Id = 3, Name = ApplicationTheme.Dark });
         });
 
         modelBuilder.Entity<Project>(p =>

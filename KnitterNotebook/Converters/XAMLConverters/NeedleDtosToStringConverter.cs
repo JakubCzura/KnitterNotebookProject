@@ -9,7 +9,7 @@ using System.Windows.Data;
 namespace KnitterNotebook.Converters.XAMLConverters;
 
 /// <summary>
-/// Converts collection of <see cref="NeedleDto"/> to a string. Works in Mode=OneWay only.
+/// Converts collection of <see cref="NeedleDto"/>'s Size and SizeUnit to a string. Works in Mode=OneWay only.
 /// </summary>
 public class NeedleDtosToStringConverter : IValueConverter
 {

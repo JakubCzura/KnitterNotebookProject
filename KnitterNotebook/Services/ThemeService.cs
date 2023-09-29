@@ -43,12 +43,12 @@ public class ThemeService : CrudService<Theme>, IThemeService
             throw new InvalidEnumException(ExceptionsMessages.EnumInvalidValue(oldThemeName));
         }
 
-        string newThemeFullPath = Paths.ThemeFullPath(newThemeName);
+        string newThemeFullPath = Paths.Theme(newThemeName);
 
         //Get and delete current theme
         if (oldThemeName.HasValue)
         {
-            string oldThemeFullPath = Paths.ThemeFullPath(oldThemeName.Value);
+            string oldThemeFullPath = Paths.Theme(oldThemeName.Value);
             ResourceDictionary? result = Application.Current?.Resources?.MergedDictionaries?.FirstOrDefault(x => x.Source.ToString().Equals(oldThemeFullPath, StringComparison.OrdinalIgnoreCase));
             Application.Current?.Resources?.MergedDictionaries?.Remove(result);
         }

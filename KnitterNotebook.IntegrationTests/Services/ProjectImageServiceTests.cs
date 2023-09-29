@@ -90,7 +90,7 @@ public class ProjectImageServiceTests
     public async Task CreateAsync_ForGivenProjectImage_AddsProjectImageToDatabase()
     {
         //Arrange
-        string path = Paths.ProjectDirectoryFullPath + @"\HelpersForTesting\ProjectImage.jpg";
+        string path = Paths.ProjectDirectory + @"\HelpersForTesting\ProjectImage.jpg";
         CreateProjectImageDto createProjectImageDto = new(1, path, 1);
 
         // Act

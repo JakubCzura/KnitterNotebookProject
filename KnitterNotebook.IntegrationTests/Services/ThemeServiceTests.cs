@@ -89,7 +89,7 @@ public class ThemeServiceTests
         //Assert
         ApplicationTheme newThemeName = ApplicationTheme.Default;
         ApplicationTheme oldThemeName = ApplicationTheme.Light;
-        string oldThemeFullPath = Paths.ThemeFullPath(newThemeName);
+        string oldThemeFullPath = Paths.Theme(newThemeName);
         Application.Current?.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(oldThemeFullPath) });
 
         //Act
@@ -97,7 +97,7 @@ public class ThemeServiceTests
 
         //Assert
         Application.Current?.Resources.MergedDictionaries.Should().AllSatisfy(x => x.Source.OriginalString.Should().NotBe(oldThemeFullPath));
-        Application.Current?.Resources.MergedDictionaries[0].Source.OriginalString.Should().Be(Paths.ThemeFullPath(newThemeName));
+        Application.Current?.Resources.MergedDictionaries[0].Source.OriginalString.Should().Be(Paths.Theme(newThemeName));
     }
 
     [Fact]
@@ -110,7 +110,7 @@ public class ThemeServiceTests
         _themeService.ReplaceTheme(newThemeName);
 
         //Assert
-        Application.Current?.Resources.MergedDictionaries[0].Source.OriginalString.Should().Be(Paths.ThemeFullPath(newThemeName));
+        Application.Current?.Resources.MergedDictionaries[0].Source.OriginalString.Should().Be(Paths.Theme(newThemeName));
     }
 
     [Theory]
