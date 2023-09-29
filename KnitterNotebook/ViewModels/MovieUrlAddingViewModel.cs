@@ -18,7 +18,10 @@ namespace KnitterNotebook.ViewModels;
 /// </summary>
 public partial class MovieUrlAddingViewModel : BaseViewModel
 {
-    public MovieUrlAddingViewModel(ILogger<MovieUrlAddingViewModel> logger, IMovieUrlService movieUrlService, IValidator<CreateMovieUrlDto> createMovieUrlValidator, SharedResourceViewModel sharedResourceViewModel)
+    public MovieUrlAddingViewModel(ILogger<MovieUrlAddingViewModel> logger,
+        IMovieUrlService movieUrlService,
+        IValidator<CreateMovieUrlDto> createMovieUrlValidator,
+        SharedResourceViewModel sharedResourceViewModel)
     {
         _logger = logger;
         _movieUrlService = movieUrlService;

@@ -65,7 +65,9 @@ public class ProjectService : CrudService<Project>, IProjectService
         };
 
         if (!string.IsNullOrWhiteSpace(planProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(destinationPatternPdfPath))
+        {
             FileHelper.CopyWithDirectoryCreation(planProjectDto.SourcePatternPdfPath, destinationPatternPdfPath);
+        }
 
         await _databaseContext.Projects.AddAsync(project);
         return await _databaseContext.SaveChangesAsync();
@@ -152,47 +154,47 @@ public class ProjectService : CrudService<Project>, IProjectService
         return await _databaseContext.SaveChangesAsync();
     }
 
-    public async Task<int> EditPlannedProjectAsync(EditPlannedProjectDto editPlannedProjectDto)
+    public async Task<int> EditProjectAsync(EditProjectDto editProjectDto)
     {
-        string nickname = await _userService.GetNicknameAsync(editPlannedProjectDto.UserId)
-                         ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(editPlannedProjectDto.UserId));
+        string nickname = await _userService.GetNicknameAsync(editProjectDto.UserId)
+                         ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(editProjectDto.UserId));
 
         Project? project = await _databaseContext.Projects
                                                  .Include(p => p.PatternPdf)
                                                  .Include(p => p.Needles)
                                                  .Include(p => p.Yarns)
-                                                 .FirstOrDefaultAsync(p => p.Id == editPlannedProjectDto.Id);
+                                                 .FirstOrDefaultAsync(p => p.Id == editProjectDto.Id);
         if (project == null)
         {
             return 0;
         }
 
-        project.Name = editPlannedProjectDto.Name;
-        project.StartDate = editPlannedProjectDto.StartDate;
-        project.Description = editPlannedProjectDto.Description;
+        project.Name = editProjectDto.Name;
+        project.StartDate = editProjectDto.StartDate;
+        project.Description = editProjectDto.Description;
 
-        if (editPlannedProjectDto.Needles.NotNullAndHaveAnyElement())
+        if (editProjectDto.Needles.NotNullAndHaveAnyElement())
         {
             project.Needles.Clear();
-            project.Needles.AddRange(editPlannedProjectDto.Needles.Select(x => new Needle(x.Size, x.SizeUnit)));
+            project.Needles.AddRange(editProjectDto.Needles.Select(x => new Needle(x.Size, x.SizeUnit)));
         }
 
-        if (editPlannedProjectDto.Yarns.NotNullAndHaveAnyElement())
+        if (editProjectDto.Yarns.NotNullAndHaveAnyElement())
         {
             project.Yarns.Clear();
-            project.Yarns.AddRange(editPlannedProjectDto.Yarns.Select(x => new Yarn(x.Name)));
+            project.Yarns.AddRange(editProjectDto.Yarns.Select(x => new Yarn(x.Name)));
         }
 
         //Prevent editing PatternPdf if user didn't choose new file or didn't delete old file
-        if (editPlannedProjectDto.SourcePatternPdfPath != project.PatternPdf?.Path)
+        if (editProjectDto.SourcePatternPdfPath != project.PatternPdf?.Path)
         {
-            string? destinationPatternPdfPath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(editPlannedProjectDto.SourcePatternPdfPath));
+            string? destinationPatternPdfPath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(editProjectDto.SourcePatternPdfPath));
             PatternPdf? patternPdf = !string.IsNullOrWhiteSpace(destinationPatternPdfPath) ? new(destinationPatternPdfPath) : null;
             project.PatternPdf = patternPdf;
 
-            if (!string.IsNullOrWhiteSpace(editPlannedProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(destinationPatternPdfPath))
+            if (!string.IsNullOrWhiteSpace(editProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(destinationPatternPdfPath))
             {
-                FileHelper.CopyWithDirectoryCreation(editPlannedProjectDto.SourcePatternPdfPath, destinationPatternPdfPath);
+                FileHelper.CopyWithDirectoryCreation(editProjectDto.SourcePatternPdfPath, destinationPatternPdfPath);
             }
         }
 

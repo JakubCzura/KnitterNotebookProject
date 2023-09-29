@@ -14,9 +14,9 @@ using Moq;
 
 namespace KnitterNotebook.IntegrationTests.Validators
 {
-    public class EditPlannedProjectDtoValidatorTests
+    public class EditProjectDtoValidatorTests
     {
-        private readonly EditPlannedProjectDtoValidator _validator;
+        private readonly EditProjectDtoValidator _validator;
         private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
         private readonly UserService _userService;
         private readonly ProjectService _projectService;
@@ -26,11 +26,11 @@ namespace KnitterNotebook.IntegrationTests.Validators
         private readonly Mock<IConfiguration> _configurationMock = new();
         private readonly Mock<SharedResourceViewModel> _sharedResourceViewModelMock = new();
 
-        public EditPlannedProjectDtoValidatorTests()
+        public EditProjectDtoValidatorTests()
         {
             _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _configurationMock.Object, _sharedResourceViewModelMock.Object);
             _projectService = new(_databaseContext, _userService);
-            _validator = new EditPlannedProjectDtoValidator(_userService, _projectService);
+            _validator = new EditProjectDtoValidator(_userService, _projectService);
             _databaseContext.Database.EnsureDeleted();
             _databaseContext.Database.Migrate();
             SeedProjects();
@@ -76,7 +76,7 @@ namespace KnitterNotebook.IntegrationTests.Validators
         public async Task ValidateAsync_ForValidData_PassValidation()
         {
             //Arrange
-            EditPlannedProjectDto editPlannedProjectDto = new(1, 
+            EditProjectDto editPlannedProjectDto = new(1, 
                 "Project new name",
                 DateTime.UtcNow.AddDays(1), 
                 new List<CreateNeedleDto>()
@@ -95,7 +95,7 @@ namespace KnitterNotebook.IntegrationTests.Validators
                 1);
 
             //Act
-            TestValidationResult<EditPlannedProjectDto> validationResult = await _validator.TestValidateAsync(editPlannedProjectDto);
+            TestValidationResult<EditProjectDto> validationResult = await _validator.TestValidateAsync(editPlannedProjectDto);
 
             //Assert
             validationResult.ShouldNotHaveAnyValidationErrors();
@@ -105,10 +105,10 @@ namespace KnitterNotebook.IntegrationTests.Validators
         public async Task ValidateAsync_ForNotExistingProject_FailValidation()
         {
             //Arrange
-            EditPlannedProjectDto editPlannedProjectDto = new(99999, "Project new name", DateTime.UtcNow.AddDays(1), new List<CreateNeedleDto>(), new List<CreateYarnDto>(), null, null, 1);
+            EditProjectDto editPlannedProjectDto = new(99999, "Project new name", DateTime.UtcNow.AddDays(1), new List<CreateNeedleDto>(), new List<CreateYarnDto>(), null, null, 1);
 
             //Act
-            TestValidationResult<EditPlannedProjectDto> validationResult = await _validator.TestValidateAsync(editPlannedProjectDto);
+            TestValidationResult<EditProjectDto> validationResult = await _validator.TestValidateAsync(editPlannedProjectDto);
 
             //Assert
             validationResult.ShouldHaveValidationErrorFor(x => x.Id);
@@ -118,10 +118,10 @@ namespace KnitterNotebook.IntegrationTests.Validators
         public async Task ValidateAsync_ForFailingPlanProjectDtoValidator_FailValidation()
         {
             //Arrange
-            EditPlannedProjectDto editPlannedProjectDto = new(1, new string('K', 1000), DateTime.UtcNow.AddDays(-10), new List<CreateNeedleDto>(), new List<CreateYarnDto>(), null, null, 99999);
+            EditProjectDto editPlannedProjectDto = new(1, new string('K', 1000), DateTime.UtcNow.AddDays(-10), new List<CreateNeedleDto>(), new List<CreateYarnDto>(), null, null, 99999);
 
             //Act
-            TestValidationResult<EditPlannedProjectDto> validationResult = await _validator.TestValidateAsync(editPlannedProjectDto);
+            TestValidationResult<EditProjectDto> validationResult = await _validator.TestValidateAsync(editPlannedProjectDto);
 
             //Assert
             //Not failing because of Id as it is valid, but other properties validated by PlanProjectDtoValidator are invalid

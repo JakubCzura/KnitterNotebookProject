@@ -448,20 +448,11 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error while editing planned project.
+        ///   Looks up a localized string similar to Error while editing project.
         /// </summary>
-        public static string ErrorWhileEditingPlannedProject {
+        public static string ErrorWhileEditingProject {
             get {
-                return ResourceManager.GetString("ErrorWhileEditingPlannedProject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error while editing project in progress.
-        /// </summary>
-        public static string ErrorWhileEditingProjectInProgress {
-            get {
-                return ResourceManager.GetString("ErrorWhileEditingProjectInProgress", resourceCulture);
+                return ResourceManager.GetString("ErrorWhileEditingProject", resourceCulture);
             }
         }
         
@@ -1141,15 +1132,6 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Planned project edited successfully.
-        /// </summary>
-        public static string PlannedProjectEditedSuccessfully {
-            get {
-                return ResourceManager.GetString("PlannedProjectEditedSuccessfully", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Planned projects.
         /// </summary>
         public static string PlannedProjects {
@@ -1177,20 +1159,20 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project edited successfully.
+        /// </summary>
+        public static string ProjectEditedSuccessfully {
+            get {
+                return ResourceManager.GetString("ProjectEditedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project in progress.
         /// </summary>
         public static string ProjectInProgress {
             get {
                 return ResourceManager.GetString("ProjectInProgress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project in progress edited successfully.
-        /// </summary>
-        public static string ProjectInProgressEditedSuccessfully {
-            get {
-                return ResourceManager.GetString("ProjectInProgressEditedSuccessfully", resourceCulture);
             }
         }
         

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KnitterNotebook.Models.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace KnitterNotebook.ViewModels;
@@ -31,15 +32,9 @@ public partial class SharedResourceViewModel : BaseViewModel
 
     public List<string> FilesToDelete { get; set; } = new();
 
-    public int EditPlannedProjectId { get; set; }
+    public (int, ProjectStatusName) EditedProjectIdAndStatus { get; set; }
 
-    public Action<int> PlannedProjectEdited { get; set; } = null!;
+    public Action<int, ProjectStatusName> ProjectEdited { get; set; } = null!;
 
-    public void OnPlannedProjectEdited() => PlannedProjectEdited?.Invoke(EditPlannedProjectId);
-
-    public int EditProjectInProgressId { get; set; }    
-
-    public Action<int> ProjectInProgressEdited { get; set; } = null!;
-
-    public void OnProjectInProgressEdited() => ProjectInProgressEdited?.Invoke(EditProjectInProgressId);
+    public void OnProjectEdited() => ProjectEdited?.Invoke(EditedProjectIdAndStatus.Item1, EditedProjectIdAndStatus.Item2);
 }

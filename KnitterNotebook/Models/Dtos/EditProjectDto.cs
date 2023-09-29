@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace KnitterNotebook.Models.Dtos;
 
-public record EditPlannedProjectDto
+public record EditProjectDto
 (
     int Id,
     string Name,

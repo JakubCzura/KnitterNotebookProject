@@ -5,12 +5,12 @@ using KnitterNotebook.Services.Interfaces;
 
 namespace KnitterNotebook.Validators
 {
-    public class EditPlannedProjectDtoValidator : AbstractValidator<EditPlannedProjectDto>
+    public class EditProjectDtoValidator : AbstractValidator<EditProjectDto>
     {
         private readonly IUserService _userService;
         private readonly IProjectService _projectService;
 
-        public EditPlannedProjectDtoValidator(IUserService userService, IProjectService projectService)
+        public EditProjectDtoValidator(IUserService userService, IProjectService projectService)
         {
             _userService = userService;
             _projectService = projectService;

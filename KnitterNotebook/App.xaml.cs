@@ -25,7 +25,6 @@ public partial class App : Application
 
     public App()
     {
-        //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
         AppHost = Host.CreateDefaultBuilder()
             .ConfigureAppConfiguration((hostContext, configurationBuilder) =>
             {
@@ -59,7 +58,7 @@ public partial class App : Application
                 services.AddScoped<IValidator<LogInDto>, LogInDtoValidator>();
                 services.AddScoped<IValidator<CreateProjectImageDto>, CreateProjectImageDtoValidator>();
                 services.AddScoped<IValidator<ChangeProjectStatusDto>, ChangeProjectStatusDtoValidator>();
-                services.AddScoped<IValidator<EditPlannedProjectDto>, EditPlannedProjectDtoValidator>();
+                services.AddScoped<IValidator<EditProjectDto>, EditProjectDtoValidator>();
 
                 #endregion Validators
 
@@ -102,8 +101,7 @@ public partial class App : Application
                 services.AddTransient<ProjectPlanningViewModel>();
                 services.AddTransient<PdfBrowserViewModel>();
                 services.AddTransient<ProjectImageAddingViewModel>();
-                services.AddTransient<PlannedProjectEditingViewModel>();
-                services.AddTransient<ProjectInProgressEditingViewModel>();
+                services.AddTransient<ProjectEditingViewModel>();
 
                 #endregion ViewModels
 
@@ -149,13 +147,9 @@ public partial class App : Application
                 {
                     DataContext = s.GetRequiredService<ProjectImageAddingViewModel>()
                 });
-                services.AddTransient(s => new PlannedProjectEditingWindow()
+                services.AddTransient(s => new ProjectEditingWindow()
                 {
-                    DataContext = s.GetRequiredService<PlannedProjectEditingViewModel>()
-                });
-                services.AddTransient(s => new ProjectInProgressEditingWindow()
-                {
-                    DataContext = s.GetRequiredService<ProjectInProgressEditingViewModel>()
+                    DataContext = s.GetRequiredService<ProjectEditingViewModel>()
                 });
 
                 #endregion Windows

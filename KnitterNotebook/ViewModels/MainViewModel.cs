@@ -16,12 +16,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using UserControl = System.Windows.Controls.UserControl;
 
@@ -62,7 +60,7 @@ public partial class MainViewModel : BaseViewModel
         ProjectPlanningViewModel.NewProjectPlanned += async () => await HandleNewProjectPlanned();
         _sharedResourceViewModel.ProjectInProgressImageAdded += async (int projectId) => await HandleProjectInProgressImageAdded(projectId);
         _sharedResourceViewModel.UserUpdatedInDatabase += async (int userId) => await HandleUserUpdatedInDatabase(userId);
-        _sharedResourceViewModel.PlannedProjectEdited += async (int projectId) => await HandlePlannedProjectEdited(projectId);
+        _sharedResourceViewModel.ProjectEdited += async (int projectId, ProjectStatusName projectStatusName) => await HandlePlannedProjectEdited(projectId, projectStatusName);
     }
 
     #region Properties
@@ -676,15 +674,27 @@ public partial class MainViewModel : BaseViewModel
         }
     }
 
-    private async Task HandlePlannedProjectEdited(int projectId)
+    private async Task HandlePlannedProjectEdited(int projectId, ProjectStatusName projectStatus)
     {
         try
         {
-            PlannedProjectDto? editedProject = await _projectService.GetPlannedProjectAsync(projectId);
-            if(SelectedPlannedProject is not null && editedProject is not null)
+            if (projectStatus == ProjectStatusName.Planned)
             {
-                int index = PlannedProjects.IndexOf(SelectedPlannedProject);
-                PlannedProjects[index] = editedProject;
+                PlannedProjectDto? editedProject = await _projectService.GetPlannedProjectAsync(projectId);
+                if (SelectedPlannedProject is not null && editedProject is not null)
+                {
+                    int index = PlannedProjects.IndexOf(SelectedPlannedProject);
+                    PlannedProjects[index] = editedProject;
+                }
+            }
+            else if (projectStatus == ProjectStatusName.InProgress)
+            {
+                ProjectInProgressDto? editedProject = await _projectService.GetProjectInProgressAsync(projectId);
+                if (SelectedProjectInProgress is not null && editedProject is not null)
+                {
+                    int index = ProjectsInProgress.IndexOf(SelectedProjectInProgress);
+                    ProjectsInProgress[index] = editedProject;
+                }
             }
         }
         catch (Exception exception)
@@ -696,21 +706,22 @@ public partial class MainViewModel : BaseViewModel
     [RelayCommand]
     private void EditProject(ProjectStatusName projectStatusName)
     {
-        if (projectStatusName == ProjectStatusName.Planned)
+        try
         {
-            if (SelectedPlannedProject is not null)
+            if (SelectedPlannedProject is not null && projectStatusName == ProjectStatusName.Planned)
             {
-                _sharedResourceViewModel.EditPlannedProjectId = SelectedPlannedProject.Id;
-                ShowWindow<PlannedProjectEditingWindow>();
+                _sharedResourceViewModel.EditedProjectIdAndStatus = (SelectedPlannedProject.Id, SelectedPlannedProject.ProjectStatus);
+                ShowWindow<ProjectEditingWindow>();
+            }
+            else if (SelectedProjectInProgress is not null && projectStatusName == ProjectStatusName.InProgress)
+            {
+                _sharedResourceViewModel.EditedProjectIdAndStatus = (SelectedProjectInProgress.Id, SelectedProjectInProgress.ProjectStatus);
+                ShowWindow<ProjectEditingWindow>();
             }
         }
-        else if (projectStatusName == ProjectStatusName.InProgress)
+        catch (Exception exception)
         {
-            if (SelectedProjectInProgress is not null)
-            {
-                _sharedResourceViewModel.EditProjectInProgressId = SelectedProjectInProgress.Id;
-                ShowWindow<ProjectInProgressEditingWindow>();
-            }
+            _logger.LogError(exception, "Error while opening window to edit project");
         }
     }
 

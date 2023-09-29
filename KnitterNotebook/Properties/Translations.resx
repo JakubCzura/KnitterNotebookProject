@@ -246,11 +246,8 @@
   <data name="ErrorWhileDeletingSample" xml:space="preserve">
     <value>Error while deleting sample</value>
   </data>
-  <data name="ErrorWhileEditingPlannedProject" xml:space="preserve">
-    <value>Error while editing planned project</value>
-  </data>
-  <data name="ErrorWhileEditingProjectInProgress" xml:space="preserve">
-    <value>Error while editing project in progress</value>
+  <data name="ErrorWhileEditingProject" xml:space="preserve">
+    <value>Error while editing project</value>
   </data>
   <data name="ErrorWhileFinishingProjectInProgress" xml:space="preserve">
     <value>Error while finishing project in progress</value>
@@ -477,9 +474,6 @@
   <data name="PlannedProject" xml:space="preserve">
     <value>Planned project</value>
   </data>
-  <data name="PlannedProjectEditedSuccessfully" xml:space="preserve">
-    <value>Planned project edited successfully</value>
-  </data>
   <data name="PlannedProjects" xml:space="preserve">
     <value>Planned projects</value>
   </data>
@@ -489,11 +483,11 @@
   <data name="PlayMovie" xml:space="preserve">
     <value>Play movie</value>
   </data>
+  <data name="ProjectEditedSuccessfully" xml:space="preserve">
+    <value>Project edited successfully</value>
+  </data>
   <data name="ProjectInProgress" xml:space="preserve">
     <value>Project in progress</value>
-  </data>
-  <data name="ProjectInProgressEditedSuccessfully" xml:space="preserve">
-    <value>Project in progress edited successfully</value>
   </data>
   <data name="ProjectName" xml:space="preserve">
     <value>Project's name</value>
