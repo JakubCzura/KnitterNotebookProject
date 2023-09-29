@@ -354,4 +354,64 @@ public class ProjectServiceTests
         //Assert
         result.Should().Be(1);
     }
+
+    [Fact]
+    public async Task EditProjectAsync_ForValidData_EditsProject()
+    {
+        //Arrange
+        EditProjectDto dto = new(1,
+                                "Project's name",
+                                DateTime.Today.AddDays(1),
+                                new List<CreateNeedleDto>() { new(3.5, NeedleSizeUnit.mm), new(6.5, NeedleSizeUnit.cm) },
+                                new List<CreateYarnDto>() { new("Merino"), new("Soft Sheep") },
+                                "Description",
+                                null,
+                                1);
+
+        //Act
+        int result = await _projectService.EditProjectAsync(dto);
+
+        //Assert
+        result.Should().Be(5);
+    }
+
+    [Fact]
+    public async Task EditProjectAsync_ForNotExistingProject_Returns0()
+    {
+        //Arrange
+        EditProjectDto dto = new(99999,
+                                "Project's name",
+                                DateTime.Today.AddDays(1),
+                                new List<CreateNeedleDto>() { new(3.5, NeedleSizeUnit.mm), new(6.5, NeedleSizeUnit.cm) },
+                                new List<CreateYarnDto>() { new("Merino"), new("Soft Sheep") },
+                                "Description",
+                                null,
+                                1);
+
+        //Act
+        int result = await _projectService.EditProjectAsync(dto);
+
+        //Assert
+        result.Should().Be(0);
+    }
+
+    [Fact]
+    public async Task EditProjectAsync_ForNotExistingUser_ThrowsEntityNotFoundException()
+    {
+        //Arrange
+        EditProjectDto dto = new(1,
+                                "Project's name",
+                                DateTime.Today.AddDays(1),
+                                new List<CreateNeedleDto>() { new(3.5, NeedleSizeUnit.mm), new(6.5, NeedleSizeUnit.cm) },
+                                new List<CreateYarnDto>() { new("Merino"), new("Soft Sheep") },
+                                "Description",
+                                null,
+                                99999);
+
+        //Act
+        Func<Task> action = async () => await _projectService.EditProjectAsync(dto);
+
+        //Assert
+        await action.Should().ThrowAsync<EntityNotFoundException>();
+    }
 }
