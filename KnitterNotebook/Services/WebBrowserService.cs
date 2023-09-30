@@ -10,13 +10,13 @@ public class WebBrowserService : IWebBrowserService
     /// Opens the URL in the default web browser
     /// </summary>
     /// <param name="link">URL to open</param>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentNullException">When <paramref name="link"/> is null</exception>
     public void Open(Uri link)
     {
         if (link is null)
         {
             throw new ArgumentNullException(nameof(link));
         }
-        Process.Start("cmd", $"/C start {link}");
+        Process.Start(new ProcessStartInfo(link.AbsoluteUri) { UseShellExecute = true });
     }
 }

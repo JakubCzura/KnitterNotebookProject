@@ -52,7 +52,7 @@ public partial class ResetPasswordViewModel : BaseViewModel
             return;
         }
 
-        (string, DateTime) tokenWithExpirationDate = await _userService.UpdatePasswordResetTokenStatusAsync(Email);
+        (string, DateTime) tokenWithExpirationDate = await _userService.UpdatePasswordResetTokenAsync(Email);
 
         SendEmailDto sendEmailDto = new()
         {

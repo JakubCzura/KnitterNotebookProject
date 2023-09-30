@@ -520,13 +520,13 @@ public class UserServiceTests
     }
 
     [Fact]
-    public async Task UpdatePasswordResetTokenStatusAsync_ForValidData_UpdatesToken()
+    public async Task UpdatePasswordResetTokenAsync_ForValidData_UpdatesToken()
     {
         //Arrange
         string email = "user1@mail.com";
 
         //Act
-        (string, DateTime) result = await _userService.UpdatePasswordResetTokenStatusAsync(email);
+        (string, DateTime) result = await _userService.UpdatePasswordResetTokenAsync(email);
 
         //Assert
         result.Item1.Should().NotBeNullOrEmpty();
@@ -535,10 +535,10 @@ public class UserServiceTests
 
     [Theory]
     [InlineData(null), InlineData("emailnotindatabase@emailnotindatabase.com")]
-    public async Task UpdatePasswordResetTokenStatusAsync_ForNotExistingUser_ThrowsEntityNotFoundException(string email)
+    public async Task UpdatePasswordResetTokenAsync_ForNotExistingUser_ThrowsEntityNotFoundException(string email)
     {
         //Act
-        Func<Task> action = async () => await _userService.UpdatePasswordResetTokenStatusAsync(email);
+        Func<Task> action = async () => await _userService.UpdatePasswordResetTokenAsync(email);
 
         //Assert
         await action.Should().ThrowAsync<EntityNotFoundException>();

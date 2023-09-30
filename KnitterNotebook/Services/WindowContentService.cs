@@ -7,6 +7,11 @@ namespace KnitterNotebook.Services;
 
 public class WindowContentService : IWindowContentService
 {
+    /// <summary>
+    /// Chooses which user control to display
+    /// </summary>
+    /// <param name="userControlName">Name of user control to display</param>
+    /// <returns>Instance of user control to display</returns>
     public UserControl ChooseMainWindowContent(MainWindowContent userControlName) => userControlName switch
     {
         MainWindowContent.PlannedProjectsUserControl => new PlannedProjectsUserControl(),
@@ -16,6 +21,11 @@ public class WindowContentService : IWindowContentService
         _ => new SamplesUserControl()
     };
 
+    /// <summary>
+    /// Chooses which user control to display
+    /// </summary>
+    /// <param name="userControlName">Name of user control to display</param>
+    /// <returns>Instance of user control to display</returns>
     public UserControl ChooseSettingsWindowContent(SettingsWindowContent userControlName) => userControlName switch
     {
         SettingsWindowContent.UserSettingsUserControl => new UserSettingsUserControl(),

@@ -56,7 +56,11 @@ public class UserService : CrudService<User>, IUserService
 
     public async Task<bool> UserExistsAsync(int id) => await _databaseContext.Users.AsNoTracking().AnyAsync(x => x.Id == id);
 
-    /// <returns>User object if found in database otherwise null</returns>
+    /// <summary>
+    /// Returns instance of user from database
+    /// </summary>
+    /// <param name="id">Id of user</param>
+    /// <returns>User's data from database or null if user doesn't exist</returns>
     public new async Task<UserDto?> GetAsync(int id)
     {
         User? user = await _databaseContext.Users
@@ -67,6 +71,11 @@ public class UserService : CrudService<User>, IUserService
         return user is null ? null : new UserDto(user);
     }
 
+    /// <summary>
+    /// Logs in user if email and password are correct
+    /// </summary>
+    /// <param name="logInDto">Data to log in user</param>
+    /// <returns>User's id if user logs in, otherwise null</returns>
     public async Task<int?> LogInAsync(LogInDto logInDto)
     {
         User? user = await _databaseContext.Users.FirstOrDefaultAsync(x => x.Email == logInDto.Email);
@@ -97,7 +106,6 @@ public class UserService : CrudService<User>, IUserService
         return await _databaseContext.SaveChangesAsync();
     }
 
-    /// <returns>Nickname if user was found otherwise null</returns>
     public async Task<string?> GetNicknameAsync(int id) => (await _databaseContext.Users.FindAsync(id))?.Nickname;
 
     /// <summary>
@@ -131,10 +139,10 @@ public class UserService : CrudService<User>, IUserService
                                  .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Email, changeEmailDto.Email));
 
     /// <summary>
-    /// Changes user's theme and saves it to database
+    /// Changes theme and saves it to database. Updates user interface with new theme
     /// </summary>
     /// <param name="changeThemeDto">Data to update</param>
-    /// <returns>Quantity of entities saved to database</returns>
+    /// <returns>Quantity of entities saved to database or 0 if user doesn't exist in database</returns>
     /// <exception cref="EntityNotFoundException">If theme doesn't exists in database</exception>
     /// <exception cref="NullReferenceException">If <paramref name="changeThemeDto"/> is null</exception>
     public async Task<int> ChangeThemeAsync(ChangeThemeDto changeThemeDto)
@@ -143,7 +151,10 @@ public class UserService : CrudService<User>, IUserService
                     ?? throw new EntityNotFoundException(ExceptionsMessages.ThemeWithNameNotFound(changeThemeDto.ThemeName.ToString()));
 
         User? user = await _databaseContext.Users.Include(x => x.Theme).FirstOrDefaultAsync(x => x.Id == changeThemeDto.UserId);
-        if (user == null) return 0;
+        if (user == null)
+        { 
+            return 0;
+        }
 
         _themeService.ReplaceTheme(changeThemeDto.ThemeName, user.Theme.Name);
 
@@ -161,20 +172,30 @@ public class UserService : CrudService<User>, IUserService
         => await _databaseContext.Users.Where(x => x.Email == resetPasswordDto.Email)
                                  .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Password, _passwordService.HashPassword(resetPasswordDto.NewPassword)));
 
-    public async Task<(string, DateTime)> UpdatePasswordResetTokenStatusAsync(string userEmail)
+    /// <summary>
+    /// Updates user's password reset token and its expiration date
+    /// </summary>
+    /// <param name="userEmail">User's email</param>
+    /// <returns>User's password reset token and token's expiration date</returns>
+    /// <exception cref="EntityNotFoundException">If user doesn't exist in database</exception>
+    public async Task<(string, DateTime)> UpdatePasswordResetTokenAsync(string userEmail)
     {
-        User user = await _databaseContext.Users.FirstOrDefaultAsync(x => x.Email == userEmail)
-                    ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithEmailNotFound(userEmail));
+        var tokenWithExpirationDate = new
+        {   
+            Token = _tokenService.CreateResetPasswordToken(),
+            ExpirationDate = _tokenService.CreateResetPasswordTokenExpirationDate(_configuration.GetValue("Tokens:ResetPasswordTokenExpirationDays", 1))
+        };
 
-        user.PasswordResetToken = _tokenService.CreateResetPasswordToken();
-        user.PasswordResetTokenExpirationDate = _tokenService.CreateResetPasswordTokenExpirationDate(_configuration.GetValue("Tokens:ResetPasswordTokenExpirationDays", 1));
-
-        _databaseContext.Users.Update(user);
-        await _databaseContext.SaveChangesAsync();
-
-        return (user.PasswordResetToken, user.PasswordResetTokenExpirationDate.Value);
+        return (await _databaseContext.Users.Where(x => x.Email == userEmail)
+                .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.PasswordResetToken, tokenWithExpirationDate.Token)
+                                                      .SetProperty(x => x.PasswordResetTokenExpirationDate, tokenWithExpirationDate.ExpirationDate))) > 0 
+                ? (tokenWithExpirationDate.Token, tokenWithExpirationDate.ExpirationDate)
+                : throw new EntityNotFoundException(ExceptionsMessages.UserWithEmailNotFound(userEmail));
     }
 
+    /// <summary>
+    /// Logs out user, deletes user's unnecessary files and closes application
+    /// </summary>
     public void LogOut()
     {
         GC.Collect();

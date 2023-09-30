@@ -31,7 +31,7 @@ public interface IUserService : ICrudService<User>
 
     Task<int> ResetPasswordAsync(ResetPasswordDto resetPasswordDto);
 
-    Task<(string, DateTime)> UpdatePasswordResetTokenStatusAsync(string userEmail);
+    Task<(string, DateTime)> UpdatePasswordResetTokenAsync(string userEmail);
 
     Task<bool> ArePasswordResetTokenAndExpirationDateValidAsync(string token);
 
