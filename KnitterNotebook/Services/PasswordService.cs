@@ -1,4 +1,5 @@
 ﻿using KnitterNotebook.Services.Interfaces;
+using System;
 
 namespace KnitterNotebook.Services;
 
@@ -9,7 +10,7 @@ public class PasswordService : IPasswordService
     /// </summary>
     /// <param name="password">Unhashed password</param>
     /// <param name="hash">Hashed password</param>
-    /// <returns>True if password matches, otherwise false</returns>
+    /// <returns>True if the passwords match, otherwise false</returns>
     /// <exception cref="ArgumentNullException"></exception>
     public bool VerifyPassword(string password, string hash) => BCrypt.Net.BCrypt.Verify(password, hash);
 

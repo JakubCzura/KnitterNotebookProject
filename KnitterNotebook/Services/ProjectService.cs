@@ -31,13 +31,15 @@ public class ProjectService : CrudService<Project>, IProjectService
     public async Task<bool> ProjectExistsAsync(int id) => await _databaseContext.Projects.AsNoTracking().AnyAsync(x => x.Id == id);
 
     /// <summary>
-    /// Creates new project and saves to database
+    /// Creates new project and saves it to database
     /// </summary>
     /// <param name="planProjectDto">Data to create</param>
     /// <returns>Quantity of entities saved to database</returns>
     /// <exception cref="NullReferenceException">When <paramref name="planProjectDto"/> is null</exception>
+    /// <exception cref="EntityNotFoundException">When user doesn't exist in database</exception>
     public async Task<int> PlanProjectAsync(PlanProjectDto planProjectDto)
     {
+        //User can plan project without .pdf file with pattern, but it would be impossible situation if nickname was null so exception is thrown when nickname is null
         string nickname = await _userService.GetNicknameAsync(planProjectDto.UserId)
                          ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(planProjectDto.UserId));
 
@@ -146,7 +148,10 @@ public class ProjectService : CrudService<Project>, IProjectService
     {
         Project? project = await _databaseContext.Projects.FirstOrDefaultAsync(x => x.Id == changeProjectStatusDto.ProjectId);
 
-        if (project is null) return 0;
+        if (project is null)
+        {
+            return 0;
+        }
 
         project.AdjustProjectWhenChangingStatus(changeProjectStatusDto.ProjectStatus);
 
@@ -154,8 +159,15 @@ public class ProjectService : CrudService<Project>, IProjectService
         return await _databaseContext.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Edits project and saves it to database
+    /// </summary>
+    /// <param name="editProjectDto">Data to edit</param>
+    /// <returns>0 if project doesn't exists in database, otherwise quantity of entities saved to database</returns>
+    /// <exception cref="EntityNotFoundException">If user doesn't exist in database</exception>
     public async Task<int> EditProjectAsync(EditProjectDto editProjectDto)
-    {
+    {       
+        //User can edit project without .pdf file with pattern, but it would be impossible situation if nickname was null so exception is thrown when nickname is null
         string nickname = await _userService.GetNicknameAsync(editProjectDto.UserId)
                          ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(editProjectDto.UserId));
 

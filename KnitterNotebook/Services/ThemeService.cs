@@ -28,10 +28,11 @@ public class ThemeService : CrudService<Theme>, IThemeService
     public async Task<int?> GetThemeIdAsync(ApplicationTheme name) => (await _databaseContext.Themes.AsNoTracking().FirstOrDefaultAsync(x => x.Name == name))?.Id;
 
     /// <summary>
-    /// Adds new theme's resource dictionary to merged dictionaries and deletes old theme's resource dictionary if oldResourceDictionaryFullPath is not null
+    /// Adds new theme's resource dictionary to merged dictionaries. Deletes old theme's resource dictionary if <paramref name="oldThemeName"/> is not null
     /// </summary>
     /// <param name="newThemeName">New theme to set</param>
     /// <param name="oldThemeName">Old theme to replace. Can be null when theme is set for the first time so there is not old theme to replace</param>
+    /// <exception cref="InvalidEnumException"> when <paramref name="newThemeName"/> or <paramref name="oldThemeName"/> is not defined in <see cref="ApplicationTheme"/></exception>"
     public void ReplaceTheme(ApplicationTheme newThemeName, ApplicationTheme? oldThemeName = null)
     {
         if (!Enum.IsDefined(typeof(ApplicationTheme), newThemeName))
@@ -49,8 +50,8 @@ public class ThemeService : CrudService<Theme>, IThemeService
         if (oldThemeName.HasValue)
         {
             string oldThemeFullPath = Paths.Theme(oldThemeName.Value);
-            ResourceDictionary? result = Application.Current?.Resources?.MergedDictionaries?.FirstOrDefault(x => x.Source.ToString().Equals(oldThemeFullPath, StringComparison.OrdinalIgnoreCase));
-            Application.Current?.Resources?.MergedDictionaries?.Remove(result);
+            ResourceDictionary? themeDictionary = Application.Current?.Resources?.MergedDictionaries?.FirstOrDefault(x => x.Source.ToString().Equals(oldThemeFullPath, StringComparison.OrdinalIgnoreCase));
+            Application.Current?.Resources?.MergedDictionaries?.Remove(themeDictionary);
         }
 
         //Set new theme

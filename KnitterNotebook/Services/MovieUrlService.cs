@@ -23,9 +23,9 @@ public class MovieUrlService : CrudService<MovieUrl>, IMovieUrlService
     /// Adds new movie url to database
     /// </summary>
     /// <param name="createMovieUrl">Dto model that should be added to database as movie url</param>
-    /// <returns>1 if object was added to database</returns>
-    /// <exception cref="NullReferenceException"></exception>"
-    /// <exception cref="UriFormatException"></exception>"
+    /// <returns>Quantity of entities saved to database</returns>
+    /// <exception cref="NullReferenceException">If <paramref name="createMovieUrl"/> is null</exception>"
+    /// <exception cref="UriFormatException">If <paramref name="createMovieUrl.Link"/> is not in proper format</exception>"
     public async Task<int> CreateAsync(CreateMovieUrlDto createMovieUrl)
     {
         MovieUrl movieUrl = new()
@@ -42,5 +42,6 @@ public class MovieUrlService : CrudService<MovieUrl>, IMovieUrlService
     public async Task<List<MovieUrlDto>> GetUserMovieUrlsAsync(int userId)
         => await _databaseContext.MovieUrls.AsNoTracking()
                                            .Where(x => x.UserId == userId)
-                                           .Select(x => new MovieUrlDto(x)).ToListAsync();
+                                           .Select(x => new MovieUrlDto(x))
+                                           .ToListAsync();
 }

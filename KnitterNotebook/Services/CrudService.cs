@@ -29,7 +29,10 @@ public class CrudService<T> : ICrudService<T> where T : BaseDbEntity
 
     public async Task<int> CreateAsync(T data)
     {
-        if (data is null) return 0;
+        if (data is null)
+        {
+            return 0;
+        }
 
         await _dbSet.AddAsync(data);
         return await _databaseContext.SaveChangesAsync();
@@ -37,7 +40,10 @@ public class CrudService<T> : ICrudService<T> where T : BaseDbEntity
 
     public async Task<int> UpdateAsync(T data)
     {
-        if (data is null) return 0;
+        if (data is null)
+        {
+            return 0;
+        }
 
         _dbSet.Update(data);
         return await _databaseContext.SaveChangesAsync();

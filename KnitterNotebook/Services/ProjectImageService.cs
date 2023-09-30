@@ -37,7 +37,10 @@ public class ProjectImageService : CrudService<ProjectImage>, IProjectImageServi
         string? nickname = await _userService.GetNicknameAsync(addProjectImageDto.UserId);
         string? destinationImagePath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(addProjectImageDto.ImagePath));
 
-        if (string.IsNullOrWhiteSpace(destinationImagePath)) throw new ArgumentNullException(nameof(destinationImagePath), ExceptionsMessages.NullFileWhenSave);
+        if (string.IsNullOrWhiteSpace(destinationImagePath))
+        { 
+            throw new ArgumentNullException(destinationImagePath, ExceptionsMessages.NullFileWhenSave); 
+        }
 
         ProjectImage projectImage = new()
         {
@@ -46,7 +49,9 @@ public class ProjectImageService : CrudService<ProjectImage>, IProjectImageServi
         };
 
         if (!string.IsNullOrWhiteSpace(addProjectImageDto.ImagePath) && !string.IsNullOrWhiteSpace(destinationImagePath))
+        {
             FileHelper.CopyWithDirectoryCreation(addProjectImageDto.ImagePath, destinationImagePath);
+        }
 
         await _databaseContext.AddAsync(projectImage);
         return await _databaseContext.SaveChangesAsync();
@@ -55,5 +60,6 @@ public class ProjectImageService : CrudService<ProjectImage>, IProjectImageServi
     public async Task<List<ProjectImageDto>> GetProjectImagesAsync(int projectId)
         => await _databaseContext.ProjectImages.AsNoTracking()
                                                .Where(x => x.ProjectId == projectId)
-                                               .Select(x => new ProjectImageDto(x)).ToListAsync();
+                                               .Select(x => new ProjectImageDto(x))
+                                               .ToListAsync();
 }

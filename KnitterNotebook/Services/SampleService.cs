@@ -25,13 +25,19 @@ public class SampleService : CrudService<Sample>, ISampleService
         _userService = userService;
     }
 
+    /// <summary>
+    /// Creates sample and saves it do database
+    /// </summary>
+    /// <param name="createSampleDto">Data to create sample</param>
+    /// <returns>Quantity of entities saved to database</returns>
+    /// <exception cref="EntityNotFoundException">When user doesn't exist in database</exception>
     public async Task<int> CreateAsync(CreateSampleDto createSampleDto)
     {
+        //User can create sample without photo, but it would be impossible situation if nickname was null so exception is thrown when nickname is null
         string? nickname = await _userService.GetNicknameAsync(createSampleDto.UserId)
                             ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(createSampleDto.UserId));
 
         string? destinationImagePath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(createSampleDto.SourceImagePath));
-
         SampleImage? image = !string.IsNullOrWhiteSpace(destinationImagePath) ? new(destinationImagePath) : null;
 
         Sample sample = new()
@@ -47,7 +53,9 @@ public class SampleService : CrudService<Sample>, ISampleService
         };
 
         if (!string.IsNullOrWhiteSpace(createSampleDto.SourceImagePath) && !string.IsNullOrWhiteSpace(destinationImagePath))
+        {
             FileHelper.CopyWithDirectoryCreation(createSampleDto.SourceImagePath, destinationImagePath);
+        }
 
         await _databaseContext.Samples.AddAsync(sample);
         return await _databaseContext.SaveChangesAsync();
