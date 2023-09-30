@@ -32,8 +32,8 @@ public class CreateSampleDtoValidator : AbstractValidator<CreateSampleDto>
             .WithMessage($"{Translations.NeedleSizeMustBeBetween}: 0.1 - 100");
 
         RuleFor(x => x.NeedleSizeUnit)
-           .IsInEnum()
-           .WithMessage(Translations.InvalidSizeUnit);
+            .IsInEnum()
+            .WithMessage(Translations.InvalidSizeUnit);
 
         RuleFor(x => x.Description)
             .MaximumLength(1000)

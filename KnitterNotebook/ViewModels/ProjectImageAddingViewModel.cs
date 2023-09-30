@@ -16,9 +16,15 @@ using System.Windows;
 
 namespace KnitterNotebook.ViewModels;
 
+/// <summary>
+/// View model for ProjectImageAddingWindow.xaml
+/// </summary>
 public partial class ProjectImageAddingViewModel : BaseViewModel
 {
-    public ProjectImageAddingViewModel(ILogger<ProjectImageAddingViewModel> logger, IProjectImageService projectImageService, IValidator<CreateProjectImageDto> createProjectImageDtoValidator, SharedResourceViewModel sharedResourceViewModel)
+    public ProjectImageAddingViewModel(ILogger<ProjectImageAddingViewModel> logger,
+        IProjectImageService projectImageService,
+        IValidator<CreateProjectImageDto> createProjectImageDtoValidator,
+        SharedResourceViewModel sharedResourceViewModel)
     {
         _logger = logger;
         _projectImageService = projectImageService;
@@ -31,8 +37,14 @@ public partial class ProjectImageAddingViewModel : BaseViewModel
     private readonly IValidator<CreateProjectImageDto> _createProjectImageDtoValidator;
     private readonly SharedResourceViewModel _sharedResourceViewModel;
 
+    #region Properties
+
     [ObservableProperty]
     private string _sourceImagePath = string.Empty;
+
+    #endregion Properties
+
+    #region Commands
 
     [RelayCommand]
     private void ChooseImage()
@@ -71,4 +83,6 @@ public partial class ProjectImageAddingViewModel : BaseViewModel
             MessageBox.Show(Translations.ErrorWhileAddingProjectPhoto);
         }
     }
+
+    #endregion Commands
 }

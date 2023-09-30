@@ -16,6 +16,9 @@ using System.Windows;
 
 namespace KnitterNotebook.ViewModels;
 
+/// <summary>
+/// View model for ProjectPlanningWindow.xaml
+/// </summary>
 public partial class ProjectPlanningViewModel : PlannedProjectBaseViewModel
 {
     public ProjectPlanningViewModel(ILogger<ProjectPlanningViewModel> logger,
@@ -34,9 +37,15 @@ public partial class ProjectPlanningViewModel : PlannedProjectBaseViewModel
     private readonly IValidator<PlanProjectDto> _planProjectDtoValidator;
     private readonly SharedResourceViewModel _sharedResourceViewModel;
 
+    #region Events
+
     public static Action NewProjectPlanned { get; set; } = null!;
 
     private static void OnNewProjectPlanned() => NewProjectPlanned?.Invoke();
+
+    #endregion Events
+
+    #region Commands
 
     [RelayCommand]
     private async Task AddProjectAsync()
@@ -66,4 +75,6 @@ public partial class ProjectPlanningViewModel : PlannedProjectBaseViewModel
             MessageBox.Show(Translations.ErrorWhilePlanningNewProject);
         }
     }
+
+    #endregion Commands
 }

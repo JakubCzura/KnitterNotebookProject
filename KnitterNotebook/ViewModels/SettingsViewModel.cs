@@ -16,6 +16,9 @@ using UserControl = System.Windows.Controls.UserControl;
 
 namespace KnitterNotebook.ViewModels;
 
+/// <summary>
+/// View model for SettingsWindow.xaml
+/// </summary>
 public partial class SettingsViewModel : BaseViewModel
 {
     public SettingsViewModel(ILogger<SettingsViewModel> logger,
@@ -46,6 +49,8 @@ public partial class SettingsViewModel : BaseViewModel
     private readonly IWindowContentService _windowContentService;
     private readonly SharedResourceViewModel _sharedResourceViewModel;
 
+    #region Properties
+
     [ObservableProperty]
     private UserControl _settingsWindowContent = new UserSettingsUserControl();
 
@@ -60,6 +65,10 @@ public partial class SettingsViewModel : BaseViewModel
 
     [ObservableProperty]
     private string[] _themes = Enum.GetNames(typeof(ApplicationTheme));
+
+    #endregion Properties
+
+    #region Commands
 
     [RelayCommand]
     private async Task ChangeEmailAsync()
@@ -177,4 +186,6 @@ public partial class SettingsViewModel : BaseViewModel
 
     [RelayCommand]
     private void ChooseSettingsWindowContent(SettingsWindowContent userControlName) => SettingsWindowContent = _windowContentService.ChooseSettingsWindowContent(userControlName);
+
+    #endregion Commands
 }

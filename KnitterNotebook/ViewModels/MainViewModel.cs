@@ -25,6 +25,9 @@ using UserControl = System.Windows.Controls.UserControl;
 
 namespace KnitterNotebook.ViewModels;
 
+/// <summary>
+/// View model for MainWindow.xaml
+/// </summary>
 public partial class MainViewModel : BaseViewModel
 {
     public MainViewModel(ILogger<MainViewModel> logger,
@@ -63,8 +66,6 @@ public partial class MainViewModel : BaseViewModel
         _sharedResourceViewModel.ProjectEdited += async (int projectId, ProjectStatusName projectStatusName) => await HandlePlannedProjectEdited(projectId, projectStatusName);
     }
 
-    #region Properties
-
     private readonly ILogger<MainViewModel> _logger;
     private readonly IMovieUrlService _movieUrlService;
     private readonly ISampleService _sampleService;
@@ -77,33 +78,19 @@ public partial class MainViewModel : BaseViewModel
     private readonly SharedResourceViewModel _sharedResourceViewModel;
     private readonly IValidator<ChangeProjectStatusDto> _changeProjectStatusDtoValidator;
 
-    public ICommand ShowMovieUrlAddingWindowCommand { get; } = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
-    public ICommand ShowSettingsWindowCommand { get; } = new RelayCommand(ShowWindow<SettingsWindow>);
-    public ICommand ShowProjectPlanningWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectPlanningWindow>);
-    public ICommand ShowSampleAddingWindowCommand { get; } = new RelayCommand(ShowWindow<SampleAddingWindow>);
-    public ICommand ShowProjectImageAddingWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectImageAddingWindow>);
-
-    [RelayCommand]
-    private void ShowPatternPdfWindow(string patternPdfPath)
-    {
-        //It is unnecessary to open window if path is null, but shared path should always be up to date even if the path is null
-        _sharedResourceViewModel.PatternPdfPath = patternPdfPath;
-        if (!string.IsNullOrWhiteSpace(patternPdfPath))
-        {
-            ShowWindow<PdfBrowserWindow>();
-        }
-    }
-
-    public static List<string> NeedleSizeUnitList => Enum.GetNames<NeedleSizeUnit>().ToList();
-
-    public string Greetings => $"{Translations.NiceToSeeYou} {User.Nickname}!";
-
-    [ObservableProperty]
-    private UserControl _chosenMainWindowContent;
+    #region Properties
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Greetings))]
     private UserDto _user = new();
+
+    public string Greetings => $"{Translations.NiceToSeeYou} {User.Nickname}!";
+
+    [ObservableProperty]
+    private string[] _needleSizeUnitList = Enum.GetNames(typeof(NeedleSizeUnit));
+
+    [ObservableProperty]
+    private UserControl _chosenMainWindowContent;
 
     private double? _filterNeedleSize = null;
 
@@ -271,7 +258,24 @@ public partial class MainViewModel : BaseViewModel
 
     #endregion Properties
 
-    #region Methods
+    #region Commands
+
+    [RelayCommand]
+    private void ShowPatternPdfWindow(string patternPdfPath)
+    {
+        //It is unnecessary to open window if path is null, but shared path should always be up to date even if the path is null
+        _sharedResourceViewModel.PatternPdfPath = patternPdfPath;
+        if (!string.IsNullOrWhiteSpace(patternPdfPath))
+        {
+            ShowWindow<PdfBrowserWindow>();
+        }
+    }
+
+    public ICommand ShowMovieUrlAddingWindowCommand { get; } = new RelayCommand(ShowWindow<MovieUrlAddingWindow>);
+    public ICommand ShowSettingsWindowCommand { get; } = new RelayCommand(ShowWindow<SettingsWindow>);
+    public ICommand ShowProjectPlanningWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectPlanningWindow>);
+    public ICommand ShowSampleAddingWindowCommand { get; } = new RelayCommand(ShowWindow<SampleAddingWindow>);
+    public ICommand ShowProjectImageAddingWindowCommand { get; } = new RelayCommand(ShowWindow<ProjectImageAddingWindow>);
 
     [RelayCommand]
     private void ChooseMainWindowContent(MainWindowContent userControlName) => ChosenMainWindowContent = _windowContentService.ChooseMainWindowContent(userControlName);
@@ -609,6 +613,32 @@ public partial class MainViewModel : BaseViewModel
         }
     }
 
+    [RelayCommand]
+    private void EditProject(ProjectStatusName projectStatusName)
+    {
+        try
+        {
+            if (SelectedPlannedProject is not null && projectStatusName == ProjectStatusName.Planned)
+            {
+                _sharedResourceViewModel.EditedProjectIdAndStatus = (SelectedPlannedProject.Id, SelectedPlannedProject.ProjectStatus);
+                ShowWindow<ProjectEditingWindow>();
+            }
+            else if (SelectedProjectInProgress is not null && projectStatusName == ProjectStatusName.InProgress)
+            {
+                _sharedResourceViewModel.EditedProjectIdAndStatus = (SelectedProjectInProgress.Id, SelectedProjectInProgress.ProjectStatus);
+                ShowWindow<ProjectEditingWindow>();
+            }
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Error while opening window to edit project");
+        }
+    }
+
+    #endregion Commands
+
+    #region Methods
+
     private async Task HandleProjectInProgressImageAdded(int projectId)
     {
         try
@@ -700,28 +730,6 @@ public partial class MainViewModel : BaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Error while fetching planned project's data");
-        }
-    }
-
-    [RelayCommand]
-    private void EditProject(ProjectStatusName projectStatusName)
-    {
-        try
-        {
-            if (SelectedPlannedProject is not null && projectStatusName == ProjectStatusName.Planned)
-            {
-                _sharedResourceViewModel.EditedProjectIdAndStatus = (SelectedPlannedProject.Id, SelectedPlannedProject.ProjectStatus);
-                ShowWindow<ProjectEditingWindow>();
-            }
-            else if (SelectedProjectInProgress is not null && projectStatusName == ProjectStatusName.InProgress)
-            {
-                _sharedResourceViewModel.EditedProjectIdAndStatus = (SelectedProjectInProgress.Id, SelectedProjectInProgress.ProjectStatus);
-                ShowWindow<ProjectEditingWindow>();
-            }
-        }
-        catch (Exception exception)
-        {
-            _logger.LogError(exception, "Error while opening window to edit project");
         }
     }
 

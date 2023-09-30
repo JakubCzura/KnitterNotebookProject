@@ -14,10 +14,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 
 namespace KnitterNotebook.ViewModels;
 
+/// <summary>
+/// View model for SampleAddingWindow.xaml
+/// </summary>
 public partial class SampleAddingViewModel : BaseViewModel
 {
     public SampleAddingViewModel(ILogger<SampleAddingViewModel> logger,
@@ -28,7 +30,6 @@ public partial class SampleAddingViewModel : BaseViewModel
         _logger = logger;
         _sampleService = sampleService;
         _createSampleDtoValidator = createSampleDtoValidator;
-        DeletePhotoCommand = new RelayCommand(() => SourceImagePath = null);
         _sharedResourceViewModel = sharedResourceViewModel;
     }
 
@@ -36,7 +37,16 @@ public partial class SampleAddingViewModel : BaseViewModel
     private readonly ISampleService _sampleService;
     private readonly IValidator<CreateSampleDto> _createSampleDtoValidator;
     private readonly SharedResourceViewModel _sharedResourceViewModel;
-    public ICommand DeletePhotoCommand { get; }
+
+    #region Events
+
+    public static Action NewSampleAdded { get; set; } = null!;
+
+    public static void OnNewSampleAdded() => NewSampleAdded.Invoke();
+
+    #endregion Events
+
+    #region Properties
 
     [ObservableProperty]
     private string _yarnName = string.Empty;
@@ -61,9 +71,9 @@ public partial class SampleAddingViewModel : BaseViewModel
     [ObservableProperty]
     private string? _sourceImagePath = null;
 
-    public static Action NewSampleAdded { get; set; } = null!;
+    #endregion Properties
 
-    public static void OnNewSampleAdded() => NewSampleAdded.Invoke();
+    #region Commands
 
     [RelayCommand]
     private void ChooseImage()
@@ -75,6 +85,9 @@ public partial class SampleAddingViewModel : BaseViewModel
         dialog.ShowDialog();
         SourceImagePath = dialog.FileName;
     }
+
+    [RelayCommand]
+    private void DeletePhotoCommand() => SourceImagePath = null;
 
     [RelayCommand]
     private async Task AddSampleAsync()
@@ -99,4 +112,6 @@ public partial class SampleAddingViewModel : BaseViewModel
             MessageBox.Show(Translations.ErrorWhileAddingNewSample);
         }
     }
+
+    #endregion Commands
 }

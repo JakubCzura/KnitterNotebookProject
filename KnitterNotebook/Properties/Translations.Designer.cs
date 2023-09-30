@@ -1508,5 +1508,14 @@ namespace KnitterNotebook.Properties {
                 return ResourceManager.GetString("YarnsNames", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been signed up.
+        /// </summary>
+        public static string YouHaveBeenSignedUp {
+            get {
+                return ResourceManager.GetString("YouHaveBeenSignedUp", resourceCulture);
+            }
+        }
     }
 }

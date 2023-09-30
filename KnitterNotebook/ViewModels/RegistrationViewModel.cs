@@ -14,20 +14,25 @@ using System.Windows;
 
 namespace KnitterNotebook.ViewModels;
 
+/// <summary>
+/// View model for RegistrationWindow.xaml
+/// </summary>
 public partial class RegistrationViewModel : BaseViewModel
 {
-    public RegistrationViewModel(ILogger<RegistrationViewModel> logger, IUserService userService, IValidator<RegisterUserDto> registerUserDtoValidator)
+    public RegistrationViewModel(ILogger<RegistrationViewModel> logger,
+        IUserService userService,
+        IValidator<RegisterUserDto> registerUserDtoValidator)
     {
         _logger = logger;
         _userService = userService;
         _registerUserDtoValidator = registerUserDtoValidator;
     }
 
-    #region Properties
-
     private readonly ILogger<RegistrationViewModel> _logger;
     private readonly IUserService _userService;
     private readonly IValidator<RegisterUserDto> _registerUserDtoValidator;
+
+    #region Properties
 
     [ObservableProperty]
     private string _email = string.Empty;
@@ -37,7 +42,7 @@ public partial class RegistrationViewModel : BaseViewModel
 
     #endregion Properties
 
-    #region Methods
+    #region Commands
 
     [RelayCommand]
     private async Task RegisterUser()
@@ -54,7 +59,7 @@ public partial class RegistrationViewModel : BaseViewModel
             }
             await _userService.CreateAsync(registerUserDto);
             Closewindow(RegistrationWindow.Instance);
-            MessageBox.Show("Rejestracja przebiegła pomyślnie");
+            MessageBox.Show(Translations.YouHaveBeenSignedUp);
         }
         catch (Exception exception)
         {
@@ -63,9 +68,12 @@ public partial class RegistrationViewModel : BaseViewModel
         }
         finally
         {
-            RegistrationWindow.Instance.UserPasswordPasswordBox.Password = string.Empty;
+            if (RegistrationWindow.Instance is not null)
+            {
+                RegistrationWindow.Instance.UserPasswordPasswordBox.Password = string.Empty;
+            }
         }
     }
 
-    #endregion Methods
+    #endregion Commands
 }

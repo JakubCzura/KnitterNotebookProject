@@ -600,4 +600,7 @@
   <data name="YarnsNames" xml:space="preserve">
     <value>Nazwy włóczek</value>
   </data>
+  <data name="YouHaveBeenSignedUp" xml:space="preserve">
+    <value>Zostałeś zarejestrowany</value>
+  </data>
 </root>

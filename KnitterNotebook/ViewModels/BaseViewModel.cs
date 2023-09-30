@@ -9,11 +9,7 @@ namespace KnitterNotebook.ViewModels;
 /// </summary>
 public abstract class BaseViewModel : ObservableObject
 {
-    #region Methods
-
     public static void ShowWindow<T>() where T : Window => App.AppHost?.Services.GetService<T>()?.Show();
 
     public static void Closewindow(Window instance) => instance?.Close();
-
-    #endregion Methods
 }

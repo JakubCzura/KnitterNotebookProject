@@ -7,7 +7,6 @@ using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Properties;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Views.Windows;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -15,32 +14,38 @@ using System.Windows;
 
 namespace KnitterNotebook.ViewModels;
 
+/// <summary>
+/// View model for ResetPasswordWindow.xaml
+/// </summary>
 public partial class ResetPasswordViewModel : BaseViewModel
 {
-    public ResetPasswordViewModel(ILogger<ResetPasswordViewModel> logger, 
-        IConfiguration configuration, 
-        IUserService userService, 
-        IValidator<ResetPasswordDto> resetPasswordDtoValidator, 
+    public ResetPasswordViewModel(ILogger<ResetPasswordViewModel> logger,
+        IUserService userService,
+        IValidator<ResetPasswordDto> resetPasswordDtoValidator,
         IEmailService emailService)
     {
         _logger = logger;
-        _configuration = configuration;
         _userService = userService;
         _resetPasswordDtoValidator = resetPasswordDtoValidator;
         _emailService = emailService;
     }
 
     private readonly ILogger<ResetPasswordViewModel> _logger;
-    private readonly IConfiguration _configuration;
     private readonly IUserService _userService;
     private readonly IValidator<ResetPasswordDto> _resetPasswordDtoValidator;
     private readonly IEmailService _emailService;
+
+    #region Properties
 
     [ObservableProperty]
     private string _email = string.Empty;
 
     [ObservableProperty]
     private string _token = string.Empty;
+
+    #endregion Properties
+
+    #region Commands
 
     [RelayCommand]
     private async Task SendPasswordResetTokenEmailAsync()
@@ -100,4 +105,6 @@ public partial class ResetPasswordViewModel : BaseViewModel
             }
         }
     }
+
+    #endregion Commands
 }

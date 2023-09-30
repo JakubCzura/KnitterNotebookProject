@@ -19,7 +19,10 @@ namespace KnitterNotebook.ViewModels;
 /// </summary>
 public partial class LoginViewModel : BaseViewModel
 {
-    public LoginViewModel(ILogger<LoginViewModel> logger, IUserService userService, IValidator<LogInDto> logInDtoValidator, SharedResourceViewModel sharedResourceViewModel)
+    public LoginViewModel(ILogger<LoginViewModel> logger,
+        IUserService userService,
+        IValidator<LogInDto> logInDtoValidator,
+        SharedResourceViewModel sharedResourceViewModel)
     {
         _logger = logger;
         _userService = userService;
@@ -37,13 +40,13 @@ public partial class LoginViewModel : BaseViewModel
     [ObservableProperty]
     private string _email = string.Empty;
 
+    #endregion Properties
+
+    #region Commands
+
     public ICommand ShowRegistrationWindowCommand { get; } = new RelayCommand(ShowWindow<RegistrationWindow>);
 
     public ICommand ShowResetPasswordWindowCommand { get; } = new RelayCommand(ShowWindow<ResetPasswordWindow>);
-
-    #endregion Properties
-
-    #region Methods
 
     [RelayCommand]
     private async Task LogInAsync()
@@ -86,5 +89,5 @@ public partial class LoginViewModel : BaseViewModel
         }
     }
 
-    #endregion Methods
+    #endregion Commands
 }

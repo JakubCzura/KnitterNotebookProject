@@ -20,6 +20,9 @@ using System.Windows;
 
 namespace KnitterNotebook.ViewModels;
 
+/// <summary>
+/// View model for ProjectEditingWindow.xaml
+/// </summary>
 public partial class ProjectEditingViewModel : PlannedProjectBaseViewModel
 {
     public ProjectEditingViewModel(ILogger<ProjectEditingViewModel> logger,
@@ -40,6 +43,8 @@ public partial class ProjectEditingViewModel : PlannedProjectBaseViewModel
 
     private string? _originalPatternPdfPath = null;
 
+    #region Properties
+
     [ObservableProperty]
     private int _needle1SizeUnitIndex = 0;
 
@@ -54,6 +59,10 @@ public partial class ProjectEditingViewModel : PlannedProjectBaseViewModel
 
     [ObservableProperty]
     private int _needle5SizeUnitIndex = 0;
+
+    #endregion Properties
+
+    #region Commands
 
     [RelayCommand]
     private async Task OnLoadedWindowAsync()
@@ -112,13 +121,6 @@ public partial class ProjectEditingViewModel : PlannedProjectBaseViewModel
         }
     }
 
-    private static int InitializeNeedle(NullableSizeNeedle nullableSizeNeedle, NeedleDto needleDto)
-    {
-        nullableSizeNeedle.Size = needleDto.Size;
-        nullableSizeNeedle.SizeUnit = needleDto.SizeUnit;
-        return nullableSizeNeedle.SizeUnit == NeedleSizeUnit.mm ? 0 : 1;
-    }
-
     [RelayCommand]
     private async Task EditProjectAsync()
     {
@@ -153,4 +155,17 @@ public partial class ProjectEditingViewModel : PlannedProjectBaseViewModel
             MessageBox.Show(Translations.ErrorWhileEditingProject);
         }
     }
+
+    #endregion Commands
+
+    #region Methods
+
+    private static int InitializeNeedle(NullableSizeNeedle nullableSizeNeedle, NeedleDto needleDto)
+    {
+        nullableSizeNeedle.Size = needleDto.Size;
+        nullableSizeNeedle.SizeUnit = needleDto.SizeUnit;
+        return nullableSizeNeedle.SizeUnit == NeedleSizeUnit.mm ? 0 : 1;
+    }
+
+    #endregion Methods
 }

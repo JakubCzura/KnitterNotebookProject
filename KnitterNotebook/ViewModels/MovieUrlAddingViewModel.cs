@@ -29,20 +29,20 @@ public partial class MovieUrlAddingViewModel : BaseViewModel
         _sharedResourceViewModel = sharedResourceViewModel;
     }
 
-    #region Delegates
+    private readonly ILogger<MovieUrlAddingViewModel> _logger;
+    private readonly IMovieUrlService _movieUrlService;
+    private readonly IValidator<CreateMovieUrlDto> _createMovieUrlValidator;
+    private readonly SharedResourceViewModel _sharedResourceViewModel;
+
+    #region Events
 
     public static Action NewMovieUrlAdded { get; set; } = null!;
 
     public static void OnNewMovieUrlAdded() => NewMovieUrlAdded?.Invoke();
 
-    #endregion Delegates
+    #endregion Events
 
     #region Properties
-
-    private readonly ILogger<MovieUrlAddingViewModel> _logger;
-    private readonly IMovieUrlService _movieUrlService;
-    private readonly IValidator<CreateMovieUrlDto> _createMovieUrlValidator;
-    private readonly SharedResourceViewModel _sharedResourceViewModel;
 
     [ObservableProperty]
     private string _link = string.Empty;
@@ -55,7 +55,7 @@ public partial class MovieUrlAddingViewModel : BaseViewModel
 
     #endregion Properties
 
-    #region Methods
+    #region Commands
 
     [RelayCommand]
     private async Task AddMovieUrlAsync()
@@ -81,5 +81,5 @@ public partial class MovieUrlAddingViewModel : BaseViewModel
         }
     }
 
-    #endregion Methods
+    #endregion Commands
 }

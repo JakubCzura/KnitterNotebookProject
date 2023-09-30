@@ -63,10 +63,9 @@ public class UserService : CrudService<User>, IUserService
     /// <returns>User's data from database or null if user doesn't exist</returns>
     public new async Task<UserDto?> GetAsync(int id)
     {
-        User? user = await _databaseContext.Users
-                      .AsNoTracking()
-                      .Include(x => x.Theme)
-                      .FirstOrDefaultAsync(x => x.Id == id);
+        User? user = await _databaseContext.Users.AsNoTracking()
+                                                 .Include(x => x.Theme)
+                                                 .FirstOrDefaultAsync(x => x.Id == id);
 
         return user is null ? null : new UserDto(user);
     }
@@ -116,7 +115,7 @@ public class UserService : CrudService<User>, IUserService
     /// <exception cref="InvalidOperationException">When <paramref name="changePasswordDto"/> is null</exception>
     public async Task<int> ChangePasswordAsync(ChangePasswordDto changePasswordDto)
         => await _databaseContext.Users.Where(x => x.Id == changePasswordDto.UserId)
-                                 .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Password, _passwordService.HashPassword(changePasswordDto.NewPassword)));
+                                       .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Password, _passwordService.HashPassword(changePasswordDto.NewPassword)));
 
     /// <summary>
     /// Changes user's nickname and saves it to database
@@ -126,7 +125,7 @@ public class UserService : CrudService<User>, IUserService
     /// <exception cref="InvalidOperationException">When <paramref name="changeNicknameDto"/> is null</exception>
     public async Task<int> ChangeNicknameAsync(ChangeNicknameDto changeNicknameDto)
         => await _databaseContext.Users.Where(x => x.Id == changeNicknameDto.UserId)
-                                 .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Nickname, changeNicknameDto.Nickname));
+                                       .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Nickname, changeNicknameDto.Nickname));
 
     /// <summary>
     /// Changes user's email and saves it to database
@@ -136,7 +135,7 @@ public class UserService : CrudService<User>, IUserService
     /// <exception cref="InvalidOperationException">When <paramref name="changeEmailDto"/> is null</exception>
     public async Task<int> ChangeEmailAsync(ChangeEmailDto changeEmailDto)
         => await _databaseContext.Users.Where(x => x.Id == changeEmailDto.UserId)
-                                 .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Email, changeEmailDto.Email));
+                                       .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Email, changeEmailDto.Email));
 
     /// <summary>
     /// Changes theme and saves it to database. Updates user interface with new theme
@@ -170,7 +169,7 @@ public class UserService : CrudService<User>, IUserService
     /// <exception cref="InvalidOperationException">When <paramref name="resetPasswordDto"/> is null</exception>"
     public async Task<int> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
         => await _databaseContext.Users.Where(x => x.Email == resetPasswordDto.Email)
-                                 .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Password, _passwordService.HashPassword(resetPasswordDto.NewPassword)));
+                                       .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.Password, _passwordService.HashPassword(resetPasswordDto.NewPassword)));
 
     /// <summary>
     /// Updates user's password reset token and its expiration date

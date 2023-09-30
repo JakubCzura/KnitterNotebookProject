@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace KnitterNotebook.ViewModels;
 
+/// <summary>
+/// View model to share data between many view models
+/// </summary>
 public partial class SharedResourceViewModel : BaseViewModel
 {
     /// <summary>

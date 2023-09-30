@@ -600,4 +600,7 @@
   <data name="YarnsNames" xml:space="preserve">
     <value>YarnsNames</value>
   </data>
+  <data name="YouHaveBeenSignedUp" xml:space="preserve">
+    <value>You have been signed up</value>
+  </data>
 </root>
