@@ -729,7 +729,7 @@ public partial class MainViewModel : BaseViewModel
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Error while fetching planned project's data");
+            _logger.LogError(exception, "Error while fetching edited project's data");
         }
     }
 

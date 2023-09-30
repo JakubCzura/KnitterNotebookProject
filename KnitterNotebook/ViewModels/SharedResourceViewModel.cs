@@ -18,7 +18,7 @@ public partial class SharedResourceViewModel : BaseViewModel
 
     public void OnUserUpdatedInDatabase() => UserUpdatedInDatabase?.Invoke(UserId);
 
-    //Nullable as selected project in progress can be null
+    //Nullable as selected project in progress can be null. It is necessary to add images to project in progress
     public int? SelectedProjectInProgressId { get; set; }
 
     public Action<int> ProjectInProgressImageAdded { get; set; } = null!;

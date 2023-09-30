@@ -80,20 +80,10 @@ public partial class App : Application
 
                 #region ViewModels
 
-                services.AddSingleton(s => new SharedResourceViewModel());
+                services.AddSingleton<SharedResourceViewModel>();
                 services.AddTransient<LoginViewModel>();
                 services.AddTransient<RegistrationViewModel>();
-                services.AddSingleton(s => new MainViewModel(s.GetRequiredService<Microsoft.Extensions.Logging.ILogger<MainViewModel>>(),
-                                                            s.GetRequiredService<IMovieUrlService>(),
-                                                            s.GetRequiredService<ISampleService>(),
-                                                            s.GetRequiredService<IUserService>(),
-                                                            s.GetRequiredService<IProjectService>(),
-                                                            s.GetRequiredService<IWindowContentService>(),
-                                                            s.GetRequiredService<IThemeService>(),
-                                                            s.GetRequiredService<IWebBrowserService>(),
-                                                            s.GetRequiredService<IProjectImageService>(),
-                                                            s.GetRequiredService<SharedResourceViewModel>(),
-                                                            s.GetRequiredService<IValidator<ChangeProjectStatusDto>>()));
+                services.AddTransient<MainViewModel>();
                 services.AddTransient<MovieUrlAddingViewModel>();
                 services.AddTransient<SettingsViewModel>();
                 services.AddTransient<SampleAddingViewModel>();
@@ -115,7 +105,7 @@ public partial class App : Application
                 {
                     DataContext = s.GetService<RegistrationViewModel>()
                 });
-                services.AddSingleton(s => new MainWindow()
+                services.AddTransient(s => new MainWindow()
                 {
                     DataContext = s.GetRequiredService<MainViewModel>()
                 });
