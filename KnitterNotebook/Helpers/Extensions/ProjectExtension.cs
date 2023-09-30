@@ -10,7 +10,7 @@ public static class ProjectExtension
     /// Adjusts <paramref name="project"/>'s properties when <paramref name="project"/>'s status is changed
     /// </summary>
     /// <param name="project">Project whose status is changed</param>
-    /// <exception cref="NullReferenceException"></exception>
+    /// <exception cref="NullReferenceException">When <paramref name="project"/> is null</exception>
     public static void AdjustProjectWhenChangingStatus(this Project project, ProjectStatusName projectNewStatusName)
     {
         if (project.ProjectStatus == ProjectStatusName.Planned && projectNewStatusName == ProjectStatusName.InProgress)

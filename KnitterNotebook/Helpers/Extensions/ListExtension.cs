@@ -6,7 +6,7 @@ namespace KnitterNotebook.Helpers.Extensions
     public static class ListExtension
     { 
         /// <summary>
-        /// Adds item to list if it is not null or empty, based on <see cref="string.IsNullOrWhiteSpace"/>
+        /// Adds <paramref name="item"/> to <paramref name="list"/> if the item is not null or empty and the list is not null, based on <see cref="string.IsNullOrWhiteSpace"/>
         /// </summary>
         /// <param name="list">List to update</param>
         /// <param name="item">Item to add</param>
@@ -23,16 +23,12 @@ namespace KnitterNotebook.Helpers.Extensions
         }
 
         /// <summary>
-        /// Adds items which are not null or empty to list, based on <see cref="string.IsNullOrWhiteSpace"/>
+        /// Adds <paramref name="items"/> which are not null or empty to <paramref name="list"/> if the list is not null, based on <see cref="string.IsNullOrWhiteSpace"/>
         /// </summary>
         /// <param name="list">List to update</param>
         /// <param name="items">Items to add</param>
         public static void AddRangeIfNotNullOrEmpty(this List<string> list, IEnumerable<string?> items)
         {
-            if (list is null)
-            {
-                return;
-            }
             foreach (string? item in items ?? Enumerable.Empty<string>())
             {
                 list.AddIfNotNullOrEmpty(item);
