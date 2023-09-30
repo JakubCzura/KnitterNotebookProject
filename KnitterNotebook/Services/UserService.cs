@@ -186,11 +186,12 @@ public class UserService : CrudService<User>, IUserService
             ExpirationDate = _tokenService.CreateResetPasswordTokenExpirationDate(_configuration.GetValue("Tokens:ResetPasswordTokenExpirationDays", 1))
         };
 
-        return (await _databaseContext.Users.Where(x => x.Email == userEmail)
-                .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.PasswordResetToken, tokenWithExpirationDate.Token)
-                                                      .SetProperty(x => x.PasswordResetTokenExpirationDate, tokenWithExpirationDate.ExpirationDate))) > 0 
-                ? (tokenWithExpirationDate.Token, tokenWithExpirationDate.ExpirationDate)
-                : throw new EntityNotFoundException(ExceptionsMessages.UserWithEmailNotFound(userEmail));
+        return await _databaseContext.Users
+                                     .Where(x => x.Email == userEmail)
+                                     .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.PasswordResetToken, tokenWithExpirationDate.Token)
+                                                                           .SetProperty(x => x.PasswordResetTokenExpirationDate, tokenWithExpirationDate.ExpirationDate)) > 0 
+               ? (tokenWithExpirationDate.Token, tokenWithExpirationDate.ExpirationDate)
+               : throw new EntityNotFoundException(ExceptionsMessages.UserWithEmailNotFound(userEmail));
     }
 
     /// <summary>
