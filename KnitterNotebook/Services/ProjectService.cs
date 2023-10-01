@@ -2,6 +2,7 @@
 using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.Exceptions.Messages;
+using KnitterNotebook.Expressions;
 using KnitterNotebook.Helpers;
 using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
@@ -13,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services;
@@ -77,66 +79,87 @@ public class ProjectService : CrudService<Project>, IProjectService
 
     public async Task<PlannedProjectDto?> GetPlannedProjectAsync(int id)
     {
-        Project? project = await _databaseContext.Projects.AsNoTracking()
-                                                          .Include(x => x.Needles)
-                                                          .Include(x => x.Yarns)
-                                                          .Include(x => x.PatternPdf)
-                                                          .FirstOrDefaultAsync(x => x.Id == id);
+        IQueryable<Project> query = _databaseContext.Projects.AsNoTracking();
+
+        foreach (Expression<Func<Project, object>> item in ProjectExpressions.IncludeNeedlesYarnsPattern)
+        {
+            query = query.Include(item);
+        }
+
+        Project? project = await query.FirstOrDefaultAsync(x => x.Id == id);
 
         return project is not null ? new PlannedProjectDto(project) : null;
     }
 
     public async Task<List<PlannedProjectDto>> GetUserPlannedProjectsAsync(int userId)
-       => await _databaseContext.Projects.AsNoTracking()
-                                         .Include(x => x.Needles)
-                                         .Include(x => x.Yarns)
-                                         .Include(x => x.PatternPdf)
-                                         .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.Planned)
-                                         .Select(x => new PlannedProjectDto(x))
-                                         .ToListAsync();
+    {
+        IQueryable<Project> query = _databaseContext.Projects.AsNoTracking();
+
+        foreach (Expression<Func<Project, object>> item in ProjectExpressions.IncludeNeedlesYarnsPattern)
+        {
+            query = query.Include(item);
+        }
+
+        return await query.Where(ProjectExpressions.GetUserProjectByStatus(userId, ProjectStatusName.Planned))
+                          .Select(x => new PlannedProjectDto(x))
+                          .ToListAsync();
+    }
 
     public async Task<ProjectInProgressDto?> GetProjectInProgressAsync(int id)
     {
-        Project? project = await _databaseContext.Projects.AsNoTracking()
-                                                          .Include(x => x.Needles)
-                                                          .Include(x => x.Yarns)
-                                                          .Include(x => x.PatternPdf)
-                                                          .Include(x => x.ProjectImages)
-                                                          .FirstOrDefaultAsync(x => x.Id == id);
+        IQueryable<Project> query = _databaseContext.Projects.AsNoTracking();
+
+        foreach (Expression<Func<Project, object>> item in ProjectExpressions.IncludeNeedlesYarnsPatternImages)
+        {
+            query = query.Include(item);
+        }
+
+        Project? project = await query.FirstOrDefaultAsync(x => x.Id == id);
 
         return project is not null ? new ProjectInProgressDto(project) : null;
     }
 
     public async Task<List<ProjectInProgressDto>> GetUserProjectsInProgressAsync(int userId)
-      => await _databaseContext.Projects.AsNoTracking()
-                                        .Include(x => x.Needles)
-                                        .Include(x => x.Yarns)
-                                        .Include(x => x.PatternPdf)
-                                        .Include(x => x.ProjectImages)
-                                        .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.InProgress)
-                                        .Select(x => new ProjectInProgressDto(x))
-                                        .ToListAsync();
+    {
+        IQueryable<Project> query = _databaseContext.Projects.AsNoTracking();
+
+        foreach (Expression<Func<Project, object>> item in ProjectExpressions.IncludeNeedlesYarnsPatternImages)
+        {
+            query = query.Include(item);
+        }
+
+        return await query.Where(ProjectExpressions.GetUserProjectByStatus(userId, ProjectStatusName.InProgress))
+                          .Select(x => new ProjectInProgressDto(x))
+                          .ToListAsync();
+    }
 
     public async Task<FinishedProjectDto?> GetFinishedProjectAsync(int id)
     {
-        Project? project = await _databaseContext.Projects.AsNoTracking()
-                                                          .Include(x => x.Needles)
-                                                          .Include(x => x.Yarns)
-                                                          .Include(x => x.PatternPdf)
-                                                          .Include(x => x.ProjectImages)
-                                                          .FirstOrDefaultAsync(x => x.Id == id);
+        IQueryable<Project> query = _databaseContext.Projects.AsNoTracking();
+
+        foreach (Expression<Func<Project, object>> item in ProjectExpressions.IncludeNeedlesYarnsPatternImages)
+        {
+            query = query.Include(item);
+        }
+
+        Project? project = await query.FirstOrDefaultAsync(x => x.Id == id);
 
         return project is not null ? new FinishedProjectDto(project) : null;
     }
 
     public async Task<List<FinishedProjectDto>> GetUserFinishedProjectsAsync(int userId)
-      => await _databaseContext.Projects.Include(x => x.Needles)
-                                        .Include(x => x.Yarns)
-                                        .Include(x => x.PatternPdf)
-                                        .Include(x => x.ProjectImages)
-                                        .Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.Finished)
-                                        .Select(x => new FinishedProjectDto(x))
-                                        .ToListAsync();
+    {
+        IQueryable<Project> query = _databaseContext.Projects.AsNoTracking();
+
+        foreach (Expression<Func<Project, object>> item in ProjectExpressions.IncludeNeedlesYarnsPatternImages)
+        {
+            query = query.Include(item);
+        }
+
+        return await query.Where(ProjectExpressions.GetUserProjectByStatus(userId, ProjectStatusName.Finished))
+                          .Select(x => new FinishedProjectDto(x))
+                          .ToListAsync();
+    }
 
     /// <summary>
     /// Changes project's status and saves to database
@@ -166,7 +189,7 @@ public class ProjectService : CrudService<Project>, IProjectService
     /// <returns>0 if project doesn't exists in database, otherwise quantity of entities saved to database</returns>
     /// <exception cref="EntityNotFoundException">If user doesn't exist in database</exception>
     public async Task<int> EditProjectAsync(EditProjectDto editProjectDto)
-    {       
+    {
         //User can edit project without .pdf file with pattern, but it would be impossible situation if nickname was null so exception is thrown when nickname is null
         string nickname = await _userService.GetNicknameAsync(editProjectDto.UserId)
                          ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(editProjectDto.UserId));
