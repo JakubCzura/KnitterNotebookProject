@@ -21,7 +21,7 @@ public class User : BaseDbEntity
 
     public DateTime? PasswordResetTokenExpirationDate { get; set; }
 
-    public Theme Theme { get; set; }
+    public Theme Theme { get; set; } = default!;
 
     public int ThemeId { get; set; }
 }

@@ -4,10 +4,6 @@ namespace KnitterNotebook.Models.Entities;
 
 public class Needle : BaseDbEntity
 {
-    public Needle()
-    {
-    }
-
     public Needle(double size, NeedleSizeUnit sizeUnit)
     {
         Size = size;

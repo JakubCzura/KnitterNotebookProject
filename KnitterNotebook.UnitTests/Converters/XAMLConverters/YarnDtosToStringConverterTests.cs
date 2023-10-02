@@ -16,9 +16,9 @@ public class YarnDtosToStringConverterTests
         YarnDtosToStringConverter converter = new();
         List<YarnDto> yarnDtos = new()
         {
-            new YarnDto(new Yarn() {Name = "yarn's name"} ),
-            new YarnDto(new Yarn() {Name = "cotton yarn's name"} ),
-            new YarnDto(new Yarn() {Name = "woolen yarn's name"} )
+            new YarnDto(new Yarn("yarn's name")),
+            new YarnDto(new Yarn("cotton yarn's name")),
+            new YarnDto(new Yarn("woolen yarn's name"))
         };
         string expected = "yarn's name\ncotton yarn's name\nwoolen yarn's name";
 

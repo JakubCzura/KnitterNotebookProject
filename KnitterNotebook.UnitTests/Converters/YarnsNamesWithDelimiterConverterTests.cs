@@ -13,10 +13,9 @@ public class YarnsNamesWithDelimiterConverterTests
         //Arrange
         List<YarnDto> yarns = new()
         {
-            new (new Yarn(){Name = "Yarn1"}),
-            new (new Yarn(){Name = "Merino"}),
-            new (new Yarn(){Name = "Super Yarn"})
-
+            new (new Yarn("Yarn1")),
+            new (new Yarn( "Merino")),
+            new (new Yarn("Super Yarn"))
         };
         string expected = "Yarn1,Merino,Super Yarn";
 
@@ -33,10 +32,9 @@ public class YarnsNamesWithDelimiterConverterTests
         //Arrange
         List<YarnDto> yarns = new()
         {
-            new (new Yarn(){Name = "Yarn1"}),
-            new (new Yarn(){Name = "Merino"}),
-            new (new Yarn(){Name = "Super Yarn"})
-
+            new (new Yarn("Yarn1")),
+            new (new Yarn("Merino")),
+            new (new Yarn("Super Yarn"))
         };
         string expected = "Yarn1;Merino;Super Yarn";
         char delimiter = ';';

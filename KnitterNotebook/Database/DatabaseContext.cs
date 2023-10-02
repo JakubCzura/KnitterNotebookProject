@@ -33,14 +33,11 @@ public class DatabaseContext : DbContext
             u.Property(x => x.Email).IsRequired();
             u.Property(x => x.Nickname).IsRequired().HasMaxLength(50);
 
-            u.HasMany(x => x.Projects)
-             .WithOne(c => c.User);
+            u.HasMany(x => x.Projects).WithOne().HasForeignKey(p => p.UserId);
 
-            u.HasMany(x => x.MovieUrls)
-             .WithOne(c => c.User);
+            u.HasMany(x => x.MovieUrls).WithOne().HasForeignKey(p => p.UserId);
 
-            u.HasMany(x => x.Samples)
-             .WithOne(c => c.User);
+            u.HasMany(x => x.Samples).WithOne().HasForeignKey(p => p.UserId);
         });
 
         modelBuilder.Entity<Theme>(t =>

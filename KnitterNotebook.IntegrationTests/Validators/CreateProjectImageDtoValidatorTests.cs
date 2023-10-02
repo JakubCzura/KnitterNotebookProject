@@ -37,12 +37,29 @@ public class CreateProjectImageDtoValidatorTests
 
     private void SeedProjects()
     {
-        List<Project> projects = new()
+        List<User> users = new()
         {
-            new Project() { Name = "Project1", User = new() { Nickname = "Nickname1", ThemeId = 1 } },
-            new Project() { Name = "Project2", User = new() { Nickname = "Nickname2", ThemeId = 1 } },
+             new()
+             {
+                 Nickname = "Nickname",
+                 ThemeId = 1,
+                 Projects = new()
+                 {
+                    new() { Name = "Project1" }
+                 }
+             },
+             new()
+             {
+                 Nickname = "Nickname2",
+                 ThemeId = 1,
+                 Projects = new()
+                 {
+                    new() { Name = "Project2" }
+                 }
+             }
         };
-        _databaseContext.Projects.AddRange(projects);
+
+        _databaseContext.Users.AddRange(users);
         _databaseContext.SaveChanges();
     }
 

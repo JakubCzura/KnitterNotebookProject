@@ -16,7 +16,6 @@ public class Project : BaseDbEntity
 
     public virtual List<Yarn> Yarns { get; set; } = new();
 
-    //Tzw. "inne"
     public string? Description { get; set; } = null;
 
     public ProjectStatusName ProjectStatus { get; set; }
@@ -24,8 +23,6 @@ public class Project : BaseDbEntity
     public virtual PatternPdf? PatternPdf { get; set; } = null;
 
     public virtual List<ProjectImage> ProjectImages { get; set; } = new();
-
-    public virtual User User { get; set; }
 
     public int UserId { get; set; }
 }
