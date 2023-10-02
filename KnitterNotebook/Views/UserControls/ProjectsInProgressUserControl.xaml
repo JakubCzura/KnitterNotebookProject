@@ -18,7 +18,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.6*" />
+            <ColumnDefinition Width="0.5*" />
             <ColumnDefinition Width="0.6*" />
             <ColumnDefinition Width="0.4*" />
             <ColumnDefinition Width="*" />
@@ -104,7 +104,7 @@
                     <TextBlock
                         Margin="5,0,5,5"
                         FontSize="15"
-                        Text="{Binding SelectedProjectInProgress.StartDate, StringFormat=dddd dd MMMM yyyy, ConverterCulture=PL, TargetNullValue='Jeszcze nie podano'}"
+                        Text="{Binding SelectedProjectInProgress.StartDate, StringFormat=d, TargetNullValue='Jeszcze nie podano'}"
                         TextWrapping="Wrap" />
                     <TextBlock
                         Margin="5,0,5,0"
@@ -170,7 +170,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="*"
-                            Binding="{Binding Path=DateTime}"
+                            Binding="{Binding Path=DateTime, StringFormat=g}"
                             Header="{x:Static properties:Translations.Photos}" />
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>

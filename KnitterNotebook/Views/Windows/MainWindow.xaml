@@ -10,7 +10,7 @@
     xmlns:properties="clr-namespace:KnitterNotebook.Properties"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
     Title="KnitterNotebook"
-    Width="1200"
+    Width="1260"
     Height="700"
     d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
     Style="{DynamicResource WindowStyle}"
