@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:KnitterNotebook.Properties"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
-    Title="ProjectPlanningWindow"
+    Title="KnitterNotebook"
     Width="1200"
     Height="700"
     d:DataContext="{d:DesignInstance Type=viewModels:ProjectPlanningViewModel}"

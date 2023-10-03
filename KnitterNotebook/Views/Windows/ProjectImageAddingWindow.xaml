@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:KnitterNotebook.Properties"
     xmlns:viewModels="clr-namespace:KnitterNotebook.ViewModels"
-    Title="ProjectImageAddingWindow"
+    Title="KnitterNotebook"
     Width="500"
     Height="750"
     MaxWidth="500"

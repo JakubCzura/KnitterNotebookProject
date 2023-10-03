@@ -30,7 +30,7 @@
 
             <Grid Grid.Row="1">
                 <StackPanel Margin="50,10,50,10">
-                    <Label Content="Utwórz konto" Style="{DynamicResource LabelAboveLoginInputStyle}" />
+                    <Label Content="{x:Static properties:Translations.CreateAccount}" Style="{DynamicResource LabelAboveLoginInputStyle}" />
                     <TextBox
                         Margin="0,0,0,10"
                         VerticalContentAlignment="Center"
