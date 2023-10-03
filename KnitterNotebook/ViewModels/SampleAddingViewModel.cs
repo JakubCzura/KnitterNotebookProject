@@ -87,7 +87,7 @@ public partial class SampleAddingViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    private void DeletePhotoCommand() => SourceImagePath = null;
+    private void DeletePhoto() => SourceImagePath = null;
 
     [RelayCommand]
     private async Task AddSampleAsync()
