@@ -25,16 +25,4 @@
         <Setter Property="Width" Value="160" />
         <Setter Property="Margin" Value="5,5,5,5" />
     </Style>
-
-    <Style x:Key="SettingsButton" TargetType="Button">
-        <Style.Resources>
-            <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="5" />
-            </Style>
-        </Style.Resources>
-        <Setter Property="FontSize" Value="{StaticResource LoginButtonFontSize}" />
-        <Setter Property="Height" Value="60" />
-        <Setter Property="Width" Value="200" />
-        <Setter Property="Margin" Value="5,5,5,5" />
-    </Style>
 </ResourceDictionary>
