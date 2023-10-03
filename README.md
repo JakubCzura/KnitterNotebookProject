@@ -13,6 +13,7 @@ The application is available in two languages (Polish and English). It uses user
 * .NET 7. and C# 11
 * MS SQL Server and Entity Framework Core 7 (local database)
 * xUnit
+* Fluent Assertions
 * Serilog
 * BCrypt.Net-Next
 * Fluent Validation
