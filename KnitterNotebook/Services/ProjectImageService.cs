@@ -48,7 +48,7 @@ public class ProjectImageService : CrudService<ProjectImage>, IProjectImageServi
             ProjectId = addProjectImageDto.ProjectId
         };
 
-        if (!string.IsNullOrWhiteSpace(addProjectImageDto.ImagePath) && !string.IsNullOrWhiteSpace(destinationImagePath))
+        if (!string.IsNullOrWhiteSpace(addProjectImageDto.ImagePath) && File.Exists(addProjectImageDto.ImagePath) && !string.IsNullOrWhiteSpace(destinationImagePath))
         {
             FileHelper.CopyWithDirectoryCreation(addProjectImageDto.ImagePath, destinationImagePath);
         }

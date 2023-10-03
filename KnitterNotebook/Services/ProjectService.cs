@@ -68,7 +68,7 @@ public class ProjectService : CrudService<Project>, IProjectService
             UserId = planProjectDto.UserId
         };
 
-        if (!string.IsNullOrWhiteSpace(planProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(destinationPatternPdfPath))
+        if (!string.IsNullOrWhiteSpace(planProjectDto.SourcePatternPdfPath) && File.Exists(planProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(destinationPatternPdfPath))
         {
             FileHelper.CopyWithDirectoryCreation(planProjectDto.SourcePatternPdfPath, destinationPatternPdfPath);
         }
@@ -227,7 +227,7 @@ public class ProjectService : CrudService<Project>, IProjectService
             PatternPdf? patternPdf = !string.IsNullOrWhiteSpace(destinationPatternPdfPath) ? new(destinationPatternPdfPath) : null;
             project.PatternPdf = patternPdf;
 
-            if (!string.IsNullOrWhiteSpace(editProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(destinationPatternPdfPath))
+            if (!string.IsNullOrWhiteSpace(editProjectDto.SourcePatternPdfPath) && File.Exists(editProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(destinationPatternPdfPath))
             {
                 FileHelper.CopyWithDirectoryCreation(editProjectDto.SourcePatternPdfPath, destinationPatternPdfPath);
             }

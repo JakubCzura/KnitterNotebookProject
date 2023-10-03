@@ -52,7 +52,7 @@ public class SampleService : CrudService<Sample>, ISampleService
             Image = image
         };
 
-        if (!string.IsNullOrWhiteSpace(createSampleDto.SourceImagePath) && !string.IsNullOrWhiteSpace(destinationImagePath))
+        if (!string.IsNullOrWhiteSpace(createSampleDto.SourceImagePath) && File.Exists(createSampleDto.SourceImagePath) && !string.IsNullOrWhiteSpace(destinationImagePath))
         {
             FileHelper.CopyWithDirectoryCreation(createSampleDto.SourceImagePath, destinationImagePath);
         }

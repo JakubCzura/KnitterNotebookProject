@@ -36,7 +36,7 @@ public class EmailService : IEmailService
         email.Subject = sendEmailDto.Subject;
         email.Body = new TextPart(TextFormat.Html) { Text = sendEmailDto.Body };
 
-        using var smtp = new SmtpClient();
+        using SmtpClient smtp = new();
         smtp.Connect("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
         smtp.Authenticate(emailAddress, password);
         await smtp.SendAsync(email);
