@@ -1,10 +1,9 @@
 # KnitterNotebookProject
 
-Aplikacja dla fanów dziewiarstwa. Pozwala kontrolować postępy podczas pracy i robić notatki o swoich projektach. 
+## WPF application for knitters. It helps you track progress of your work and make notes about project you work at. ****
 
-Projekt w trakcie. 
 
-Używana wersja .NET 7.
+.NET 7.
 
 ![1](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/4241b4ae-a631-4d36-9fac-f0d042e3babb)
 
