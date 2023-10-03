@@ -6,11 +6,14 @@ Projekt w trakcie.
 
 Używana wersja .NET 7.
 
-![obraz](https://user-images.githubusercontent.com/76125047/236647307-6c712dcf-5b29-4106-b951-6096a0723899.png)
-![obraz](https://user-images.githubusercontent.com/76125047/236647471-33bf9441-0bdb-465b-8c2c-9808a8fbfcab.png)
-![obraz](https://user-images.githubusercontent.com/76125047/236647459-77cebe94-8e55-4b3d-94ad-2dcdd7e94247.png)
-![obraz](https://user-images.githubusercontent.com/76125047/236647496-715fab01-da83-482d-a79d-4b313b9ecb38.png)
-![obraz](https://user-images.githubusercontent.com/76125047/236647645-7e5fc515-2cc9-4b53-97c0-b2bc4bba4a63.png)
+![1](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/4241b4ae-a631-4d36-9fac-f0d042e3babb)
 
+![2](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/8db20541-eaae-4e48-a6a8-c814213eec4c)
 
+![3](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/1ecc918e-4d37-43cb-b39b-460568f79338)
 
+![4](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/d3c5bb48-cdaa-48d0-97a8-a99b876c5099)
+
+![5](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/f7967cd5-238e-434f-9d13-104a17658576)
+
+![6](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/5484c36e-cc12-422d-8152-0b41c369f891)
