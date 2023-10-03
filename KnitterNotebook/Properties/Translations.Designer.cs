@@ -268,15 +268,6 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit project in progress.
-        /// </summary>
-        public static string EditProjectInProgress {
-            get {
-                return ResourceManager.GetString("EditProjectInProgress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to E-mail can&apos;t be empty.
         /// </summary>
         public static string EmailCantBeEmpty {

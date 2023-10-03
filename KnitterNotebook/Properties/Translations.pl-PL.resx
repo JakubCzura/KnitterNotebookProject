@@ -186,9 +186,6 @@
   <data name="EditProject" xml:space="preserve">
     <value>Edytuj projekt</value>
   </data>
-  <data name="EditProjectInProgress" xml:space="preserve">
-    <value>Edytuj projekt w trakcie</value>
-  </data>
   <data name="EmailCantBeEmpty" xml:space="preserve">
     <value>E-mail nie może być pusty</value>
   </data>

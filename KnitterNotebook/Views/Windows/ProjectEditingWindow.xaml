@@ -33,7 +33,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="0,30,0,50">
-                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static properties:Translations.EditPlannedProject}" />
+                <TextBlock Style="{DynamicResource WelcomeTextBlockStyle}" Text="{x:Static properties:Translations.EditProject}" />
             </Grid>
             <Grid Grid.Row="1">
                 <StackPanel Margin="50,10,50,10">
