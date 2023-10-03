@@ -1,9 +1,10 @@
 # KnitterNotebookProject
 
-## WPF application for knitters. It helps you track progress of your work and make notes about project you work at. ****
+#### WPF application for knitters. It helps you track progress of your work and make notes about project you work at.
 
-
-.NET 7.
+#### Main Technologies:
+* .NET 7. and C# 11
+* Ms SQL Server and Entity Framework Core
 
 ![1](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/4241b4ae-a631-4d36-9fac-f0d042e3babb)
 
