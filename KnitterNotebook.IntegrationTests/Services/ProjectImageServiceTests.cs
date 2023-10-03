@@ -38,7 +38,7 @@ public class ProjectImageServiceTests
         User user = new()
         {
             Email = "test@test.com",
-            Nickname = "Nickname6",
+            Nickname = "NicknameOfUserForTestingPurposes",
             Password = "Password123",
             Projects = new()
             {
@@ -90,7 +90,7 @@ public class ProjectImageServiceTests
     public async Task CreateAsync_ForGivenProjectImage_AddsProjectImageToDatabase()
     {
         //Arrange
-        string path = Paths.ProjectDirectory + @"\HelpersForTesting\ProjectImage.jpg";
+        string path = Path.Combine(Paths.ProjectDirectory, "HelpersForTesting", "ProjectImage.jpg");
         CreateProjectImageDto createProjectImageDto = new(1, path, 1);
 
         // Act
@@ -98,6 +98,10 @@ public class ProjectImageServiceTests
 
         // Assert
         result.Should().Be(1);
+        Directory.GetFiles(Paths.UserDirectory("NicknameOfUserForTestingPurposes")).Any(x => x.EndsWith("ProjectImage.jpg")).Should().BeTrue();
+    
+        //Clean up after test
+        Directory.Delete(Paths.UserDirectory("NicknameOfUserForTestingPurposes"), true);
     }
 
     [Fact]

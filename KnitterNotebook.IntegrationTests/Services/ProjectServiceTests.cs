@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.IntegrationTests.HelpersForTesting;
@@ -39,7 +40,7 @@ public class ProjectServiceTests
         User user = new()
         {
             Email = "email@email.com",
-            Nickname = "Nickname",
+            Nickname = "NicknameOfUserForTestingPurposes",
             Password = "Password123",
             ThemeId = 1,
             Projects = new()
@@ -143,6 +144,30 @@ public class ProjectServiceTests
 
     [Fact]
     public async Task PlanProjectAsync_ForValidData_CreatesProject()
+    {
+        //Arrange
+        string path = Path.Combine(Paths.ProjectDirectory, "HelpersForTesting", "TestPdf.pdf");
+        PlanProjectDto dto = new("Project",
+                                DateTime.Today,
+                                new List<CreateNeedleDto>() { new(2.5, NeedleSizeUnit.mm) },
+                                new List<CreateYarnDto>() { new CreateYarnDto("SampleYarn1") },
+                                "Description",
+                                path,
+                                1);
+
+        //Act
+        int result = await _projectService.PlanProjectAsync(dto);
+
+        //Assert
+        result.Should().Be(4);
+        Directory.GetFiles(Paths.UserDirectory("NicknameOfUserForTestingPurposes")).Any(x => x.EndsWith("TestPdf.pdf")).Should().BeTrue();
+
+        //Clean up after test
+        Directory.Delete(Paths.UserDirectory("NicknameOfUserForTestingPurposes"), true);
+    }
+
+    [Fact]
+    public async Task PlanProjectAsync_ForValidDataWithoutPdfPattern_CreatesProject()
     {
         //Arrange
         PlanProjectDto dto = new("Project",
@@ -357,6 +382,31 @@ public class ProjectServiceTests
 
     [Fact]
     public async Task EditProjectAsync_ForValidData_EditsProject()
+    {
+        //Arrange
+        string path = Path.Combine(Paths.ProjectDirectory, "HelpersForTesting", "TestPdf.pdf");
+        EditProjectDto dto = new(1,
+                                "Project's name",
+                                DateTime.Today.AddDays(1),
+                                new List<CreateNeedleDto>() { new(3.5, NeedleSizeUnit.mm), new(6.5, NeedleSizeUnit.cm) },
+                                new List<CreateYarnDto>() { new("Merino"), new("Soft Sheep") },
+                                "Description",
+                                path,
+                                1);
+
+        //Act
+        int result = await _projectService.EditProjectAsync(dto);
+
+        //Assert
+        result.Should().Be(6);
+        Directory.GetFiles(Paths.UserDirectory("NicknameOfUserForTestingPurposes")).Any(x => x.EndsWith("TestPdf.pdf")).Should().BeTrue();
+
+        //Clean up after test
+        Directory.Delete(Paths.UserDirectory("NicknameOfUserForTestingPurposes"), true);
+    }
+
+    [Fact]
+    public async Task EditProjectAsync_ForValidDataWithoutPatternPdf_EditsProject()
     {
         //Arrange
         EditProjectDto dto = new(1,

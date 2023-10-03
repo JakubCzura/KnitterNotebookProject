@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Exceptions;
 using KnitterNotebook.IntegrationTests.HelpersForTesting;
@@ -39,7 +40,7 @@ public class SampleServiceTests
         User user = new()
         {
             Email = "email@email.com",
-            Nickname = "Nickname",
+            Nickname = "NicknameOfUserForTestingPurposes",
             Password = "Password123",
             ThemeId = 1,
             Samples = new()
@@ -78,7 +79,7 @@ public class SampleServiceTests
     }
 
     [Fact]
-    public async Task CreateAsync_ForValidData_CreatesNewSample()
+    public async Task CreateAsync_ForValidDataWithoutPhoto_CreatesNewSample()
     {
         //Assert
         CreateSampleDto createSampleDto = new("yarn name 4", 10, 6, 3.5, NeedleSizeUnit.mm, "sample description 4", 1, null);
@@ -88,6 +89,24 @@ public class SampleServiceTests
 
         //Assert
         result.Should().Be(1);
+    }
+
+    [Fact]
+    public async Task CreateAsync_ForValidData_CreatesNewSample()
+    {
+        //Assert
+        string path = Path.Combine(Paths.ProjectDirectory, "HelpersForTesting", "ProjectImage.jpg");
+        CreateSampleDto createSampleDto = new("yarn name 4", 10, 6, 3.5, NeedleSizeUnit.mm, "sample description 4", 1, path);
+
+        //Act
+        int result = await _sampleService.CreateAsync(createSampleDto);
+
+        //Assert
+        result.Should().Be(2);
+        Directory.GetFiles(Paths.UserDirectory("NicknameOfUserForTestingPurposes")).Any(x => x.EndsWith("ProjectImage.jpg")).Should().BeTrue();
+
+        //Clean up after test
+        Directory.Delete(Paths.UserDirectory("NicknameOfUserForTestingPurposes"), true);
     }
 
     [Fact]
