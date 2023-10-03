@@ -1,6 +1,12 @@
 # KnitterNotebookProject
 
 #### WPF application for knitters. It helps you track progress of your work and make notes about project you work at.
+The application is available in two languages (Polish and English). It uses user's default settings to set the language.
+
+The application allowes you to create a sample of project that you want to create, for example if you want to knit up warm Christmas sweater.
+There are 3 types of projects - Planned project, Project in progress and Finished project.
+You start at planned project, then you can move it to planned projects and when you finish knitting up your clothes you can move it to finished projects.
+You can attach .pdf file with pattern to knit up clothes and add photos when your project is in progress to track the progress.
 
 #### Main technologies and packages:
 * .NET 7. and C# 11
@@ -33,5 +39,5 @@ Thanks for my colleagues from AMC Tech who gave me good advices about programmin
 
 #### Contact
 If you see a bug, piece of code that should be refactored or want to talk about C# you can always contact me:
-*LinkedIn: www.linkedin.com/in/jakub-czura-4b3891253
-*GitHub: https://github.com/JakubCzura
+* LinkedIn: www.linkedin.com/in/jakub-czura-4b3891253
+* GitHub: https://github.com/JakubCzura
