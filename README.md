@@ -27,6 +27,11 @@
 ![6](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/5484c36e-cc12-422d-8152-0b41c369f891)
 
 
-####Thanks
+#### Thanks
 I would like to thank my girlfriend Karolina for giving me idea to create this project. She told me all her expectations what the application should do.
 Thanks for my colleagues from AMC Tech who gave me good advices about programming in C#. 
+
+#### Contact
+If you see a bug, piece of code that should be refactored or talk about C# you can always text me:
+LinkedIn: www.linkedin.com/in/jakub-czura-4b3891253
+GitHub: https://github.com/JakubCzura
