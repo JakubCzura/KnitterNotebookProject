@@ -7,7 +7,7 @@ namespace KnitterNotebook.UnitTests.Helpers
     public class FileHelperTests
     {
         [Fact]
-        public void ForNullSourceFileName_CopyWithDirectoryCreation_ThrowsArgumentNullException()
+        public void CopyWithDirectoryCreation_ForNullSourceFileName_ThrowsArgumentNullException()
         {
             // Arrange
             string sourceFileName = null!;
@@ -21,7 +21,7 @@ namespace KnitterNotebook.UnitTests.Helpers
         }
 
         [Fact]
-        public void ForNullDestinationFileName_CopyWithDirectoryCreation_ThrowsArgumentNullException()
+        public void CopyWithDirectoryCreation_ForNullDestinationFileName_ThrowsArgumentNullException()
         {
             //Arrange
             string sourceFileName = @"c:\computer\files\file.txt";
@@ -35,7 +35,7 @@ namespace KnitterNotebook.UnitTests.Helpers
         }
 
         [Fact]
-        public void ForNotExistingFileToCopy_CopyWithDirectoryCreation_ThrowsFileNotFoundException()
+        public void CopyWithDirectoryCreation_ForNotExistingFileToCopy_ThrowsFileNotFoundException()
         {
             //Arrange
             //Situation when source file doesn't exist in specified existing directory 
@@ -50,7 +50,7 @@ namespace KnitterNotebook.UnitTests.Helpers
         }
 
         [Fact]
-        public void ForNotExistingDirectoryOfFileToCopy_CopyWithDirectoryCreation_ThrowsDirectoryNotFoundException()
+        public void CopyWithDirectoryCreation_ForNotExistingDirectoryOfFileToCopy_ThrowsDirectoryNotFoundException()
         {
             //Arrange
             //Situation when source file's path consists directory that doesn't exist
@@ -65,7 +65,7 @@ namespace KnitterNotebook.UnitTests.Helpers
         }
 
         [Fact]
-        public void ForSelectedFile_CopyWithDirectoryCreation_CopiesFile()
+        public void CopyWithDirectoryCreation_ForSelectedFile_CopiesFile()
         {
             //Arrange
             string sourceFileName = Path.Combine(Paths.ProjectDirectory, "HelpersForTesting", "ProjectImage.jpg");
@@ -82,7 +82,7 @@ namespace KnitterNotebook.UnitTests.Helpers
         }
 
         [Fact]
-        public void ForSelectedFileAndLackOfDestinationFileNecessaryDirectory_CopyWithDirectoryCreation_CopiesFileAndCreatesNecessaryDirectory()
+        public void CopyWithDirectoryCreation_ForSelectedFileAndLackOfDestinationFileNecessaryDirectory_CopiesFileAndCreatesNecessaryDirectory()
         {
             //Arrange
             string sourceFileName = Path.Combine(Paths.ProjectDirectory, "HelpersForTesting", "ProjectImage.jpg");
