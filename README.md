@@ -4,8 +4,10 @@
 The application is available in two languages (Polish and English). It uses user's default settings to set the language.
 
 * The application allowes you to create a sample of project before you start, for example if you want to knit up warm Christmas sweater.
-* There are 3 types of project - Planned project, Project in progress and Finished project.
+* There are 3 statuses of project - Planned project, Project in progress and Finished project.
 * You start at planned project, you can attach .pdf file with pattern to knit up. When you move it to planned projects you can add photos of progress. When you finish knitting up your clothes you can move it to finished projects.
+* You can edit your project if it is planned or in progress, for example if you want to change yarns, needles or start date.
+* You can always change project's status to previous one, for example move it from finished projects to planned projects if you want to keep knitting up and add more photos of your art (you won't loose any data and photos despite changing project's status). 
 
 ### Main technologies and packages:
 * .NET 7. and C# 11
