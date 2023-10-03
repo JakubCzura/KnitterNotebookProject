@@ -457,6 +457,15 @@ namespace KnitterNotebook.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while getting project&apos;s data.
+        /// </summary>
+        public static string ErrorWhileGettingProjectData {
+            get {
+                return ResourceManager.GetString("ErrorWhileGettingProjectData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error while moving finished project to projects in progress.
         /// </summary>
         public static string ErrorWhileMovingFinishedProjectToProjectsInProgress {

@@ -74,7 +74,7 @@ public partial class ProjectEditingViewModel : PlannedProjectBaseViewModel
             PlannedProjectDto? plannedProjectDto = await _projectService.GetPlannedProjectAsync(_sharedResourceViewModel.EditedProjectIdAndStatus.Item1);
             if (plannedProjectDto == null)
             {
-                MessageBox.Show("Exception while getting project's data - null planned project");
+                MessageBox.Show(Translations.ErrorWhileGettingProjectData);
                 Closewindow(ProjectEditingWindow.Instance);
                 return;
             }
@@ -116,7 +116,7 @@ public partial class ProjectEditingViewModel : PlannedProjectBaseViewModel
         catch (Exception exception)
         {
             _logger.LogError(exception, "Exception while getting project's data");
-            MessageBox.Show("Exception while getting project's data");
+            MessageBox.Show(Translations.ErrorWhileGettingProjectData);
             Closewindow(ProjectEditingWindow.Instance);
         }
     }

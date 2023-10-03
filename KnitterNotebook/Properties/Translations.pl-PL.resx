@@ -249,6 +249,9 @@
   <data name="ErrorWhileFinishingProjectInProgress" xml:space="preserve">
     <value>Błąd podczas ukończenia projektu w trakcie</value>
   </data>
+  <data name="ErrorWhileGettingProjectData" xml:space="preserve">
+    <value>Błąd podczas pobierania danych projektu</value>
+  </data>
   <data name="ErrorWhileMovingFinishedProjectToProjectsInProgress" xml:space="preserve">
     <value>Błąd podczas przeniesienia ukończonego projektu do projektów w trakcie</value>
   </data>
