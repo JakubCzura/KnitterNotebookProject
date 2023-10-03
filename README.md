@@ -32,6 +32,6 @@ I would like to thank my girlfriend Karolina for giving me idea to create this p
 Thanks for my colleagues from AMC Tech who gave me good advices about programming in C#. 
 
 #### Contact
-If you see a bug, piece of code that should be refactored or talk about C# you can always text me:
-LinkedIn: www.linkedin.com/in/jakub-czura-4b3891253
-GitHub: https://github.com/JakubCzura
+If you see a bug, piece of code that should be refactored or want to talk about C# you can always contact me:
+*LinkedIn: www.linkedin.com/in/jakub-czura-4b3891253
+*GitHub: https://github.com/JakubCzura
