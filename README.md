@@ -1,6 +1,6 @@
 # KnitterNotebookProject
 
-### WPF application for knitters. It helps you track progress of your work and make notes about project you work at.
+## WPF application for knitters. It helps you track progress of your work and make notes about project you work at.
 The application is available in two languages (Polish and English). It uses user's computer's default settings to set the language.
 
 * The application allowes you to create a sample of project before you start, for example if you want to knit up warm Christmas sweater.
@@ -9,9 +9,9 @@ The application is available in two languages (Polish and English). It uses user
 * You can edit your project if it is planned or in progress, for example if you want to change yarns, needles or start date.
 * You can always change project's status to previous one, for example move it from finished projects to planned projects if you want to keep knitting up and add more photos of your art (you won't loose any data and photos despite changing project's status). 
 
-### Main technologies and packages:
+## Main technologies and packages:
 * .NET 7. and C# 11
-* MS SQL Server and Entity Framework Core 7 (local database)
+* MS SQL Server and Entity Framework Core 7
 * xUnit
 * Fluent Assertions
 * Serilog
@@ -22,7 +22,7 @@ The application is available in two languages (Polish and English). It uses user
 * MailKit
 * MaterialDesignThemes
 
-### Presentation
+## Presentation
 I use English version of application to present it.
 
 Login window allowes you to sign in, you can also create new account or reset your password.
@@ -107,11 +107,11 @@ As I have mentioned the application changes to Polish language if default cultur
 ![20](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/dfe3f94d-34e3-442b-9749-af551314be60)
 
 
-### Thanks
+## Thanks
 I would like to thank my girlfriend Karolina for giving me idea to create this project. She told me all her expectations what the application should do.
 Thanks for my colleagues from AMC Tech who gave me good advices about programming in C#. 
 
-### Contact
+## Contact
 If you see a bug, piece of code that should be refactored or want to talk about C# you can always contact me:
 * LinkedIn: www.linkedin.com/in/jakub-czura-4b3891253
 * GitHub: https://github.com/JakubCzura
