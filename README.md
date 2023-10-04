@@ -1,7 +1,7 @@
 # KnitterNotebookProject
 
 ### WPF application for knitters. It helps you track progress of your work and make notes about project you work at.
-The application is available in two languages (Polish and English). It uses user's default settings to set the language.
+The application is available in two languages (Polish and English). It uses user's computer's default settings to set the language.
 
 * The application allowes you to create a sample of project before you start, for example if you want to knit up warm Christmas sweater.
 * There are 3 statuses of project - Planned project, Project in progress and Finished project.
@@ -22,15 +22,28 @@ The application is available in two languages (Polish and English). It uses user
 * MailKit
 * MaterialDesignThemes
 
+### Presentation
+I use English version of application to present it.
+
+Login window allowes you to sign in, you can also create new account or reset your password.
 ![1](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/4241b4ae-a631-4d36-9fac-f0d042e3babb)
 
+You need e-mail, nickname and password to create new account.
+
 ![2](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/8db20541-eaae-4e48-a6a8-c814213eec4c)
+
+If you want to reset your password you will get token valid for 1 day to verify your account and you can set new password.
+Important: it is open-source project for learning purposes so I didn't send email account credentials to remote repository due to safety so you can't restore password if you clone this repository.
 
 ![3](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/1ecc918e-4d37-43cb-b39b-460568f79338)
 
 ![4](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/d3c5bb48-cdaa-48d0-97a8-a99b876c5099)
 
+Knitters usually create samples before they start working at main project. You can add samples with attached photo of yarn of expected sample.
+
 ![5](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/f7967cd5-238e-434f-9d13-104a17658576)
+
+When you have many samples you can easily filter their by needle's size.
 
 ![6](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/5484c36e-cc12-422d-8152-0b41c369f891)
 
