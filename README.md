@@ -69,12 +69,28 @@ If your project's status is "planned" or "in progress" you can edit it very easi
 
 When you choose "Start Project" from context menu it will be moved to projects in progress.
 The main purpose of projects in progress is to add photos of your progress. 
-You can take many photos every day and then you will see how your clothes are made.
 
 ![11](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/304690a3-35c2-4835-8d50-412aeac752bc)
 
 ![12](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/62440784-5931-4203-81dc-6db85f503150)
 
+Despite looking at pattern in "Projects in progress" or "Finished projects" tab, you can also show the pattern in separate window.
+
+![17](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/fe336a28-d988-48e8-aea1-3f1e2b83cae8)
+
+As you can see many images are added. When you compare this photo with previous photo you can see progress of knitting up a sweater.
+You can take more actions using context menu for example edit your project or delete it. You can also move your project in progress to planned projects or finish your project.
+
+![13](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/ed4df59d-9f24-4191-b8df-ace8ecc038a7)
+
+If you finish your project end date is set automatically. You can see at the picture that the whole sweater was knitted up.
+There are shown all project's details, photos and .pdf file with pattern.
+
+![14](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/5f402bc3-86cf-4822-9466-1970364eef4e)
+
+You can take more actions using context menu. As you can see I moved finished project to project in progress and then again to finished projects so end date changed automatically.
+
+![21](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/43659dd4-7f34-4ac7-8247-a03ef68c5a43)
 
 
 ### Thanks
