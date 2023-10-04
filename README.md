@@ -92,6 +92,20 @@ You can take more actions using context menu. As you can see I moved finished pr
 
 ![21](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/43659dd4-7f34-4ac7-8247-a03ef68c5a43)
 
+You can change settings of your account and application and the changes are applied immediately. As you can see nickname JakubKnitter is changed to JakubNickname and default theme is changed to light theme.
+
+![22](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/2160e90f-1755-4bc8-920d-16981703b4c2)
+
+![23](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/25d5aacb-e247-47c6-a65b-7bbc67ab761f)
+
+As I have mentioned the application changes to Polish language if default culture in your computer is Polish.
+
+![18](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/fdf3cd11-3854-4aac-a246-2bba576f3c01)
+
+![19](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/3b934329-5b15-418f-9b4a-19795c2b0172)
+
+![20](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/dfe3f94d-34e3-442b-9749-af551314be60)
+
 
 ### Thanks
 I would like to thank my girlfriend Karolina for giving me idea to create this project. She told me all her expectations what the application should do.
