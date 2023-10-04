@@ -99,7 +99,7 @@ public class ProjectImageServiceTests
         // Assert
         result.Should().Be(1);
         Directory.GetFiles(Paths.UserDirectory("NicknameOfUserForTestingPurposes")).Any(x => x.EndsWith("ProjectImage.jpg")).Should().BeTrue();
-    
+
         //Clean up after test
         Directory.Delete(Paths.UserDirectory("NicknameOfUserForTestingPurposes"), true);
     }

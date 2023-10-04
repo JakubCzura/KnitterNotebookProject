@@ -151,7 +151,7 @@ public class UserService : CrudService<User>, IUserService
 
         User? user = await _databaseContext.Users.Include(x => x.Theme).FirstOrDefaultAsync(x => x.Id == changeThemeDto.UserId);
         if (user == null)
-        { 
+        {
             return 0;
         }
 
@@ -180,7 +180,7 @@ public class UserService : CrudService<User>, IUserService
     public async Task<(string, DateTime)> UpdatePasswordResetTokenAsync(string userEmail)
     {
         var tokenWithExpirationDate = new
-        {   
+        {
             Token = _tokenService.CreateResetPasswordToken(),
             ExpirationDate = _tokenService.CreateResetPasswordTokenExpirationDate(_configuration.GetValue("Tokens:ResetPasswordTokenExpirationDays", 1))
         };
@@ -188,7 +188,7 @@ public class UserService : CrudService<User>, IUserService
         return await _databaseContext.Users
                                      .Where(x => x.Email == userEmail)
                                      .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.PasswordResetToken, tokenWithExpirationDate.Token)
-                                                                           .SetProperty(x => x.PasswordResetTokenExpirationDate, tokenWithExpirationDate.ExpirationDate)) > 0 
+                                                                           .SetProperty(x => x.PasswordResetTokenExpirationDate, tokenWithExpirationDate.ExpirationDate)) > 0
                ? (tokenWithExpirationDate.Token, tokenWithExpirationDate.ExpirationDate)
                : throw new EntityNotFoundException(ExceptionsMessages.UserWithEmailNotFound(userEmail));
     }

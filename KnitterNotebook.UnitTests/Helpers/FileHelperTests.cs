@@ -38,7 +38,7 @@ namespace KnitterNotebook.UnitTests.Helpers
         public void CopyWithDirectoryCreation_ForNotExistingFileToCopy_ThrowsFileNotFoundException()
         {
             //Arrange
-            //Situation when source file doesn't exist in specified existing directory 
+            //Situation when source file doesn't exist in specified existing directory
             string sourceFileName = Path.Combine(Paths.ProjectDirectory, "HelpersForTesting", "FileThatDoesntExist.txt");
             string destinationFileName = @"c:\computer\files\file.txt";
 

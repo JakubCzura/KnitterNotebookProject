@@ -88,5 +88,4 @@ public class ListExtensionTests
         //Assert
         list.Should().Contain(items);
     }
-
 }

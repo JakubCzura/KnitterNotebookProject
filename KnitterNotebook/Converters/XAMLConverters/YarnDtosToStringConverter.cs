@@ -14,8 +14,8 @@ namespace KnitterNotebook.Converters.XAMLConverters;
 public class YarnDtosToStringConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        => value is IEnumerable<YarnDto> yarns 
-            ? string.Join("\n", yarns.Select(x => x.Name)) 
+        => value is IEnumerable<YarnDto> yarns
+            ? string.Join("\n", yarns.Select(x => x.Name))
             : string.Empty;
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

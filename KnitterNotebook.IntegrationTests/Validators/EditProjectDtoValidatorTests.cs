@@ -76,9 +76,9 @@ public class EditProjectDtoValidatorTests
     public async Task ValidateAsync_ForValidData_PassValidation()
     {
         //Arrange
-        EditProjectDto editPlannedProjectDto = new(1, 
+        EditProjectDto editPlannedProjectDto = new(1,
             "Project new name",
-            DateTime.UtcNow.AddDays(1), 
+            DateTime.UtcNow.AddDays(1),
             new List<CreateNeedleDto>()
             {
                 new(2.5, NeedleSizeUnit.mm),
@@ -89,9 +89,9 @@ public class EditProjectDtoValidatorTests
             {
                 new("Merino"),
                 new("Super yarn"),
-            }, 
+            },
             "New description",
-            @"c:\computer\user\file.pdf", 
+            @"c:\computer\user\file.pdf",
             1);
 
         //Act

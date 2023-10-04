@@ -12,8 +12,8 @@ namespace KnitterNotebook.Converters.XAMLConverters;
 public class SampleDtoNeedleToStringConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        => value is BasicSampleDto sample 
-            ? $"{sample.NeedleSize} {sample.NeedleSizeUnit}" 
+        => value is BasicSampleDto sample
+            ? $"{sample.NeedleSize} {sample.NeedleSizeUnit}"
             : string.Empty;
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -4,7 +4,7 @@ using System.Linq;
 namespace KnitterNotebook.Helpers.Extensions;
 
 public static class ListExtension
-{ 
+{
     /// <summary>
     /// Adds <paramref name="item"/> to <paramref name="list"/> if the item is not null or empty and the list is not null, based on <see cref="string.IsNullOrWhiteSpace"/>
     /// </summary>

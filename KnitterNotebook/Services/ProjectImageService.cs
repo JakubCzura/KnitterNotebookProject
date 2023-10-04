@@ -38,8 +38,8 @@ public class ProjectImageService : CrudService<ProjectImage>, IProjectImageServi
         string? destinationImagePath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(addProjectImageDto.ImagePath));
 
         if (string.IsNullOrWhiteSpace(destinationImagePath))
-        { 
-            throw new ArgumentNullException(destinationImagePath, ExceptionsMessages.NullFileWhenSave); 
+        {
+            throw new ArgumentNullException(destinationImagePath, ExceptionsMessages.NullFileWhenSave);
         }
 
         ProjectImage projectImage = new()
