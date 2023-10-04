@@ -43,9 +43,38 @@ Knitters usually create samples before they start working at main project. You c
 
 ![5](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/f7967cd5-238e-434f-9d13-104a17658576)
 
-When you have many samples you can easily filter their by needle's size.
+When you have many samples you can easily filter their by needle's size. You can delete sample using context menu.
 
 ![6](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/5484c36e-cc12-422d-8152-0b41c369f891)
+
+You can add links to tutorials and other helping resources. It opens in default web browser after mouse double click. You can delete the link using context menu.
+
+![7](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/3bb6f375-019e-40d2-9fb9-4274d7d29e30)
+
+There are 3 statuses of project - planned project, project in progress and finished project.
+
+If you want to knit up something you should plan out a project. Choose "Planned projects" button and add new plan to your resources.
+You can specify all necessary details and if you want you can attach .pdf file with pattern.
+
+![8](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/7a800b38-6313-4c1d-8581-1b2f54da1974)
+
+You can filter your planned projects by project's name.
+You can take more actions using context menu.
+
+![9](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/2506e7ae-03cf-4bbe-8e49-0fb63499db6a)
+
+If your project's status is "planned" or "in progress" you can edit it very easily by choosing this option from context menu.
+
+![10](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/14c39997-db7c-4bf5-9c4a-2d97231f70e8)
+
+When you choose "Start Project" from context menu it will be moved to projects in progress.
+The main purpose of projects in progress is to add photos of your progress. 
+You can take many photos every day and then you will see how your clothes are made.
+
+![11](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/304690a3-35c2-4835-8d50-412aeac752bc)
+
+![12](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/62440784-5931-4203-81dc-6db85f503150)
+
 
 
 ### Thanks
