@@ -106,6 +106,10 @@ As I have mentioned the application changes to Polish language if default cultur
 
 ![20](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/dfe3f94d-34e3-442b-9749-af551314be60)
 
+## Launching
+* Download the repository from GitHub
+* Open solution KnitterNotebookProject.sln (for example using Visual Studio)
+* Set KnitterNotebook at chosen project and click launch
 
 ## Thanks
 I would like to thank my girlfriend Karolina for giving me idea to create this project. She told me all her expectations what the application should do.
