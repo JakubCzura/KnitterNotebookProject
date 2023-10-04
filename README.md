@@ -109,7 +109,8 @@ As I have mentioned the application changes to Polish language if default cultur
 ## Launching
 * Download the repository from GitHub
 * Open solution KnitterNotebookProject.sln (for example using Visual Studio)
-* Set KnitterNotebook at chosen project and click launch
+* Set KnitterNotebook as chosen project and click launch
+* That's all. Local database should be created automatically and you should be able to sign up
 
 ## Thanks
 I would like to thank my girlfriend Karolina for giving me idea to create this project. She told me all her expectations what the application should do.
