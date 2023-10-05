@@ -43,12 +43,12 @@ Important: it is open-source project for learning purposes so I didn't send emai
 ![4](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/d3c5bb48-cdaa-48d0-97a8-a99b876c5099)
 
 
-Knitters usually create samples before they start working at main project. You can add samples with attached photo of yarn of expected sample.
+Knitters usually create samples before they start working on main project. You can add samples with attached photo of yarn or expected sample's appearance.
 
 ![5](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/f7967cd5-238e-434f-9d13-104a17658576)
 
 
-When you have many samples you can easily filter their by needle's size. You can delete sample using context menu.
+When you have many samples you can easily filter them by needle's size. You can delete sample using context menu.
 
 ![6](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/5484c36e-cc12-422d-8152-0b41c369f891)
 
@@ -60,7 +60,7 @@ You can add links to tutorials and other helping resources. It opens in default 
 
 There are 3 statuses of project - planned project, project in progress and finished project.
 
-If you want to knit up something you should plan out a project. Choose "Planned projects" button and add new plan to your resources.
+If you want to knit up something you should plan out a project. Choose "Planned projects" tab and add new plan to your resources.
 You can specify all necessary details and if you want you can attach .pdf file with pattern.
 
 ![8](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/7a800b38-6313-4c1d-8581-1b2f54da1974)
@@ -85,18 +85,18 @@ The main purpose of projects in progress is to add photos of your progress.
 ![12](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/62440784-5931-4203-81dc-6db85f503150)
 
 
-Despite looking at pattern in "Projects in progress" or "Finished projects" tab, you can also show the pattern in separate window.
+When your project's status is "in progress" or "finished" you can show the pattern in separate window.
 
 ![17](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/fe336a28-d988-48e8-aea1-3f1e2b83cae8)
 
 
-As you can see many images are added. When you compare this photo with previous photo you can see progress of knitting up a sweater.
+As you can see many images have been added. When you compare this photo with previous photo you can see progress of knitting up a sweater.
 You can take more actions using context menu for example edit your project or delete it. You can also move your project in progress to planned projects or finish your project.
 
 ![13](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/ed4df59d-9f24-4191-b8df-ace8ecc038a7)
 
 
-If you finish your project end date is set automatically. You can see at the picture that the whole sweater was knitted up.
+If you finish your project end date is set automatically. In the picture you can see that the whole sweater has been knitted up.
 There are shown all project's details, photos and .pdf file with pattern.
 
 ![14](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/5f402bc3-86cf-4822-9466-1970364eef4e)
@@ -107,14 +107,14 @@ You can take more actions using context menu. As you can see I moved finished pr
 ![21](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/43659dd4-7f34-4ac7-8247-a03ef68c5a43)
 
 
-You can change settings of your account and application and the changes are applied immediately. As you can see nickname JakubKnitter is changed to JakubNickname and default theme is changed to light theme.
+You can change your settings and the changes are applied immediately. As you can see nickname JakubKnitter has been changed to JakubNickname and default theme has been changed to light theme.
 
 ![22](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/2160e90f-1755-4bc8-920d-16981703b4c2)
 
 ![23](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/25d5aacb-e247-47c6-a65b-7bbc67ab761f)
 
 
-As I have mentioned the application changes to Polish language if default culture in your computer is Polish.
+As I have mentioned the application changes to Polish language if your computer's default culture is Polish. There are three example screens of this version.
 
 ![18](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/fdf3cd11-3854-4aac-a246-2bba576f3c01)
 
