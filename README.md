@@ -1,4 +1,4 @@
-# KnitterNotebookProject
+# KnitterNotebook
 
 ## WPF application for knitters. It helps you track progress of your work and make notes about project you work on.
 The application is available in two languages (Polish and English). It uses user's computer's default settings to set the language.
