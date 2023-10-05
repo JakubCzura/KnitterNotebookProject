@@ -114,7 +114,7 @@ You can change your settings and the changes are applied immediately. As you can
 ![23](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/25d5aacb-e247-47c6-a65b-7bbc67ab761f)
 
 
-As I have mentioned the application changes to Polish language if your computer's default culture is Polish. There are three example screens of this version.
+As I have mentioned the application changes to Polish language if your computer's default culture is Polish. There are three sample screens of this version.
 
 ![18](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/fdf3cd11-3854-4aac-a246-2bba576f3c01)
 
