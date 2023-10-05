@@ -57,6 +57,8 @@ You can add links to tutorials and other helping resources. It opens in default 
 
 ![7](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/3bb6f375-019e-40d2-9fb9-4274d7d29e30)
 
+![24](https://github.com/JakubCzura/KnitterNotebookProject/assets/76125047/10e8c4e4-cd12-46b6-bfcb-601b3f04aff9)
+
 
 There are 3 statuses of project - planned project, project in progress and finished project.
 
