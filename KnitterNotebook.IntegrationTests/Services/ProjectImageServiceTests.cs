@@ -40,21 +40,21 @@ public class ProjectImageServiceTests
             Email = "test@test.com",
             Nickname = "NicknameOfUserForTestingPurposes",
             Password = "Password123",
-            Projects = new()
-            {
-                new() { Name = "Project1", Description = "Description1", ProjectImages = new()
-                {
+            Projects =
+            [
+                new() { Name = "Project1", Description = "Description1", ProjectImages =
+                [
                     new(){ Path = @"c:\computer\test1.jpg" },
                     new(){ Path = @"c:\computer\test2.jpg" },
                     new(){ Path = @"c:\computer\test3.jpg" },
-                } },
-                new() { Name = "Project2", Description = "Description2", ProjectImages = new()
-                {
+                ] },
+                new() { Name = "Project2", Description = "Description2", ProjectImages =
+                [
                     new(){ Path = @"c:\computer\test4.jpg" },
                     new(){ Path = @"c:\computer\test5.jpg" },
                     new(){ Path = @"c:\computer\test6.jpg" },
-                } }
-            },
+                ] }
+            ],
             ThemeId = 1
         };
 

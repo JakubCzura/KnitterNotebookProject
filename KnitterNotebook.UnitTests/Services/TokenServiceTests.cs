@@ -12,7 +12,7 @@ public class TokenServiceTests
     public void CreateResetPasswordToken_CreatesUniqueToken()
     {
         // Act
-        List<string> tokens = new();
+        List<string> tokens = [];
         for (int i = 0; i < 5; i++)
         {
             tokens.Add(_tokenService.CreateResetPasswordToken());

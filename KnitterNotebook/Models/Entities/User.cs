@@ -11,11 +11,11 @@ public class User : BaseDbEntity
 
     public string Password { get; set; } = string.Empty;
 
-    public virtual List<Project> Projects { get; set; } = new();
+    public virtual List<Project> Projects { get; set; } = [];
 
-    public virtual List<Sample> Samples { get; set; } = new();
+    public virtual List<Sample> Samples { get; set; } = [];
 
-    public virtual List<MovieUrl> MovieUrls { get; set; } = new();
+    public virtual List<MovieUrl> MovieUrls { get; set; } = [];
 
     public string? PasswordResetToken { get; set; }
 

@@ -23,18 +23,18 @@ public class MovieUrlServiceTests
 
     private void SeedMovieUrls()
     {
-        List<User> users = new()
-        {
+        List<User> users =
+        [
             new()
             {
                 Email = "email@email.com",
                 Nickname = "Nickname",
                 Password = "Password123",
-                MovieUrls = new()
-                {
+                MovieUrls =
+                [
                     new() { Title = "sample title 1", Link = new("http://testlink1.com"), Description = null },
                     new() { Title = "sample title 2", Link = new("http://testlink2.com"), Description = "description 2" }
-                },
+                ],
                 ThemeId = 1
             },
             new()
@@ -42,15 +42,15 @@ public class MovieUrlServiceTests
                 Email = "email2@email.com",
                 Nickname = "Nickname2",
                 Password = "Password123",
-                MovieUrls = new()
-                {
+                MovieUrls =
+                [
                     new() { Title = "sample title 3", Link = new("http://testlink3.com"), Description = null },
                     new() { Title = "sample title 4", Link = new("http://testlink4.com"), Description = null },
                     new() { Title = "sample title 5", Link = new("http://testlink5.com"), Description = "description 4" }
-                },
+                ],
                 ThemeId = 1
             }
-        };
+        ];
 
         _databaseContext.Users.AddRange(users);
         _databaseContext.SaveChanges();

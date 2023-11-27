@@ -33,7 +33,7 @@ public partial class SharedResourceViewModel : BaseViewModel
 
     public string? PatternPdfPath { get; set; }
 
-    public List<string> FilesToDelete { get; set; } = new();
+    public List<string> FilesToDelete { get; set; } = [];
 
     public (int, ProjectStatusName) EditedProjectIdAndStatus { get; set; }
 

@@ -11,12 +11,12 @@ public class YarnsNamesWithDelimiterConverterTests
     public void Convert_ForGivenYarnsAndDefaultParameter_ReturnsYarnsNamesAsString()
     {
         //Arrange
-        List<YarnDto> yarns = new()
-        {
+        List<YarnDto> yarns =
+        [
             new (new Yarn("Yarn1")),
             new (new Yarn( "Merino")),
             new (new Yarn("Super Yarn"))
-        };
+        ];
         string expected = "Yarn1,Merino,Super Yarn";
 
         //Act
@@ -30,12 +30,12 @@ public class YarnsNamesWithDelimiterConverterTests
     public void Convert_ForGivenYarnsAndCustomParameter_ReturnsYarnsNamesAsString()
     {
         //Arrange
-        List<YarnDto> yarns = new()
-        {
+        List<YarnDto> yarns =
+        [
             new (new Yarn("Yarn1")),
             new (new Yarn("Merino")),
             new (new Yarn("Super Yarn"))
-        };
+        ];
         string expected = "Yarn1;Merino;Super Yarn";
         char delimiter = ';';
 
@@ -50,7 +50,7 @@ public class YarnsNamesWithDelimiterConverterTests
     public void Convert_ForEmptyYarns_ReturnsEmptyString()
     {
         //Arrange
-        List<YarnDto> yarns = new();
+        List<YarnDto> yarns = [];
 
         //Act
         string result = YarnsNamesWithDelimiterConverter.Convert(yarns);

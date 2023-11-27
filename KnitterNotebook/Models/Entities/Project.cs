@@ -12,9 +12,9 @@ public class Project : BaseDbEntity
 
     public DateTime? EndDate { get; set; } = null;
 
-    public virtual List<Needle> Needles { get; set; } = new();
+    public virtual List<Needle> Needles { get; set; } = [];
 
-    public virtual List<Yarn> Yarns { get; set; } = new();
+    public virtual List<Yarn> Yarns { get; set; } = [];
 
     public string? Description { get; set; } = null;
 
@@ -22,7 +22,7 @@ public class Project : BaseDbEntity
 
     public virtual PatternPdf? PatternPdf { get; set; } = null;
 
-    public virtual List<ProjectImage> ProjectImages { get; set; } = new();
+    public virtual List<ProjectImage> ProjectImages { get; set; } = [];
 
     public int UserId { get; set; }
 }

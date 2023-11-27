@@ -41,11 +41,11 @@ public class ChangeEmailDtoValidatorTests
 
     private void SeedUsers()
     {
-        List<User> users = new()
-        {
+        List<User> users =
+        [
             new User() { Email = "test1@test.com", ThemeId = 1},
             new User() { Email = "test2@test.com", ThemeId = 1},
-        };
+        ];
         _databaseContext.Users.AddRange(users);
         _databaseContext.SaveChanges();
     }

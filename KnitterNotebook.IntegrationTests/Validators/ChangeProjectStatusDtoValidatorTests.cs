@@ -30,27 +30,27 @@ public class ChangeProjectStatusDtoValidatorTests
 
     private void SeedProjects()
     {
-        List<User> users = new()
-        {
+        List<User> users =
+        [
             new User()
             {
                 ThemeId = 1,
-                Projects = new()
-                {
+                Projects =
+                [
                     new Project() { Name = "Project1",},
                     new Project() { Name = "Project2" },
-                }
+                ]
             },
             new User()
             {
                 ThemeId = 2,
-                Projects = new()
-                {
+                Projects =
+                [
                     new Project() { Name = "Project3",},
                     new Project() { Name = "Project4" },
-                }
+                ]
             },
-        };
+        ];
         _databaseContext.Users.AddRange(users);
         _databaseContext.SaveChanges();
     }
