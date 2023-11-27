@@ -10,18 +10,19 @@ The application is available in two languages (Polish and English). It uses user
 * You can always change project's status to previous one, for example move it from finished projects to planned projects if you want to keep knitting up and add more photos of your art (you won't loose any data and photos despite changing project's status). 
 
 ## Main technologies and packages:
-* .NET 8. and C# 12
-* MS SQL Server and Entity Framework Core 7.0.11
-* xUnit 2.5.1
-* Fluent Assertions 6.12.0
-* Serilog.AspNetCore 7.0.0
-* BCrypt.Net-Next 4.0.3
-* Fluent Validation 11.7.1
-* Community.Toolkit.Mvvm 8.2.1
-* Gu.Wpf.Adorners 2.1.1
-* MailKit 4.2.0
-* MaterialDesignThemes 4.9.0
+* .NET 8 and C# 12
+* MS SQL Server and Entity Framework Core
+* xUnit
+* Fluent Assertions
+* Serilog.AspNetCore
+* BCrypt.Net-Next
+* Fluent Validation
+* Community.Toolkit.Mvvm
+* Gu.Wpf.Adorners
+* MailKit
+* MaterialDesignThemes
 
+I started creating the project using .NET 7 and C# 12
 27.11.2023 -> update .NET 7 to .NET 8
 
 ## Presentation
