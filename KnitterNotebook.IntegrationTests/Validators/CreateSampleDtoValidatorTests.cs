@@ -36,11 +36,11 @@ public class CreateSampleDtoValidatorTests
 
     private void SeedUsers()
     {
-        List<User> users = new()
-        {
+        List<User> users =
+        [
             new User() { Nickname = "Nickname1", ThemeId = 1 },
             new User() { Nickname = "Nickname2", ThemeId = 2 },
-        };
+        ];
         _databaseContext.Users.AddRange(users);
         _databaseContext.SaveChanges();
     }

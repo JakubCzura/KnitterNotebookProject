@@ -23,12 +23,12 @@ public class ThemeServiceTests
 
     private void SeedThemes()
     {
-        List<Theme> themes = new()
-        {
+        List<Theme> themes =
+        [
             new() { Name = ApplicationTheme.Default },
             new() { Name = ApplicationTheme.Light },
             new() { Name = ApplicationTheme.Dark }
-        };
+        ];
         _databaseContext.Themes.AddRange(themes);
         _databaseContext.SaveChanges();
     }

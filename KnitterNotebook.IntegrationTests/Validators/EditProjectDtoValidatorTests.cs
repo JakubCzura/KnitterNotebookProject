@@ -38,36 +38,36 @@ public class EditProjectDtoValidatorTests
 
     private void SeedProjects()
     {
-        List<User> users = new()
-        {
+        List<User> users =
+        [
             new User()
             {
                 ThemeId = 1,
-                Projects = new()
-                {
+                Projects =
+                [
                     new Project()
                     {
                         Name = "Project1",
                         StartDate = DateTime.UtcNow.AddDays(1),
-                        Needles = new()
-                        {
+                        Needles =
+                        [
                             new(2.5, NeedleSizeUnit.mm),
                             new(3.5, NeedleSizeUnit.cm),
                             new(6, NeedleSizeUnit.mm),
-                        },
-                        Yarns = new()
-                        {
+                        ],
+                        Yarns =
+                        [
                             new("Merino"),
                             new("Yarn"),
                             new("Super Yarn"),
-                        },
+                        ],
                         Description = "Sample description of planned project",
                         ProjectStatus = ProjectStatusName.Planned,
                         PatternPdf = null
                     }
-                },
+                ],
             }
-        };
+        ];
         _databaseContext.Users.AddRange(users);
         _databaseContext.SaveChanges();
     }

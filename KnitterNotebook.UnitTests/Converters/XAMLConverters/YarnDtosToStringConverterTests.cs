@@ -14,12 +14,12 @@ public class YarnDtosToStringConverterTests
     {
         //Arrange
         YarnDtosToStringConverter converter = new();
-        List<YarnDto> yarnDtos = new()
-        {
+        List<YarnDto> yarnDtos =
+        [
             new YarnDto(new Yarn("yarn's name")),
             new YarnDto(new Yarn("cotton yarn's name")),
             new YarnDto(new Yarn("woolen yarn's name"))
-        };
+        ];
         string expected = "yarn's name\ncotton yarn's name\nwoolen yarn's name";
 
         //Act

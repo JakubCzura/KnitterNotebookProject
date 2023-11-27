@@ -23,7 +23,7 @@ public class ListExtensionTests
     public void AddIfNotNullOrEmpty_ForValidItem_AddsItem()
     {
         //Arrange
-        List<string> list = new();
+        List<string> list = [];
         string? item = "item";
 
         //Act
@@ -38,7 +38,7 @@ public class ListExtensionTests
     public void AddIfNotNullOrEmpty_ForInvalidItem_DoesNotAddItem(string? item)
     {
         //Arrange
-        List<string> list = new();
+        List<string> list = [];
 
         //Act
         list.AddIfNotNullOrEmpty(item);
@@ -65,7 +65,7 @@ public class ListExtensionTests
     public void AddRangeIfNotNullOrEmpty_ForNullItems_DoesNotThrowException()
     {
         //Arrange
-        List<string> list = new();
+        List<string> list = [];
         IEnumerable<string?> items = null!;
 
         //Act
@@ -79,8 +79,8 @@ public class ListExtensionTests
     public void AddRangeIfNotNullOrEmpty_ForValidItems_AddsItems()
     {
         //Arrange
-        List<string> list = new();
-        List<string> items = new() { "item1", "item2" };
+        List<string> list = [];
+        List<string> items = ["item1", "item2"];
 
         //Act
         list.AddRangeIfNotNullOrEmpty(items);

@@ -39,16 +39,16 @@ public class UserServiceTests
 
     private void SeedUsers()
     {
-        List<Theme> themes = new()
-        {
+        List<Theme> themes =
+        [
             new() { Name = ApplicationTheme.Default },
             new() { Name = ApplicationTheme.Light },
             new() { Name = ApplicationTheme.Dark },
-        };
+        ];
         _databaseContext.Themes.AddRange(themes);
 
-        List<User> users = new()
-        {
+        List<User> users =
+        [
             new()
             {
                 Email = "user1@mail.com",
@@ -67,7 +67,7 @@ public class UserServiceTests
                 PasswordResetTokenExpirationDate = DateTime.UtcNow.AddDays(1),
                 ThemeId = 2
             },
-        };
+        ];
         _databaseContext.Users.AddRange(users);
         _databaseContext.SaveChanges();
     }

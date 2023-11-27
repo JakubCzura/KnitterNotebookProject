@@ -15,12 +15,12 @@ public class NeedleDtoToStringConverterTests
     {
         //Arrange
         NeedleDtosToStringConverter converter = new();
-        List<NeedleDto> needleDtos = new()
-        {
+        List<NeedleDto> needleDtos =
+        [
             new NeedleDto(new Needle(15, NeedleSizeUnit.cm )),
             new NeedleDto(new Needle(25, NeedleSizeUnit.mm)),
             new NeedleDto(new Needle(3, NeedleSizeUnit.cm )),
-        };
+        ];
         string expected = "15 cm\n25 mm\n3 cm";
 
         //Act

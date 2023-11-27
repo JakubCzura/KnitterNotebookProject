@@ -35,11 +35,11 @@ public class RegisterUserDtoValidatorTests
 
     private void SeedUsers()
     {
-        List<User> users = new()
-        {
+        List<User> users =
+        [
             new User() { Email = "nick1@mail.com", Nickname = "Nick1", ThemeId = 1 },
             new User() { Email = "nick2@mail.com", Nickname = "Nick2", ThemeId = 1 },
-        };
+        ];
         _databaseContext.Users.AddRange(users);
         _databaseContext.SaveChanges();
     }

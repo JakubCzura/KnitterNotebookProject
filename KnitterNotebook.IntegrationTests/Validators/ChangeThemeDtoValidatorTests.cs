@@ -37,12 +37,12 @@ public class ChangeThemeDtoValidatorTests
 
     private void SeedThemes()
     {
-        List<Theme> themes = new()
-        {
-            new Theme() { Name = ApplicationTheme.Default, Users = new List<User>() { new User() { Nickname = "Name1" } } },
-            new Theme() { Name = ApplicationTheme.Light, Users = new List<User>() { new User() { Nickname = "Nickname2" } }  },
-            new Theme() { Name = ApplicationTheme.Dark, Users = new List<User>() { new User() { Nickname = "Nickname3" } } }
-        };
+        List<Theme> themes =
+        [
+            new Theme() { Name = ApplicationTheme.Default, Users = [new User() { Nickname = "Name1" }] },
+            new Theme() { Name = ApplicationTheme.Light, Users = [new User() { Nickname = "Nickname2" }]  },
+            new Theme() { Name = ApplicationTheme.Dark, Users = [new User() { Nickname = "Nickname3" }] }
+        ];
         _databaseContext.Themes.AddRange(themes);
         _databaseContext.SaveChanges();
     }

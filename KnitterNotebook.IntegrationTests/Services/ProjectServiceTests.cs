@@ -43,8 +43,8 @@ public class ProjectServiceTests
             Nickname = "NicknameOfUserForTestingPurposes",
             Password = "Password123",
             ThemeId = 1,
-            Projects = new()
-            {
+            Projects =
+            [
                 new Project()
                 {
                     Name = "Project1",
@@ -83,7 +83,7 @@ public class ProjectServiceTests
                     EndDate = DateTime.Today,
                     ProjectStatus = ProjectStatusName.Finished
                 }
-            }
+            ]
         };
 
         _databaseContext.Users.Add(user);

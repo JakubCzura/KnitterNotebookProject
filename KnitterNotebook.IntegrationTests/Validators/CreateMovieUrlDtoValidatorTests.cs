@@ -35,11 +35,11 @@ public class CreateMovieUrlDtoValidatorTests
 
     private void SeedUsers()
     {
-        List<User> users = new()
-        {
+        List<User> users =
+        [
             new User() { Nickname = "Name1", ThemeId = 1 },
             new User() { Nickname = "Nickname2", ThemeId = 1 }
-        };
+        ];
         _databaseContext.Users.AddRange(users);
         _databaseContext.SaveChanges();
     }

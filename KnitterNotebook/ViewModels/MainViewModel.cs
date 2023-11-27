@@ -157,12 +157,12 @@ public partial class MainViewModel : BaseViewModel
     }
 
     [ObservableProperty]
-    private ObservableCollection<MovieUrlDto> _movieUrls = new();
+    private ObservableCollection<MovieUrlDto> _movieUrls = [];
 
     [ObservableProperty]
     private MovieUrlDto? _selectedMovieUrl = null;
 
-    private ObservableCollection<PlannedProjectDto> _plannedProjects = new();
+    private ObservableCollection<PlannedProjectDto> _plannedProjects = [];
 
     public ObservableCollection<PlannedProjectDto> PlannedProjects
     {
@@ -177,7 +177,7 @@ public partial class MainViewModel : BaseViewModel
         }
     }
 
-    private ObservableCollection<ProjectInProgressDto> _projectsInProgress = new();
+    private ObservableCollection<ProjectInProgressDto> _projectsInProgress = [];
 
     public ObservableCollection<ProjectInProgressDto> ProjectsInProgress
     {
@@ -192,7 +192,7 @@ public partial class MainViewModel : BaseViewModel
         }
     }
 
-    private ObservableCollection<FinishedProjectDto> _finishedProjects = new();
+    private ObservableCollection<FinishedProjectDto> _finishedProjects = [];
 
     public ObservableCollection<FinishedProjectDto> FinishedProjects
     {
@@ -235,7 +235,7 @@ public partial class MainViewModel : BaseViewModel
     [ObservableProperty]
     private SampleDto? _selectedSample;
 
-    private ObservableCollection<SampleDto> _samples = new();
+    private ObservableCollection<SampleDto> _samples = [];
 
     public ObservableCollection<SampleDto> Samples
     {

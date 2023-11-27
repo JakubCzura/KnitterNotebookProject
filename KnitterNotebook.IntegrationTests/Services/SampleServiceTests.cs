@@ -43,8 +43,8 @@ public class SampleServiceTests
             Nickname = "NicknameOfUserForTestingPurposes",
             Password = "Password123",
             ThemeId = 1,
-            Samples = new()
-            {
+            Samples =
+            [
                 new()
                 {
                     YarnName = "yarn name",
@@ -71,7 +71,7 @@ public class SampleServiceTests
                     NeedleSize = 2,
                     NeedleSizeUnit = NeedleSizeUnit.mm
                 }
-            }
+            ]
         };
 
         _databaseContext.Users.Add(user);

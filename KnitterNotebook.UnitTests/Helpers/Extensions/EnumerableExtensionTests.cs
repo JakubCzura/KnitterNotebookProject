@@ -67,7 +67,7 @@ public class EnumerableExtensionTests
     public void NotNullAndHaveAnyElement_ForEmptyCollection_ReturnsFalse()
     {
         //Arrange
-        List<int> list = new();
+        List<int> list = [];
 
         //Act
         bool result = list.NotNullAndHaveAnyElement();
@@ -80,7 +80,7 @@ public class EnumerableExtensionTests
     public void NotNullAndHaveAnyElement_ForCollectionWithElements_ReturnsTrue()
     {
         //Arrange
-        List<int> list = new() { 1, 2, 3 };
+        List<int> list = [1, 2, 3];
 
         //Act
         bool result = list.NotNullAndHaveAnyElement();

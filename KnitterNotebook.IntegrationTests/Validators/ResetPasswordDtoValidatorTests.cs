@@ -36,8 +36,8 @@ public class ResetPasswordDtoValidatorTests
 
     private void SeedUsers()
     {
-        List<User> users = new()
-        {
+        List<User> users =
+        [
             new User()
             {
                 Email = "nick1@mail.com",
@@ -46,7 +46,7 @@ public class ResetPasswordDtoValidatorTests
                 PasswordResetTokenExpirationDate = DateTime.UtcNow.AddDays(1),
                 ThemeId = 1
             }
-        };
+        ];
         _databaseContext.Users.AddRange(users);
         _databaseContext.SaveChanges();
     }

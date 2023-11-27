@@ -41,11 +41,11 @@ public class ChangeNicknameDtoValidatorTests
 
     private void SeedUsers()
     {
-        List<User> users = new()
-        {
+        List<User> users =
+        [
             new User() { Nickname = "Nick1", ThemeId = 1 },
             new User() { Nickname = "TestNick", ThemeId = 2 },
-        };
+        ];
         _databaseContext.Users.AddRange(users);
         _databaseContext.SaveChanges();
     }
