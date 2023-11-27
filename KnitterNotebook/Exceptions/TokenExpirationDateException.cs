@@ -2,9 +2,6 @@
 
 namespace KnitterNotebook.Exceptions;
 
-public class TokenExpirationDateException : Exception
+public class TokenExpirationDateException(string message) : Exception(message)
 {
-    public TokenExpirationDateException(string message) : base(message)
-    {
-    }
 }

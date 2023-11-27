@@ -20,23 +20,15 @@ namespace KnitterNotebook.ViewModels;
 /// <summary>
 /// View model for SampleAddingWindow.xaml
 /// </summary>
-public partial class SampleAddingViewModel : BaseViewModel
+public partial class SampleAddingViewModel(ILogger<SampleAddingViewModel> logger,
+    ISampleService sampleService,
+    IValidator<CreateSampleDto> createSampleDtoValidator,
+    SharedResourceViewModel sharedResourceViewModel) : BaseViewModel
 {
-    public SampleAddingViewModel(ILogger<SampleAddingViewModel> logger,
-        ISampleService sampleService,
-        IValidator<CreateSampleDto> createSampleDtoValidator,
-        SharedResourceViewModel sharedResourceViewModel)
-    {
-        _logger = logger;
-        _sampleService = sampleService;
-        _createSampleDtoValidator = createSampleDtoValidator;
-        _sharedResourceViewModel = sharedResourceViewModel;
-    }
-
-    private readonly ILogger<SampleAddingViewModel> _logger;
-    private readonly ISampleService _sampleService;
-    private readonly IValidator<CreateSampleDto> _createSampleDtoValidator;
-    private readonly SharedResourceViewModel _sharedResourceViewModel;
+    private readonly ILogger<SampleAddingViewModel> _logger = logger;
+    private readonly ISampleService _sampleService = sampleService;
+    private readonly IValidator<CreateSampleDto> _createSampleDtoValidator = createSampleDtoValidator;
+    private readonly SharedResourceViewModel _sharedResourceViewModel = sharedResourceViewModel;
 
     #region Events
 

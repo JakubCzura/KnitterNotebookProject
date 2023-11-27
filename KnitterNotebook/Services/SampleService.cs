@@ -14,16 +14,10 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services;
 
-public class SampleService : CrudService<Sample>, ISampleService
+public class SampleService(DatabaseContext databaseContext, IUserService userService) : CrudService<Sample>(databaseContext), ISampleService
 {
-    private readonly DatabaseContext _databaseContext;
-    private readonly IUserService _userService;
-
-    public SampleService(DatabaseContext databaseContext, IUserService userService) : base(databaseContext)
-    {
-        _databaseContext = databaseContext;
-        _userService = userService;
-    }
+    private readonly DatabaseContext _databaseContext = databaseContext;
+    private readonly IUserService _userService = userService;
 
     /// <summary>
     /// Creates sample and saves it do database

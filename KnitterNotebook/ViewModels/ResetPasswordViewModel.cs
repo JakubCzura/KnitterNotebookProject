@@ -17,23 +17,15 @@ namespace KnitterNotebook.ViewModels;
 /// <summary>
 /// View model for ResetPasswordWindow.xaml
 /// </summary>
-public partial class ResetPasswordViewModel : BaseViewModel
+public partial class ResetPasswordViewModel(ILogger<ResetPasswordViewModel> logger,
+    IUserService userService,
+    IValidator<ResetPasswordDto> resetPasswordDtoValidator,
+    IEmailService emailService) : BaseViewModel
 {
-    public ResetPasswordViewModel(ILogger<ResetPasswordViewModel> logger,
-        IUserService userService,
-        IValidator<ResetPasswordDto> resetPasswordDtoValidator,
-        IEmailService emailService)
-    {
-        _logger = logger;
-        _userService = userService;
-        _resetPasswordDtoValidator = resetPasswordDtoValidator;
-        _emailService = emailService;
-    }
-
-    private readonly ILogger<ResetPasswordViewModel> _logger;
-    private readonly IUserService _userService;
-    private readonly IValidator<ResetPasswordDto> _resetPasswordDtoValidator;
-    private readonly IEmailService _emailService;
+    private readonly ILogger<ResetPasswordViewModel> _logger = logger;
+    private readonly IUserService _userService = userService;
+    private readonly IValidator<ResetPasswordDto> _resetPasswordDtoValidator = resetPasswordDtoValidator;
+    private readonly IEmailService _emailService = emailService;
 
     #region Properties
 

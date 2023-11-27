@@ -19,35 +19,23 @@ namespace KnitterNotebook.ViewModels;
 /// <summary>
 /// View model for SettingsWindow.xaml
 /// </summary>
-public partial class SettingsViewModel : BaseViewModel
+public partial class SettingsViewModel(ILogger<SettingsViewModel> logger,
+    IUserService userService,
+    IValidator<ChangeNicknameDto> changeNicknameDtoValidator,
+    IValidator<ChangeEmailDto> changeEmailDtoValidator,
+    IValidator<ChangePasswordDto> changePasswordDtoValidator,
+    IValidator<ChangeThemeDto> changeThemeDtoValidator,
+    IWindowContentService windowContentService,
+    SharedResourceViewModel sharedResourceViewModel) : BaseViewModel
 {
-    public SettingsViewModel(ILogger<SettingsViewModel> logger,
-        IUserService userService,
-        IValidator<ChangeNicknameDto> changeNicknameDtoValidator,
-        IValidator<ChangeEmailDto> changeEmailDtoValidator,
-        IValidator<ChangePasswordDto> changePasswordDtoValidator,
-        IValidator<ChangeThemeDto> changeThemeDtoValidator,
-        IWindowContentService windowContentService,
-        SharedResourceViewModel sharedResourceViewModel)
-    {
-        _logger = logger;
-        _userService = userService;
-        _changeNicknameDtoValidator = changeNicknameDtoValidator;
-        _changeEmailDtoValidator = changeEmailDtoValidator;
-        _changePasswordDtoValidator = changePasswordDtoValidator;
-        _changeThemeDtoValidator = changeThemeDtoValidator;
-        _windowContentService = windowContentService;
-        _sharedResourceViewModel = sharedResourceViewModel;
-    }
-
-    private readonly ILogger<SettingsViewModel> _logger;
-    private readonly IUserService _userService;
-    private readonly IValidator<ChangeNicknameDto> _changeNicknameDtoValidator;
-    private readonly IValidator<ChangeEmailDto> _changeEmailDtoValidator;
-    private readonly IValidator<ChangePasswordDto> _changePasswordDtoValidator;
-    private readonly IValidator<ChangeThemeDto> _changeThemeDtoValidator;
-    private readonly IWindowContentService _windowContentService;
-    private readonly SharedResourceViewModel _sharedResourceViewModel;
+    private readonly ILogger<SettingsViewModel> _logger = logger;
+    private readonly IUserService _userService = userService;
+    private readonly IValidator<ChangeNicknameDto> _changeNicknameDtoValidator = changeNicknameDtoValidator;
+    private readonly IValidator<ChangeEmailDto> _changeEmailDtoValidator = changeEmailDtoValidator;
+    private readonly IValidator<ChangePasswordDto> _changePasswordDtoValidator = changePasswordDtoValidator;
+    private readonly IValidator<ChangeThemeDto> _changeThemeDtoValidator = changeThemeDtoValidator;
+    private readonly IWindowContentService _windowContentService = windowContentService;
+    private readonly SharedResourceViewModel _sharedResourceViewModel = sharedResourceViewModel;
 
     #region Properties
 

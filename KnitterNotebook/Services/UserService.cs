@@ -15,29 +15,19 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services;
 
-public class UserService : CrudService<User>, IUserService
+public class UserService(DatabaseContext databaseContext,
+    IThemeService themeService,
+    IPasswordService passwordService,
+    ITokenService tokenService,
+    IConfiguration configuration,
+    SharedResourceViewModel sharedResourceViewModel) : CrudService<User>(databaseContext), IUserService
 {
-    private readonly DatabaseContext _databaseContext;
-    private readonly IThemeService _themeService;
-    private readonly IPasswordService _passwordService;
-    private readonly ITokenService _tokenService;
-    private readonly IConfiguration _configuration;
-    private readonly SharedResourceViewModel _sharedResourceViewModel;
-
-    public UserService(DatabaseContext databaseContext,
-        IThemeService themeService,
-        IPasswordService passwordService,
-        ITokenService tokenService,
-        IConfiguration configuration,
-        SharedResourceViewModel sharedResourceViewModel) : base(databaseContext)
-    {
-        _databaseContext = databaseContext;
-        _themeService = themeService;
-        _passwordService = passwordService;
-        _tokenService = tokenService;
-        _configuration = configuration;
-        _sharedResourceViewModel = sharedResourceViewModel;
-    }
+    private readonly DatabaseContext _databaseContext = databaseContext;
+    private readonly IThemeService _themeService = themeService;
+    private readonly IPasswordService _passwordService = passwordService;
+    private readonly ITokenService _tokenService = tokenService;
+    private readonly IConfiguration _configuration = configuration;
+    private readonly SharedResourceViewModel _sharedResourceViewModel = sharedResourceViewModel;
 
     public async Task<bool> IsNicknameTakenAsync(string nickname) => await _databaseContext.Users.AsNoTracking().AnyAsync(x => x.Nickname == nickname);
 

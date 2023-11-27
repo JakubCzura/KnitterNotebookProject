@@ -9,14 +9,9 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services;
 
-public class EmailService : IEmailService
+public class EmailService(IConfiguration configuration) : IEmailService
 {
-    public EmailService(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-
-    private readonly IConfiguration _configuration;
+    private readonly IConfiguration _configuration = configuration;
 
     public async Task SendEmailAsync(SendEmailDto sendEmailDto)
     {

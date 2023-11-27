@@ -19,16 +19,10 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services;
 
-public class ProjectService : CrudService<Project>, IProjectService
+public class ProjectService(DatabaseContext databaseContext, IUserService userService) : CrudService<Project>(databaseContext), IProjectService
 {
-    private readonly DatabaseContext _databaseContext;
-    private readonly IUserService _userService;
-
-    public ProjectService(DatabaseContext databaseContext, IUserService userService) : base(databaseContext)
-    {
-        _databaseContext = databaseContext;
-        _userService = userService;
-    }
+    private readonly DatabaseContext _databaseContext = databaseContext;
+    private readonly IUserService _userService = userService;
 
     public async Task<bool> ProjectExistsAsync(int id) => await _databaseContext.Projects.AsNoTracking().AnyAsync(x => x.Id == id);
 

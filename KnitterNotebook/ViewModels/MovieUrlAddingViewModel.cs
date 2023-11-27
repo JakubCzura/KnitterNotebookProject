@@ -16,23 +16,15 @@ namespace KnitterNotebook.ViewModels;
 /// <summary>
 /// View model for MovieUrlAddingWindow.xaml
 /// </summary>
-public partial class MovieUrlAddingViewModel : BaseViewModel
+public partial class MovieUrlAddingViewModel(ILogger<MovieUrlAddingViewModel> logger,
+    IMovieUrlService movieUrlService,
+    IValidator<CreateMovieUrlDto> createMovieUrlValidator,
+    SharedResourceViewModel sharedResourceViewModel) : BaseViewModel
 {
-    public MovieUrlAddingViewModel(ILogger<MovieUrlAddingViewModel> logger,
-        IMovieUrlService movieUrlService,
-        IValidator<CreateMovieUrlDto> createMovieUrlValidator,
-        SharedResourceViewModel sharedResourceViewModel)
-    {
-        _logger = logger;
-        _movieUrlService = movieUrlService;
-        _createMovieUrlValidator = createMovieUrlValidator;
-        _sharedResourceViewModel = sharedResourceViewModel;
-    }
-
-    private readonly ILogger<MovieUrlAddingViewModel> _logger;
-    private readonly IMovieUrlService _movieUrlService;
-    private readonly IValidator<CreateMovieUrlDto> _createMovieUrlValidator;
-    private readonly SharedResourceViewModel _sharedResourceViewModel;
+    private readonly ILogger<MovieUrlAddingViewModel> _logger = logger;
+    private readonly IMovieUrlService _movieUrlService = movieUrlService;
+    private readonly IValidator<CreateMovieUrlDto> _createMovieUrlValidator = createMovieUrlValidator;
+    private readonly SharedResourceViewModel _sharedResourceViewModel = sharedResourceViewModel;
 
     #region Events
 

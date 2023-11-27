@@ -3,18 +3,11 @@ using KnitterNotebook.Models.Enums;
 
 namespace KnitterNotebook.Models.Dtos;
 
-public class NeedleDto
+public class NeedleDto(Needle needle)
 {
-    public NeedleDto(Needle needle)
-    {
-        Id = needle.Id;
-        Size = needle.Size;
-        SizeUnit = needle.SizeUnit;
-    }
+    public int Id { get; set; } = needle.Id;
 
-    public int Id { get; set; }
+    public double Size { get; set; } = needle.Size;
 
-    public double Size { get; set; }
-
-    public NeedleSizeUnit SizeUnit { get; set; }
+    public NeedleSizeUnit SizeUnit { get; set; } = needle.SizeUnit;
 }

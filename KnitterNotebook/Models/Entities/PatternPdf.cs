@@ -1,13 +1,8 @@
 ﻿namespace KnitterNotebook.Models.Entities;
 
-public class PatternPdf : BaseDbEntity
+public class PatternPdf(string path) : BaseDbEntity
 {
-    public PatternPdf(string path)
-    {
-        Path = path;
-    }
-
-    public string Path { get; set; } = string.Empty;
+    public string Path { get; set; } = path;
 
     public virtual Project Project { get; set; } = new();
 

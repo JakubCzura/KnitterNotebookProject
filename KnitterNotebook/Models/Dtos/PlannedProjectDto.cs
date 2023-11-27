@@ -4,15 +4,9 @@ using System.Linq;
 
 namespace KnitterNotebook.Models.Dtos;
 
-public class PlannedProjectDto : BasicProjectDto
+public class PlannedProjectDto(Project project) : BasicProjectDto(project)
 {
-    public PlannedProjectDto(Project project) : base(project)
-    {
-        Needles = project.Needles.Select(x => new NeedleDto(x)).ToList();
-        Yarns = project.Yarns.Select(x => new YarnDto(x)).ToList();
-    }
+    public List<NeedleDto> Needles { get; set; } = project.Needles.Select(x => new NeedleDto(x)).ToList();
 
-    public List<NeedleDto> Needles { get; set; }
-
-    public List<YarnDto> Yarns { get; set; }
+    public List<YarnDto> Yarns { get; set; } = project.Yarns.Select(x => new YarnDto(x)).ToList();
 }

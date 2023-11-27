@@ -4,12 +4,7 @@ using System.Linq;
 
 namespace KnitterNotebook.Models.Dtos;
 
-public class ProjectInProgressDto : PlannedProjectDto
+public class ProjectInProgressDto(Project project) : PlannedProjectDto(project)
 {
-    public ProjectInProgressDto(Project project) : base(project)
-    {
-        ProjectImages = project.ProjectImages.Select(x => new ProjectImageDto(x)).ToList();
-    }
-
-    public List<ProjectImageDto> ProjectImages { get; set; }
+    public List<ProjectImageDto> ProjectImages { get; set; } = project.ProjectImages.Select(x => new ProjectImageDto(x)).ToList();
 }

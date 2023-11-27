@@ -10,20 +10,20 @@ namespace KnitterNotebook.Expressions;
 /// </summary>
 public static class ProjectExpressions
 {
-    public static readonly Expression<Func<Project, object>>[] IncludeNeedlesYarnsPattern = new Expression<Func<Project, object>>[]
-    {
+    public static readonly Expression<Func<Project, object>>[] IncludeNeedlesYarnsPattern =
+    [
         x => x.Needles,
         x => x.Yarns,
         x => x.PatternPdf!,
-    };
+    ];
 
-    public static readonly Expression<Func<Project, object>>[] IncludeNeedlesYarnsPatternImages = new Expression<Func<Project, object>>[]
-    {
+    public static readonly Expression<Func<Project, object>>[] IncludeNeedlesYarnsPatternImages =
+    [
         x => x.Needles,
         x => x.Yarns,
         x => x.PatternPdf!,
         x => x.ProjectImages,
-    };
+    ];
 
     public static Expression<Func<Project, bool>> GetUserProjectByStatus(int userId, ProjectStatusName projectStatusName)
        => p => p.UserId == userId && p.ProjectStatus == projectStatusName;

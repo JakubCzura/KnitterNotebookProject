@@ -23,23 +23,15 @@ namespace KnitterNotebook.ViewModels;
 /// <summary>
 /// View model for ProjectEditingWindow.xaml
 /// </summary>
-public partial class ProjectEditingViewModel : PlannedProjectBaseViewModel
+public partial class ProjectEditingViewModel(ILogger<ProjectEditingViewModel> logger,
+    IProjectService projectService,
+    IValidator<EditProjectDto> editPlannedProjectDtoValidator,
+    SharedResourceViewModel sharedResourceViewModel) : PlannedProjectBaseViewModel
 {
-    public ProjectEditingViewModel(ILogger<ProjectEditingViewModel> logger,
-        IProjectService projectService,
-        IValidator<EditProjectDto> editPlannedProjectDtoValidator,
-        SharedResourceViewModel sharedResourceViewModel)
-    {
-        _logger = logger;
-        _projectService = projectService;
-        _editPlannedProjectDtoValidator = editPlannedProjectDtoValidator;
-        _sharedResourceViewModel = sharedResourceViewModel;
-    }
-
-    private readonly ILogger<ProjectEditingViewModel> _logger;
-    private readonly IProjectService _projectService;
-    private readonly IValidator<EditProjectDto> _editPlannedProjectDtoValidator;
-    private readonly SharedResourceViewModel _sharedResourceViewModel;
+    private readonly ILogger<ProjectEditingViewModel> _logger = logger;
+    private readonly IProjectService _projectService = projectService;
+    private readonly IValidator<EditProjectDto> _editPlannedProjectDtoValidator = editPlannedProjectDtoValidator;
+    private readonly SharedResourceViewModel _sharedResourceViewModel = sharedResourceViewModel;
 
     private string? _originalPatternPdfPath = null;
 

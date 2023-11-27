@@ -3,18 +3,11 @@ using System;
 
 namespace KnitterNotebook.Models.Dtos;
 
-public class ProjectImageDto
+public class ProjectImageDto(ProjectImage projectImage)
 {
-    public ProjectImageDto(ProjectImage projectImage)
-    {
-        Id = projectImage.Id;
-        Path = projectImage.Path;
-        DateTime = projectImage.DateTime;
-    }
+    public int Id { get; set; } = projectImage.Id;
 
-    public int Id { get; set; }
+    public string Path { get; set; } = projectImage.Path;
 
-    public string Path { get; set; }
-
-    public DateTime DateTime { get; set; }
+    public DateTime DateTime { get; set; } = projectImage.DateTime;
 }

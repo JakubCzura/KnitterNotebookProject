@@ -17,23 +17,15 @@ namespace KnitterNotebook.ViewModels;
 /// <summary>
 /// View model for LoginWindow.xaml
 /// </summary>
-public partial class LoginViewModel : BaseViewModel
+public partial class LoginViewModel(ILogger<LoginViewModel> logger,
+    IUserService userService,
+    IValidator<LogInDto> logInDtoValidator,
+    SharedResourceViewModel sharedResourceViewModel) : BaseViewModel
 {
-    public LoginViewModel(ILogger<LoginViewModel> logger,
-        IUserService userService,
-        IValidator<LogInDto> logInDtoValidator,
-        SharedResourceViewModel sharedResourceViewModel)
-    {
-        _logger = logger;
-        _userService = userService;
-        _logInDtoValidator = logInDtoValidator;
-        _sharedResourceViewModel = sharedResourceViewModel;
-    }
-
-    private readonly ILogger<LoginViewModel> _logger;
-    private readonly IUserService _userService;
-    private readonly IValidator<LogInDto> _logInDtoValidator;
-    private readonly SharedResourceViewModel _sharedResourceViewModel;
+    private readonly ILogger<LoginViewModel> _logger = logger;
+    private readonly IUserService _userService = userService;
+    private readonly IValidator<LogInDto> _logInDtoValidator = logInDtoValidator;
+    private readonly SharedResourceViewModel _sharedResourceViewModel = sharedResourceViewModel;
 
     #region Properties
 

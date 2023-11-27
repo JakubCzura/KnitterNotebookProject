@@ -3,27 +3,17 @@ using KnitterNotebook.Models.Enums;
 
 namespace KnitterNotebook.Models.Dtos;
 
-public class BasicSampleDto
+public class BasicSampleDto(Sample sample)
 {
-    public BasicSampleDto(Sample sample)
-    {
-        Id = sample.Id;
-        YarnName = sample.YarnName;
-        LoopsQuantity = sample.LoopsQuantity;
-        RowsQuantity = sample.RowsQuantity;
-        NeedleSize = sample.NeedleSize;
-        NeedleSizeUnit = sample.NeedleSizeUnit;
-    }
+    public int Id { get; set; } = sample.Id;
 
-    public int Id { get; set; }
+    public string YarnName { get; set; } = sample.YarnName;
 
-    public string YarnName { get; set; }
+    public int LoopsQuantity { get; set; } = sample.LoopsQuantity;
 
-    public int LoopsQuantity { get; set; }
+    public int RowsQuantity { get; set; } = sample.RowsQuantity;
 
-    public int RowsQuantity { get; set; }
+    public double NeedleSize { get; set; } = sample.NeedleSize;
 
-    public double NeedleSize { get; set; }
-
-    public NeedleSizeUnit NeedleSizeUnit { get; set; }
+    public NeedleSizeUnit NeedleSizeUnit { get; set; } = sample.NeedleSizeUnit;
 }

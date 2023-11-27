@@ -3,12 +3,7 @@
 /// <summary>
 /// View model for PdfBrowserWindow.xaml
 /// </summary>
-public partial class PdfBrowserViewModel : BaseViewModel
+public partial class PdfBrowserViewModel(SharedResourceViewModel sharedResourceViewModel) : BaseViewModel
 {
-    public PdfBrowserViewModel(SharedResourceViewModel sharedResourceViewModel)
-    {
-        PdfPath = sharedResourceViewModel.PatternPdfPath;
-    }
-
-    public string? PdfPath { get; }
+    public string? PdfPath { get; } = sharedResourceViewModel.PatternPdfPath;
 }

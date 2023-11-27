@@ -14,16 +14,10 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services;
 
-public class ProjectImageService : CrudService<ProjectImage>, IProjectImageService
+public class ProjectImageService(DatabaseContext databaseContext, IUserService userService) : CrudService<ProjectImage>(databaseContext), IProjectImageService
 {
-    private readonly DatabaseContext _databaseContext;
-    private readonly IUserService _userService;
-
-    public ProjectImageService(DatabaseContext databaseContext, IUserService userService) : base(databaseContext)
-    {
-        _databaseContext = databaseContext;
-        _userService = userService;
-    }
+    private readonly DatabaseContext _databaseContext = databaseContext;
+    private readonly IUserService _userService = userService;
 
     /// <summary>
     /// Adds project's new image to database and copies image to user's folder

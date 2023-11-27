@@ -3,21 +3,13 @@ using System;
 
 namespace KnitterNotebook.Models.Dtos;
 
-public class MovieUrlDto
+public class MovieUrlDto(MovieUrl movieUrl)
 {
-    public MovieUrlDto(MovieUrl movieUrl)
-    {
-        Id = movieUrl.Id;
-        Title = movieUrl.Title;
-        Description = movieUrl.Description;
-        Link = movieUrl.Link;
-    }
+    public int Id { get; set; } = movieUrl.Id;
 
-    public int Id { get; set; }
+    public string Title { get; set; } = movieUrl.Title;
 
-    public string Title { get; set; }
+    public string? Description { get; set; } = movieUrl.Description;
 
-    public string? Description { get; set; }
-
-    public Uri Link { get; set; }
+    public Uri Link { get; set; } = movieUrl.Link;
 }

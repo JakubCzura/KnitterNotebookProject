@@ -2,15 +2,9 @@
 
 namespace KnitterNotebook.Models.Dtos;
 
-public class YarnDto
+public class YarnDto(Yarn yarn)
 {
-    public YarnDto(Yarn yarn)
-    {
-        Id = yarn.Id;
-        Name = yarn.Name;
-    }
+    public int Id { get; set; } = yarn.Id;
 
-    public int Id { get; set; }
-
-    public string Name { get; set; }
+    public string Name { get; set; } = yarn.Name;
 }

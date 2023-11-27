@@ -3,12 +3,7 @@ using System;
 
 namespace KnitterNotebook.Models.Dtos;
 
-public class FinishedProjectDto : ProjectInProgressDto
+public class FinishedProjectDto(Project project) : ProjectInProgressDto(project)
 {
-    public FinishedProjectDto(Project project) : base(project)
-    {
-        EndDate = project.EndDate;
-    }
-
-    public DateTime? EndDate { get; set; }
+    public DateTime? EndDate { get; set; } = project.EndDate;
 }

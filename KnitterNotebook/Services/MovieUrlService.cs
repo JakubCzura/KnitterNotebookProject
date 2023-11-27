@@ -10,14 +10,9 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services;
 
-public class MovieUrlService : CrudService<MovieUrl>, IMovieUrlService
+public class MovieUrlService(DatabaseContext databaseContext) : CrudService<MovieUrl>(databaseContext), IMovieUrlService
 {
-    private readonly DatabaseContext _databaseContext;
-
-    public MovieUrlService(DatabaseContext databaseContext) : base(databaseContext)
-    {
-        _databaseContext = databaseContext;
-    }
+    private readonly DatabaseContext _databaseContext = databaseContext;
 
     /// <summary>
     /// Adds new movie url to database

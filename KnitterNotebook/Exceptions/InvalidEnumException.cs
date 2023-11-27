@@ -2,9 +2,6 @@
 
 namespace KnitterNotebook.Exceptions;
 
-public class InvalidEnumException : Exception
+public class InvalidEnumException(string? message) : Exception(message)
 {
-    public InvalidEnumException(string? message) : base(message)
-    {
-    }
 }

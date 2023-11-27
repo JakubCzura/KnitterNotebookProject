@@ -13,14 +13,9 @@ using System.Windows;
 
 namespace KnitterNotebook.Services;
 
-public class ThemeService : CrudService<Theme>, IThemeService
+public class ThemeService(DatabaseContext databaseContext) : CrudService<Theme>(databaseContext), IThemeService
 {
-    private readonly DatabaseContext _databaseContext;
-
-    public ThemeService(DatabaseContext databaseContext) : base(databaseContext)
-    {
-        _databaseContext = databaseContext;
-    }
+    private readonly DatabaseContext _databaseContext = databaseContext;
 
     public async Task<bool> ThemeExistsAsync(ApplicationTheme name) => await _databaseContext.Themes.AsNoTracking().AnyAsync(x => x.Name == name);
 

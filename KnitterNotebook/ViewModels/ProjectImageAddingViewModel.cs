@@ -19,23 +19,15 @@ namespace KnitterNotebook.ViewModels;
 /// <summary>
 /// View model for ProjectImageAddingWindow.xaml
 /// </summary>
-public partial class ProjectImageAddingViewModel : BaseViewModel
+public partial class ProjectImageAddingViewModel(ILogger<ProjectImageAddingViewModel> logger,
+    IProjectImageService projectImageService,
+    IValidator<CreateProjectImageDto> createProjectImageDtoValidator,
+    SharedResourceViewModel sharedResourceViewModel) : BaseViewModel
 {
-    public ProjectImageAddingViewModel(ILogger<ProjectImageAddingViewModel> logger,
-        IProjectImageService projectImageService,
-        IValidator<CreateProjectImageDto> createProjectImageDtoValidator,
-        SharedResourceViewModel sharedResourceViewModel)
-    {
-        _logger = logger;
-        _projectImageService = projectImageService;
-        _createProjectImageDtoValidator = createProjectImageDtoValidator;
-        _sharedResourceViewModel = sharedResourceViewModel;
-    }
-
-    private readonly ILogger<ProjectImageAddingViewModel> _logger;
-    private readonly IProjectImageService _projectImageService;
-    private readonly IValidator<CreateProjectImageDto> _createProjectImageDtoValidator;
-    private readonly SharedResourceViewModel _sharedResourceViewModel;
+    private readonly ILogger<ProjectImageAddingViewModel> _logger = logger;
+    private readonly IProjectImageService _projectImageService = projectImageService;
+    private readonly IValidator<CreateProjectImageDto> _createProjectImageDtoValidator = createProjectImageDtoValidator;
+    private readonly SharedResourceViewModel _sharedResourceViewModel = sharedResourceViewModel;
 
     #region Properties
 
