@@ -22,9 +22,9 @@ The application is available in two languages (Polish and English). It uses user
 * MailKit
 * MaterialDesignThemes
 
-I started creating the project using .NET 7 and C# 12.
+I started creating the project using .NET 7 and C# 11.
 
-27.11.2023 -> update .NET 7 to .NET 8
+27.11.2023 -> update to .NET 8 and C# 12
 
 ## Presentation
 I use English version of application to present it.
