@@ -15,7 +15,7 @@ public class NeedleDtosToStringConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         => value is IEnumerable<NeedleDto> needles
-            ? string.Join("\n", needles.Select(x => $"{x.Size} {x.SizeUnit}"))
+            ? string.Join(Environment.NewLine, needles.Select(x => $"{x.Size} {x.SizeUnit}"))
             : string.Empty;
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

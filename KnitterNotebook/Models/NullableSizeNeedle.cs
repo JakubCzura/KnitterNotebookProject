@@ -9,17 +9,7 @@ public class NullableSizeNeedle
     public double? Size
     {
         get => _size;
-        set
-        {
-            if (value <= 0)
-            {
-                _size = null;
-            }
-            else
-            {
-                _size = value;
-            }
-        }
+        set => _size = value <= 0 ? null : value;
     }
 
     public NeedleSizeUnit SizeUnit { get; set; } = NeedleSizeUnit.mm;

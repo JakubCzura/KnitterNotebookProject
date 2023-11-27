@@ -15,7 +15,7 @@ public class YarnDtosToStringConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         => value is IEnumerable<YarnDto> yarns
-            ? string.Join("\n", yarns.Select(x => x.Name))
+            ? string.Join(Environment.NewLine, yarns.Select(x => x.Name))
             : string.Empty;
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
