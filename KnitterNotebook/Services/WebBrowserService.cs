@@ -13,10 +13,7 @@ public class WebBrowserService : IWebBrowserService
     /// <exception cref="ArgumentNullException">When <paramref name="link"/> is null</exception>
     public void Open(Uri link)
     {
-        if (link is null)
-        {
-            throw new ArgumentNullException(nameof(link));
-        }
+        ArgumentNullException.ThrowIfNull(link);
         Process.Start(new ProcessStartInfo(link.AbsoluteUri) { UseShellExecute = true });
     }
 }
