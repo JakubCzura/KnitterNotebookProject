@@ -4,6 +4,7 @@ using KnitterNotebook.Exceptions.Messages;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
+using KnitterNotebook.Models.Settings;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -169,10 +170,11 @@ public class UserService(DatabaseContext databaseContext,
     /// <exception cref="EntityNotFoundException">If user doesn't exist in database</exception>
     public async Task<(string, DateTime)> UpdatePasswordResetTokenAsync(string userEmail)
     {
+        TokensSettings? tokensSettings = _configuration.GetSection(TokensSettings.SectionKey).Get<TokensSettings>();
         var tokenWithExpirationDate = new
         {
             Token = _tokenService.CreateResetPasswordToken(),
-            ExpirationDate = _tokenService.CreateResetPasswordTokenExpirationDate(_configuration.GetValue("Tokens:ResetPasswordTokenExpirationDays", 1))
+            ExpirationDate = _tokenService.CreateResetPasswordTokenExpirationDate(tokensSettings?.ResetPasswordTokenExpirationDays ?? 1)
         };
 
         return await _databaseContext.Users

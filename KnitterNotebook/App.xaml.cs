@@ -38,7 +38,7 @@ public partial class App : Application
             {
                 services.AddDbContext<DatabaseContext>(options =>
                 {
-                    options.UseSqlServer(hostContext.Configuration.GetConnectionString("KnitterNotebookConnectionString"),
+                    options.UseSqlServer(hostContext.Configuration.GetConnectionString(DatabaseContext.DatabaseConnectionStringKey),
                         o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
                 });
 
