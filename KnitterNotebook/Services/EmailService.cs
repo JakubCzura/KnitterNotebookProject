@@ -1,4 +1,5 @@
 ﻿using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Settings;
 using KnitterNotebook.Services.Interfaces;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -19,13 +20,11 @@ public class EmailService(IConfiguration configuration) : IEmailService
         //It would be significant issue if I store email and password in appsettings.json in open source project
         //I used it only for learning purposes and didn't send credentials to GitHub
         //Email and password are not stored in appsettings.json so sending emails will not work when you clone this repository
-        var emailAddress = _configuration.GetValue<string>("EmailSending:Email");
-        var password = _configuration.GetValue<string>("EmailSending:Password");
-        var senderName = _configuration.GetValue<string>("EmailSending:SenderName");
+        EmailSettings emailSettings = _configuration.GetSection(EmailSettings.SectionKey).Get<EmailSettings>()!;
 
         MimeMessage email = new()
         {
-            Sender = new MailboxAddress(senderName, emailAddress)
+            Sender = new MailboxAddress(emailSettings.SenderName, emailSettings.Email)
         };
         email.To.Add(MailboxAddress.Parse(sendEmailDto.To));
         email.Subject = sendEmailDto.Subject;
@@ -33,7 +32,7 @@ public class EmailService(IConfiguration configuration) : IEmailService
 
         using SmtpClient smtp = new();
         smtp.Connect("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
-        smtp.Authenticate(emailAddress, password);
+        smtp.Authenticate(emailSettings.Email, emailSettings.Password);
         await smtp.SendAsync(email);
         smtp.Disconnect(true);
     }
