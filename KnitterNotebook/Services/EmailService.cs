@@ -31,9 +31,9 @@ public class EmailService(IConfiguration configuration) : IEmailService
         email.Body = new TextPart(TextFormat.Html) { Text = sendEmailDto.Body };
 
         using SmtpClient smtp = new();
-        smtp.Connect("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
-        smtp.Authenticate(emailSettings.Email, emailSettings.Password);
+        await smtp.ConnectAsync("smtp-mail.outlook.com", 587, SecureSocketOptions.StartTls);
+        await smtp.AuthenticateAsync(emailSettings.Email, emailSettings.Password);
         await smtp.SendAsync(email);
-        smtp.Disconnect(true);
+        await smtp.DisconnectAsync(true);
     }
 }
