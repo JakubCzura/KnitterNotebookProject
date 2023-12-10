@@ -17,9 +17,8 @@ public class EmailService(IConfiguration configuration) : IEmailService
     public async Task SendEmailAsync(SendEmailDto sendEmailDto)
     {
         //Important!
-        //It would be significant issue if I store email and password in appsettings.json in open source project
-        //I used it only for learning purposes and didn't send credentials to GitHub
-        //Email and password are not stored in appsettings.json so sending emails will not work when you clone this repository
+        //Due to security concern I didn't send email account credentials to GitHub so sending emails will not work when you clone this repository
+        //I give the credentials only to people who I have created the application for
         EmailSettings emailSettings = _configuration.GetSection(EmailSettings.SectionKey).Get<EmailSettings>()!;
         SmtpSettings smtpSettings = _configuration.GetSection(SmtpSettings.SectionKey).Get<SmtpSettings>()!;
 
