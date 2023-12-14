@@ -2,7 +2,6 @@
 using KnitterNotebook.Models.Settings;
 using KnitterNotebook.Services.Interfaces;
 using MailKit.Net.Smtp;
-using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using MimeKit.Text;
