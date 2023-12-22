@@ -5,9 +5,9 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnitterNotebook", "KnitterNotebook\KnitterNotebook.csproj", "{290EE488-1595-4E4A-BC01-43BA7829B802}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnitterNotebook.UnitTests", "KnitterNotebook.UnitTests\KnitterNotebook.UnitTests.csproj", "{69DFC5D6-3D5A-4A3F-ACD9-0FCDEE089452}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnitterNotebook.UnitTests", "KnitterNotebook.UnitTests\KnitterNotebook.UnitTests.csproj", "{69DFC5D6-3D5A-4A3F-ACD9-0FCDEE089452}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnitterNotebook.IntegrationTests", "KnitterNotebook.IntegrationTests\KnitterNotebook.IntegrationTests.csproj", "{ECFB085D-1DE3-4ACD-936F-2C4B43B77B23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnitterNotebook.IntegrationTests", "KnitterNotebook.IntegrationTests\KnitterNotebook.IntegrationTests.csproj", "{ECFB085D-1DE3-4ACD-936F-2C4B43B77B23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
