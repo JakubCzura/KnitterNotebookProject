@@ -177,6 +177,15 @@ public class ProjectService(DatabaseContext databaseContext, IUserService userSe
     }
 
     /// <summary>
+    /// Updates user's planned projects status to InProgress if projects' start date is today or earlier
+    /// </summary>
+    /// <param name="userId">User's id</param>
+    /// <returns>The total number of rows updated in the database</returns>
+    public async Task<int> ChangeUserPlannedProjectsToProjectsInProgressDueToDate(int userId)
+        => await _databaseContext.Projects.Where(x => x.UserId == userId && x.ProjectStatus == ProjectStatusName.Planned && x.StartDate.HasValue && x.StartDate.Value.CompareTo(DateTime.Today) <= 0)
+                                 .ExecuteUpdateAsync(x => x.SetProperty(y => y.ProjectStatus, ProjectStatusName.InProgress));
+
+    /// <summary>
     /// Edits project and saves it to database
     /// </summary>
     /// <param name="editProjectDto">Data to edit</param>

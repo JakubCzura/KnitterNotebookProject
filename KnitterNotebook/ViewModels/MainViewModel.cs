@@ -287,6 +287,7 @@ public partial class MainViewModel : BaseViewModel
             User = await _userService.GetAsync(_sharedResourceViewModel.UserId)
                 ?? throw new EntityNotFoundException(ExceptionsMessages.UserWithIdNotFound(_sharedResourceViewModel.UserId));
 
+            await _projectService.ChangeUserPlannedProjectsToProjectsInProgressDueToDate(User.Id);
             MovieUrls = (await _movieUrlService.GetUserMovieUrlsAsync(User.Id)).ToObservableCollection();
             Samples = (await _sampleService.GetUserSamplesAsync(User.Id)).ToObservableCollection();
             PlannedProjects = (await _projectService.GetUserPlannedProjectsAsync(User.Id)).ToObservableCollection();
