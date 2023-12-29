@@ -381,6 +381,33 @@ public class ProjectServiceTests
     }
 
     [Fact]
+    public async Task ChangeUserPlannedProjectsToProjectsInProgressDueToDate_ForNotExistingUser_Returns0()
+    {
+        //Arrange
+        int userId = 99999;
+
+        //Act
+        int result = await _projectService.ChangeUserPlannedProjectsToProjectsInProgressDueToDate(userId);
+
+        //Assert
+        result.Should().Be(0);
+    }
+
+    [Fact]
+    public async Task ChangeUserPlannedProjectsToProjectsInProgressDueToDate_ForValidData_ChangesProjectsStatuses()
+    {
+        //Arrange
+        //There is one planned project with matching start date in database inserted in SeedData() method
+        int userId = 1;
+
+        //Act
+        int result = await _projectService.ChangeUserPlannedProjectsToProjectsInProgressDueToDate(userId);
+
+        //Assert
+        result.Should().Be(1);
+    }
+
+    [Fact]
     public async Task EditProjectAsync_ForValidData_EditsProject()
     {
         //Arrange
