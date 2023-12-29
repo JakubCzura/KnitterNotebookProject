@@ -16,4 +16,14 @@ public class DatabaseHelper
     /// <returns>Instance of DatabaseContext for integration tests</returns>
     public static DatabaseContext CreateDatabaseContext()
         => new(new DbContextOptionsBuilder<DatabaseContext>().UseSqlServer(ConnectionString).Options);
+
+    /// <summary>
+    /// Creates a new empty database for the integration tests
+    /// </summary>
+    /// <param name="databaseContext">DatabaseContext with details to create database</param>
+    public static void CreateEmptyDatabase(DatabaseContext databaseContext)
+    {
+        databaseContext.Database.EnsureDeleted();
+        databaseContext.Database.Migrate();
+    }
 }

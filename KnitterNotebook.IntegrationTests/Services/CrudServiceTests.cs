@@ -4,7 +4,6 @@ using KnitterNotebook.IntegrationTests.HelpersForTesting;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebook.IntegrationTests.Services;
 
@@ -16,8 +15,7 @@ public class CrudServiceTests
     public CrudServiceTests()
     {
         _crudService = new(_databaseContext);
-        _databaseContext.Database.EnsureDeleted();
-        _databaseContext.Database.Migrate();
+        DatabaseHelper.CreateEmptyDatabase(_databaseContext);
         SeedUsers();
     }
 
@@ -25,9 +23,9 @@ public class CrudServiceTests
     {
         List<Theme> themes =
         [
-            new(){ Name = ApplicationTheme.Default },
-            new(){ Name = ApplicationTheme.Light },
-            new(){ Name = ApplicationTheme.Dark }
+            new() { Name = ApplicationTheme.Default },
+            new() { Name = ApplicationTheme.Light },
+            new() { Name = ApplicationTheme.Dark }
         ];
         _databaseContext.Themes.AddRange(themes);
 

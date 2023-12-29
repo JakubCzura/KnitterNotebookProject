@@ -7,7 +7,6 @@ using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
@@ -28,8 +27,7 @@ public class ProjectImageServiceTests
     {
         _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _configurationMock.Object, _sharedResourceViewModelMock.Object);
         _projectImageService = new(_databaseContext, _userService);
-        _databaseContext.Database.EnsureDeleted();
-        _databaseContext.Database.Migrate();
+        DatabaseHelper.CreateEmptyDatabase(_databaseContext);
         SeedData();
     }
 
@@ -42,18 +40,28 @@ public class ProjectImageServiceTests
             Password = "Password123",
             Projects =
             [
-                new() { Name = "Project1", Description = "Description1", ProjectImages =
+                new()
+                {
+                    Name = "Project1",
+                    Description = "Description1",
+                    ProjectImages =
                 [
-                    new(){ Path = @"c:\computer\test1.jpg" },
-                    new(){ Path = @"c:\computer\test2.jpg" },
-                    new(){ Path = @"c:\computer\test3.jpg" },
-                ] },
-                new() { Name = "Project2", Description = "Description2", ProjectImages =
+                    new() { Path = @"c:\computer\test1.jpg" },
+                    new() { Path = @"c:\computer\test2.jpg" },
+                    new() { Path = @"c:\computer\test3.jpg" },
+                ]
+                },
+                new()
+                {
+                    Name = "Project2",
+                    Description = "Description2",
+                    ProjectImages =
                 [
-                    new(){ Path = @"c:\computer\test4.jpg" },
-                    new(){ Path = @"c:\computer\test5.jpg" },
-                    new(){ Path = @"c:\computer\test6.jpg" },
-                ] }
+                    new() { Path = @"c:\computer\test4.jpg" },
+                    new() { Path = @"c:\computer\test5.jpg" },
+                    new() { Path = @"c:\computer\test6.jpg" },
+                ]
+                }
             ],
             ThemeId = 1
         };

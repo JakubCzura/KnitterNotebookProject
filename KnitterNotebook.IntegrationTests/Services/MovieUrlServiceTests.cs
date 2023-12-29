@@ -4,7 +4,6 @@ using KnitterNotebook.IntegrationTests.HelpersForTesting;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace KnitterNotebook.IntegrationTests.Services;
 
@@ -16,8 +15,7 @@ public class MovieUrlServiceTests
     public MovieUrlServiceTests()
     {
         _movieUrlService = new(_databaseContext);
-        _databaseContext.Database.EnsureDeleted();
-        _databaseContext.Database.Migrate();
+        DatabaseHelper.CreateEmptyDatabase(_databaseContext);
         SeedMovieUrls();
     }
 

@@ -9,7 +9,6 @@ using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
@@ -30,8 +29,7 @@ public class SampleServiceTests
     {
         _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _configurationMock.Object, _sharedResourceViewModelMock.Object);
         _sampleService = new(_databaseContext, _userService);
-        _databaseContext.Database.EnsureDeleted();
-        _databaseContext.Database.Migrate();
+        DatabaseHelper.CreateEmptyDatabase(_databaseContext);
         SeedData();
     }
 
