@@ -59,7 +59,7 @@ public class MovieUrlServiceTests
     [Fact]
     public async Task CreateAsync_ForValidData_CreatesNewMovieUrl()
     {
-        //Assert
+        //Arrange
         CreateMovieUrlDto createMovieUrl = new("sample title 6", "http://testlink6.com", "description 6", 1);
 
         //Act
@@ -72,7 +72,7 @@ public class MovieUrlServiceTests
     [Fact]
     public async Task CreateAsync_ForInvalidLink_ThrowsUriFormatException()
     {
-        //Assert
+        //Arrange
         CreateMovieUrlDto createMovieUrl = new("sample title 6", "testlink6.com", "description 6", 1);
 
         //Act
@@ -85,7 +85,7 @@ public class MovieUrlServiceTests
     [Fact]
     public async Task CreateAsync_ForNullData_ThrowsNullReferenceException()
     {
-        //Assert
+        //Arrange
         CreateMovieUrlDto createMovieUrl = null!;
 
         //Act
@@ -109,7 +109,7 @@ public class MovieUrlServiceTests
     [Fact]
     public async Task GetUserMovieUrlsAsync_ForNotExistingUser_ReturnsEmptyList()
     {
-        //Assert
+        //Arrange
         int userId = 999;
 
         //Act

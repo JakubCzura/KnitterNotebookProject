@@ -8,12 +8,12 @@ public class DatabaseHelper
     /// <summary>
     /// Connection string for the database used in integration tests
     /// </summary>
-    private static string ConnectionString => $"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=KnitterNotebookDbIntegrationTests;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    private static string ConnectionString => $"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=KnitterNotebookDbIntegrationTests;Integrated Security=True;";
 
+    /// <summary>
+    /// Creates a new database context for the integration tests
+    /// </summary>
+    /// <returns>Instance of DatabaseContext for integration tests</returns>
     public static DatabaseContext CreateDatabaseContext()
-    {
-        DbContextOptionsBuilder<DatabaseContext> builder = new();
-        builder.UseSqlServer(ConnectionString);
-        return new DatabaseContext(builder.Options);
-    }
+        => new(new DbContextOptionsBuilder<DatabaseContext>().UseSqlServer(ConnectionString).Options);
 }
