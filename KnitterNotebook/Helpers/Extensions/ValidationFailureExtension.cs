@@ -12,5 +12,6 @@ public static class ValidationFailureExtension
     /// </summary>
     /// <param name="validationFailures">Errors of validation</param>
     /// <returns>Errors' messages as string</returns>
-    public static string GetMessagesAsString(this IEnumerable<ValidationFailure> validationFailures) => string.Join(Environment.NewLine, validationFailures.Select(x => x.ErrorMessage));
+    public static string GetMessagesAsString(this IEnumerable<ValidationFailure> validationFailures) 
+        => string.Join(Environment.NewLine, validationFailures.Select(x => x.ErrorMessage));
 }

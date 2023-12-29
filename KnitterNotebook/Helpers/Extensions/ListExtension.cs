@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace KnitterNotebook.Helpers.Extensions;
@@ -12,11 +13,7 @@ public static class ListExtension
     /// <param name="item">Item to add</param>
     public static void AddIfNotNullOrEmpty(this List<string> list, string? item)
     {
-        if (list is null)
-        {
-            return;
-        }
-        if (!string.IsNullOrEmpty(item))
+        if (list is not null && !string.IsNullOrEmpty(item))
         {
             list.Add(item);
         }
