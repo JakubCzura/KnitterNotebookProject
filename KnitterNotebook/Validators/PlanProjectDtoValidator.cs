@@ -21,11 +21,6 @@ public class PlanProjectDtoValidator : AbstractValidator<PlanProjectDto>
             .MaximumLength(100)
             .WithMessage($"{Translations.ProjectNameMaxChars} 100 {Translations.characters}");
 
-        //StartDate can be null, but if it's not null it must be greater or equal today
-        RuleFor(dto => dto.StartDate)
-            .Must(x => !x.HasValue || x.Value.Date.CompareTo(DateTime.Today) >= 0)
-            .WithMessage(Translations.ProjectStartDateValidOrEmpty);
-
         RuleFor(dto => dto.Needles)
             .Must(x => x is not null && x.Any())
             .WithMessage(Translations.NeedleCollectionCantBeEmpty)

@@ -101,19 +101,6 @@ public class PlanProjectDtoValidatorTests
         validationResult.ShouldHaveValidationErrorFor(x => x.Name);
     }
 
-    [Fact]
-    public async Task ValidateAsync_ForInvalidStartDate_FailValidation()
-    {
-        //Arrange
-        PlanProjectDto planProjectDto = new("Name", DateTime.Today.AddDays(-1), Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, null, 1);
-
-        //Act
-        TestValidationResult<PlanProjectDto> validationResult = await _validator.TestValidateAsync(planProjectDto);
-
-        //Assert
-        validationResult.ShouldHaveValidationErrorFor(x => x.StartDate);
-    }
-
     public static IEnumerable<object[]> InvalidNeedlesData()
     {
         yield return new object[] { null! };
