@@ -12,22 +12,22 @@ public class NullableSizeNeedlesFilterTests
         {
             new NullableSizeNeedle[]
             {
-                new NullableSizeNeedle() { Size = 1 },
-                new NullableSizeNeedle() { Size = 1.2 },
-                new NullableSizeNeedle() { Size = null },
-                new NullableSizeNeedle() { Size = 0 },
-                new NullableSizeNeedle() { Size = -1 },
-                new NullableSizeNeedle() { Size = 1.2 },
-                new NullableSizeNeedle() { Size = 3.21 },
-                new NullableSizeNeedle() { Size = 5.21 },
+                new() { Size = 1 },
+                new() { Size = 1.2 },
+                new() { Size = null },
+                new() { Size = 0 },
+                new() { Size = -1 },
+                new() { Size = 1.2 },
+                new() { Size = 3.21 },
+                new() { Size = 5.21 },
             },
             new NullableSizeNeedle[]
             {
-                new NullableSizeNeedle() { Size = 1 },
-                new NullableSizeNeedle() { Size = 1.2 },
-                new NullableSizeNeedle() { Size = 1.2 },
-                new NullableSizeNeedle() { Size = 3.21 },
-                new NullableSizeNeedle() { Size = 5.21 },
+                new() { Size = 1 },
+                new() { Size = 1.2 },
+                new() { Size = 1.2 },
+                new() { Size = 3.21 },
+                new() { Size = 5.21 },
             },
         };
     }

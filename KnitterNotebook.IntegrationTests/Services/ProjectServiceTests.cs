@@ -148,7 +148,7 @@ public class ProjectServiceTests
         PlanProjectDto dto = new("Project",
                                 DateTime.Today,
                                 new List<CreateNeedleDto>() { new(2.5, NeedleSizeUnit.mm) },
-                                new List<CreateYarnDto>() { new CreateYarnDto("SampleYarn1") },
+                                new List<CreateYarnDto>() { new("SampleYarn1") },
                                 "Description",
                                 path,
                                 1);
@@ -171,7 +171,7 @@ public class ProjectServiceTests
         PlanProjectDto dto = new("Project",
                                 DateTime.Today,
                                 new List<CreateNeedleDto>() { new(2.5, NeedleSizeUnit.mm) },
-                                new List<CreateYarnDto>() { new CreateYarnDto("SampleYarn1") },
+                                new List<CreateYarnDto>() { new("SampleYarn1") },
                                 "Description",
                                 null,
                                 1);

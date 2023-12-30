@@ -50,24 +50,24 @@ public class PlanProjectDtoValidatorTests
         yield return new object[] { new PlanProjectDto(
                                     "Knitting project",
                                     null,
-                                    new List<CreateNeedleDto>(){ new CreateNeedleDto(2.5, NeedleSizeUnit.mm) },
-                                    new List<CreateYarnDto>(){ new CreateYarnDto("My favourite yarn") },
+                                    new List<CreateNeedleDto>(){ new(2.5, NeedleSizeUnit.mm) },
+                                    new List<CreateYarnDto>(){ new("My favourite yarn") },
                                     "Sample description",
                                     null,
                                     1) };
         yield return new object[] { new PlanProjectDto(
                                     "My project",
                                     DateTime.Today,
-                                    new List<CreateNeedleDto>(){ new CreateNeedleDto(1, NeedleSizeUnit.cm), new CreateNeedleDto (2, NeedleSizeUnit.mm)},
-                                    new List<CreateYarnDto>(){ new CreateYarnDto("Cotton yarn") },
+                                    new List<CreateNeedleDto>(){ new(1, NeedleSizeUnit.cm), new(2, NeedleSizeUnit.mm)},
+                                    new List<CreateYarnDto>(){ new("Cotton yarn") },
                                     null,
                                     null,
                                     1) };
         yield return new object[] { new PlanProjectDto(
                                     "Sample project",
                                     DateTime.Today.AddDays(2),
-                                    new List<CreateNeedleDto>(){ new CreateNeedleDto(4, NeedleSizeUnit.cm) },
-                                    new List<CreateYarnDto>(){ new CreateYarnDto("Woolen yarn") },
+                                    new List<CreateNeedleDto>(){ new(4, NeedleSizeUnit.cm) },
+                                    new List<CreateYarnDto>(){ new("Woolen yarn") },
                                     "Description of my project",
                                     @"c:\users\user\files\projectPattern.pdf",
                                     2) };

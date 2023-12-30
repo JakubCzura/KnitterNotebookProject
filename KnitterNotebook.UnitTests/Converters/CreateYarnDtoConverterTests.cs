@@ -8,10 +8,10 @@ public class CreateYarnDtoConverterTests
 {
     public static IEnumerable<object[]> ValidData()
     {
-        yield return new object[] { "yarn1, yarn2, yarn3", ',', new List<CreateYarnDto>() { new CreateYarnDto("yarn1"), new CreateYarnDto("yarn2"), new CreateYarnDto("yarn3") } };
-        yield return new object[] { "yarn1 , yarn2 , yarn3 ", ',', new List<CreateYarnDto>() { new CreateYarnDto("yarn1"), new CreateYarnDto("yarn2"), new CreateYarnDto("yarn3") } };
-        yield return new object[] { " yarn1 ;    yarn2;  yarn3     ", ';', new List<CreateYarnDto>() { new CreateYarnDto("yarn1"), new CreateYarnDto("yarn2"), new CreateYarnDto("yarn3") } };
-        yield return new object[] { "yarn1    -    yarn2-yarn3", '-', new List<CreateYarnDto>() { new CreateYarnDto("yarn1"), new CreateYarnDto("yarn2"), new CreateYarnDto("yarn3") } };
+        yield return new object[] { "yarn1, yarn2, yarn3", ',', new List<CreateYarnDto>() { new("yarn1"), new("yarn2"), new("yarn3") } };
+        yield return new object[] { "yarn1 , yarn2 , yarn3 ", ',', new List<CreateYarnDto>() { new("yarn1"), new("yarn2"), new("yarn3") } };
+        yield return new object[] { " yarn1 ;    yarn2;  yarn3     ", ';', new List<CreateYarnDto>() { new("yarn1"), new("yarn2"), new("yarn3") } };
+        yield return new object[] { "yarn1    -    yarn2-yarn3", '-', new List<CreateYarnDto>() { new("yarn1"), new("yarn2"), new("yarn3") } };
     }
 
     [Theory]

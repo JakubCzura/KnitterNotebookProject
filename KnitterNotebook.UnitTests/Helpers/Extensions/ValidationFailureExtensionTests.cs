@@ -8,8 +8,8 @@ public class ValidationFailureExtensionTests
 {
     public static IEnumerable<object[]> ValidData()
     {
-        yield return new object[] { new List<ValidationFailure> { new ValidationFailure("propertyName", "message") }, "message" };
-        yield return new object[] { new List<ValidationFailure> { new ValidationFailure("propertyName", "message1"), new ValidationFailure("propertyName", "message2") }, $"message1{Environment.NewLine}message2" };
+        yield return new object[] { new List<ValidationFailure> { new("propertyName", "message") }, "message" };
+        yield return new object[] { new List<ValidationFailure> { new("propertyName", "message1"), new("propertyName", "message2") }, $"message1{Environment.NewLine}message2" };
     }
 
     [Theory]
