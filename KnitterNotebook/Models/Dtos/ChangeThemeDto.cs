@@ -2,4 +2,5 @@
 
 namespace KnitterNotebook.Models.Dtos;
 
-public record ChangeThemeDto(int UserId, ApplicationTheme ThemeName);
+public record ChangeThemeDto(int UserId,
+                             ApplicationTheme ThemeName);

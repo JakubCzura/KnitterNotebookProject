@@ -2,4 +2,5 @@
 
 namespace KnitterNotebook.Models.Dtos;
 
-public record CreateNeedleDto(double Size, NeedleSizeUnit SizeUnit);
+public record CreateNeedleDto(double Size,
+                              NeedleSizeUnit SizeUnit);
