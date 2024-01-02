@@ -18,8 +18,8 @@ namespace KnitterNotebook.ViewModels;
 /// View model for RegistrationWindow.xaml
 /// </summary>
 public partial class RegistrationViewModel(ILogger<RegistrationViewModel> logger,
-    IUserService userService,
-    IValidator<RegisterUserDto> registerUserDtoValidator) : BaseViewModel
+                                           IUserService userService,
+                                           IValidator<RegisterUserDto> registerUserDtoValidator) : BaseViewModel
 {
     private readonly ILogger<RegistrationViewModel> _logger = logger;
     private readonly IUserService _userService = userService;

@@ -30,16 +30,16 @@ namespace KnitterNotebook.ViewModels;
 public partial class MainViewModel : BaseViewModel
 {
     public MainViewModel(ILogger<MainViewModel> logger,
-        IMovieUrlService movieUrlService,
-        ISampleService sampleService,
-        IUserService userService,
-        IProjectService projectService,
-        IWindowContentService windowContentService,
-        IThemeService themeService,
-        IWebBrowserService webBrowserService,
-        IProjectImageService projectImageService,
-        SharedResourceViewModel sharedResourceViewModel,
-        IValidator<ChangeProjectStatusDto> changeProjectStatusDtoValidator)
+                         IMovieUrlService movieUrlService,
+                         ISampleService sampleService,
+                         IUserService userService,
+                         IProjectService projectService,
+                         IWindowContentService windowContentService,
+                         IThemeService themeService,
+                         IWebBrowserService webBrowserService,
+                         IProjectImageService projectImageService,
+                         SharedResourceViewModel sharedResourceViewModel,
+                         IValidator<ChangeProjectStatusDto> changeProjectStatusDtoValidator)
     {
         _logger = logger;
         _movieUrlService = movieUrlService;

@@ -20,13 +20,13 @@ namespace KnitterNotebook.ViewModels;
 /// View model for SettingsWindow.xaml
 /// </summary>
 public partial class SettingsViewModel(ILogger<SettingsViewModel> logger,
-    IUserService userService,
-    IValidator<ChangeNicknameDto> changeNicknameDtoValidator,
-    IValidator<ChangeEmailDto> changeEmailDtoValidator,
-    IValidator<ChangePasswordDto> changePasswordDtoValidator,
-    IValidator<ChangeThemeDto> changeThemeDtoValidator,
-    IWindowContentService windowContentService,
-    SharedResourceViewModel sharedResourceViewModel) : BaseViewModel
+                                       IUserService userService,
+                                       IValidator<ChangeNicknameDto> changeNicknameDtoValidator,
+                                       IValidator<ChangeEmailDto> changeEmailDtoValidator,
+                                       IValidator<ChangePasswordDto> changePasswordDtoValidator,
+                                       IValidator<ChangeThemeDto> changeThemeDtoValidator,
+                                       IWindowContentService windowContentService,
+                                       SharedResourceViewModel sharedResourceViewModel) : BaseViewModel
 {
     private readonly ILogger<SettingsViewModel> _logger = logger;
     private readonly IUserService _userService = userService;

@@ -21,9 +21,9 @@ namespace KnitterNotebook.ViewModels;
 /// View model for SampleAddingWindow.xaml
 /// </summary>
 public partial class SampleAddingViewModel(ILogger<SampleAddingViewModel> logger,
-    ISampleService sampleService,
-    IValidator<CreateSampleDto> createSampleDtoValidator,
-    SharedResourceViewModel sharedResourceViewModel) : BaseViewModel
+                                           ISampleService sampleService,
+                                           IValidator<CreateSampleDto> createSampleDtoValidator,
+                                           SharedResourceViewModel sharedResourceViewModel) : BaseViewModel
 {
     private readonly ILogger<SampleAddingViewModel> _logger = logger;
     private readonly ISampleService _sampleService = sampleService;

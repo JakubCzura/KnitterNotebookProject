@@ -24,9 +24,9 @@ namespace KnitterNotebook.ViewModels;
 /// View model for ProjectEditingWindow.xaml
 /// </summary>
 public partial class ProjectEditingViewModel(ILogger<ProjectEditingViewModel> logger,
-    IProjectService projectService,
-    IValidator<EditProjectDto> editPlannedProjectDtoValidator,
-    SharedResourceViewModel sharedResourceViewModel) : PlannedProjectBaseViewModel
+                                             IProjectService projectService,
+                                             IValidator<EditProjectDto> editPlannedProjectDtoValidator,
+                                             SharedResourceViewModel sharedResourceViewModel) : PlannedProjectBaseViewModel
 {
     private readonly ILogger<ProjectEditingViewModel> _logger = logger;
     private readonly IProjectService _projectService = projectService;

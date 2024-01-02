@@ -18,9 +18,9 @@ namespace KnitterNotebook.ViewModels;
 /// View model for LoginWindow.xaml
 /// </summary>
 public partial class LoginViewModel(ILogger<LoginViewModel> logger,
-    IUserService userService,
-    IValidator<LogInDto> logInDtoValidator,
-    SharedResourceViewModel sharedResourceViewModel) : BaseViewModel
+                                    IUserService userService,
+                                    IValidator<LogInDto> logInDtoValidator,
+                                    SharedResourceViewModel sharedResourceViewModel) : BaseViewModel
 {
     private readonly ILogger<LoginViewModel> _logger = logger;
     private readonly IUserService _userService = userService;
