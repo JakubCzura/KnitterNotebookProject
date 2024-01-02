@@ -69,54 +69,82 @@ public static class ModelBuilderExtension
 
         modelBuilder.Entity<MovieUrl>(movieUrl =>
         {
-            movieUrl.Property(x => x.Title)
+            movieUrl.Property(movieUrl => movieUrl.Title)
                     .IsRequired()
                     .HasMaxLength(100);
 
-            movieUrl.Property(x => x.Link)
+            movieUrl.Property(movieUrl => movieUrl.Link)
                     .IsRequired();
 
-            movieUrl.Property(x => x.Description)
+            movieUrl.Property(movieUrl => movieUrl.Description)
                     .HasMaxLength(100);
         });
 
-        modelBuilder.Entity<Sample>(m =>
+        modelBuilder.Entity<Sample>(sample =>
         {
-            m.Property(x => x.YarnName).IsRequired().HasMaxLength(200);
-            m.Property(x => x.LoopsQuantity).IsRequired().HasMaxLength(100000);
-            m.Property(x => x.RowsQuantity).IsRequired().HasMaxLength(100000);
-            m.Property(x => x.NeedleSize).IsRequired().HasMaxLength(100);
-            m.Property(x => x.Description).HasMaxLength(1000);
-            m.Property(x => x.NeedleSizeUnit).IsRequired().HasConversion<string>();
-            m.HasOne(x => x.Image)
-             .WithOne(c => c.Sample);
+            sample.Property(sample => sample.YarnName)
+                  .IsRequired()
+                  .HasMaxLength(200);
+            
+            sample.Property(sample => sample.LoopsQuantity)
+                  .IsRequired()
+                  .HasMaxLength(100000);
+            
+            sample.Property(sample => sample.RowsQuantity)
+                  .IsRequired()
+                  .HasMaxLength(100000);
+           
+            sample.Property(sample => sample.NeedleSize)
+                  .IsRequired()
+                  .HasMaxLength(100);
+           
+            sample.Property(sample => sample.Description)
+                  .HasMaxLength(1000);
+           
+            sample.Property(sample => sample.NeedleSizeUnit)
+                  .IsRequired()
+                  .HasConversion<string>();
+           
+            sample.HasOne(sample => sample.Image)
+                  .WithOne(sampleImage => sampleImage.Sample);
         });
 
-        modelBuilder.Entity<SampleImage>(m =>
+        modelBuilder.Entity<SampleImage>(sampleImage =>
         {
-            m.Property(x => x.Path).IsRequired();
+            sampleImage.Property(sampleImage => sampleImage.Path)
+                       .IsRequired();
         });
 
-        modelBuilder.Entity<ProjectImage>(m =>
+        modelBuilder.Entity<ProjectImage>(projectImage =>
         {
-            m.Property(x => x.DateTime).IsRequired();
-            m.Property(x => x.Path).IsRequired();
+            projectImage.Property(projectImage => projectImage.DateTime)
+                        .IsRequired();
+
+            projectImage.Property(projectImage => projectImage.Path)
+                        .IsRequired();
         });
 
-        modelBuilder.Entity<PatternPdf>(m =>
+        modelBuilder.Entity<PatternPdf>(patternPdf =>
         {
-            m.Property(x => x.Path).IsRequired();
+            patternPdf.Property(patternPdf => patternPdf.Path)
+                      .IsRequired();
         });
 
-        modelBuilder.Entity<Needle>(m =>
+        modelBuilder.Entity<Needle>(needle =>
         {
-            m.Property(x => x.Size).IsRequired().HasMaxLength(100);
-            m.Property(x => x.SizeUnit).IsRequired();
+            needle.Property(needle => needle.Size)
+                  .IsRequired()
+                  .HasMaxLength(100);
+
+            needle.Property(needle => needle.SizeUnit)
+                  .IsRequired();
         });
 
-        modelBuilder.Entity<Yarn>(m =>
+        modelBuilder.Entity<Yarn>(yarn =>
         {
-            m.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            yarn.Property(yarn => yarn.Name)
+                .IsRequired()
+                .HasMaxLength(100);
         });
 
         return modelBuilder;
