@@ -8,50 +8,76 @@ public static class ModelBuilderExtension
 {
     public static ModelBuilder ConfigureDatabaseEntities(this ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>(u =>
+        modelBuilder.Entity<User>(user =>
         {
-            u.Property(x => x.Password).IsRequired();
-            u.Property(x => x.Email).IsRequired();
-            u.Property(x => x.Nickname).IsRequired().HasMaxLength(50);
+            user.Property(user => user.Password)
+                .IsRequired();
+           
+            user.Property(user => user.Email)
+                .IsRequired();
+            
+            user.Property(user => user.Nickname)
+                .IsRequired()
+                .HasMaxLength(50);
 
-            u.HasMany(x => x.Projects).WithOne().HasForeignKey(p => p.UserId);
+            user.HasMany(user => user.Projects)
+                .WithOne()
+                .HasForeignKey(project => project.UserId);
 
-            u.HasMany(x => x.MovieUrls).WithOne().HasForeignKey(p => p.UserId);
+            user.HasMany(user => user.MovieUrls)
+                .WithOne()
+                .HasForeignKey(movieUrl => movieUrl.UserId);
 
-            u.HasMany(x => x.Samples).WithOne().HasForeignKey(p => p.UserId);
+            user.HasMany(user => user.Samples)
+                .WithOne()
+                .HasForeignKey(sample => sample.UserId);
         });
 
-        modelBuilder.Entity<Theme>(t =>
+        modelBuilder.Entity<Theme>(theme =>
         {
-            t.HasMany(x => x.Users)
-             .WithOne(c => c.Theme)
-             .OnDelete(DeleteBehavior.NoAction);
-            t.Property(x => x.Name).IsRequired().HasConversion<string>();
-            t.HasData(new Theme() { Id = 1, Name = ApplicationTheme.Default },
-                      new Theme() { Id = 2, Name = ApplicationTheme.Light },
-                      new Theme() { Id = 3, Name = ApplicationTheme.Dark });
+            theme.HasMany(theme => theme.Users)
+                 .WithOne(user => user.Theme)
+                 .OnDelete(DeleteBehavior.NoAction);
+
+            theme.Property(theme => theme.Name)
+                 .IsRequired()
+                 .HasConversion<string>();
+             
+            theme.HasData(new Theme() { Id = 1, Name = ApplicationTheme.Default },
+                          new Theme() { Id = 2, Name = ApplicationTheme.Light },
+                          new Theme() { Id = 3, Name = ApplicationTheme.Dark });
         });
 
-        modelBuilder.Entity<Project>(p =>
+        modelBuilder.Entity<Project>(project =>
         {
-            p.Property(x => x.Name).IsRequired().HasMaxLength(100);
-            p.Property(x => x.Description).HasMaxLength(300);
+            project.Property(project => project.Name)
+                   .IsRequired()
+                   .HasMaxLength(100);
 
-            p.HasMany(x => x.Yarns)
-             .WithOne(c => c.Project);
+            project.Property(project => project.Description)
+                   .HasMaxLength(300);
 
-            p.HasMany(x => x.Needles)
-             .WithOne(c => c.Project);
+            project.HasMany(project => project.Yarns)
+                   .WithOne(yarn => yarn.Project);
 
-            p.HasOne(x => x.PatternPdf)
-             .WithOne(c => c.Project);
+            project.HasMany(project => project.Needles)
+                   .WithOne(needle => needle.Project);
+
+            project.HasOne(project => project.PatternPdf)
+                   .WithOne(patternPdf => patternPdf.Project);
         });
 
-        modelBuilder.Entity<MovieUrl>(m =>
+        modelBuilder.Entity<MovieUrl>(movieUrl =>
         {
-            m.Property(x => x.Title).IsRequired().HasMaxLength(100);
-            m.Property(x => x.Link).IsRequired();
-            m.Property(x => x.Description).HasMaxLength(100);
+            movieUrl.Property(x => x.Title)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+            movieUrl.Property(x => x.Link)
+                    .IsRequired();
+
+            movieUrl.Property(x => x.Description)
+                    .HasMaxLength(100);
         });
 
         modelBuilder.Entity<Sample>(m =>
