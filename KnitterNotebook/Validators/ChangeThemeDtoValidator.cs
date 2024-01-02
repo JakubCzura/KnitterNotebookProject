@@ -10,7 +10,8 @@ public class ChangeThemeDtoValidator : AbstractValidator<ChangeThemeDto>
     private readonly IUserService _userService;
     private readonly IThemeService _themeService;
 
-    public ChangeThemeDtoValidator(IUserService userService, IThemeService themeService)
+    public ChangeThemeDtoValidator(IUserService userService,
+                                   IThemeService themeService)
     {
         _userService = userService;
         _themeService = themeService;

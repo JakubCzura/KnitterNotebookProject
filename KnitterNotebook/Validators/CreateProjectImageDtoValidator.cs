@@ -10,7 +10,8 @@ public class CreateProjectImageDtoValidator : AbstractValidator<CreateProjectIma
     private readonly IProjectService _projectService;
     private readonly IUserService _userService;
 
-    public CreateProjectImageDtoValidator(IProjectService projectService, IUserService userService)
+    public CreateProjectImageDtoValidator(IProjectService projectService,
+                                          IUserService userService)
     {
         _projectService = projectService;
         _userService = userService;
