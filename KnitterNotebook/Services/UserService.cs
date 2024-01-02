@@ -17,11 +17,11 @@ using System.Threading.Tasks;
 namespace KnitterNotebook.Services;
 
 public class UserService(DatabaseContext databaseContext,
-    IThemeService themeService,
-    IPasswordService passwordService,
-    ITokenService tokenService,
-    IConfiguration configuration,
-    SharedResourceViewModel sharedResourceViewModel) : CrudService<User>(databaseContext), IUserService
+                         IThemeService themeService,
+                         IPasswordService passwordService,
+                         ITokenService tokenService,
+                         IConfiguration configuration,
+                         SharedResourceViewModel sharedResourceViewModel) : CrudService<User>(databaseContext), IUserService
 {
     private readonly DatabaseContext _databaseContext = databaseContext;
     private readonly IThemeService _themeService = themeService;

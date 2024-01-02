@@ -14,7 +14,8 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services;
 
-public class ProjectImageService(DatabaseContext databaseContext, IUserService userService) : CrudService<ProjectImage>(databaseContext), IProjectImageService
+public class ProjectImageService(DatabaseContext databaseContext,
+                                 IUserService userService) : CrudService<ProjectImage>(databaseContext), IProjectImageService
 {
     private readonly DatabaseContext _databaseContext = databaseContext;
     private readonly IUserService _userService = userService;

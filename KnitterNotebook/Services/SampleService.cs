@@ -14,7 +14,8 @@ using System.Threading.Tasks;
 
 namespace KnitterNotebook.Services;
 
-public class SampleService(DatabaseContext databaseContext, IUserService userService) : CrudService<Sample>(databaseContext), ISampleService
+public class SampleService(DatabaseContext databaseContext,
+                           IUserService userService) : CrudService<Sample>(databaseContext), ISampleService
 {
     private readonly DatabaseContext _databaseContext = databaseContext;
     private readonly IUserService _userService = userService;
