@@ -81,9 +81,7 @@ public class ProjectService(DatabaseContext databaseContext,
             query = query.Include(item);
         }
 
-        Project? project = await query.FirstOrDefaultAsync(x => x.Id == id);
-
-        return project is not null ? new PlannedProjectDto(project) : null;
+        return await query.FirstOrDefaultAsync(x => x.Id == id) is Project project ? new PlannedProjectDto(project) : null;
     }
 
     public async Task<List<PlannedProjectDto>> GetUserPlannedProjectsAsync(int userId)
@@ -107,11 +105,9 @@ public class ProjectService(DatabaseContext databaseContext,
         foreach (Expression<Func<Project, object>> item in ProjectExpressions.IncludeNeedlesYarnsPatternImages)
         {
             query = query.Include(item);
-        }
+        }  
 
-        Project? project = await query.FirstOrDefaultAsync(x => x.Id == id);
-
-        return project is not null ? new ProjectInProgressDto(project) : null;
+        return await query.FirstOrDefaultAsync(x => x.Id == id) is Project project ? new ProjectInProgressDto(project) : null;
     }
 
     public async Task<List<ProjectInProgressDto>> GetUserProjectsInProgressAsync(int userId)
@@ -137,9 +133,7 @@ public class ProjectService(DatabaseContext databaseContext,
             query = query.Include(item);
         }
 
-        Project? project = await query.FirstOrDefaultAsync(x => x.Id == id);
-
-        return project is not null ? new FinishedProjectDto(project) : null;
+        return await query.FirstOrDefaultAsync(x => x.Id == id) is Project project ? new FinishedProjectDto(project) : null;
     }
 
     public async Task<List<FinishedProjectDto>> GetUserFinishedProjectsAsync(int userId)
