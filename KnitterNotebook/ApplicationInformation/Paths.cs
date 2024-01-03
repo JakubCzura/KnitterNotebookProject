@@ -41,4 +41,9 @@ public class Paths
     /// <param name="themeName">Name of application's theme</param>
     /// <returns>Path to resource dictionary of application's theme</returns>
     public static string Theme(ApplicationTheme themeName) => Path.Combine(ProjectDirectory, $"Themes/{themeName}Mode.xaml");
+
+    /// <summary>
+    /// Name of file with application's settings
+    /// </summary>
+    public static string AppSettings => "appsettings.json";
 }

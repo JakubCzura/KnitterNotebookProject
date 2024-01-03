@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services;
@@ -26,7 +27,7 @@ public partial class App : Application
     public App() => AppHost = Host.CreateDefaultBuilder()
         .ConfigureAppConfiguration((hostContext, configurationBuilder) =>
         {
-            configurationBuilder.AddJsonFile("appsettings.json", false, true);
+            configurationBuilder.AddJsonFile(Paths.AppSettings, false, true);
         })
         .UseSerilog((hostContext, loggerConfiguration) =>
         {
@@ -34,11 +35,14 @@ public partial class App : Application
         })
         .ConfigureServices((hostContext, services) =>
         {
+            #region Database
+
             services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseSqlServer(hostContext.Configuration.GetConnectionString(DatabaseContext.DatabaseConnectionStringKey),
                     o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
             });
+            #endregion Database
 
             #region Validators
 
@@ -176,7 +180,7 @@ public partial class App : Application
     protected override async void OnStartup(StartupEventArgs e)
     {
         await AppHost!.StartAsync();
-        var startupWindow = AppHost.Services.GetService<LoginWindow>();
+        LoginWindow? startupWindow = AppHost.Services.GetService<LoginWindow>();
         startupWindow?.Show();
         base.OnStartup(e);
     }
