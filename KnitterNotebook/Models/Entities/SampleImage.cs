@@ -2,10 +2,7 @@
 
 public class SampleImage : BaseImage
 {
-    public SampleImage(string path)
-    {
-        Path = path;
-    }
+    public SampleImage(string path) => Path = path;
 
     public virtual Sample Sample { get; set; } = new();
 

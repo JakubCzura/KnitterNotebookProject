@@ -7,8 +7,5 @@ namespace KnitterNotebook.Views.UserControls;
 /// </summary>
 public partial class SamplesUserControl : UserControl
 {
-    public SamplesUserControl()
-    {
-        InitializeComponent();
-    }
+    public SamplesUserControl() => InitializeComponent();
 }

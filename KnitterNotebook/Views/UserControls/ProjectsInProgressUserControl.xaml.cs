@@ -7,8 +7,5 @@ namespace KnitterNotebook.Views.UserControls;
 /// </summary>
 public partial class ProjectsInProgressUserControl : UserControl
 {
-    public ProjectsInProgressUserControl()
-    {
-        InitializeComponent();
-    }
+    public ProjectsInProgressUserControl() => InitializeComponent();
 }

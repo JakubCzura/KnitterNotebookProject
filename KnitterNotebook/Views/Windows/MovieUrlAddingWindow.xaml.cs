@@ -7,8 +7,5 @@ namespace KnitterNotebook.Views.Windows;
 /// </summary>
 public partial class MovieUrlAddingWindow : Window
 {
-    public MovieUrlAddingWindow()
-    {
-        InitializeComponent();
-    }
+    public MovieUrlAddingWindow() => InitializeComponent();
 }

@@ -7,8 +7,5 @@ namespace KnitterNotebook.Views.Windows;
 /// </summary>
 public partial class SettingsWindow : Window
 {
-    public SettingsWindow()
-    {
-        InitializeComponent();
-    }
+    public SettingsWindow() => InitializeComponent();
 }

@@ -7,8 +7,5 @@ namespace KnitterNotebook.Views.Windows;
 /// </summary>
 public partial class PdfBrowserWindow : Window
 {
-    public PdfBrowserWindow()
-    {
-        InitializeComponent();
-    }
+    public PdfBrowserWindow() => InitializeComponent();
 }

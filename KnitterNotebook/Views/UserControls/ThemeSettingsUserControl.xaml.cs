@@ -7,8 +7,5 @@ namespace KnitterNotebook.Views.UserControls;
 /// </summary>
 public partial class ThemeSettingsUserControl : UserControl
 {
-    public ThemeSettingsUserControl()
-    {
-        InitializeComponent();
-    }
+    public ThemeSettingsUserControl() => InitializeComponent();
 }
