@@ -16,7 +16,7 @@ public class Sample : BaseDbEntity
 
     public string? Description { get; set; } = null;
 
-    public virtual SampleImage? Image { get; set; } = null;
+    public virtual SampleImage? Image { get; set; } = default;
 
     public int UserId { get; set; }
 }

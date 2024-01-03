@@ -6,7 +6,7 @@ public class ProjectImage : BaseImage
 {
     public DateTime DateTime { get; } = DateTime.Now;
 
-    public Project Project { get; set; } = default!;
+    public virtual Project Project { get; set; } = default!;
 
     public int ProjectId { get; set; }
 }

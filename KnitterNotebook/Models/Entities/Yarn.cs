@@ -4,5 +4,5 @@ public class Yarn(string name) : BaseDbEntity
 {
     public string Name { get; set; } = name;
 
-    public Project Project { get; set; } = new();
+    public virtual Project Project { get; set; } = default!;
 }

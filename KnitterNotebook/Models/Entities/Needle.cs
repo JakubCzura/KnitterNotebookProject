@@ -8,5 +8,5 @@ public class Needle(double size, NeedleSizeUnit sizeUnit) : BaseDbEntity
 
     public NeedleSizeUnit SizeUnit { get; set; } = sizeUnit;
 
-    public Project Project { get; set; } = new();
+    public virtual Project Project { get; set; } = default!;
 }

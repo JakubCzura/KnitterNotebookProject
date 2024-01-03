@@ -6,7 +6,7 @@ public class MovieUrl : BaseDbEntity
 {
     public string Title { get; set; } = string.Empty;
 
-    public Uri Link { get; set; } = default!;
+    public virtual Uri Link { get; set; } = default!;
 
     public string? Description { get; set; }
 

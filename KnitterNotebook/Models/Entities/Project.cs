@@ -20,7 +20,7 @@ public class Project : BaseDbEntity
 
     public ProjectStatusName ProjectStatus { get; set; }
 
-    public virtual PatternPdf? PatternPdf { get; set; } = null;
+    public virtual PatternPdf? PatternPdf { get; set; } = default;
 
     public virtual List<ProjectImage> ProjectImages { get; set; } = [];
 
