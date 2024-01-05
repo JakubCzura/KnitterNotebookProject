@@ -267,6 +267,9 @@
   <data name="ErrorWhileResettingPassword" xml:space="preserve">
     <value>Error while resetting password</value>
   </data>
+  <data name="ErrorWhileSendingEmailWithPasswordResetToken" xml:space="preserve">
+    <value>Error while sending email with password reset token</value>
+  </data>
   <data name="ErrorWhileSigningUp" xml:space="preserve">
     <value>Error while signing up</value>
   </data>

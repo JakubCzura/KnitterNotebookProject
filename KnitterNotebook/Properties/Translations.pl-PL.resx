@@ -267,6 +267,9 @@
   <data name="ErrorWhileResettingPassword" xml:space="preserve">
     <value>Błąd podczas resetowania hasła</value>
   </data>
+  <data name="ErrorWhileSendingEmailWithPasswordResetToken" xml:space="preserve">
+    <value>Błąd podczas wysyłania e-mail z tokenem do resetowania hasła</value>
+  </data>
   <data name="ErrorWhileSigningIn" xml:space="preserve">
     <value>Błąd podczas logowania</value>
   </data>

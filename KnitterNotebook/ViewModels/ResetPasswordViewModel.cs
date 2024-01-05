@@ -42,23 +42,35 @@ public partial class ResetPasswordViewModel(ILogger<ResetPasswordViewModel> logg
     [RelayCommand]
     private async Task SendPasswordResetTokenEmailAsync()
     {
-        bool emailExists = await _userService.IsEmailTakenAsync(Email);
-        if (!emailExists)
+        try
         {
-            MessageBox.Show(Translations.EmailNotFound);
-            return;
+            bool emailExists = await _userService.IsEmailTakenAsync(Email);
+            if (!emailExists)
+            {
+                MessageBox.Show(Translations.EmailNotFound);
+                return;
+            }
+
+            (string, DateTime) tokenWithExpirationDate = await _userService.UpdatePasswordResetTokenAsync(Email);
+
+            SendEmailDto sendEmailDto = new()
+            {
+                To = Email,
+                Subject = "Password reset",
+                Body = $"Your password reset token is: {tokenWithExpirationDate.Item1}. The token will expire {tokenWithExpirationDate.Item2:u}"
+            };
+
+            await _emailService.SendEmailAsync(sendEmailDto);
         }
-
-        (string, DateTime) tokenWithExpirationDate = await _userService.UpdatePasswordResetTokenAsync(Email);
-
-        SendEmailDto sendEmailDto = new()
+        catch(Exception exception)
         {
-            To = Email,
-            Subject = "Password reset",
-            Body = $"Your password reset token is: {tokenWithExpirationDate.Item1}. The token will expire {tokenWithExpirationDate.Item2:u}"
-        };
-
-        await _emailService.SendEmailAsync(sendEmailDto);
+            _logger.LogError(exception, "Error while sending email with password reset token");
+            MessageBox.Show(Translations.ErrorWhileSendingEmailWithPasswordResetToken);
+        }
+        finally
+        {
+            Email = string.Empty;
+        }   
     }
 
     [RelayCommand]
