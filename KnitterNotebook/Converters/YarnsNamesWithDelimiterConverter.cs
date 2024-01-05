@@ -14,5 +14,6 @@ public class YarnsNamesWithDelimiterConverter
     /// <param name="delimiter">Delimiter to join yarns' names as string</param>
     /// <returns><paramref name="yarns"/>' names as string</returns>
     /// <exception cref="ArgumentNullException"> when <paramref name="yarns"/> are null</exception>"
-    public static string Convert(IEnumerable<YarnDto> yarns, char delimiter = ',') => string.Join(delimiter, yarns.Select(x => x.Name));
+    public static string Convert(IEnumerable<YarnDto> yarns, char delimiter = ',') 
+        => string.Join(delimiter, yarns.Select(x => x.Name));
 }
