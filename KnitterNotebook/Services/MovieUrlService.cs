@@ -34,6 +34,11 @@ public class MovieUrlService(DatabaseContext databaseContext) : CrudService<Movi
         return await _databaseContext.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Returns all movies urls for user with given <paramref name="userId"/> from database
+    /// </summary>
+    /// <param name="userId">User's id</param>
+    /// <returns>List of user's all movie urls</returns>
     public async Task<List<MovieUrlDto>> GetUserMovieUrlsAsync(int userId)
         => await _databaseContext.MovieUrls.AsNoTracking()
                                            .Where(x => x.UserId == userId)

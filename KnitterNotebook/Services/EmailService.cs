@@ -13,6 +13,11 @@ public class EmailService(IConfiguration configuration) : IEmailService
 {
     private readonly IConfiguration _configuration = configuration;
 
+    /// <summary>
+    /// Sends email based on <see cref="SmtpClient"/>
+    /// </summary>
+    /// <param name="sendEmailDto">Details about receiver</param>
+    /// <returns>An asynchronous task context</returns>
     public async Task SendEmailAsync(SendEmailDto sendEmailDto)
     {
         //Important!
