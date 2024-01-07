@@ -25,7 +25,14 @@ public class ProjectService(DatabaseContext databaseContext,
     private readonly DatabaseContext _databaseContext = databaseContext;
     private readonly IUserService _userService = userService;
 
-    public async Task<bool> ProjectExistsAsync(int id) => await _databaseContext.Projects.AsNoTracking().AnyAsync(x => x.Id == id);
+    /// <summary>
+    /// Checks if project with given <paramref name="id"/> exists in database
+    /// </summary>
+    /// <param name="id">Project's id</param>
+    /// <returns>True if project exists in database, otherwise false</returns>
+    public async Task<bool> ProjectExistsAsync(int id) 
+        => await _databaseContext.Projects.AsNoTracking()
+                                          .AnyAsync(x => x.Id == id);
 
     /// <summary>
     /// Creates new project and saves it to database
@@ -72,6 +79,11 @@ public class ProjectService(DatabaseContext databaseContext,
         return await _databaseContext.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Returns planned project with given <paramref name="id"/> from database
+    /// </summary>
+    /// <param name="id">Project's id</param>
+    /// <returns>Planned project if found, otherwise null</returns>
     public async Task<PlannedProjectDto?> GetPlannedProjectAsync(int id)
     {
         IQueryable<Project> query = _databaseContext.Projects.AsNoTracking();
@@ -84,6 +96,11 @@ public class ProjectService(DatabaseContext databaseContext,
         return await query.FirstOrDefaultAsync(x => x.Id == id) is Project project ? new PlannedProjectDto(project) : null;
     }
 
+    /// <summary>
+    /// Returns all planned projects of user with given <paramref name="userId"/> from database
+    /// </summary>
+    /// <param name="userId">User's id</param>
+    /// <returns>User's all planned projects</returns>
     public async Task<List<PlannedProjectDto>> GetUserPlannedProjectsAsync(int userId)
     {
         IQueryable<Project> query = _databaseContext.Projects.AsNoTracking();
@@ -98,6 +115,11 @@ public class ProjectService(DatabaseContext databaseContext,
                           .ToListAsync();
     }
 
+    /// <summary>
+    /// Returns project in progress with given <paramref name="id"/> from database
+    /// </summary>
+    /// <param name="id">Project's id</param>
+    /// <returns>Project in progress if found, otherwise null</returns>
     public async Task<ProjectInProgressDto?> GetProjectInProgressAsync(int id)
     {
         IQueryable<Project> query = _databaseContext.Projects.AsNoTracking();
@@ -110,6 +132,11 @@ public class ProjectService(DatabaseContext databaseContext,
         return await query.FirstOrDefaultAsync(x => x.Id == id) is Project project ? new ProjectInProgressDto(project) : null;
     }
 
+    /// <summary>
+    /// Returns all projects in progress of user with given <paramref name="userId"/> from database
+    /// </summary>
+    /// <param name="userId">User's id</param>
+    /// <returns>User's all projects in progress</returns>
     public async Task<List<ProjectInProgressDto>> GetUserProjectsInProgressAsync(int userId)
     {
         IQueryable<Project> query = _databaseContext.Projects.AsNoTracking();
@@ -124,6 +151,11 @@ public class ProjectService(DatabaseContext databaseContext,
                           .ToListAsync();
     }
 
+    /// <summary>
+    /// Returns finished project with given <paramref name="id"/> from database
+    /// </summary>
+    /// <param name="id">Project's id</param>
+    /// <returns>Finished project if found, otherwise null</returns>
     public async Task<FinishedProjectDto?> GetFinishedProjectAsync(int id)
     {
         IQueryable<Project> query = _databaseContext.Projects.AsNoTracking();
@@ -136,6 +168,11 @@ public class ProjectService(DatabaseContext databaseContext,
         return await query.FirstOrDefaultAsync(x => x.Id == id) is Project project ? new FinishedProjectDto(project) : null;
     }
 
+    /// <summary>
+    /// Returns all finished projects of user with given <paramref name="userId"/> from database
+    /// </summary>
+    /// <param name="userId">User's id</param>
+    /// <returns>User's all finished projects</returns>
     public async Task<List<FinishedProjectDto>> GetUserFinishedProjectsAsync(int userId)
     {
         IQueryable<Project> query = _databaseContext.Projects.AsNoTracking();
