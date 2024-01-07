@@ -52,6 +52,11 @@ public class ProjectImageService(DatabaseContext databaseContext,
         return await _databaseContext.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Returns all images for project with given <paramref name="projectId"/> from database
+    /// </summary>
+    /// <param name="projectId">Project's id</param>
+    /// <returns>All images of specified project</returns>
     public async Task<List<ProjectImageDto>> GetProjectImagesAsync(int projectId)
         => await _databaseContext.ProjectImages.AsNoTracking()
                                                .Where(x => x.ProjectId == projectId)
