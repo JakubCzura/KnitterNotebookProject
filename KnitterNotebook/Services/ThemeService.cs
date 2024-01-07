@@ -17,10 +17,14 @@ public class ThemeService(DatabaseContext databaseContext) : CrudService<Theme>(
 {
     private readonly DatabaseContext _databaseContext = databaseContext;
 
-    public async Task<bool> ThemeExistsAsync(ApplicationTheme name) => await _databaseContext.Themes.AsNoTracking().AnyAsync(x => x.Name == name);
+    public async Task<bool> ThemeExistsAsync(ApplicationTheme name) 
+        => await _databaseContext.Themes.AsNoTracking()
+                                        .AnyAsync(x => x.Name == name);
 
     /// <returns>Theme object if theme with given name was found otherwise null</returns>
-    public async Task<int?> GetThemeIdAsync(ApplicationTheme name) => (await _databaseContext.Themes.AsNoTracking().FirstOrDefaultAsync(x => x.Name == name))?.Id;
+    public async Task<int?> GetThemeIdAsync(ApplicationTheme name) 
+        => (await _databaseContext.Themes.AsNoTracking()
+                                         .FirstOrDefaultAsync(x => x.Name == name))?.Id;
 
     /// <summary>
     /// Adds new theme's resource dictionary to merged dictionaries. Deletes old theme's resource dictionary if <paramref name="oldThemeName"/> is not null

@@ -12,7 +12,8 @@ public class TokenService : ITokenService
     /// Creates random token for resetting password
     /// </summary>
     /// <returns>Random token</returns>
-    public string CreateResetPasswordToken() => Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
+    public string CreateResetPasswordToken() 
+        => Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
 
     /// <summary>
     /// Creates token expiration date based on <paramref name="daysToExpire"/> and <see cref="DateTime.UtcNow"/>.

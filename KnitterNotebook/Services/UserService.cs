@@ -30,9 +30,13 @@ public class UserService(DatabaseContext databaseContext,
     private readonly IConfiguration _configuration = configuration;
     private readonly SharedResourceViewModel _sharedResourceViewModel = sharedResourceViewModel;
 
-    public async Task<bool> IsNicknameTakenAsync(string nickname) => await _databaseContext.Users.AsNoTracking().AnyAsync(x => x.Nickname == nickname);
+    public async Task<bool> IsNicknameTakenAsync(string nickname) 
+        => await _databaseContext.Users.AsNoTracking()
+                                       .AnyAsync(x => x.Nickname == nickname);
 
-    public async Task<bool> IsEmailTakenAsync(string email) => await _databaseContext.Users.AsNoTracking().AnyAsync(x => x.Email == email);
+    public async Task<bool> IsEmailTakenAsync(string email) 
+        => await _databaseContext.Users.AsNoTracking()
+                                       .AnyAsync(x => x.Email == email);
 
     public async Task<bool> ArePasswordResetTokenAndExpirationDateValidAsync(string token)
     {
@@ -45,7 +49,9 @@ public class UserService(DatabaseContext databaseContext,
                && user.PasswordResetTokenExpirationDate.Value.ToUniversalTime() >= DateTime.UtcNow;
     }
 
-    public async Task<bool> UserExistsAsync(int id) => await _databaseContext.Users.AsNoTracking().AnyAsync(x => x.Id == id);
+    public async Task<bool> UserExistsAsync(int id)
+        => await _databaseContext.Users.AsNoTracking()
+                                       .AnyAsync(x => x.Id == id);
 
     /// <summary>
     /// Returns instance of user from database
@@ -96,7 +102,8 @@ public class UserService(DatabaseContext databaseContext,
         return await _databaseContext.SaveChangesAsync();
     }
 
-    public async Task<string?> GetNicknameAsync(int id) => (await _databaseContext.Users.FindAsync(id))?.Nickname;
+    public async Task<string?> GetNicknameAsync(int id) 
+        => (await _databaseContext.Users.FindAsync(id))?.Nickname;
 
     /// <summary>
     /// Changes user's password and saves it to database
