@@ -1,9 +1,26 @@
-﻿using KnitterNotebook.Models.Enums;
+﻿using KnitterNotebook.Models.Dtos;
+using KnitterNotebook.Models.Enums;
 
 namespace KnitterNotebook.Models.Entities;
 
 public class Sample : BaseDbEntity
 {
+    public Sample()
+    {
+    }
+
+    public Sample(CreateSampleDto createSampleDto, SampleImage? sampleImage)
+    {
+        YarnName = createSampleDto.YarnName;
+        LoopsQuantity = createSampleDto.LoopsQuantity;
+        RowsQuantity = createSampleDto.RowsQuantity;
+        NeedleSize = createSampleDto.NeedleSize;
+        NeedleSizeUnit = createSampleDto.NeedleSizeUnit;
+        Description = createSampleDto.Description;
+        UserId = createSampleDto.UserId;
+        Image = sampleImage;
+    }
+
     public string YarnName { get; set; } = string.Empty;
 
     public int LoopsQuantity { get; set; }

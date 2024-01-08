@@ -23,13 +23,7 @@ public class MovieUrlService(DatabaseContext databaseContext) : CrudService<Movi
     /// <exception cref="UriFormatException">If <paramref name="createMovieUrl.Link"/> is not in proper format</exception>"
     public async Task<int> CreateAsync(CreateMovieUrlDto createMovieUrl)
     {
-        MovieUrl movieUrl = new()
-        {
-            Title = createMovieUrl.Title,
-            Link = new Uri(createMovieUrl.Link),
-            Description = createMovieUrl.Description,
-            UserId = createMovieUrl.UserId,
-        };
+        MovieUrl movieUrl = new(createMovieUrl);
         await _databaseContext.AddAsync(movieUrl);
         return await _databaseContext.SaveChangesAsync();
     }

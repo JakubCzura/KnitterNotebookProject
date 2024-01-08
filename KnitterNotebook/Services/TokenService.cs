@@ -21,12 +21,8 @@ public class TokenService : ITokenService
     /// <param name="daysToExpire">Quantity of days when token is valid</param>
     /// <returns>DateTime object when token necessary for resetting password expires</returns>
     /// <exception cref="TokenExpirationDateException">If <paramref name="daysToExpire"/> is less than 1</exception>
-    public DateTime CreateResetPasswordTokenExpirationDate(int daysToExpire)
-    {
-        if (daysToExpire < 1)
-        {
-            throw new TokenExpirationDateException(ExceptionsMessages.TokenExpirationDateTooEarly(daysToExpire));
-        }
-        return DateTime.UtcNow.AddDays(daysToExpire);
-    }
+    public DateTime CreateResetPasswordTokenExpirationDate(int daysToExpire) 
+        => daysToExpire < 1
+            ? throw new TokenExpirationDateException(ExceptionsMessages.TokenExpirationDateTooEarly(daysToExpire))
+            : DateTime.UtcNow.AddDays(daysToExpire);
 }

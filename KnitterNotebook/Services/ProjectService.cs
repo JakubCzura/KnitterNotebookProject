@@ -30,7 +30,7 @@ public class ProjectService(DatabaseContext databaseContext,
     /// </summary>
     /// <param name="id">Project's id</param>
     /// <returns>True if project exists in database, otherwise false</returns>
-    public async Task<bool> ProjectExistsAsync(int id) 
+    public async Task<bool> ProjectExistsAsync(int id)
         => await _databaseContext.Projects.AsNoTracking()
                                           .AnyAsync(x => x.Id == id);
 
@@ -58,17 +58,11 @@ public class ProjectService(DatabaseContext databaseContext,
                                             ? ProjectStatusName.InProgress
                                             : ProjectStatusName.Planned;
 
-        Project project = new()
-        {
-            Name = planProjectDto.Name,
-            StartDate = planProjectDto.StartDate,
-            Needles = needles,
-            Yarns = yarns,
-            Description = planProjectDto.Description,
-            ProjectStatus = projectStatus,
-            PatternPdf = patternPdf,
-            UserId = planProjectDto.UserId
-        };
+        Project project = new(planProjectDto,
+                              needles,
+                              yarns,
+                              projectStatus,
+                              patternPdf);
 
         if (!string.IsNullOrWhiteSpace(planProjectDto.SourcePatternPdfPath) && File.Exists(planProjectDto.SourcePatternPdfPath) && !string.IsNullOrWhiteSpace(destinationPatternPdfPath))
         {
@@ -127,7 +121,7 @@ public class ProjectService(DatabaseContext databaseContext,
         foreach (Expression<Func<Project, object>> item in ProjectExpressions.IncludeNeedlesYarnsPatternImages)
         {
             query = query.Include(item);
-        }  
+        }
 
         return await query.FirstOrDefaultAsync(x => x.Id == id) is Project project ? new ProjectInProgressDto(project) : null;
     }

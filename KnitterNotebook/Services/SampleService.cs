@@ -35,17 +35,7 @@ public class SampleService(DatabaseContext databaseContext,
         string? destinationImagePath = Paths.PathToSaveUserFile(nickname, Path.GetFileName(createSampleDto.SourceImagePath));
         SampleImage? image = !string.IsNullOrWhiteSpace(destinationImagePath) ? new(destinationImagePath) : null;
 
-        Sample sample = new()
-        {
-            YarnName = createSampleDto.YarnName,
-            LoopsQuantity = createSampleDto.LoopsQuantity,
-            RowsQuantity = createSampleDto.RowsQuantity,
-            NeedleSize = createSampleDto.NeedleSize,
-            NeedleSizeUnit = createSampleDto.NeedleSizeUnit,
-            Description = createSampleDto.Description,
-            UserId = createSampleDto.UserId,
-            Image = image
-        };
+        Sample sample = new(createSampleDto, image);
 
         if (!string.IsNullOrWhiteSpace(createSampleDto.SourceImagePath) && File.Exists(createSampleDto.SourceImagePath) && !string.IsNullOrWhiteSpace(destinationImagePath))
         {
