@@ -10,7 +10,7 @@ public class BasicProjectDto(Project project)
 
     public string Name { get; set; } = project.Name;
 
-    public DateTime? StartDate { get; set; } = project.StartDate;
+    public DateTime? StartDate { get; set; } = project.StartDate?.ToLocalTime();
 
     public string? Description { get; set; } = project.Description;
 

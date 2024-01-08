@@ -46,6 +46,11 @@ public class SampleService(DatabaseContext databaseContext,
         return await _databaseContext.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Returns all samples of user with given <paramref name="userId"/> from database
+    /// </summary>
+    /// <param name="userId">User's id</param>
+    /// <returns>User's all samples</returns>
     public async Task<List<SampleDto>> GetUserSamplesAsync(int userId)
         => await _databaseContext.Samples.AsNoTracking()
                                          .Include(x => x.Image)

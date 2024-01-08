@@ -27,14 +27,18 @@ public class CrudService<T> : ICrudService<T> where T : BaseDbEntity
     /// Returns set of all <see cref="T"/> from database
     /// </summary>
     /// <returns>Set of all <see cref="T"/> from database</returns>
-    public async Task<IEnumerable<T>> GetAllAsync() => await _dbSet.AsNoTracking().ToListAsync();
+    public async Task<IEnumerable<T>> GetAllAsync() 
+        => await _dbSet.AsNoTracking()
+                       .ToListAsync();
 
     /// <summary>
     /// Returns <see cref="T"/> with given <paramref name="id"/> from database
     /// </summary>
     /// <param name="id">Id of entity</param>
     /// <returns><see cref="T"/> with given <paramref name="id"/> from database if found, otherwise null</returns>
-    public async Task<T?> GetAsync(int id) => await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+    public async Task<T?> GetAsync(int id) 
+        => await _dbSet.AsNoTracking()
+                       .FirstOrDefaultAsync(x => x.Id == id);
 
     /// <summary>
     /// Adds <paramref name="entity"/> to database if it is not null

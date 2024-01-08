@@ -9,5 +9,5 @@ public class ProjectImageDto(ProjectImage projectImage)
 
     public string Path { get; set; } = projectImage.Path;
 
-    public DateTime DateTime { get; set; } = projectImage.DateTime;
+    public DateTime DateTime { get; set; } = projectImage.DateTime.ToLocalTime();
 }

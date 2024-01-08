@@ -37,11 +37,7 @@ public class ProjectImageService(DatabaseContext databaseContext,
             throw new ArgumentNullException(destinationImagePath, ExceptionsMessages.NullFileWhenSave);
         }
 
-        ProjectImage projectImage = new()
-        {
-            Path = destinationImagePath,
-            ProjectId = addProjectImageDto.ProjectId
-        };
+        ProjectImage projectImage = new(destinationImagePath, addProjectImageDto.ProjectId);
 
         if (!string.IsNullOrWhiteSpace(addProjectImageDto.ImagePath) && File.Exists(addProjectImageDto.ImagePath) && !string.IsNullOrWhiteSpace(destinationImagePath))
         {

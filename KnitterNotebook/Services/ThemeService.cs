@@ -17,11 +17,20 @@ public class ThemeService(DatabaseContext databaseContext) : CrudService<Theme>(
 {
     private readonly DatabaseContext _databaseContext = databaseContext;
 
+    /// <summary>
+    /// Checks if theme with given <paramref name="name"/> exists in database
+    /// </summary>
+    /// <param name="name">Theme's name</param>
+    /// <returns>True if found, otherwise false</returns>
     public async Task<bool> ThemeExistsAsync(ApplicationTheme name) 
         => await _databaseContext.Themes.AsNoTracking()
-                                        .AnyAsync(x => x.Name == name);
-
-    /// <returns>Theme object if theme with given name was found otherwise null</returns>
+                                        .AnyAsync(x => x.Name == name);  
+    
+    /// <summary>
+    /// Returns theme's id with given <paramref name="name"/> if theme exists in database, otherwise null
+    /// </summary>
+    /// <param name="name">Theme's id</param>
+    /// <returns>Theme's id if found, otherwise null</returns>
     public async Task<int?> GetThemeIdAsync(ApplicationTheme name) 
         => (await _databaseContext.Themes.AsNoTracking()
                                          .FirstOrDefaultAsync(x => x.Name == name))?.Id;

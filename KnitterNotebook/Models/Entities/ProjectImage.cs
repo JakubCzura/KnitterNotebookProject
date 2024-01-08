@@ -4,7 +4,17 @@ namespace KnitterNotebook.Models.Entities;
 
 public class ProjectImage : BaseImage
 {
-    public DateTime DateTime { get; } = DateTime.Now;
+    public ProjectImage()
+    {
+    }
+
+    public ProjectImage(string path, int projectId)
+    {
+        Path = path;
+        ProjectId = projectId;
+    }
+
+    public DateTime DateTime { get; } = DateTime.UtcNow;
 
     public virtual Project Project { get; set; } = default!;
 
