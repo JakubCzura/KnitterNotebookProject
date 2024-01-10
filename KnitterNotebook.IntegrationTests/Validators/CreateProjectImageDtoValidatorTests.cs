@@ -13,7 +13,7 @@ using Moq;
 
 namespace KnitterNotebookTests.IntegrationTests.Validators;
 
-public class CreateProjectImageDtoValidatorTests
+public class CreateProjectImageDtoValidatorTests : IDisposable
 {
     private readonly CreateProjectImageDtoValidator _validator;
     private readonly ProjectService _projectService;
@@ -27,12 +27,18 @@ public class CreateProjectImageDtoValidatorTests
 
     public CreateProjectImageDtoValidatorTests()
     {
+        _databaseContext.Database.EnsureCreated();
         _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object, _sharedResourceViewModelMock.Object);
         _projectService = new(_databaseContext, _userService);
         _validator = new CreateProjectImageDtoValidator(_projectService, _userService);
-        _databaseContext.Database.EnsureDeleted();
-        _databaseContext.Database.Migrate();
         SeedProjects();
+    }
+
+    public void Dispose()
+    {
+        _databaseContext.Database.EnsureDeleted();
+        _databaseContext.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private void SeedProjects()

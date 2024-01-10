@@ -14,7 +14,7 @@ using Moq;
 
 namespace KnitterNotebookTests.IntegrationTests.Validators;
 
-public class ChangeThemeDtoValidatorTests
+public class ChangeThemeDtoValidatorTests : IDisposable
 {
     private readonly ChangeThemeDtoValidator _validator;
     private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
@@ -27,12 +27,18 @@ public class ChangeThemeDtoValidatorTests
 
     public ChangeThemeDtoValidatorTests()
     {
+        _databaseContext.Database.EnsureCreated();
         _themeService = new(_databaseContext);
         _userService = new(_databaseContext, _themeService, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object, _sharedResourceViewModelMock.Object);
         _validator = new ChangeThemeDtoValidator(_userService, _themeService);
-        _databaseContext.Database.EnsureDeleted();
-        _databaseContext.Database.Migrate();
         SeedThemes();
+    }
+
+    public void Dispose()
+    {
+        _databaseContext.Database.EnsureDeleted();
+        _databaseContext.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private void SeedThemes()

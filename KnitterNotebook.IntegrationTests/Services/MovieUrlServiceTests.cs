@@ -7,16 +7,23 @@ using KnitterNotebook.Services;
 
 namespace KnitterNotebook.IntegrationTests.Services;
 
-public class MovieUrlServiceTests
+public class MovieUrlServiceTests : IDisposable
 {
     private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
     private readonly MovieUrlService _movieUrlService;
 
     public MovieUrlServiceTests()
     {
+        _databaseContext.Database.EnsureCreated();
         _movieUrlService = new(_databaseContext);
-        DatabaseHelper.CreateEmptyDatabase(_databaseContext);
         SeedMovieUrls();
+    }
+
+    public void Dispose()
+    {
+        _databaseContext.Database.EnsureDeleted();
+        _databaseContext.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private void SeedMovieUrls()

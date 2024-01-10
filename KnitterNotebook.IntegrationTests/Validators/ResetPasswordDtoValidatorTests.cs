@@ -13,7 +13,7 @@ using Moq;
 
 namespace KnitterNotebookTests.IntegrationTests.Validators;
 
-public class ResetPasswordDtoValidatorTests
+public class ResetPasswordDtoValidatorTests : IDisposable
 {
     private readonly ResetPasswordDtoValidator _validator;
     private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
@@ -26,12 +26,17 @@ public class ResetPasswordDtoValidatorTests
 
     public ResetPasswordDtoValidatorTests()
     {
+        _databaseContext.Database.EnsureCreated();
         _userService = new(_databaseContext, _ThemeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object, _sharedResourceViewModelMock.Object);
         _validator = new ResetPasswordDtoValidator(_userService);
-        _databaseContext = DatabaseHelper.CreateDatabaseContext();
-        _databaseContext.Database.EnsureDeleted();
-        _databaseContext.Database.Migrate();
         SeedUsers();
+    }
+
+    public void Dispose()
+    {
+        _databaseContext.Database.EnsureDeleted();
+        _databaseContext.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private void SeedUsers()

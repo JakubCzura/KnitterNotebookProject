@@ -12,7 +12,7 @@ using Moq;
 
 namespace KnitterNotebookTests.IntegrationTests.Validators;
 
-public class ChangeProjectStatusDtoValidatorTests
+public class ChangeProjectStatusDtoValidatorTests : IDisposable
 {
     private readonly ChangeProjectStatusDtoValidator _validator;
     private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
@@ -21,11 +21,17 @@ public class ChangeProjectStatusDtoValidatorTests
 
     public ChangeProjectStatusDtoValidatorTests()
     {
+        _databaseContext.Database.EnsureCreated();
         _projectService = new(_databaseContext, _userServiceMock.Object);
         _validator = new ChangeProjectStatusDtoValidator(_projectService);
-        _databaseContext.Database.EnsureDeleted();
-        _databaseContext.Database.Migrate();
         SeedProjects();
+    }
+
+    public void Dispose()
+    {
+        _databaseContext.Database.EnsureDeleted();
+        _databaseContext.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private void SeedProjects()

@@ -14,7 +14,7 @@ using Moq;
 
 namespace KnitterNotebookTests.IntegrationTests.Validators;
 
-public class CreateSampleDtoValidatorTests
+public class CreateSampleDtoValidatorTests : IDisposable
 {
     private readonly CreateSampleDtoValidator _validator;
     private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
@@ -27,11 +27,17 @@ public class CreateSampleDtoValidatorTests
 
     public CreateSampleDtoValidatorTests()
     {
+        _databaseContext.Database.EnsureCreated();
         _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _configurationMock.Object, _sharedResourceViewModelMock.Object);
         _validator = new CreateSampleDtoValidator(_userService);
-        _databaseContext.Database.EnsureDeleted();
-        _databaseContext.Database.Migrate();
         SeedUsers();
+    }
+
+    public void Dispose()
+    {
+        _databaseContext.Database.EnsureDeleted();
+        _databaseContext.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private void SeedUsers()

@@ -7,16 +7,23 @@ using KnitterNotebook.Services;
 
 namespace KnitterNotebook.IntegrationTests.Services;
 
-public class CrudServiceTests
+public class CrudServiceTests : IDisposable
 {
     private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
     private readonly CrudService<User> _crudService;
 
     public CrudServiceTests()
     {
+        _databaseContext.Database.EnsureCreated();
         _crudService = new(_databaseContext);
-        DatabaseHelper.CreateEmptyDatabase(_databaseContext);
         SeedUsers();
+    }
+
+    public void Dispose()
+    {
+        _databaseContext.Database.EnsureDeleted();
+        _databaseContext.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private void SeedUsers()
@@ -142,4 +149,6 @@ public class CrudServiceTests
         //Assert
         result.Should().Be(0);
     }
+
+ 
 }

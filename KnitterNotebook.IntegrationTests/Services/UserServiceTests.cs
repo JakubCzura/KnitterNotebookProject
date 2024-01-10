@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace KnitterNotebook.IntegrationTests.Services;
 
-public class UserServiceTests
+public class UserServiceTests : IDisposable
 {
     private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
     private readonly ThemeService _themeService;
@@ -25,14 +25,22 @@ public class UserServiceTests
         Dictionary<string, string> myConfiguration = new() { { "Tokens:ResetPasswordTokenExpirationDays", "1" } };
         IConfigurationRoot configuration = new ConfigurationBuilder().AddInMemoryCollection(myConfiguration!).Build();
 
+        _databaseContext.Database.EnsureCreated();
+
         _themeService = new(_databaseContext);
         _passwordService = new();
         _tokenService = new();
         _sharedResourceViewModel = new();
         _userService = new(_databaseContext, _themeService, _passwordService, _tokenService, configuration, _sharedResourceViewModel);
 
-        DatabaseHelper.CreateEmptyDatabase(_databaseContext);
         SeedUsers();
+    }
+
+    public void Dispose()
+    {
+        _databaseContext.Database.EnsureDeleted();
+        _databaseContext.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private void SeedUsers()

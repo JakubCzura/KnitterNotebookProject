@@ -14,7 +14,7 @@ using Moq;
 
 namespace KnitterNotebook.IntegrationTests.Services;
 
-public class ProjectServiceTests
+public class ProjectServiceTests : IDisposable
 {
     private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
     private readonly ProjectService _projectService;
@@ -27,10 +27,17 @@ public class ProjectServiceTests
 
     public ProjectServiceTests()
     {
+        _databaseContext.Database.EnsureCreated();
         _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _configurationMock.Object, _sharedResourceViewModelMock.Object);
         _projectService = new(_databaseContext, _userService);
-        DatabaseHelper.CreateEmptyDatabase(_databaseContext);
         SeedData();
+    }
+
+    public void Dispose()
+    {
+        _databaseContext.Database.EnsureDeleted();
+        _databaseContext.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private void SeedData()

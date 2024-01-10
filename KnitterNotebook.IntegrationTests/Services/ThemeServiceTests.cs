@@ -10,15 +10,23 @@ using System.Windows;
 
 namespace KnitterNotebook.IntegrationTests.Services;
 
-public class ThemeServiceTests
+public class ThemeServiceTests : IDisposable
 {
     private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
     private readonly ThemeService _themeService;
 
     public ThemeServiceTests()
     {
+        _databaseContext.Database.EnsureCreated();
         _themeService = new(_databaseContext);
         SeedThemes();
+    }
+
+    public void Dispose()
+    {
+        _databaseContext.Database.EnsureDeleted();
+        _databaseContext.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private void SeedThemes()

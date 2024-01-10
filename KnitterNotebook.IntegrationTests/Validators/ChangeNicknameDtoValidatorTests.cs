@@ -13,7 +13,7 @@ using Moq;
 
 namespace KnitterNotebookTests.IntegrationTests.Validators;
 
-public class ChangeNicknameDtoValidatorTests
+public class ChangeNicknameDtoValidatorTests : IDisposable
 {
     private readonly ChangeNicknameDtoValidator _validator;
     private readonly DatabaseContext _databaseContext = DatabaseHelper.CreateDatabaseContext();
@@ -26,11 +26,17 @@ public class ChangeNicknameDtoValidatorTests
 
     public ChangeNicknameDtoValidatorTests()
     {
+        _databaseContext.Database.EnsureCreated();
         _userService = new(_databaseContext, _themeServiceMock.Object, _passwordServiceMock.Object, _tokenServiceMock.Object, _iconfigurationMock.Object, _sharedResourceViewModelMock.Object);
         _validator = new ChangeNicknameDtoValidator(_userService);
-        _databaseContext.Database.EnsureDeleted();
-        _databaseContext.Database.Migrate();
         SeedUsers();
+    }
+
+    public void Dispose()
+    {
+        _databaseContext.Database.EnsureDeleted();
+        _databaseContext.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     public static IEnumerable<object[]> ValidData()
