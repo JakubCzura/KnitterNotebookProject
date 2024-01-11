@@ -7,7 +7,6 @@ using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebook.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
@@ -43,7 +42,7 @@ public class ChangePasswordDtoValidatorTests : IDisposable
     {
         List<User> users =
         [
-            new User() { ThemeId = 1},
+            new User() { ThemeId = 1 },
             new User() { ThemeId = 2 },
             new User() { ThemeId = 3 }
         ];

@@ -7,7 +7,6 @@ using KnitterNotebook.Models.Enums;
 using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace KnitterNotebookTests.IntegrationTests.Validators;
@@ -43,7 +42,7 @@ public class ChangeProjectStatusDtoValidatorTests : IDisposable
                 ThemeId = 1,
                 Projects =
                 [
-                    new Project() { Name = "Project1",},
+                    new Project() { Name = "Project1", },
                     new Project() { Name = "Project2" },
                 ]
             },
@@ -52,7 +51,7 @@ public class ChangeProjectStatusDtoValidatorTests : IDisposable
                 ThemeId = 2,
                 Projects =
                 [
-                    new Project() { Name = "Project3",},
+                    new Project() { Name = "Project3", },
                     new Project() { Name = "Project4" },
                 ]
             },

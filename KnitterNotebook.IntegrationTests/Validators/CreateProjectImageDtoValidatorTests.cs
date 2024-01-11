@@ -7,7 +7,6 @@ using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebook.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
@@ -54,15 +53,15 @@ public class CreateProjectImageDtoValidatorTests : IDisposable
                     new() { Name = "Project1" }
                  ]
              },
-             new()
-             {
-                 Nickname = "Nickname2",
-                 ThemeId = 1,
-                 Projects =
+            new()
+            {
+                Nickname = "Nickname2",
+                ThemeId = 1,
+                Projects =
                  [
                     new() { Name = "Project2" }
                  ]
-             }
+            }
         ];
 
         _databaseContext.Users.AddRange(users);

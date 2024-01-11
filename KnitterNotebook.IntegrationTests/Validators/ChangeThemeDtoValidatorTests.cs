@@ -8,7 +8,6 @@ using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebook.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
@@ -46,7 +45,7 @@ public class ChangeThemeDtoValidatorTests : IDisposable
         List<Theme> themes =
         [
             new Theme() { Name = ApplicationTheme.Default, Users = [new User() { Nickname = "Name1" }] },
-            new Theme() { Name = ApplicationTheme.Light, Users = [new User() { Nickname = "Nickname2" }]  },
+            new Theme() { Name = ApplicationTheme.Light, Users = [new User() { Nickname = "Nickname2" }] },
             new Theme() { Name = ApplicationTheme.Dark, Users = [new User() { Nickname = "Nickname3" }] }
         ];
         _databaseContext.Themes.AddRange(themes);

@@ -7,7 +7,6 @@ using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebook.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
@@ -49,8 +48,8 @@ public class ChangeEmailDtoValidatorTests : IDisposable
     {
         List<User> users =
         [
-            new User() { Email = "test1@test.com", ThemeId = 1},
-            new User() { Email = "test2@test.com", ThemeId = 1},
+            new User() { Email = "test1@test.com", ThemeId = 1 },
+            new User() { Email = "test2@test.com", ThemeId = 1 },
         ];
         _databaseContext.Users.AddRange(users);
         _databaseContext.SaveChanges();

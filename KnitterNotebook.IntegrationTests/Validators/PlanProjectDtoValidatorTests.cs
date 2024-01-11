@@ -8,7 +8,6 @@ using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using KnitterNotebook.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
@@ -45,7 +44,7 @@ public class PlanProjectDtoValidatorTests : IDisposable
         List<User> users =
         [
             new User() { Nickname = "Nickname1", ThemeId = 1 },
-            new User() { Nickname = "Nickname" , ThemeId = 2 },
+            new User() { Nickname = "Nickname", ThemeId = 2 },
         ];
         _databaseContext.Users.AddRange(users);
         _databaseContext.SaveChanges();
