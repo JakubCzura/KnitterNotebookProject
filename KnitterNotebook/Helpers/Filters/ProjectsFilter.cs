@@ -19,11 +19,13 @@ public static class ProjectsFilter
     /// <param name="projectName">Name of project</param>
     /// <param name="namesComparison">Rule how to filter</param>
     /// <returns>True if filtering is successful, otherwise false</returns>
-    public static bool FilterByName<T>(object projectToFilter, string projectName, NamesComparison namesComparison = NamesComparison.Contains) where T : BasicProjectDto
+    public static bool FilterByName<T>(object projectToFilter,
+                                       string projectName,
+                                       NamesComparison namesComparison = NamesComparison.Contains) where T : BasicProjectDto
         => namesComparison switch
-        {
-            NamesComparison.Contains => projectToFilter is T project && project.Name.Contains(projectName, StringComparison.OrdinalIgnoreCase),
-            NamesComparison.Equals => projectToFilter is T project && project.Name.Equals(projectName, StringComparison.OrdinalIgnoreCase),
-            _ => false
-        };
+            {
+                NamesComparison.Contains => projectToFilter is T project && project.Name.Contains(projectName, StringComparison.OrdinalIgnoreCase),
+                NamesComparison.Equals => projectToFilter is T project && project.Name.Equals(projectName, StringComparison.OrdinalIgnoreCase),
+                _ => false
+            };
 }

@@ -25,6 +25,7 @@ public static class ProjectExpressions
         x => x.ProjectImages,
     ];
 
-    public static Expression<Func<Project, bool>> GetUserProjectByStatus(int userId, ProjectStatusName projectStatusName)
+    public static Expression<Func<Project, bool>> GetUserProjectByStatus(int userId,
+                                                                         ProjectStatusName projectStatusName)
        => p => p.UserId == userId && p.ProjectStatus == projectStatusName;
 }

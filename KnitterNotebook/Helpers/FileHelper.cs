@@ -14,7 +14,9 @@ public static class FileHelper
     ///<exception cref="ArgumentNullException">When <paramref name="sourceFileName"/> or <paramref name="destinationFileName"/> is null</exception>"
     ///<exception cref="DirectoryNotFoundException">When <paramref name="sourceFileName"/> consists directory that doesn't exist/exception>"
     ///<exception cref="FileNotFoundException">When <paramref name="sourceFileName"/> doesn't exist/exception>"
-    public static void CopyWithDirectoryCreation(string sourceFileName, string destinationFileName, bool overwrite = false)
+    public static void CopyWithDirectoryCreation(string sourceFileName,
+                                                 string destinationFileName,
+                                                 bool overwrite = false)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(destinationFileName)!);
         File.Copy(sourceFileName, destinationFileName, overwrite);
