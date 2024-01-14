@@ -180,8 +180,8 @@ public partial class App : Application
     protected override async void OnStartup(StartupEventArgs e)
     {
         await AppHost!.StartAsync();
-        LoginWindow? startupWindow = AppHost.Services.GetService<LoginWindow>();
-        startupWindow?.Show();
+        LoginWindow startupWindow = AppHost.Services.GetService<LoginWindow>()!;
+        startupWindow.Show();
         base.OnStartup(e);
     }
 
