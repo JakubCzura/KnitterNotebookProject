@@ -2,6 +2,6 @@
 
 public class TokensSettings
 {
-    public static string SectionKey => "Tokens";
+    public const string SectionKey = "Tokens";
     public int ResetPasswordTokenExpirationDays { get; set; }
 }

@@ -6,7 +6,7 @@ namespace KnitterNotebook.Database;
 
 public class DatabaseContext : DbContext
 {
-    public static string DatabaseConnectionStringKey { get; } = "KnitterNotebookConnectionString";
+    public const string DatabaseConnectionStringKey = "KnitterNotebookConnectionString";
 
     public DatabaseContext(DbContextOptions options) : base(options)
     {
