@@ -2,7 +2,7 @@
 
 public static class FileDialogFilter
 {
-    public static string ImageFilter => "Image Files (*.jpg; *.jpeg; *.png)|*.jpg; *.jpeg; *.png";
+    public const string ImageFilter = "Image Files (*.jpg; *.jpeg; *.png)|*.jpg; *.jpeg; *.png";
 
-    public static string PdfFilter => "Pdf Files (*.pdf)|*.pdf";
+    public const string PdfFilter = "Pdf Files (*.pdf)|*.pdf";
 }

@@ -14,5 +14,5 @@ public class NullableSizeNeedlesFilter
     /// <returns>Collection of needles with size greater than 0</returns>
     /// <exception cref="ArgumentNullException">When <paramref name="needles"/> are null</exception>
     public static IEnumerable<NullableSizeNeedle> GetNeedlesWithPositiveSizeValue(params NullableSizeNeedle[] needles)
-        => needles.Where(x => x.Size.HasValue && x.Size > 0);
+        => needles.Where(needle => needle.Size.HasValue && needle.Size > 0);
 }
