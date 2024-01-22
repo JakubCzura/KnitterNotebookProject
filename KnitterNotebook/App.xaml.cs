@@ -84,18 +84,7 @@ public partial class App : Application
 
             #region ViewModels
 
-            services.AddSingleton<SharedResourceViewModel>();
-            services.AddTransient<LoginViewModel>();
-            services.AddTransient<RegistrationViewModel>();
-            services.AddTransient<MainViewModel>();
-            services.AddTransient<MovieUrlAddingViewModel>();
-            services.AddTransient<SettingsViewModel>();
-            services.AddTransient<SampleAddingViewModel>();
-            services.AddTransient<ResetPasswordViewModel>();
-            services.AddTransient<ProjectPlanningViewModel>();
-            services.AddTransient<PdfBrowserViewModel>();
-            services.AddTransient<ProjectImageAddingViewModel>();
-            services.AddTransient<ProjectEditingViewModel>();
+            services.RegisterViewModels();
 
             #endregion ViewModels
 
