@@ -27,41 +27,17 @@ public partial class App : Application
         })
         .ConfigureServices((hostContext, services) =>
         {
-            #region Database
-
             services.RegisterDatabase(hostContext);
-
-            #endregion Database
-
-            #region Validators
 
             services.RegisterValidators();
 
-            #endregion Validators
-
-            #region Services
-
             services.RegisterServices();
-
-            #endregion Services
-
-            #region ViewModels
 
             services.RegisterViewModels();
 
-            #endregion ViewModels
-
-            #region Windows
-
             services.RegisterWindows();
 
-            #endregion Windows
-
-            #region UserControls
-
             services.RegisterUserControls();
-
-            #endregion UserControls
         })
         .Build();
 
