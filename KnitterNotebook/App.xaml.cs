@@ -21,10 +21,7 @@ public partial class App : Application
         {
             configurationBuilder.AddJsonFile(Paths.AppSettings, false, true);
         })
-        .UseSerilog((hostContext, loggerConfiguration) =>
-        {
-            loggerConfiguration.ReadFrom.Configuration(hostContext.Configuration);
-        })
+        .RegisterSerilog()
         .ConfigureServices((hostContext, services) =>
         {
             services.RegisterDatabase(hostContext);
