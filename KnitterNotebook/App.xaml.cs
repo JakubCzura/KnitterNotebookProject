@@ -1,15 +1,6 @@
-﻿using FluentValidation;
-using KnitterNotebook.ApplicationInformation;
-using KnitterNotebook.Database;
+﻿using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Helpers.Extensions;
-using KnitterNotebook.Models.Dtos;
-using KnitterNotebook.Services;
-using KnitterNotebook.Services.Interfaces;
-using KnitterNotebook.Validators;
-using KnitterNotebook.ViewModels;
-using KnitterNotebook.Views.UserControls;
 using KnitterNotebook.Views.Windows;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,11 +29,7 @@ public partial class App : Application
         {
             #region Database
 
-            services.AddDbContext<DatabaseContext>(options =>
-            {
-                options.UseSqlServer(hostContext.Configuration.GetConnectionString(DatabaseContext.DatabaseConnectionStringKey),
-                    o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
-            });
+            services.RegisterDatabase(hostContext);
 
             #endregion Database
 
