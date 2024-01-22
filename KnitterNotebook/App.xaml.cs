@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using KnitterNotebook.ApplicationInformation;
 using KnitterNotebook.Database;
+using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Services;
 using KnitterNotebook.Services.Interfaces;
@@ -42,6 +43,7 @@ public partial class App : Application
                 options.UseSqlServer(hostContext.Configuration.GetConnectionString(DatabaseContext.DatabaseConnectionStringKey),
                     o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
             });
+
             #endregion Database
 
             #region Validators
@@ -148,30 +150,7 @@ public partial class App : Application
 
             #region UserControls
 
-            services.AddTransient(x => new SamplesUserControl()
-            {
-                DataContext = x.GetRequiredService<MainViewModel>()
-            });
-            services.AddTransient(x => new UserSettingsUserControl()
-            {
-                DataContext = x.GetRequiredService<SettingsViewModel>()
-            });
-            services.AddTransient(x => new ThemeSettingsUserControl()
-            {
-                DataContext = x.GetRequiredService<SettingsViewModel>()
-            });
-            services.AddTransient(x => new PlannedProjectsUserControl()
-            {
-                DataContext = x.GetRequiredService<MainViewModel>()
-            });
-            services.AddTransient(x => new ProjectsInProgressUserControl()
-            {
-                DataContext = x.GetRequiredService<MainViewModel>()
-            });
-            services.AddTransient(x => new FinishedProjectsUserControl()
-            {
-                DataContext = x.GetRequiredService<MainViewModel>()
-            });
+            services.RegisterUserControls();
 
             #endregion UserControls
         })
