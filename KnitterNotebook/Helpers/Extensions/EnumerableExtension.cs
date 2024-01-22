@@ -14,7 +14,7 @@ public static class EnumerableExtension
     /// <param name="collection">Collection to convert</param>
     /// <returns>New instance of <see cref="ObservableCollection{T}"/></returns>
     /// <exception cref="ArgumentNullException">When <paramref name="collection"/> is null</exception>
-    public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> collection) 
+    public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> collection)
         => new(collection);
 
     /// <summary>
@@ -23,6 +23,6 @@ public static class EnumerableExtension
     /// <typeparam name="T">Type of elements in collection</typeparam>
     /// <param name="collection">Collection to check</param>
     /// <returns>True if <paramref name="collection"/> is not null and have any element, otherwise false</returns>
-    public static bool NotNullAndHaveAnyElement<T>(this IEnumerable<T> collection) 
+    public static bool NotNullAndHaveAnyElement<T>(this IEnumerable<T> collection)
         => collection is not null && collection.Any();
 }

@@ -1,4 +1,4 @@
-﻿using KnitterNotebook.Helpers.Extensions;
+﻿using KnitterNotebook.Helpers.Extensions.DependencyRegistration;
 using KnitterNotebook.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

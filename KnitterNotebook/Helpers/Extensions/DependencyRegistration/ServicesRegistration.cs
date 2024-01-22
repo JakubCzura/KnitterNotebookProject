@@ -2,7 +2,7 @@
 using KnitterNotebook.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace KnitterNotebook.Helpers.Extensions;
+namespace KnitterNotebook.Helpers.Extensions.DependencyRegistration;
 
 public static class ServicesRegistration
 {

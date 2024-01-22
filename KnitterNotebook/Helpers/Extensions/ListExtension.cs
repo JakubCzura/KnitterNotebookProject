@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace KnitterNotebook.Helpers.Extensions;
@@ -18,7 +17,7 @@ public static class ListExtension
         {
             list.Add(item);
         }
-    }   
+    }
 
     /// <summary>
     /// Adds <paramref name="items"/> which are not null or empty to <paramref name="list"/> if the list is not null, based on <see cref="string.IsNullOrWhiteSpace"/>

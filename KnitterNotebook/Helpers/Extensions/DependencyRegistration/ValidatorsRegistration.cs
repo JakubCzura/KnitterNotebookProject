@@ -3,7 +3,7 @@ using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Validators;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace KnitterNotebook.Helpers.Extensions;
+namespace KnitterNotebook.Helpers.Extensions.DependencyRegistration;
 
 public static class ValidatorsRegistration
 {

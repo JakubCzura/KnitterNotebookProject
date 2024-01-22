@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Serilog;
 
-namespace KnitterNotebook.Helpers.Extensions;
+namespace KnitterNotebook.Helpers.Extensions.DependencyRegistration;
 
 public static class SerilogRegistration
 {
