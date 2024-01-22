@@ -1,10 +1,7 @@
-﻿using KnitterNotebook.ApplicationInformation;
-using KnitterNotebook.Helpers.Extensions;
+﻿using KnitterNotebook.Helpers.Extensions;
 using KnitterNotebook.Views.Windows;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Serilog;
 using System.Windows;
 
 namespace KnitterNotebook;
@@ -17,10 +14,7 @@ public partial class App : Application
     public static IHost? AppHost { get; private set; }
 
     public App() => AppHost = Host.CreateDefaultBuilder()
-        .ConfigureAppConfiguration((hostContext, configurationBuilder) =>
-        {
-            configurationBuilder.AddJsonFile(Paths.AppSettings, false, true);
-        })
+        .RegisterAppConfiguration()
         .RegisterSerilog()
         .ConfigureServices((hostContext, services) =>
         {
