@@ -20,7 +20,7 @@ public class YarnDtosToStringConverterTests
             new YarnDto(new Yarn("cotton yarn's name")),
             new YarnDto(new Yarn("woolen yarn's name"))
         ];
-        string expected = "yarn's name\ncotton yarn's name\nwoolen yarn's name";
+        string expected = $"yarn's name{Environment.NewLine}cotton yarn's name{Environment.NewLine}woolen yarn's name";
 
         //Act
         string result = (string)converter.Convert(yarnDtos, typeof(string), null!, CultureInfo.CurrentCulture);

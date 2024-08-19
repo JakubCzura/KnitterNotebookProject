@@ -21,7 +21,7 @@ public class NeedleDtoToStringConverterTests
             new NeedleDto(new Needle(25, NeedleSizeUnit.mm)),
             new NeedleDto(new Needle(3, NeedleSizeUnit.cm )),
         ];
-        string expected = "15 cm\n25 mm\n3 cm";
+        string expected = $"15 cm{Environment.NewLine}25 mm{Environment.NewLine}3 cm";
 
         //Act
         string result = (string)converter.Convert(needleDtos, typeof(string), null!, CultureInfo.CurrentCulture);
