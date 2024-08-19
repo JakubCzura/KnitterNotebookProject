@@ -84,17 +84,15 @@ public class EditProjectDtoValidatorTests : IDisposable
         EditProjectDto editPlannedProjectDto = new(1,
             "Project new name",
             DateTime.UtcNow.AddDays(1),
-            new List<CreateNeedleDto>()
-            {
+            [
                 new(2.5, NeedleSizeUnit.mm),
                 new(0.5, NeedleSizeUnit.cm),
                 new(6.5, NeedleSizeUnit.mm),
-            },
-            new List<CreateYarnDto>()
-            {
+            ],
+            [
                 new("Merino"),
                 new("Super yarn"),
-            },
+            ],
             "New description",
             @"c:\computer\user\file.pdf",
             1);
@@ -110,7 +108,7 @@ public class EditProjectDtoValidatorTests : IDisposable
     public async Task ValidateAsync_ForNotExistingProject_FailValidation()
     {
         //Arrange
-        EditProjectDto editPlannedProjectDto = new(99999, "Project new name", DateTime.UtcNow.AddDays(1), new List<CreateNeedleDto>(), new List<CreateYarnDto>(), null, null, 1);
+        EditProjectDto editPlannedProjectDto = new(99999, "Project new name", DateTime.UtcNow.AddDays(1), [], [], null, null, 1);
 
         //Act
         TestValidationResult<EditProjectDto> validationResult = await _validator.TestValidateAsync(editPlannedProjectDto);
@@ -123,7 +121,7 @@ public class EditProjectDtoValidatorTests : IDisposable
     public async Task ValidateAsync_ForFailingPlanProjectDtoValidator_FailValidation()
     {
         //Arrange
-        EditProjectDto editPlannedProjectDto = new(1, new string('K', 1000), DateTime.UtcNow.AddDays(-10), new List<CreateNeedleDto>(), new List<CreateYarnDto>(), null, null, 99999);
+        EditProjectDto editPlannedProjectDto = new(1, new string('K', 1000), DateTime.UtcNow.AddDays(-10), [], [], null, null, 99999);
 
         //Act
         TestValidationResult<EditProjectDto> validationResult = await _validator.TestValidateAsync(editPlannedProjectDto);

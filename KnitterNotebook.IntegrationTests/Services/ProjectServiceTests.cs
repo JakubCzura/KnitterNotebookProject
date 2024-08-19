@@ -138,7 +138,7 @@ public class ProjectServiceTests : IDisposable
     public async Task PlanProjectAsync_ForNotExistingUser_ThrowsEntityNotFoundException()
     {
         //Arrange
-        PlanProjectDto dto = new("Project", DateTime.Today, new List<CreateNeedleDto>(), new List<CreateYarnDto>(), null, null, 99999);
+        PlanProjectDto dto = new("Project", DateTime.Today, [], [], null, null, 99999);
 
         //Act
         Func<Task> action = async () => await _projectService.PlanProjectAsync(dto);
@@ -154,8 +154,8 @@ public class ProjectServiceTests : IDisposable
         string path = Path.Combine(Paths.ProjectDirectory, "HelpersForTesting", "TestPdf.pdf");
         PlanProjectDto dto = new("Project",
                                 DateTime.Today,
-                                new List<CreateNeedleDto>() { new(2.5, NeedleSizeUnit.mm) },
-                                new List<CreateYarnDto>() { new("SampleYarn1") },
+                                [new(2.5, NeedleSizeUnit.mm)],
+                                [new("SampleYarn1")],
                                 "Description",
                                 path,
                                 1);
@@ -177,8 +177,8 @@ public class ProjectServiceTests : IDisposable
         //Arrange
         PlanProjectDto dto = new("Project",
                                 DateTime.Today,
-                                new List<CreateNeedleDto>() { new(2.5, NeedleSizeUnit.mm) },
-                                new List<CreateYarnDto>() { new("SampleYarn1") },
+                                [new(2.5, NeedleSizeUnit.mm)],
+                                [new("SampleYarn1")],
                                 "Description",
                                 null,
                                 1);
@@ -420,8 +420,8 @@ public class ProjectServiceTests : IDisposable
         EditProjectDto dto = new(1,
                                 "Project's name",
                                 DateTime.Today.AddDays(1),
-                                new List<CreateNeedleDto>() { new(3.5, NeedleSizeUnit.mm), new(6.5, NeedleSizeUnit.cm) },
-                                new List<CreateYarnDto>() { new("Merino"), new("Soft Sheep") },
+                                [new(3.5, NeedleSizeUnit.mm), new(6.5, NeedleSizeUnit.cm)],
+                                [new("Merino"), new("Soft Sheep")],
                                 "Description",
                                 path,
                                 1);
@@ -444,8 +444,8 @@ public class ProjectServiceTests : IDisposable
         EditProjectDto dto = new(1,
                                 "Project's name",
                                 DateTime.Today.AddDays(1),
-                                new List<CreateNeedleDto>() { new(3.5, NeedleSizeUnit.mm), new(6.5, NeedleSizeUnit.cm) },
-                                new List<CreateYarnDto>() { new("Merino"), new("Soft Sheep") },
+                                [new(3.5, NeedleSizeUnit.mm), new(6.5, NeedleSizeUnit.cm)],
+                                [new("Merino"), new("Soft Sheep")],
                                 "Description",
                                 null,
                                 1);
@@ -464,8 +464,8 @@ public class ProjectServiceTests : IDisposable
         EditProjectDto dto = new(99999,
                                 "Project's name",
                                 DateTime.Today.AddDays(1),
-                                new List<CreateNeedleDto>() { new(3.5, NeedleSizeUnit.mm), new(6.5, NeedleSizeUnit.cm) },
-                                new List<CreateYarnDto>() { new("Merino"), new("Soft Sheep") },
+                                [new(3.5, NeedleSizeUnit.mm), new(6.5, NeedleSizeUnit.cm)],
+                                [new("Merino"), new("Soft Sheep")],
                                 "Description",
                                 null,
                                 1);
@@ -484,8 +484,8 @@ public class ProjectServiceTests : IDisposable
         EditProjectDto dto = new(1,
                                 "Project's name",
                                 DateTime.Today.AddDays(1),
-                                new List<CreateNeedleDto>() { new(3.5, NeedleSizeUnit.mm), new(6.5, NeedleSizeUnit.cm) },
-                                new List<CreateYarnDto>() { new("Merino"), new("Soft Sheep") },
+                                [new(3.5, NeedleSizeUnit.mm), new(6.5, NeedleSizeUnit.cm)],
+                                [new("Merino"), new("Soft Sheep")],
                                 "Description",
                                 null,
                                 99999);

@@ -11,7 +11,7 @@ using KnitterNotebook.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
-namespace KnitterNotebookTests.IntegrationTests.Validators;
+namespace KnitterNotebook.IntegrationTests.Validators;
 
 public class PlanProjectDtoValidatorTests : IDisposable
 {
@@ -55,24 +55,24 @@ public class PlanProjectDtoValidatorTests : IDisposable
         yield return new object[] { new PlanProjectDto(
                                     "Knitting project",
                                     null,
-                                    new List<CreateNeedleDto>(){ new(2.5, NeedleSizeUnit.mm) },
-                                    new List<CreateYarnDto>(){ new("My favourite yarn") },
+                                    [new(2.5, NeedleSizeUnit.mm)],
+                                    [new("My favourite yarn")],
                                     "Sample description",
                                     null,
                                     1) };
         yield return new object[] { new PlanProjectDto(
                                     "My project",
                                     DateTime.Today,
-                                    new List<CreateNeedleDto>(){ new(1, NeedleSizeUnit.cm), new(2, NeedleSizeUnit.mm)},
-                                    new List<CreateYarnDto>(){ new("Cotton yarn") },
+                                    [new(1, NeedleSizeUnit.cm), new(2, NeedleSizeUnit.mm)],
+                                    [new("Cotton yarn")],
                                     null,
                                     null,
                                     1) };
         yield return new object[] { new PlanProjectDto(
                                     "Sample project",
                                     DateTime.Today.AddDays(2),
-                                    new List<CreateNeedleDto>(){ new(4, NeedleSizeUnit.cm) },
-                                    new List<CreateYarnDto>(){ new("Woolen yarn") },
+                                    [new(4, NeedleSizeUnit.cm)],
+                                    [new("Woolen yarn")],
                                     "Description of my project",
                                     @"c:\users\user\files\projectPattern.pdf",
                                     2) };

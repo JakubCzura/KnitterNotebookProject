@@ -4,7 +4,7 @@ using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 using KnitterNotebook.Models.Enums;
 
-namespace KnitterNotebookTests.UnitTests.Helpers.Filters;
+namespace KnitterNotebook.UnitTests.Helpers.Filters;
 
 public class SamplesFilterTests
 {

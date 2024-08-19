@@ -3,7 +3,7 @@ using KnitterNotebook.Helpers.Filters;
 using KnitterNotebook.Models.Dtos;
 using KnitterNotebook.Models.Entities;
 
-namespace KnitterNotebookTests.UnitTests.Helpers.Filters;
+namespace KnitterNotebook.UnitTests.Helpers.Filters;
 
 public class ProjectsFilterTests
 {

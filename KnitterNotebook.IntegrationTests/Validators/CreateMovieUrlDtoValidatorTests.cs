@@ -10,7 +10,7 @@ using KnitterNotebook.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
-namespace KnitterNotebookTests.IntegrationTests.Validators;
+namespace KnitterNotebook.IntegrationTests.Validators;
 
 public class CreateMovieUrlDtoValidatorTests : IDisposable
 {

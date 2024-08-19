@@ -9,7 +9,7 @@ using KnitterNotebook.Services.Interfaces;
 using KnitterNotebook.Validators;
 using Moq;
 
-namespace KnitterNotebookTests.IntegrationTests.Validators;
+namespace KnitterNotebook.IntegrationTests.Validators;
 
 public class ChangeProjectStatusDtoValidatorTests : IDisposable
 {

@@ -52,7 +52,7 @@ public class ListExtensionTests
     {
         //Arrange
         List<string> list = null!;
-        IEnumerable<string?> items = new List<string?>() { null, "item1", "item2" };
+        IEnumerable<string?> items = [null, "item1", "item2"];
 
         //Act
         Action action = () => list.AddRangeIfNotNullOrEmpty(items);
