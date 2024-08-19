@@ -22,23 +22,23 @@ public class PasswordValidatorTests
         validationResult.ShouldNotHaveAnyValidationErrors();
     }
 
-    public static IEnumerable<object[]> InvalidData()
+    public static TheoryData<string> InvalidData => new()
     {
-        yield return new object[] { string.Empty };
-        yield return new object[] { "invaliddpassword" };
-        yield return new object[] { "invaliddpassword1" };
-        yield return new object[] { "invaliddpassword2" };
-        yield return new object[] { " a " };
-        yield return new object[] { " " };
-        yield return new object[] { new string(' ', 20) };
-        yield return new object[] { "invalidPassword" };
-        yield return new object[] { "Testpassword" };
-        yield return new object[] { "." };
-        yield return new object[] { "." + new string(' ', 50) };
-        yield return new object[] { "p@m1" };
-        yield return new object[] { "p@ m1" };
-        yield return new object[] { new string('K', 51) };
-    }
+        { string.Empty },
+        { "invaliddpassword" },
+        { "invaliddpassword1" },
+        { "invaliddpassword2" },
+        { " a " },
+        { " " },
+        { new string(' ', 20) },
+        { "invalidPassword" },
+        { "Testpassword" },
+        { "." },
+        { "." + new string(' ', 50) },
+        { "p@m1" },
+        { "p@ m1" },
+        { new string('K', 51) }
+    };
 
     [Theory]
     [MemberData(nameof(InvalidData))]

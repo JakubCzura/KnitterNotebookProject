@@ -6,9 +6,8 @@ namespace KnitterNotebook.UnitTests.Helpers.Filters;
 
 public class NullableSizeNeedlesFilterTests
 {
-    public static IEnumerable<object[]> ValidData()
+    public static TheoryData<NullableSizeNeedle[], NullableSizeNeedle[]> ValidData => new()
     {
-        yield return new object[]
         {
             new NullableSizeNeedle[]
             {
@@ -28,9 +27,9 @@ public class NullableSizeNeedlesFilterTests
                 new() { Size = 1.2 },
                 new() { Size = 3.21 },
                 new() { Size = 5.21 },
-            },
-        };
-    }
+            }
+        }
+    };
 
     [Theory]
     [MemberData(nameof(ValidData))]

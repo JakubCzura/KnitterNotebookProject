@@ -52,20 +52,20 @@ public class ChangeThemeDtoValidatorTests : IDisposable
         _databaseContext.SaveChanges();
     }
 
-    public static IEnumerable<object[]> InvalidData()
+    public static TheoryData<ChangeThemeDto> InvalidData => new()
     {
-        yield return new object[] { new ChangeThemeDto(-1, ApplicationTheme.Default) };
-        yield return new object[] { new ChangeThemeDto(0, ApplicationTheme.Light) };
-        yield return new object[] { new ChangeThemeDto(-1, ApplicationTheme.Dark) };
-    }
+        { new ChangeThemeDto(-1, ApplicationTheme.Default) },
+        { new ChangeThemeDto(0, ApplicationTheme.Light) },
+        { new ChangeThemeDto(-1, ApplicationTheme.Dark) }
+    };
 
-    public static IEnumerable<object[]> ValidData()
+    public static TheoryData<ChangeThemeDto> ValidData => new()
     {
-        yield return new object[] { new ChangeThemeDto(1, ApplicationTheme.Default) };
-        yield return new object[] { new ChangeThemeDto(1, ApplicationTheme.Light) };
-        yield return new object[] { new ChangeThemeDto(2, ApplicationTheme.Dark) };
-        yield return new object[] { new ChangeThemeDto(3, ApplicationTheme.Dark) };
-    }
+        { new ChangeThemeDto(1, ApplicationTheme.Default) },
+        { new ChangeThemeDto(1, ApplicationTheme.Light) },
+        { new ChangeThemeDto(2, ApplicationTheme.Dark) },
+        { new ChangeThemeDto(3, ApplicationTheme.Dark) }
+    };
 
     [Theory]
     [MemberData(nameof(InvalidData))]

@@ -60,12 +60,12 @@ public class ChangeProjectStatusDtoValidatorTests : IDisposable
         _databaseContext.SaveChanges();
     }
 
-    public static IEnumerable<object[]> ValidData()
+    public static TheoryData<ChangeProjectStatusDto> ValidData => new()
     {
-        yield return new object[] { new ChangeProjectStatusDto(1, ProjectStatusName.Planned) };
-        yield return new object[] { new ChangeProjectStatusDto(1, ProjectStatusName.InProgress) };
-        yield return new object[] { new ChangeProjectStatusDto(2, ProjectStatusName.Finished) };
-    }
+        { new ChangeProjectStatusDto(1, ProjectStatusName.Planned) },
+        { new ChangeProjectStatusDto(1, ProjectStatusName.InProgress) },
+        { new ChangeProjectStatusDto(2, ProjectStatusName.Finished) }
+    };
 
     [Theory]
     [MemberData(nameof(ValidData))]

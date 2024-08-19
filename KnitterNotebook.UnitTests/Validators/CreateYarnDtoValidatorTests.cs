@@ -24,13 +24,13 @@ public class CreateYarnDtoValidatorTests
         validationResult.ShouldNotHaveAnyValidationErrors();
     }
 
-    public static IEnumerable<object[]> InvalidNames()
+    public static TheoryData<string> InvalidNames => new()
     {
-        yield return new object[] { "" };
-        yield return new object[] { " " };
-        yield return new object[] { null! };
-        yield return new object[] { new string('K', 101) };
-    }
+        { "" },
+        { " " },
+        { null! },
+        { new string('K', 101) }
+    };
 
     [Theory]
     [MemberData(nameof(InvalidNames))]

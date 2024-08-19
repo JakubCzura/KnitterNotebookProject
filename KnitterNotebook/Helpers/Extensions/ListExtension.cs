@@ -27,7 +27,7 @@ public static class ListExtension
     public static void AddRangeIfNotNullOrEmpty(this List<string> list,
                                                 IEnumerable<string?> items)
     {
-        foreach (string? item in items ?? Enumerable.Empty<string>())
+        foreach (string? item in items ?? [])
         {
             list.AddIfNotNullOrEmpty(item);
         }

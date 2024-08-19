@@ -50,33 +50,36 @@ public class PlanProjectDtoValidatorTests : IDisposable
         _databaseContext.SaveChanges();
     }
 
-    public static IEnumerable<object[]> ValidData()
+    public static TheoryData<PlanProjectDto> ValidData => new()
     {
-        yield return new object[] { new PlanProjectDto(
-                                    "Knitting project",
-                                    null,
-                                    [new(2.5, NeedleSizeUnit.mm)],
-                                    [new("My favourite yarn")],
-                                    "Sample description",
-                                    null,
-                                    1) };
-        yield return new object[] { new PlanProjectDto(
-                                    "My project",
-                                    DateTime.Today,
-                                    [new(1, NeedleSizeUnit.cm), new(2, NeedleSizeUnit.mm)],
-                                    [new("Cotton yarn")],
-                                    null,
-                                    null,
-                                    1) };
-        yield return new object[] { new PlanProjectDto(
-                                    "Sample project",
-                                    DateTime.Today.AddDays(2),
-                                    [new(4, NeedleSizeUnit.cm)],
-                                    [new("Woolen yarn")],
-                                    "Description of my project",
-                                    @"c:\users\user\files\projectPattern.pdf",
-                                    2) };
-    }
+        {
+            new PlanProjectDto("Knitting project",
+                               null,
+                               [new(2.5, NeedleSizeUnit.mm)],
+                               [new("My favourite yarn")],
+                               "Sample description",
+                               null,
+                               1)
+        },
+        {
+            new PlanProjectDto("My project",
+                               DateTime.Today,
+                               [new(1, NeedleSizeUnit.cm), new(2, NeedleSizeUnit.mm)],
+                               [new("Cotton yarn")],
+                               null,
+                               null,
+                               1)
+        },
+        {
+            new PlanProjectDto("Sample project",
+                               DateTime.Today.AddDays(2),
+                               [new(4, NeedleSizeUnit.cm)],
+                               [new("Woolen yarn")],
+                               "Description of my project",
+                               @"c:\users\user\files\projectPattern.pdf",
+                               2)
+        }
+    };
 
     [Theory]
     [MemberData(nameof(ValidData))]
@@ -97,7 +100,7 @@ public class PlanProjectDtoValidatorTests : IDisposable
     public async Task ValidateAsync_ForInvalidName_FailValidation(string name)
     {
         //Arrange
-        PlanProjectDto planProjectDto = new(name, DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, null, 1);
+        PlanProjectDto planProjectDto = new(name, DateTime.Today, [], [], null, null, 1);
 
         //Act
         TestValidationResult<PlanProjectDto> validationResult = await _validator.TestValidateAsync(planProjectDto);
@@ -106,18 +109,18 @@ public class PlanProjectDtoValidatorTests : IDisposable
         validationResult.ShouldHaveValidationErrorFor(x => x.Name);
     }
 
-    public static IEnumerable<object[]> InvalidNeedlesData()
+    public static TheoryData<List<CreateNeedleDto>> InvalidNeedlesData => new()
     {
-        yield return new object[] { null! };
-        yield return new object[] { new List<CreateNeedleDto>() };
-    }
+        { null! },
+        { [] }
+    };
 
     [Theory]
     [MemberData(nameof(InvalidNeedlesData))]
     public async Task ValidateAsync_ForInvalidNeedles_FailValidation(List<CreateNeedleDto> createNeedleDtos)
     {
         //Arrange
-        PlanProjectDto planProjectDto = new("Name", DateTime.Today, createNeedleDtos, Enumerable.Empty<CreateYarnDto>(), null, null, 1);
+        PlanProjectDto planProjectDto = new("Name", DateTime.Today, createNeedleDtos, [], null, null, 1);
 
         //Act
         TestValidationResult<PlanProjectDto> validationResult = await _validator.TestValidateAsync(planProjectDto);
@@ -126,18 +129,18 @@ public class PlanProjectDtoValidatorTests : IDisposable
         validationResult.ShouldHaveValidationErrorFor(x => x.Needles);
     }
 
-    public static IEnumerable<object[]> InvalidYarnsData()
+    public static TheoryData<List<CreateYarnDto>> InvalidYarnsData => new()
     {
-        yield return new object[] { null! };
-        yield return new object[] { new List<CreateYarnDto>() };
-    }
+        { null! },
+        { [] }
+    };
 
     [Theory]
     [MemberData(nameof(InvalidYarnsData))]
     public async Task ValidateAsync_ForInvalidYarns_FailValidation(List<CreateYarnDto> yarns)
     {
         //Arrange
-        PlanProjectDto planProjectDto = new("Name", DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), yarns, null, null, 1);
+        PlanProjectDto planProjectDto = new("Name", DateTime.Today, [], yarns, null, null, 1);
 
         //Act
         TestValidationResult<PlanProjectDto> validationResult = await _validator.TestValidateAsync(planProjectDto);
@@ -150,7 +153,7 @@ public class PlanProjectDtoValidatorTests : IDisposable
     public async Task ValidateAsync_ForInvalidDescription_FailValidation()
     {
         //Arrange
-        PlanProjectDto planProjectDto = new("Name", DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), new string('K', 301), null, 2);
+        PlanProjectDto planProjectDto = new("Name", DateTime.Today, [], [], new string('K', 301), null, 2);
 
         //Act
         TestValidationResult<PlanProjectDto> validationResult = await _validator.TestValidateAsync(planProjectDto);
@@ -163,7 +166,7 @@ public class PlanProjectDtoValidatorTests : IDisposable
     public async Task ValidateAsync_ForInvalidSourcePatternPdfPath_FailValidation()
     {
         //Arrange
-        PlanProjectDto planProjectDto = new("Name", DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, @"c:\users\user\files\file.jpeg", 2);
+        PlanProjectDto planProjectDto = new("Name", DateTime.Today, [], [], null, @"c:\users\user\files\file.jpeg", 2);
 
         //Act
         TestValidationResult<PlanProjectDto> validationResult = await _validator.TestValidateAsync(planProjectDto);
@@ -177,7 +180,7 @@ public class PlanProjectDtoValidatorTests : IDisposable
     {
         //Arrange
         //User with id 6 does not exist in SeedUsers()
-        PlanProjectDto planProjectDto = new("Name", DateTime.Today, Enumerable.Empty<CreateNeedleDto>(), Enumerable.Empty<CreateYarnDto>(), null, null, 6);
+        PlanProjectDto planProjectDto = new("Name", DateTime.Today, [], [], null, null, 6);
 
         //Act
         TestValidationResult<PlanProjectDto> validationResult = await _validator.TestValidateAsync(planProjectDto);

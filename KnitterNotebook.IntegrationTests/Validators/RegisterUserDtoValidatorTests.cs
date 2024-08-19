@@ -49,11 +49,11 @@ public class RegisterUserDtoValidatorTests : IDisposable
         _databaseContext.SaveChanges();
     }
 
-    public static IEnumerable<object[]> ValidData()
+    public static TheoryData<RegisterUserDto> ValidData => new()
     {
-        yield return new object[] { new RegisterUserDto("ValidNickname", "uservalidemail@mail.com", "Pass123@word") };
-        yield return new object[] { new RegisterUserDto("Nickname", "emailuser@mail.com", "Strong321@xSd") };
-    }
+        { new RegisterUserDto("ValidNickname", "uservalidemail@mail.com", "Pass123@word") },
+        { new RegisterUserDto("Nickname", "emailuser@mail.com", "Strong321@xSd") }
+    };
 
     [Theory]
     [MemberData(nameof(ValidData))]

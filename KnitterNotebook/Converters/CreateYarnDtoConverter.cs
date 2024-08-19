@@ -16,5 +16,5 @@ public class CreateYarnDtoConverter
     public static IEnumerable<CreateYarnDto> Convert(string yarnsNames, char delimiter = ',')
         => yarnsNames?.Split(delimiter, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
                      .Select(x => new CreateYarnDto(x.Trim()))
-                     ?? Enumerable.Empty<CreateYarnDto>();
+                     ?? [];
 }

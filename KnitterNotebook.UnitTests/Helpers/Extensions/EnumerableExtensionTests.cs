@@ -28,7 +28,7 @@ public class EnumerableExtensionTests
     public void ToObservableCollection_ForEmptyData_ReturnsEmptyObservableCollection()
     {
         //Arrange
-        IEnumerable<int> enumerable = Enumerable.Empty<int>();
+        IEnumerable<int> enumerable = [];
 
         //Act
         ObservableCollection<int> result = enumerable.ToObservableCollection();

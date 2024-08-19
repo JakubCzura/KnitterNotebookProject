@@ -8,20 +8,20 @@ public class NicknameValidatorTests
 {
     private readonly NicknameValidator _validator = new();
 
-    public static IEnumerable<object[]> InvalidNicknames()
+    public static TheoryData<string> InvalidNicknames => new()
     {
-        yield return new object[] { string.Empty };
-        yield return new object[] { "" };
-        yield return new object[] { new string(' ', 40) };
-        yield return new object[] { new string(' ', 51) };
-        yield return new object[] { " " };
-        yield return new object[] { "invalid!" };
-        yield return new object[] { "invalid1@" };
-        yield return new object[] { "." };
-        yield return new object[] { "p@m1" };
-        yield return new object[] { "p@ m1" };
-        yield return new object[] { new string('K', 51) };
-    }
+        { string.Empty },
+        { "" },
+        { new string(' ', 40) },
+        { new string(' ', 51) },
+        { " " },
+        { "invalid!" },
+        { "invalid1@" },
+        { "." },
+        { "p@m1" },
+        { "p@ m1" },
+        { new string('K', 51) },
+    };
 
     [Theory]
     [MemberData(nameof(InvalidNicknames))]

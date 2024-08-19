@@ -6,13 +6,13 @@ namespace KnitterNotebook.UnitTests.Converters;
 
 public class CreateYarnDtoConverterTests
 {
-    public static IEnumerable<object[]> ValidData()
+    public static TheoryData<string, char, List<CreateYarnDto>> ValidData => new()
     {
-        yield return new object[] { "yarn1, yarn2, yarn3", ',', new List<CreateYarnDto>() { new("yarn1"), new("yarn2"), new("yarn3") } };
-        yield return new object[] { "yarn1 , yarn2 , yarn3 ", ',', new List<CreateYarnDto>() { new("yarn1"), new("yarn2"), new("yarn3") } };
-        yield return new object[] { " yarn1 ;    yarn2;  yarn3     ", ';', new List<CreateYarnDto>() { new("yarn1"), new("yarn2"), new("yarn3") } };
-        yield return new object[] { "yarn1    -    yarn2-yarn3", '-', new List<CreateYarnDto>() { new("yarn1"), new("yarn2"), new("yarn3") } };
-    }
+        { "yarn1, yarn2, yarn3", ',', new List<CreateYarnDto>() { new("yarn1"), new("yarn2"), new("yarn3") } },
+        { "yarn1 , yarn2 , yarn3 ", ',', new List<CreateYarnDto>() { new("yarn1"), new("yarn2"), new("yarn3") } },
+        { " yarn1 ;    yarn2;  yarn3     ", ';', new List<CreateYarnDto>() { new("yarn1"), new("yarn2"), new("yarn3") } },
+        { "yarn1    -    yarn2-yarn3", '-', new List<CreateYarnDto>() { new("yarn1"), new("yarn2"), new("yarn3") } }
+    };
 
     [Theory]
     [MemberData(nameof(ValidData))]

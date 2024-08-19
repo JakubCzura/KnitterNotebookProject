@@ -49,22 +49,22 @@ public class CreateMovieUrlDtoValidatorTests : IDisposable
         _databaseContext.SaveChanges();
     }
 
-    public static IEnumerable<object[]> InvalidData()
+    public static TheoryData<CreateMovieUrlDto> InvalidData => new()
     {
-        yield return new object[] { new CreateMovieUrlDto(null!, "https://youtube.pl", null, 1) };
-        yield return new object[] { new CreateMovieUrlDto("Movie", null!, string.Empty, 1) };
-        yield return new object[] { new CreateMovieUrlDto("Funny movie", "https://urltestmovie/96.pl", null, -1) };
-        yield return new object[] { new CreateMovieUrlDto(string.Empty, "https://testurltestmovie/96.pl", null, 2) };
-        yield return new object[] { new CreateMovieUrlDto("Scary movie", string.Empty, null, 2) };
-        yield return new object[] { new CreateMovieUrlDto("Scary movie", string.Empty, null, 0) };
-        yield return new object[] { new CreateMovieUrlDto("Scary movie", string.Empty, new string('K', 101), 3) };
-    }
+        { new CreateMovieUrlDto(null!, "https://youtube.pl", null, 1) },
+        { new CreateMovieUrlDto("Movie", null!, string.Empty, 1) },
+        { new CreateMovieUrlDto("Funny movie", "https://urltestmovie/96.pl", null, -1) },
+        { new CreateMovieUrlDto(string.Empty, "https://testurltestmovie/96.pl", null, 2) },
+        { new CreateMovieUrlDto("Scary movie", string.Empty, null, 2) },
+        { new CreateMovieUrlDto("Scary movie", string.Empty, null, 0) },
+        { new CreateMovieUrlDto("Scary movie", string.Empty, new string('K', 101), 3) }
+    };
 
-    public static IEnumerable<object[]> ValidData()
+    public static TheoryData<CreateMovieUrlDto> ValidData => new()
     {
-        yield return new object[] { new CreateMovieUrlDto("Title", "https://youtube.pl", "Description", 1) };
-        yield return new object[] { new CreateMovieUrlDto("Movie", "https://movieurl/21.pl", null, 2) };
-    }
+        { new CreateMovieUrlDto("Title", "https://youtube.pl", "Description", 1) },
+        { new CreateMovieUrlDto("Movie", "https://movieurl/21.pl", null, 2) }
+    };
 
     [Theory]
     [MemberData(nameof(InvalidData))]

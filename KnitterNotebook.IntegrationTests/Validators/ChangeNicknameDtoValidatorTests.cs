@@ -38,11 +38,11 @@ public class ChangeNicknameDtoValidatorTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    public static IEnumerable<object[]> ValidData()
+    public static TheoryData<ChangeNicknameDto> ValidData() => new()
     {
-        yield return new object[] { new ChangeNicknameDto(1, "NewNick1") };
-        yield return new object[] { new ChangeNicknameDto(2, "TestNewNick") };
-    }
+       { new ChangeNicknameDto(1, "NewNick1") },
+       { new ChangeNicknameDto(2, "TestNewNick") }
+    };
 
     private void SeedUsers()
     {

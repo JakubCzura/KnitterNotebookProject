@@ -6,11 +6,11 @@ namespace KnitterNotebook.UnitTests.Helpers.Extensions;
 
 public class ValidationFailureExtensionTests
 {
-    public static IEnumerable<object[]> ValidData()
+    public static TheoryData<IEnumerable<ValidationFailure>, string> ValidData => new()
     {
-        yield return new object[] { new List<ValidationFailure> { new("propertyName", "message") }, "message" };
-        yield return new object[] { new List<ValidationFailure> { new("propertyName", "message1"), new("propertyName", "message2") }, $"message1{Environment.NewLine}message2" };
-    }
+        { new List<ValidationFailure> { new("propertyName", "message") }, "message" },
+        { new List<ValidationFailure> { new("propertyName", "message1"), new("propertyName", "message2") }, $"message1{Environment.NewLine}message2" }
+    };
 
     [Theory]
     [MemberData(nameof(ValidData))]
@@ -27,7 +27,7 @@ public class ValidationFailureExtensionTests
     public void GetMessagesAsString_ForEmptyData_ReturnsEmptyString()
     {
         //Arrange
-        IEnumerable<ValidationFailure> validationFailures = Enumerable.Empty<ValidationFailure>();
+        IEnumerable<ValidationFailure> validationFailures = [];
 
         //Act
         string result = validationFailures.GetMessagesAsString();

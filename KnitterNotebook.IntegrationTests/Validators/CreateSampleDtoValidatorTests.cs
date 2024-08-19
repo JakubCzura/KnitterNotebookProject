@@ -50,11 +50,11 @@ public class CreateSampleDtoValidatorTests : IDisposable
         _databaseContext.SaveChanges();
     }
 
-    public static IEnumerable<object[]> ValidData()
+    public static TheoryData<CreateSampleDto> ValidData => new()
     {
-        yield return new object[] { new CreateSampleDto("Name", 2, 3, 2, NeedleSizeUnit.cm, "Description", 1, "c:\\test\\test.jpg") };
-        yield return new object[] { new CreateSampleDto("Yarn Name", 1, 30, 1.5, NeedleSizeUnit.mm, "Description", 2, "c:\\test\\test.png") };
-    }
+        { new CreateSampleDto("Name", 2, 3, 2, NeedleSizeUnit.cm, "Description", 1, "c:\\test\\test.jpg") },
+        { new CreateSampleDto("Yarn Name", 1, 30, 1.5, NeedleSizeUnit.mm, "Description", 2, "c:\\test\\test.png") }
+    };
 
     [Theory]
     [MemberData(nameof(ValidData))]
@@ -67,12 +67,12 @@ public class CreateSampleDtoValidatorTests : IDisposable
         validationResult.ShouldNotHaveAnyValidationErrors();
     }
 
-    public static IEnumerable<object[]> InvalidYarnNames()
+    public static TheoryData<string> InvalidYarnNames => new()
     {
-        yield return new object[] { "" };
-        yield return new object[] { null! };
-        yield return new object[] { new string('K', 201) };
-    }
+        { "" },
+        { null! },
+        { new string('K', 201) }
+    };
 
     [Theory]
     [MemberData(nameof(InvalidYarnNames))]

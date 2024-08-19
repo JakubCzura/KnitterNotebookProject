@@ -68,11 +68,11 @@ public class CreateProjectImageDtoValidatorTests : IDisposable
         _databaseContext.SaveChanges();
     }
 
-    public static IEnumerable<object[]> ValidData()
+    public static TheoryData<CreateProjectImageDto> ValidData => new()
     {
-        yield return new object[] { new CreateProjectImageDto(1, @"c:\computer\files\image.jpg", 1) };
-        yield return new object[] { new CreateProjectImageDto(2, @"c:\mycomputer\mydirectory\file1.png", 2) };
-    }
+        { new CreateProjectImageDto(1, @"c:\computer\files\image.jpg", 1) },
+        { new CreateProjectImageDto(2, @"c:\mycomputer\mydirectory\file1.png", 2) }
+    };
 
     [Theory]
     [MemberData(nameof(ValidData))]

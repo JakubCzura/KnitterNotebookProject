@@ -50,13 +50,13 @@ public class ChangePasswordDtoValidatorTests : IDisposable
         _databaseContext.SaveChanges();
     }
 
-    public static IEnumerable<object[]> ValidData()
+    public static TheoryData<ChangePasswordDto> ValidData => new()
     {
-        yield return new object[] { new ChangePasswordDto(2, "ValidPassword1", "ValidPassword1") };
-        yield return new object[] { new ChangePasswordDto(2, "ValidPassword1@", "ValidPassword1@") };
-        yield return new object[] { new ChangePasswordDto(1, "PasswordAccepted123@", "PasswordAccepted123@") };
-        yield return new object[] { new ChangePasswordDto(3, "P123123@k", "P123123@k") };
-    }
+        { new ChangePasswordDto(2, "ValidPassword1", "ValidPassword1") },
+        { new ChangePasswordDto(2, "ValidPassword1@", "ValidPassword1@") },
+        { new ChangePasswordDto(1, "PasswordAccepted123@", "PasswordAccepted123@") },
+        { new ChangePasswordDto(3, "P123123@k", "P123123@k") }
+    };
 
     [Theory]
     [MemberData(nameof(ValidData))]

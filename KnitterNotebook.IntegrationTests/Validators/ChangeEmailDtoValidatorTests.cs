@@ -38,11 +38,11 @@ public class ChangeEmailDtoValidatorTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    public static IEnumerable<object[]> ValidData()
+    public static TheoryData<ChangeEmailDto> ValidData => new()
     {
-        yield return new object[] { new ChangeEmailDto(1, "testemailnew@test.com") };
-        yield return new object[] { new ChangeEmailDto(2, "newtest@testnew.com") };
-    }
+       { new ChangeEmailDto(1, "testemailnew@test.com") },
+       { new ChangeEmailDto(2, "newtest@testnew.com") }
+    };
 
     private void SeedUsers()
     {
