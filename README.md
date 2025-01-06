@@ -24,7 +24,7 @@ The application is available in two languages (Polish and English). It uses user
 
 I started creating the project using .NET 7 and C# 11.
 
-27.11.2023 -> update to .NET 8 and C# 12
+27.11.2023 -> update to .NET 8 and C# 12 <br/>
 06.01.2025 -> update to .NET 9 and C# 13
 
 ## Presentation
