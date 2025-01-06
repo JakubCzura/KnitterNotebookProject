@@ -10,7 +10,7 @@ The application is available in two languages (Polish and English). It uses user
 * You can always change project's status to previous one, for example move it from finished projects to planned projects if you want to keep knitting up and add more photos of your art (you won't loose any data and photos despite changing project's status). 
 
 ## Main technologies and packages:
-* .NET 8 and C# 12
+* .NET 9 and C# 13
 * MS SQL Server and Entity Framework Core
 * xUnit
 * Fluent Assertions
@@ -25,6 +25,7 @@ The application is available in two languages (Polish and English). It uses user
 I started creating the project using .NET 7 and C# 11.
 
 27.11.2023 -> update to .NET 8 and C# 12
+06.01.2025 -> update to .NET 9 and C# 13
 
 ## Presentation
 I use English version of application to present it.
