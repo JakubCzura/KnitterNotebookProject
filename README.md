@@ -131,7 +131,7 @@ As I have mentioned the application changes to Polish language if your computer'
 
 
 ## Launching
-* Ensure you use Windows and have .NET 7 installed
+* Ensure you use Windows and have .NET 9 installed
 * Download the repository from GitHub
 * Open solution KnitterNotebookProject.sln (for example using Visual Studio)
 * Set KnitterNotebook as chosen project and click launch
